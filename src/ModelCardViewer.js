@@ -59,7 +59,8 @@ function ModelCardViewer(props) {
                 <CardHeader name={cardData.name} type={cardData.type} factions={cardData.factions} />
                 <Statline stats={cardData.stats} />
                 <WeaponList weapons={cardData.weapons} />
-                {cardData.special_rules && <SpecialRuleList special_rules={cardData.special_rules} />}
+                {cardData.advantages && <SpecialRuleList special_rules={cardData.advantages} header={'Advantages'} />}
+                {cardData.special_rules && <SpecialRuleList special_rules={cardData.special_rules} header={'Special Rules'}/>}
             </div>
         );
     }

@@ -17,6 +17,9 @@
         "fusion_sword",
         "pulse_cannon"
     ],
+    "advantages": [
+        "compound_armor"
+    ],
     "special_rules": [
         "command_interface|Paladin",
         "reflex_accelerator"
