@@ -1,0 +1,9 @@
+{
+    "id": "pulse_cannon",
+    "name": "Pulse Cannon", 
+    "type": "range", 
+    "damage_types": ["force", "blast"], 
+    "rng": 10, 
+    "pow": 3, 
+    "special_rules": ["blast"]
+}

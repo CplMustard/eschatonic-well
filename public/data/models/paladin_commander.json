@@ -1,0 +1,24 @@
+{
+    "id": "paladin_commander",
+    "name": "Paladin Commander",
+    "factions": ["ISA"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 3,
+        "boxes": 2
+    },
+    "weapons": [
+        "fusion_sword",
+        "pulse_cannon"
+    ],
+    "special_rules": [
+        "command_interface|Paladin",
+        "reflex_accelerator"
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "id": "command_interface",
+    "name": "Command Interface [{0}]",
+    "text": "During its activation, this model can spike to remove an activation token from a friendly {0} squad within 10\" of it."
+}

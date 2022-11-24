@@ -1,0 +1,7 @@
+{
+    "id": "arcane_synthesis",
+    "name": "Arcane Synthesis",
+    "type": "harmonic",
+    "factions": "universal",
+    "text": "Target a friendly unit.\n\nYou can immediately charge the unit with any amount of Arc up to its limit."
+}
