@@ -4,7 +4,7 @@ import ModelCardViewer from './ModelCardViewer';
 function App() {
     return (
         <div className="App">
-            <ModelCardViewer modelID={"paladin_commander"}></ModelCardViewer>
+            <ModelCardViewer modelID={"dusk_wolf"}></ModelCardViewer>
         </div>
     );
 }
