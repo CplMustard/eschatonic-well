@@ -1,0 +1,7 @@
+{
+    "id": "battle_rifle",
+    "name": "Battle Rifle",
+    "hard_point": "shoulder",
+    "point_cost": 2,
+    "special_rules": ["eruption"]
+}

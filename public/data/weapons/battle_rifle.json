@@ -1,0 +1,11 @@
+{
+    "id": "battle_rifle",
+    "name": "Battle Rifle",
+    "type": "range", 
+    "hard_point": "arm",
+    "point_cost": 1,
+    "damage_types": ["ballistic"], 
+    "rng": 12, 
+    "pow": 4,
+    "special_rules": ["mechanikal_optics"]
+}

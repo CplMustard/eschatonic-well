@@ -1,0 +1,5 @@
+{
+    "id": "pathfinder",
+    "name": "Pathfinder",
+    "text": "This model ignores movement penalties for rough terrain." 
+}

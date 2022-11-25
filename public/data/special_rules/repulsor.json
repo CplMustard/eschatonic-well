@@ -1,0 +1,5 @@
+{
+    "id": "repulsor",
+    "name": "Repulsor",
+    "text": " When this model hits a model with an equal or smaller sized- base with an attack with this weapon, before damage is rolled, the model hit is slammed 3\" directly away from this model. Collateral damage is equal to the POW of this weapon." 
+}

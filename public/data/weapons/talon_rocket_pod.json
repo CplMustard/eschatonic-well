@@ -1,0 +1,11 @@
+{
+    "id": "talon_rocket_pod",
+    "name": "Talon Rocket Pod",
+    "type": "range", 
+    "hard_point": "shoulder",
+    "point_cost": 2,
+    "damage_types": ["ballistic", "explosion"], 
+    "rng": 12, 
+    "pow": 4,
+    "special_rules": ["blast"]
+}

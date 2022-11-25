@@ -1,0 +1,5 @@
+{
+    "id": "sniper",
+    "name": "Sniper",
+    "special_rules": ["advanced_optics"]
+}

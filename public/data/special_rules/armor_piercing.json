@@ -1,0 +1,5 @@
+{
+    "id": "armor_piercing",
+    "name": "Armor-Piercing",
+    "text": "When resolving a damage roll for an attack made with this weapon, reduce the target’s ARM by 1."
+}

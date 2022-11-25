@@ -1,0 +1,11 @@
+{
+    "id": "impaler",
+    "name": "Impaler",
+    "type": "melee", 
+    "hard_point": "arm",
+    "point_cost": 1,
+    "damage_types": ["kinetic"], 
+    "rng": 2, 
+    "pow": 2,
+    "special_rules": ["armor_piercing"]
+}

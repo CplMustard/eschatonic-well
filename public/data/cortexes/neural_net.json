@@ -1,0 +1,5 @@
+{
+    "id": "neural_net",
+    "name": "Neural Net",
+    "special_rules": ["neural_net"]
+}

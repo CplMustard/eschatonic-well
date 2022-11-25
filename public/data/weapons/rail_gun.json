@@ -1,0 +1,11 @@
+{
+    "id": "rail_gun",
+    "name": "Rail Gun",
+    "type": "range", 
+    "hard_point": "shoulder",
+    "point_cost": 3,
+    "damage_types": ["ballistic"], 
+    "rng": 18, 
+    "pow": 5,
+    "special_rules": ["arc_booster"]
+}

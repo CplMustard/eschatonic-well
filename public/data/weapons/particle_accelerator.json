@@ -1,0 +1,11 @@
+{
+    "id": "particle_accelerator",
+    "name": "Particle Accelerator",
+    "type": "range", 
+    "hard_point": "arm",
+    "point_cost": 2,
+    "damage_types": ["beam"], 
+    "rng": 8, 
+    "pow": 1,
+    "special_rules": ["high_intensity"]
+}

@@ -1,0 +1,5 @@
+{
+    "id": "strafe",
+    "name": "Strafe",
+    "text": "After declaring an attack with this weapon and its target, roll one power die. For each strike rolled, you can make one additional attack against another model within 2\" of the initial target. Each attack must target a different model. Additional attacks cannot generate additional Strafe attacks." 
+}

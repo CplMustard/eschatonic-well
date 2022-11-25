@@ -1,0 +1,11 @@
+{
+    "id": "blazer",
+    "name": "Blazer", 
+    "type": "range", 
+    "hard_point": "shoulder",
+    "point_cost": 3,
+    "damage_types": ["beam"], 
+    "rng": 14, 
+    "pow": 4,
+    "special_rules": ["fire", "strafe"]
+}
