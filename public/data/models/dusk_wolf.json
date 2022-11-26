@@ -22,23 +22,39 @@
         "sniper",
         "void_gazer"
     ],
-    "weapons": [
-        "battle_rifle",
-        "flamethrower",
-        "impaler",
-        "particle_accelerator",
-        "ripper",
-        "slug_gun",
-
-        "blazer",
-        "rail_gun",
-        "talon_rocket_pod",
-        "wildflower_mine_layer"
-    ],
+    "weapons": [],
     "hard_points": [
-        "arm",
-        "arm",
-        "shoulder"
+        {
+            "name": "Left Arm",
+            "weapons": [
+                "battle_rifle",
+                "flamethrower",
+                "impaler",
+                "particle_accelerator",
+                "ripper",
+                "slug_gun"
+            ]
+        },
+        {
+            "name": "Right Arm",
+            "weapons": [
+                "battle_rifle",
+                "flamethrower",
+                "impaler",
+                "particle_accelerator",
+                "ripper",
+                "slug_gun"
+            ]
+        },
+        {
+            "name": "Shoulder",
+            "weapons": [
+                "blazer",
+                "rail_gun",
+                "talon_rocket_pod",
+                "wildflower_mine_layer"
+            ]
+        }
     ],
     "special_rules": [
         "arcantrik_turbine",
