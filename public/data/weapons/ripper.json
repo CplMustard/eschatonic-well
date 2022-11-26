@@ -2,7 +2,6 @@
     "id": "ripper",
     "name": "Ripper",
     "type": "melee", 
-    "hard_point": "arm",
     "point_cost": 1,
     "damage_types": ["kinetic"], 
     "rng": 2, 

@@ -1,7 +1,6 @@
 {
     "id": "wildflower_mine_layer",
     "name": "Wildflower Mine Layer",
-    "hard_point": "shoulder",
     "point_cost": 2,
     "special_rules": ["eruption"]
 }

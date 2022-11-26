@@ -2,7 +2,6 @@
     "id": "flamethrower",
     "name": "Flamethrower",
     "type": "range", 
-    "hard_point": "arm",
     "point_cost": 2,
     "damage_types": ["fire"], 
     "rng": 10, 

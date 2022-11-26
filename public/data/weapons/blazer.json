@@ -2,7 +2,6 @@
     "id": "blazer",
     "name": "Blazer", 
     "type": "range", 
-    "hard_point": "shoulder",
     "point_cost": 3,
     "damage_types": ["beam"], 
     "rng": 14, 

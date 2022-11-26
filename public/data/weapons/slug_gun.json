@@ -2,7 +2,6 @@
     "id": "slug_gun",
     "name": "Slug Gun",
     "type": "range", 
-    "hard_point": "arm",
     "point_cost": 1,
     "damage_types": ["ballistic"], 
     "rng": 8, 
