@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import WeaponList from './WeaponList'
+import HardPointList from './HardPointList'
 import SpecialRuleList from './SpecialRuleList'
 
 function ModelCardViewer(props) {
@@ -58,7 +59,8 @@ function ModelCardViewer(props) {
             <div>
                 <CardHeader name={cardData.name} type={cardData.type} factions={cardData.factions} />
                 <Statline stats={cardData.stats} />
-                <WeaponList weapons={cardData.weapons} />
+                {cardData.weapons && <WeaponList weapons={cardData.weapons} />}
+                {cardData.hard_points && <HardPointList hard_points={cardData.hard_points}/>}
                 {cardData.advantages && <SpecialRuleList special_rules={cardData.advantages} header={'Advantages'} />}
                 {cardData.special_rules && <SpecialRuleList special_rules={cardData.special_rules} header={'Special Rules'}/>}
             </div>
