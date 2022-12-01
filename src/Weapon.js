@@ -24,13 +24,14 @@ function Weapon(props) {
     }, [props.weaponID]);
 
     function WeaponStatline(props) {
-        const { name, type, damage_types, rng, pow } = props.weaponData;
+        const { name, type, damage_types, rng, pow, special_rules } = props;
         return <div>
             <h2>{type}</h2>
             <h2>{name}</h2>
             {damage_types && <><div>DAMAGE TYPES</div><div>{damage_types}</div></>}
             {rng && <><div>RNG</div><div>{rng}</div></>}
             {pow && <><div>POW</div><div>{pow}</div></>}
+            {special_rules && <SpecialRuleList special_rules={special_rules}/>}
         </div>
     }
 
@@ -39,10 +40,15 @@ function Weapon(props) {
     } else if (!isLoaded) {
         return <div>Loading Weapon Data...</div>
     } else {
+        const weaponStatlineComponents = [];
+        if(weaponData.profiles) {
+            weaponData.profiles.forEach((profile) => {
+                weaponStatlineComponents.push(<WeaponStatline type={profile.type} name={profile.name ? profile.name : weaponData.name} damage_type={profile.damage_types} rng={profile.rng} pow={profile.pow} special_rules={profile.special_rules}/>)
+            }, [weaponData.name])
+        } 
         return (
             <div>
-                <WeaponStatline weaponData={weaponData}/>
-                {weaponData.special_rules && <SpecialRuleList special_rules={weaponData.special_rules}/>}
+                {weaponStatlineComponents}
             </div>
         );
     }

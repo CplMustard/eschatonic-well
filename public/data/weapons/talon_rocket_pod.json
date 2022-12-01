@@ -1,10 +1,12 @@
 {
     "id": "talon_rocket_pod",
     "name": "Talon Rocket Pod",
-    "type": "range", 
-    "point_cost": 2,
-    "damage_types": ["ballistic", "explosion"], 
-    "rng": 12, 
-    "pow": 4,
-    "special_rules": ["blast"]
+    "profiles": [{
+        "type": "range", 
+        "point_cost": 2,
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["blast"]
+    }]
 }

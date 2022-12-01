@@ -2,5 +2,7 @@
     "id": "wildflower_mine_layer",
     "name": "Wildflower Mine Layer",
     "point_cost": 2,
-    "special_rules": ["eruption"]
+    "profiles": [{
+        "special_rules": ["eruption"]
+    }]
 }

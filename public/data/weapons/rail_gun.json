@@ -1,10 +1,12 @@
 {
     "id": "rail_gun",
     "name": "Rail Gun",
-    "type": "range", 
-    "point_cost": 3,
-    "damage_types": ["ballistic"], 
-    "rng": 18, 
-    "pow": 5,
-    "special_rules": ["arc_booster"]
+    "profiles": [{
+        "type": "range", 
+        "point_cost": 3,
+        "damage_types": ["ballistic"], 
+        "rng": 18, 
+        "pow": 5,
+        "special_rules": ["arc_booster"]
+    }]
 }

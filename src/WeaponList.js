@@ -3,6 +3,7 @@ import React from 'react';
 import Weapon from './Weapon';
 
 function WeaponList(props) {
+    console.log(props)
     const weaponComponents = [];
     props.weapons.forEach((weaponID, index) => 
         weaponComponents.push(<li key={index}><Weapon weaponID={weaponID}/></li>)

@@ -15,19 +15,15 @@
         "arm": 4,
         "boxes": 3
     },
+    "cortexes": [
+        "fighter",
+        "neural_net",
+        "scout",
+        "sniper",
+        "void_gazer"
+    ],
     "weapons": [],
     "hard_points": [
-        {
-            "name": "Cortex",
-            "type": "cortex",
-            "options": [
-                "fighter",
-                "neural_net",
-                "scout",
-                "sniper",
-                "void_gazer"
-            ]
-        },
         {
             "name": "Left Arm",
             "type": "weapon",
