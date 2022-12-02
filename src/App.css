@@ -9,7 +9,7 @@
 }
 
 .statline-entry {
-  margin: 1rem;
+  margin: 0 1rem;
 }
 
 .special-rule {
@@ -20,5 +20,5 @@
 
 .special-rule-title {
   font-weight: bold;
-  margin: 1rem;
+  margin: 0 1rem;
 }
