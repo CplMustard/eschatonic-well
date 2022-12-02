@@ -63,23 +63,26 @@ function ModelCardViewer(props) {
     } else if (!isLoaded) {
         return <div>Loading Card Data...</div>
     } else {
-        if(hardPointOptions.length === 0) {
+        const { name, type, factions, stats, weapons, hard_points, advantages, special_rules } = cardData;
+
+        if(hard_points && hardPointOptions.length === 0) {
             const defaultHardPoints = []
-            cardData.hard_points.forEach((hard_point) => defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0]}));
+            hard_points.forEach((hard_point) => defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0]}));
             setHardPointOptions(defaultHardPoints);
         }
-        const hardPointWeaponOptions = hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option);
-        const hardPointCortexOption = hardPointOptions.filter((hardPointOption) => hardPointOption.type === "cortex").map((hardPointOption) => hardPointOption.option);
-        const allWeapons = cardData.weapons.concat(hardPointWeaponOptions);
+        const hardPointWeaponOptions = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option) : undefined;
+        const hardPointCortexOption = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "cortex").map((hardPointOption) => hardPointOption.option) : undefined;
+        const allWeapons = hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
+
         return (
             <div>
-                <CardHeader name={cardData.name} type={cardData.type} factions={cardData.factions} />
-                <Statline stats={cardData.stats} />
-                {cardData.hard_points && <HardPointList hard_points={cardData.hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
+                <CardHeader name={name} type={type} factions={factions} />
+                <Statline stats={stats} />
+                {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
-                {cardData.advantages && <SpecialRuleList special_rules={cardData.advantages} header={'Advantages'} />}
+                {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && <Cortex cortexID={hardPointCortexOption}/>}
-                {cardData.special_rules && <SpecialRuleList special_rules={cardData.special_rules} header={'Special Rules'}/>}
+                {special_rules && <SpecialRuleList special_rules={special_rules} header={'Special Rules'}/>}
             </div>
         );
     }
