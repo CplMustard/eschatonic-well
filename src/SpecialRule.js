@@ -30,13 +30,15 @@ function SpecialRule(props) {
     } else if (!isLoaded) {
         return <div>Loading Special Rule Data...</div>
     } else {
-        let ruleString = `${ruleData.name}: ${ruleData.text}`;
+        let ruleTitleString = `${ruleData.name}: `;
+        let ruleString = `${ruleData.text}`;
         ruleArguments.forEach((argument, index) => {
+            ruleTitleString = ruleTitleString.replaceAll(`{${index}}`, argument);
             ruleString = ruleString.replaceAll(`{${index}}`, argument);
         });
         return (
-            <div>
-                <div>{ruleString}</div>
+            <div className="special-rule">
+                <div className="special-rule-title">{ruleTitleString}</div><div>{ruleString}</div>
             </div>
         );
     }

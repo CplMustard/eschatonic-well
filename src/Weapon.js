@@ -28,9 +28,11 @@ function Weapon(props) {
         return <div>
             <h2>{type}</h2>
             <h2>{name}</h2>
-            {damage_types && <><div>DAMAGE TYPES</div><div>{damage_types}</div></>}
-            {rng && <><div>RNG</div><div>{rng}</div></>}
-            {pow && <><div>POW</div><div>{pow}</div></>}
+            <div className="statline">
+                {damage_types && <div className="statline-entry"><div>DAMAGE TYPES</div><div>{damage_types}</div></div>}
+                {rng && <div className="statline-entry"><div>RNG</div><div>{rng}</div></div>}
+                {pow && <div className="statline-entry"><div>POW</div><div>{pow}</div></div>}
+            </div>
             {special_rules && <SpecialRuleList special_rules={special_rules}/>}
         </div>
     }

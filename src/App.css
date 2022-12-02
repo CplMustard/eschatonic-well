@@ -1,3 +1,24 @@
 .App {
   text-align: center;
 }
+
+.statline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statline-entry {
+  margin: 1rem;
+}
+
+.special-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.special-rule-title {
+  font-weight: bold;
+  margin: 1rem;
+}

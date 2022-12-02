@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import Cortex from './Cortex'
-import HardPointList from './HardPointList'
-import SpecialRuleList from './SpecialRuleList'
-import WeaponList from './WeaponList'
+import './App.css';
+
+import Cortex from './Cortex';
+import HardPointList from './HardPointList';
+import SpecialRuleList from './SpecialRuleList';
+import WeaponList from './WeaponList';
 
 function ModelCardViewer(props) {
     const [error, setError] = useState(null);
@@ -44,17 +46,17 @@ function ModelCardViewer(props) {
 
     function Statline(props) {
         const { spd, str, mat, rat, def, arm, foc, base_size, dc, boxes } = props.stats;
-        return <div>
-            {spd && <><div>SPD</div><div>{spd}</div></>}
-            {str && <><div>STR</div><div>{str}</div></>}
-            {mat && <><div>MAT</div><div>{mat}</div></>}
-            {rat && <><div>RAT</div><div>{rat}</div></>}
-            {def && <><div>DEF</div><div>{def}</div></>}
-            {arm && <><div>ARM</div><div>{arm}</div></>}
-            {foc && <><div>FOC</div><div>{foc}</div></>}
-            {base_size && <><div>BASE SIZE</div><div>{base_size}</div></>}
-            {dc && <><div>DC</div><div>{dc}</div></>}
-            {boxes && <><div>BOXES</div><div>{boxes}</div></>}
+        return <div className={"statline"}>
+            {spd && <div className={"statline-entry"}><div>SPD</div><div>{spd}</div></div>}
+            {str && <div className={"statline-entry"}><div>STR</div><div>{str}</div></div>}
+            {mat && <div className={"statline-entry"}><div>MAT</div><div>{mat}</div></div>}
+            {rat && <div className={"statline-entry"}><div>RAT</div><div>{rat}</div></div>}
+            {def && <div className={"statline-entry"}><div>DEF</div><div>{def}</div></div>}
+            {arm && <div className={"statline-entry"}><div>ARM</div><div>{arm}</div></div>}
+            {foc && <div className={"statline-entry"}><div>FOC</div><div>{foc}</div></div>}
+            {base_size && <div className={"statline-entry"}><div>BASE SIZE</div><div>{base_size}</div></div>}
+            {dc && <div className={"statline-entry"}><div>DC</div><div>{dc}</div></div>}
+            {boxes && <div className={"statline-entry"}><div>BOXES</div><div>{boxes}</div></div>}
         </div>
     }
 
