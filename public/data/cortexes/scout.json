@@ -1,5 +1,5 @@
 {
     "id": "scout",
     "name": "Scout",
-    "special_rules": ["pathfinder", "smart lock"]
+    "special_rules": ["pathfinder", "smart_lock"]
 }
