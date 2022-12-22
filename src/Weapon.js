@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
-import weapons from './data/weapons';
+import weaponsList from './data/weapons';
 
 function Weapon(props) {
     const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ function Weapon(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setWeaponData(weapons[props.weaponID]);
+        setWeaponData(weaponsList[props.weaponID]);
     }, [props.weaponID]);
 
     function WeaponStatline(props) {

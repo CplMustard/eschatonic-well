@@ -1,16 +1,16 @@
 import React from 'react';
 
-import cortexes from './data/cortexes';
-import weapons from './data/weapons';
+import cortexesList from './data/cortexes';
+import weaponsList from './data/weapons';
 
 function HardPoint(props) {
     function handleChange (e) {
-        props.onChangeHardPoint(e.target.value, props.hard_point.type, props.index); 
+        props.onChangeHardPoint(e.target.value, props.hard_point.type, props.hard_point.type === "weapon" ? weaponsList[e.target.value].point_cost : 0, props.index); 
     }
 
     const optionComponents = []
     props.hard_point.options.forEach((option, index) => {
-        const optionName = props.hard_point.type === "cortex" ? cortexes[option].name : weapons[option].name
+        const optionName = props.hard_point.type === "cortex" ? cortexesList[option].name : weaponsList[option].name
         optionComponents.push(<option key={index} value={option}>{optionName}</option>);
     });
     return (

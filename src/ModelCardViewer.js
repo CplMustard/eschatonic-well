@@ -7,7 +7,8 @@ import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 
-import models from './data/models'
+import modelsList from './data/models'
+import weaponsList from './data/weapons'
 
 function ModelCardViewer(props) {
     const [error, setError] = useState(null);
@@ -18,11 +19,11 @@ function ModelCardViewer(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setCardData(models[props.modelID]);
+        setCardData(modelsList[props.modelID]);
     }, [props.modelID]);
 
-    function updateHardPoint(option, type, hardPointIndex) {
-        const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option}, ...hardPointOptions.slice(hardPointIndex+1)];
+    function updateHardPoint(option, type, point_cost, hardPointIndex) {
+        const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
         setHardPointOptions(newHardPointOptions);
     }
 
@@ -59,8 +60,10 @@ function ModelCardViewer(props) {
         const { name, type, factions, stats, weapons, hard_points, advantages, special_rules } = cardData;
 
         if(hard_points && hardPointOptions.length === 0) {
-            const defaultHardPoints = []
-            hard_points.forEach((hard_point) => defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0]}));
+            const defaultHardPoints = [];
+            hard_points.forEach((hard_point) => {
+                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsList[hard_point.options[0]].point_cost : 0})
+            }, [weaponsList]);
             setHardPointOptions(defaultHardPoints);
         }
         const hardPointWeaponOptions = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option) : undefined;
