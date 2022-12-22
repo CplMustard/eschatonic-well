@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import cyphersList from './data/cyphers'
+import cyphersData from './data/cyphers'
 
 function CypherCardViewer(props) {
     const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ function CypherCardViewer(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setCypherData(cyphersList[props.cypherID]);
+        setCypherData(cyphersData[props.cypherID]);
     }, [props.cypherID]);
 
     function Cypher(props) {

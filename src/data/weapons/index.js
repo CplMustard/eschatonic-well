@@ -11,7 +11,7 @@ import slug_gun from "./slug_gun.json"
 import talon_rocket_pod from "./talon_rocket_pod.json"
 import wildflower_mine_layer from "./wildflower_mine_layer.json"
 
-const weaponsList = {
+const weaponsData = {
     battle_rifle: battle_rifle, 
     blazer: blazer,
     flamethrower: flamethrower,
@@ -26,4 +26,4 @@ const weaponsList = {
     wildflower_mine_layer: wildflower_mine_layer
 } 
 
-export default weaponsList;
+export default weaponsData;

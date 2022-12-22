@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
-import cortexesList from './data/cortexes'
+import cortexesData from './data/cortexes'
 
 function Cortex(props) {
     const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ function Cortex(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setCortexData(cortexesList[props.cortexID]);
+        setCortexData(cortexesData[props.cortexID]);
     }, [props.cortexID]);
 
     if (error) {

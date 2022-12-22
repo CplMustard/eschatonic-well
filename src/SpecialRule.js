@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import specialRulesList from './data/special_rules';
+import specialRulesData from './data/special_rules';
 
 function SpecialRule(props) {
     const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ function SpecialRule(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setRuleData(specialRulesList[ruleID]);
+        setRuleData(specialRulesData[ruleID]);
     }, [ruleID]);
 
     if (error) {

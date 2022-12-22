@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
-import weaponsList from './data/weapons';
+import weaponsData from './data/weapons';
 
 function Weapon(props) {
     const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ function Weapon(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setWeaponData(weaponsList[props.weaponID]);
+        setWeaponData(weaponsData[props.weaponID]);
     }, [props.weaponID]);
 
     function WeaponStatline(props) {
@@ -19,11 +19,11 @@ function Weapon(props) {
         return <div>
             <h2>{type}</h2>
             <h2>{name}</h2>
-            <div className="statline">
+            {rng && pow && <div className="statline">
                 {damage_types && <div className="statline-entry"><div>DAMAGE TYPES</div><div>{damage_types}</div></div>}
                 {rng && <div className="statline-entry"><div>RNG</div><div>{rng}</div></div>}
                 {pow && <div className="statline-entry"><div>POW</div><div>{pow}</div></div>}
-            </div>
+            </div>}
             {special_rules && <SpecialRuleList special_rules={special_rules}/>}
         </div>
     }
@@ -36,7 +36,7 @@ function Weapon(props) {
         const weaponStatlineComponents = [];
         if(weaponData.profiles) {
             weaponData.profiles.forEach((profile, index) => {
-                weaponStatlineComponents.push(<WeaponStatline key={index} type={profile.type} name={profile.name ? profile.name : weaponData.name} damage_type={profile.damage_types} rng={profile.rng} pow={profile.pow} special_rules={profile.special_rules}/>)
+                weaponStatlineComponents.push(<WeaponStatline key={index} type={profile.type} name={profile.name ? profile.name : weaponData.name} damage_types={profile.damage_types} rng={profile.rng} pow={profile.pow} special_rules={profile.special_rules}/>);
             }, [weaponData.name])
         } 
         return (

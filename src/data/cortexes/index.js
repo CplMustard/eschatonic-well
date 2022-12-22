@@ -4,7 +4,7 @@ import scout from './scout.json'
 import sniper from './sniper.json'
 import void_gazer from './void_gazer.json'
 
-const cortexesList = {
+const cortexesData = {
     fighter: fighter, 
     neural_net: neural_net, 
     scout: scout, 
@@ -12,4 +12,4 @@ const cortexesList = {
     void_gazer: void_gazer
 } 
 
-export default cortexesList;
+export default cortexesData;

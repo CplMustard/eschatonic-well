@@ -21,7 +21,7 @@ import spray from "./spray.json"
 import strafe from "./strafe.json"
 import void_gazer from "./void_gazer.json"
 
-const specialRulesList = {
+const specialRulesData = {
     advanced_optics: advanced_optics, 
     arc_booster: arc_booster,
     arcantrik_turbine: arcantrik_turbine,
@@ -46,4 +46,4 @@ const specialRulesList = {
     void_gazer: void_gazer
 } 
 
-export default specialRulesList;
+export default specialRulesData;

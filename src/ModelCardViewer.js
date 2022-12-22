@@ -7,8 +7,8 @@ import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 
-import modelsList from './data/models'
-import weaponsList from './data/weapons'
+import modelsData from './data/models'
+import weaponsData from './data/weapons'
 
 function ModelCardViewer(props) {
     const [error, setError] = useState(null);
@@ -19,7 +19,7 @@ function ModelCardViewer(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setCardData(modelsList[props.modelID]);
+        setCardData(modelsData[props.modelID]);
     }, [props.modelID]);
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
@@ -62,8 +62,8 @@ function ModelCardViewer(props) {
         if(hard_points && hardPointOptions.length === 0) {
             const defaultHardPoints = [];
             hard_points.forEach((hard_point) => {
-                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsList[hard_point.options[0]].point_cost : 0})
-            }, [weaponsList]);
+                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0})
+            }, [weaponsData]);
             setHardPointOptions(defaultHardPoints);
         }
         const hardPointWeaponOptions = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option) : undefined;
@@ -76,7 +76,7 @@ function ModelCardViewer(props) {
                 <CardHeader name={name} type={type} factions={factions} />
                 <Statline stats={stats} />
                 {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
-                {weapon_points && <h3>{weaponPointCost}/{weapon_points}</h3>}
+                {weapon_points && <h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && <Cortex cortexID={hardPointCortexOption}/>}
