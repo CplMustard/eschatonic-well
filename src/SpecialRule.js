@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import special_rules from './data/special_rules';
+
 function SpecialRule(props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -10,19 +12,8 @@ function SpecialRule(props) {
     const ruleArguments = ruleParts
 
     useEffect(() => {
-        const specialRulePath = `data/special_rules/${ruleID}.json`;
-        fetch(specialRulePath)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setRuleData(result);
-                }, 
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+        setIsLoaded(true);
+        setRuleData(special_rules[ruleID]);
     }, [ruleID]);
 
     if (error) {

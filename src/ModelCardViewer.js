@@ -7,6 +7,8 @@ import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 
+import models from './data/models'
+
 function ModelCardViewer(props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -15,19 +17,8 @@ function ModelCardViewer(props) {
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
     useEffect(() => {
-        const cardPath = `data/models/${props.modelID}.json`;
-        fetch(cardPath)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setCardData(result);
-                }, 
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+        setIsLoaded(true);
+        setCardData(models[props.modelID]);
     }, [props.modelID]);
 
     function updateHardPoint(option, type, hardPointIndex) {

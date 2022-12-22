@@ -2,25 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
+import weapons from './data/weapons';
+
 function Weapon(props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [weaponData, setWeaponData] = useState({});
 
     useEffect(() => {
-        const weaponPath = `data/weapons/${props.weaponID}.json`;
-        fetch(weaponPath)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setWeaponData(result);
-                }, 
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+        setIsLoaded(true);
+        setWeaponData(weapons[props.weaponID]);
     }, [props.weaponID]);
 
     function WeaponStatline(props) {

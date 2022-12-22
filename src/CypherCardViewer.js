@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+import cyphers from './data/cyphers'
+
 function CypherCardViewer(props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [cypherData, setCypherData] = useState({});
 
     useEffect(() => {
-        const cardPath = `data/cyphers/${props.cypherID}.json`;
-        fetch(cardPath)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setCypherData(result);
-                }, 
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+        setIsLoaded(true);
+        setCypherData(cyphers[props.cypherID]);
     }, [props.cypherID]);
 
     function Cypher(props) {

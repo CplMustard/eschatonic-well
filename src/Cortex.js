@@ -2,25 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
+import cortexes from './data/cortexes'
+
 function Cortex(props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [cortexData, setCortexData] = useState({});
 
     useEffect(() => {
-        const cortexPath = `data/cortexes/${props.cortexID}.json`;
-        fetch(cortexPath)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setCortexData(result);
-                }, 
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+        setIsLoaded(true);
+        setCortexData(cortexes[props.cortexID]);
     }, [props.cortexID]);
 
     if (error) {
