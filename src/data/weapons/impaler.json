@@ -1,9 +1,9 @@
 {
     "id": "impaler",
     "name": "Impaler",
+    "point_cost": 1,
     "profiles": [{
         "type": "melee", 
-        "point_cost": 1,
         "damage_types": ["kinetic"], 
         "rng": 2, 
         "pow": 2,

@@ -1,9 +1,9 @@
 {
     "id": "rail_gun",
     "name": "Rail Gun",
+    "point_cost": 3,
     "profiles": [{
         "type": "range", 
-        "point_cost": 3,
         "damage_types": ["ballistic"], 
         "rng": 18, 
         "pow": 5,

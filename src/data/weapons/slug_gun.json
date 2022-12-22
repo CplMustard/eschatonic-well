@@ -1,9 +1,9 @@
 {
     "id": "slug_gun",
     "name": "Slug Gun",
+    "point_cost": 1,
     "profiles": [{
         "type": "range", 
-        "point_cost": 1,
         "damage_types": ["ballistic"], 
         "rng": 8, 
         "pow": 3,

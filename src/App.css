@@ -21,4 +21,5 @@
 .special-rule-title {
   font-weight: bold;
   margin: 0 1rem;
+  align-self: baseline;
 }

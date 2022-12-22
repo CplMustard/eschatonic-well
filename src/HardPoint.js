@@ -10,7 +10,7 @@ function HardPoint(props) {
 
     const optionComponents = []
     props.hard_point.options.forEach((option, index) => {
-        const optionName = props.hard_point.type === "cortex" ? cortexesList[option].name : weaponsList[option].name
+        const optionName = props.hard_point.type === "weapon" ? weaponsList[option].name : cortexesList[option].name
         optionComponents.push(<option key={index} value={option}>{optionName}</option>);
     });
     return (

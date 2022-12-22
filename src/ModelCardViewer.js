@@ -57,7 +57,7 @@ function ModelCardViewer(props) {
     } else if (!isLoaded) {
         return <div>Loading Card Data...</div>
     } else {
-        const { name, type, factions, stats, weapons, hard_points, advantages, special_rules } = cardData;
+        const { name, type, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules } = cardData;
 
         if(hard_points && hardPointOptions.length === 0) {
             const defaultHardPoints = [];
@@ -69,12 +69,14 @@ function ModelCardViewer(props) {
         const hardPointWeaponOptions = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option) : undefined;
         const hardPointCortexOption = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "cortex").map((hardPointOption) => hardPointOption.option) : undefined;
         const allWeapons = hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
+        const weaponPointCost = hard_points ? hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
 
         return (
             <div>
                 <CardHeader name={name} type={type} factions={factions} />
                 <Statline stats={stats} />
                 {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
+                {weapon_points && <h3>{weaponPointCost}/{weapon_points}</h3>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && <Cortex cortexID={hardPointCortexOption}/>}
