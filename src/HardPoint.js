@@ -1,7 +1,6 @@
 import React from 'react';
 
-import cortexesData from './data/cortexes';
-import weaponsData from './data/weapons';
+import { cortexesData, weaponsData } from './data';
 
 function HardPoint(props) {
     function handleChange (e) {

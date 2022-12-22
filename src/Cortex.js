@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
-import cortexesData from './data/cortexes'
+import { cortexesData } from './data'
 
 function Cortex(props) {
     const [error, setError] = useState(null);

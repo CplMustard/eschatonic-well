@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import cyphersData from './data/cyphers'
+import { cyphersData } from './data'
 
 function CypherCardViewer(props) {
     const [error, setError] = useState(null);

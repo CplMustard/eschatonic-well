@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
-import weaponsData from './data/weapons';
+import { weaponsData } from './data';
 
 function Weapon(props) {
     const [error, setError] = useState(null);

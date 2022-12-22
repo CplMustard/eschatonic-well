@@ -7,8 +7,7 @@ import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 
-import modelsData from './data/models'
-import weaponsData from './data/weapons'
+import { modelsData, weaponsData } from './data'
 
 function ModelCardViewer(props) {
     const [error, setError] = useState(null);

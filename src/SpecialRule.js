@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import specialRulesData from './data/special_rules';
+import { specialRulesData } from './data';
 
 function SpecialRule(props) {
     const [error, setError] = useState(null);
