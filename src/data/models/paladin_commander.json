@@ -1,7 +1,7 @@
 {
     "id": "paladin_commander",
     "name": "Paladin Commander",
-    "factions": ["ISA"],
+    "factions": ["isa"],
     "type": "solo",
     "stats": {
         "dc": 1,

@@ -1,0 +1,12 @@
+{
+    "id": "sun_piercer",
+    "name": "Sun Piercer",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 8, 
+        "pow": 1,
+        "special_rules": ["high_intensity"]
+    }]
+}

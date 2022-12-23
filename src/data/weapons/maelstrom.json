@@ -1,0 +1,12 @@
+{
+    "id": "maelstrom",
+    "name": "Maelstrom",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["spray", "defense_matrix"]
+    }]
+}

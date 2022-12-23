@@ -1,0 +1,20 @@
+{
+    "id": "assault_rifle_and_bayonet",
+    "name": "Assault Rifle & Bayonet",
+    "point_cost": 1,
+    "profiles": [{
+        "name": "Assault Rifle",
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 12, 
+        "pow": 4
+    },
+    {
+        "name": "Bayonet",
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 3
+    }]
+
+}

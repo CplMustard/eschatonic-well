@@ -1,5 +1,5 @@
 {
-    "id": "eruption",
-    "name": "Eruption",
-    "text": "This model can choose to use Eruption when it makes its attacks during its activation. If it does so, all other models within 3\" of it each suffer a POW 3 explosion damage roll." 
+    "id": "sidestep",
+    "name": "Sidestep",
+    "text": "When this model hits an enemy model with an attack, after the attack is resolved, this model can move up to 1\" inch." 
 }

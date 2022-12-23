@@ -1,0 +1,5 @@
+{
+    "id": "recon",
+    "name": "Recon",
+    "special_rules": ["pathfinder", "revelator"]
+}

@@ -1,7 +1,7 @@
 {
     "id": "dusk_wolf",
     "name": "Dusk Wolf",
-    "factions": ["MW"],
+    "factions": ["mw"],
     "type": "warjack",
     "weapon_points": 5,
     "stats": {

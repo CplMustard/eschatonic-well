@@ -1,0 +1,12 @@
+{
+    "id": "null_cannon",
+    "name": "Null Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 14, 
+        "pow": 54,
+        "special_rules": ["null_strike"]
+    }]
+}
