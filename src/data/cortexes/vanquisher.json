@@ -1,5 +1,5 @@
 {
-    "id": "fighter",
-    "name": "Fighter",
-    "special_rules": ["rapid_strike"]
+    "id": "vanquisher",
+    "name": "Vanquisher",
+    "special_rules": ["sidestep"]
 }
