@@ -1,8 +1,0 @@
-{
-    "id": "fusion_sword",
-    "name": "Fusion Sword", 
-    "type": "melee", 
-    "damage_types": ["kinetic"], 
-    "rng": 1, 
-    "pow": 4
-}
