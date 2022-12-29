@@ -6,7 +6,7 @@ import FactionPicker from './FactionPicker';
 function App() {
     return (
         <div className="App">
-            <ModelCardViewer modelID={"firebrand"}></ModelCardViewer>
+            <CardListViewer factionID={"isa"}></CardListViewer>
         </div>
     );
 }

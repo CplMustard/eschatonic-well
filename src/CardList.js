@@ -1,11 +1,12 @@
 import React from 'react';
 
 function CardList(props) {
+    const { cards, header, handleCardClicked } = props;
     const cardComponents = [];
-    props.cards.forEach((card, index) =>
-        cardComponents.push(<li key={index}>{card.name}</li>)
+    cards.forEach((card, index) =>
+        cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button></li>)
     )
-    return <><h3>{props.header}</h3><ul>{cardComponents}</ul></>;
+    return <><h3>{header}</h3><ul>{cardComponents}</ul></>;
 }
 
 export default CardList;
