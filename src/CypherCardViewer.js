@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import {useParams} from "react-router-dom";
 
 import { cyphersData } from './data'
 
 function CypherCardViewer(props) {
+    const params = useParams();
+
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [cypherData, setCypherData] = useState({});
 
+    const cypherID = props.cypherID ? props.cypherID : params.cypherID;
+
     useEffect(() => {
         setIsLoaded(true);
-        setCypherData(cyphersData[props.cypherID]);
-    }, [props.cypherID]);
+        setCypherData(cyphersData[cypherID]);
+    }, [cypherID]);
 
     function Cypher(props) {
         const { name, factions, type, text } = props;

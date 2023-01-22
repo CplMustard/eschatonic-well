@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useParams} from "react-router-dom";
 
 import './App.css';
 
@@ -10,16 +11,20 @@ import WeaponList from './WeaponList';
 import { modelsData, weaponsData } from './data'
 
 function ModelCardViewer(props) {
+    const params = useParams();
+
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [cardData, setCardData] = useState({});
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
+    const modelID = props.modelID ? props.modelID : params.modelID;
+
     useEffect(() => {
         setIsLoaded(true);
-        setCardData(modelsData[props.modelID]);
-    }, [props.modelID]);
+        setCardData(modelsData[modelID]);
+    }, [modelID]);
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
