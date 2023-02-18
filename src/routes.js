@@ -2,6 +2,7 @@ import App from './App';
 import CardListViewer from './CardListViewer';
 import ModelCardViewer from "./ModelCardViewer";
 import CypherCardViewer from "./CypherCardViewer";
+import ForceEditor from './ForceEditor';
 
 const routes = [
     {
@@ -9,12 +10,12 @@ const routes = [
         element: <App />,
     },
     {
-        path: "/lists",
-        element: <CardListViewer/>
+        path: "/force",
+        element: <ForceEditor/>
     },
     {
-        path: "/lists/:listID",
-        element: <CardListViewer/>
+        path: "/force/:forceID",
+        element: <ForceEditor/>
     },
     {
         path: "/matches",
@@ -25,11 +26,11 @@ const routes = [
         element: <CardListViewer/>
     },
     {
-        path: "/racks",
+        path: "/rack",
         element: <CypherCardViewer/>
     },
     {
-        path: "/racks/:rackID",
+        path: "/rack/:rackID",
         element: <CypherCardViewer/>
     },
     {
