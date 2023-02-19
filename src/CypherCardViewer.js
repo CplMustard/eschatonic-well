@@ -18,11 +18,12 @@ function CypherCardViewer(props) {
     }, [cypherID]);
 
     function Cypher(props) {
-        const { name, factions, type, text } = props;
+        const { name, factions, type, pow, text } = props;
         return <div>
             <h1>{name}</h1>
             <h1>{factions}</h1>
             <h1>{type}</h1>
+            {pow && <h1><div>POW:</div> <div>{pow}</div></h1>}
             <div>{text}</div>
         </div>
     }
@@ -34,7 +35,7 @@ function CypherCardViewer(props) {
     } else {
         return (
             <div>
-                <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} text={cypherData.text}/>
+                <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
             </div>
         );
     }
