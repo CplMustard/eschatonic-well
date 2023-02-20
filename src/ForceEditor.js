@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
@@ -10,6 +10,8 @@ function ForceEditor(props) {
     const params = useParams();
     const [forceModelsData, setForceModelsData] = useState([]);
     const [forceCyphersData, setForceCyphersData] = useState([]);
+    const modelCount = useRef({});
+    const cypherCount = useRef({});
 
     const factionID = props.factionID ? props.factionID : params.factionID;
 
@@ -19,9 +21,12 @@ function ForceEditor(props) {
     function addModelCard(id) {
         const modelData = modelsData[id];
         const FA = modelData.FA ? modelData.FA : 4;
+        if(!modelCount.current[id]) {
+            modelCount.current[id] = 0;
+        }
 
-        const modelCount = forceModelsData.filter((forceModel) => forceModel.modelId === id).length;
-        if(modelCount < FA) {
+        if(modelCount.current[id] < FA) {
+            modelCount.current[id]++;
             const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, hard_points: modelData.hard_point};
             setForceModelsData(forceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name));
         }
@@ -30,9 +35,12 @@ function ForceEditor(props) {
     }
 
     function addCypherCard(id) {
-        const cypherCount = forceCyphersData.filter((forceCypher) => forceCypher.cypherId === id).length
-        console.log(cypherCount);
-        if(cypherCount === 0) {
+        if(!cypherCount.current[id]) {
+            cypherCount.current[id] = 0;
+        }
+
+        if(cypherCount.current[id] === 0) {
+            cypherCount.current[id]++;
             const cypherEntry = {id: uuidv1(), cypherId: id, name: cyphersData[id].name};
             setForceCyphersData(forceCyphersData.concat(cypherEntry).sort((a, b) => a.name > b.name));
         }
@@ -43,6 +51,7 @@ function ForceEditor(props) {
     function removeModelCard(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
+            modelCount.current[id]--;
             setForceModelsData([...forceModelsData.slice(0, index), ...forceModelsData.slice(index + 1)]);
         }
         console.log("delete " + id);
@@ -51,6 +60,7 @@ function ForceEditor(props) {
     function removeCypherCard(id) {
         const index = forceCyphersData.indexOf(cyphersData[id]);
         if(index !== -1) {
+            cypherCount.current[id]--;
             setForceCyphersData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
         }
         console.log("delete " + id);
