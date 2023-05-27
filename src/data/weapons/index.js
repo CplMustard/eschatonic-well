@@ -1,6 +1,7 @@
 import assault_rifle_and_bayonet from "./assault_rifle_and_bayonet.json";
 import battle_rifle from "./battle_rifle.json";
 import blazer from "./blazer.json";
+import empty from "./empty.json";
 import flamethrower from "./flamethrower.json";
 import force_hammer from "./force_hammer.json";
 import fusion_glaive from "./fusion_glaive.json";
@@ -25,6 +26,7 @@ const weaponsData = {
     assault_rifle_and_bayonet: assault_rifle_and_bayonet,
     battle_rifle: battle_rifle, 
     blazer: blazer,
+    empty: empty,
     flamethrower: flamethrower,
     force_hammer: force_hammer,
     fusion_glaive: fusion_glaive,

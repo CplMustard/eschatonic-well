@@ -36,7 +36,19 @@ function Weapon(props) {
         const weaponStatlineComponents = [];
         if(weaponData.profiles) {
             weaponData.profiles.forEach((profile, index) => {
-                weaponStatlineComponents.push(<WeaponStatline key={index} type={profile.type} name={profile.name ? profile.name : weaponData.name} damage_types={profile.damage_types} rng={profile.rng} pow={profile.pow} special_rules={profile.special_rules}/>);
+                if(profile) {
+                    weaponStatlineComponents.push(
+                        <WeaponStatline 
+                            key={index} 
+                            type={profile.type} 
+                            name={profile.name ? profile.name : weaponData.name} 
+                            damage_types={profile.damage_types} 
+                            rng={profile.rng} 
+                            pow={profile.pow} 
+                            special_rules={profile.special_rules}
+                        />
+                    );
+                }
             }, [weaponData.name])
         } 
         return (

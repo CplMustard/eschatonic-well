@@ -32,6 +32,7 @@
             "name": "Left Arm",
             "type": "weapon",
             "options": [
+                "empty",
                 "battle_rifle",
                 "flamethrower",
                 "impaler",
@@ -44,6 +45,7 @@
             "name": "Right Arm",
             "type": "weapon",
             "options": [
+                "empty",
                 "battle_rifle",
                 "flamethrower",
                 "impaler",
@@ -56,6 +58,7 @@
             "name": "Shoulder",
             "type": "weapon",
             "options": [
+                "empty",
                 "blazer",
                 "rail_gun",
                 "talon_rocket_pod",

@@ -32,6 +32,7 @@
             "name": "Left Arm",
             "type": "weapon",
             "options": [
+                "empty",
                 "assault_rifle_and_bayonet",
                 "force_hammer",
                 "fusion_glaive",
@@ -44,6 +45,7 @@
             "name": "Right Arm",
             "type": "weapon",
             "options": [
+                "empty",
                 "assault_rifle_and_bayonet",
                 "force_hammer",
                 "fusion_glaive",
@@ -56,6 +58,7 @@
             "name": "Shoulder",
             "type": "weapon",
             "options": [
+                "empty",
                 "harbinger_cannon",
                 "immolator",
                 "maelstrom",
