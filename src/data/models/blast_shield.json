@@ -1,7 +1,7 @@
 {
-    "id": "carapax",
-    "name": "Carapax",
-    "factions": ["emp"],
+    "id": "blast_shield",
+    "name": "Blast Shield",
+    "factions": ["mw"],
     "type": "mantlet",
     "stats": {
         "dc": 1,
@@ -10,9 +10,11 @@
         "arm": 4,
         "boxes": 2
     },
+    "advantages": [
+        "compound_armor"
+    ],
     "special_rules": [
         "blast_shielding",
-        "wide_spectrum_scanners",
         "mantlet"
     ]
 }

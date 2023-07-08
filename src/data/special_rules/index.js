@@ -6,6 +6,7 @@ import arc_amplifier from "./arc_amplifier.json";
 import arc_booster from "./arc_booster.json";
 import arc_disruptor from "./arc_disruptor.json";
 import arc_exchange from "./arc_exchange.json";
+import arcane_parasite from "./arcane_parasite.json";
 import arcantrik_turbine from "./arcantrik_turbine.json";
 import armor_piercing from "./armor_piercing.json";
 import blast_shielding from "./blast_shielding.json";
@@ -18,6 +19,7 @@ import compound_armor from "./compound_armor.json";
 import corrosion from "./corrosion.json";
 import defense_matrix from "./defense_matrix.json";
 import eruption from "./eruption.json";
+import field_reinforcement from "./field_reinforcement.json";
 import fire from "./fire.json";
 import flight from "./flight.json";
 import force_field from "./force_field.json";
@@ -71,6 +73,7 @@ const specialRulesData = {
     arc_booster: arc_booster,
     arc_disruptor: arc_disruptor,
     arc_exchange: arc_exchange,
+    arcane_parasite: arcane_parasite,
     arcantrik_turbine: arcantrik_turbine,
     armor_piercing: armor_piercing,
     blast_shielding: blast_shielding,
@@ -83,6 +86,7 @@ const specialRulesData = {
     corrosion: corrosion,
     defense_matrix: defense_matrix,
     eruption: eruption,
+    field_reinforcement: field_reinforcement,
     fire: fire,
     flight: flight,
     force_field: force_field,
