@@ -1,0 +1,5 @@
+{
+    "id": "intercept_driver",
+    "name": "Intercept Driver",
+    "text": "When a friendly model is targeted and hit by an enemy attack while within 5\" of this model, this model can spike once to be hit instead of the model originally targeted."
+}

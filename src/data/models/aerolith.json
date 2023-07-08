@@ -1,0 +1,26 @@
+{
+    "id": "aerolith",
+    "name": "Aerolith",
+    "factions": ["emp"],
+    "type": "attachment",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": "*",
+        "mat": 3,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "pulse_array"
+    ],
+    "advantages": [
+        "pathfinder"
+    ],
+    "special_rules": [
+        "intercept_driver",
+        "spotlight"
+    ]
+}

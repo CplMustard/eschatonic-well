@@ -1,0 +1,10 @@
+{
+    "id": "force_strike",
+    "name": "Force Strike",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 6,
+        "pow": 3
+    }]
+}

@@ -1,0 +1,10 @@
+{
+    "id": "handgun",
+    "name": "Handgun",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 8, 
+        "pow": 3
+    }]
+}

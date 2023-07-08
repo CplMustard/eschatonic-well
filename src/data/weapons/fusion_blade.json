@@ -1,0 +1,10 @@
+{
+    "id": "fusion_blade",
+    "name": "Fusion Blade",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 3
+    }]
+}

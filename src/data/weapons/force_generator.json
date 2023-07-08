@@ -1,0 +1,11 @@
+{
+    "id": "force_generator",
+    "name": "Force Generator",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 12,
+        "pow": 3,
+        "special_rules": ["lock_down", "force_ram"]
+    }]
+}
