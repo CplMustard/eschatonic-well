@@ -1,0 +1,11 @@
+{
+    "id": "nailer",
+    "name": "Nailer",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "ranged", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 3
+    }]
+}

@@ -1,0 +1,26 @@
+{
+    "id": "quartermaster",
+    "name": "Quartermaster",
+    "factions": ["ac", "emp", "isa", "mw"],
+    "hero": true,
+    "type": "attachment",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": "*",
+        "mat": 4,
+        "rat": 5,
+        "def": 4,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "assault_rifle_quartermaster",
+        "spiker",
+        "null_detonator"
+    ],
+    "special_rules": [
+        "aegis_field",
+        "walking_arsenal"
+    ]
+}

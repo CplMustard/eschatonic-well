@@ -6,7 +6,7 @@
         "type": "range", 
         "damage_types": ["energy"], 
         "rng": 14, 
-        "pow": 54,
+        "pow": 5,
         "special_rules": ["null_strike"]
     }]
 }

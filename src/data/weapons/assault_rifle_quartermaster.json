@@ -1,0 +1,11 @@
+{
+    "id": "assault_rifle_quartermaster",
+    "name": "Assault Rifle",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["targeter"]
+    }]
+}

@@ -1,0 +1,10 @@
+{
+    "id": "null_detonator",
+    "name": "Null Detonator",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 6,
+        "special_rules": ["nullifier"]
+    }]
+}

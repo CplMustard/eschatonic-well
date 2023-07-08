@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import './App.css';
 
+import CardList from './CardList';
 import Cortex from './Cortex';
 import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 
-import { modelsData, weaponsData } from './data'
+import { modelsData, weaponsData, factionsData } from './data'
 
 function ModelCardViewer(props) {
     const params = useParams();
+    const navigate  = useNavigate();
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -26,6 +29,10 @@ function ModelCardViewer(props) {
         setCardData(modelsData[modelID]);
     }, [modelID]);
 
+    function openModelCard(id) {
+        navigate(`/model/${id}`);
+    }
+
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
         setHardPointOptions(newHardPointOptions);
@@ -33,9 +40,11 @@ function ModelCardViewer(props) {
 
     function CardHeader(props) {
         const { name, type, factions } = props;
+        const factionNames = [];
+        factions.forEach((faction) => factionNames.push(factionsData[faction].name))
         return <div>
             <h1>{name}</h1>
-            <h1>{factions}</h1>
+            <h1>{factionNames.join(", ")}</h1>
             <h1>{type}</h1>
         </div>
     }
@@ -61,7 +70,7 @@ function ModelCardViewer(props) {
     } else if (!isLoaded) {
         return <div>Loading Card Data...</div>
     } else {
-        const { name, type, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules } = cardData;
+        const { name, type, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules, attachments } = cardData;
 
         if(hard_points && hardPointOptions.length === 0) {
             const defaultHardPoints = [];
@@ -74,6 +83,7 @@ function ModelCardViewer(props) {
         const hardPointCortexOption = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "cortex").map((hardPointOption) => hardPointOption.option) : undefined;
         const allWeapons = hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
         const weaponPointCost = hard_points ? hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
+        const attachmentCardData = attachments ? attachments.map((attachment) => modelsData[attachment]) : undefined;
 
         return (
             <div>
@@ -85,6 +95,7 @@ function ModelCardViewer(props) {
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && <Cortex cortexID={hardPointCortexOption}/>}
                 {special_rules && <SpecialRuleList special_rules={special_rules} header={'Special Rules'}/>}
+                {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
             </div>
         );
     }

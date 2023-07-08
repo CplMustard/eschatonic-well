@@ -1,0 +1,29 @@
+{
+    "id": "vassal_reavers",
+    "name": "Vassal Reavers",
+    "factions": ["ac"],
+    "type": "squad",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 2,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "nailer",
+        "fusion_saw"
+    ],
+    "special_rules": [
+        "mimetic_cloak",
+        "phase_sequencer"
+    ],
+    "attachments": [
+        "raker",
+        "quartermaster"
+    ]
+}

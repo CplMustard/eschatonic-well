@@ -1,8 +1,10 @@
 import advanced_optics from "./advanced_optics.json";
+import aegis_field from "./aegis_field.json";
 import arc_booster from "./arc_booster.json";
 import arcantrik_turbine from "./arcantrik_turbine.json";
 import armor_piercing from "./armor_piercing.json";
 import blast from "./blast.json";
+import carrion_ablator from "./carrion_ablator.json";
 import cleave from "./cleave.json";
 import command_interface from "./command_interface.json";
 import compound_armor from "./compound_armor.json";
@@ -14,11 +16,16 @@ import heightened_reflexes from "./heightened_reflexes.json";
 import high_intensity from "./high_intensity.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
 import jack_hunter from "./jack_hunter.json";
+import lock_down from "./lock_down.json";
 import mechanikal_optics from "./mechanikal_optics.json";
+import mimetic_cloak from "./mimetic_cloak.json";
 import neural_net from "./neural_net.json";
 import neural_web from "./neural_web.json";
 import null_strike from "./null_strike.json";
+import nullifier from "./nullifier.json";
 import pathfinder from "./pathfinder.json";
+import phase_sequencer from "./phase_sequencer.json";
+import phase_stalker from "./phase_stalker.json";
 import power_attack from "./power_attack.json";
 import rapid_strike from "./rapid_strike.json";
 import reflex_accelerator from "./reflex_accelerator.json";
@@ -30,16 +37,21 @@ import shield from "./shield";
 import sidestep from "./sidestep";
 import slip_displacer from "./slip_displacer.json";
 import smart_lock from "./smart_lock.json";
+import spotlight from "./spotlight";
 import spray from "./spray.json";
 import strafe from "./strafe.json";
+import targeter from "./targeter.json";
 import void_gazer from "./void_gazer.json";
+import walking_arsenal from "./walking_arsenal.json";
 
 const specialRulesData = {
     advanced_optics: advanced_optics, 
+    aegis_field: aegis_field,
     arc_booster: arc_booster,
     arcantrik_turbine: arcantrik_turbine,
     armor_piercing: armor_piercing,
     blast: blast,
+    carrion_ablator: carrion_ablator,
     cleave: cleave,
     command_interface: command_interface,
     compound_armor: compound_armor,
@@ -51,11 +63,16 @@ const specialRulesData = {
     high_intensity: high_intensity,
     hunter_killer_rounds: hunter_killer_rounds,
     jack_hunter: jack_hunter,
+    lock_down: lock_down,
     mechanikal_optics: mechanikal_optics,
+    mimetic_cloak: mimetic_cloak,
     neural_net: neural_net,
     neural_web: neural_web,
     null_strike: null_strike,
+    nullifier: nullifier,
     pathfinder: pathfinder,
+    phase_sequencer: phase_sequencer,
+    phase_stalker: phase_stalker,
     power_attack: power_attack,
     rapid_strike: rapid_strike,
     reflex_accelerator: reflex_accelerator,
@@ -67,9 +84,12 @@ const specialRulesData = {
     sidestep: sidestep,
     slip_displacer: slip_displacer,
     smart_lock: smart_lock,
+    spotlight: spotlight,
     spray: spray,
     strafe: strafe,
-    void_gazer: void_gazer
+    targeter: targeter,
+    void_gazer: void_gazer,
+    walking_arsenal: walking_arsenal
 };
 
 export default specialRulesData;

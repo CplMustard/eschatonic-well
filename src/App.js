@@ -4,7 +4,7 @@ import CardListViewer from './CardListViewer';
 function App() {
     return (
         <div className="App">
-            <CardListViewer factionID={"isa"}></CardListViewer>
+            <CardListViewer factionID={"ac"}></CardListViewer>
         </div>
     );
 }
