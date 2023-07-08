@@ -1,3 +1,4 @@
+import carapax from "./carapax.json";
 import dusk_wolf from "./dusk_wolf.json";
 import firebrand from "./firebrand.json";
 import paladin_commander from "./paladin_commander.json";
@@ -7,6 +8,7 @@ import vassal_reavers from "./vassal_reavers.json";
 import void_gate from "./void_gate.json";
 
 const modelsData = {
+    carapax: carapax,
     dusk_wolf: dusk_wolf, 
     firebrand: firebrand,
     paladin_commander: paladin_commander,

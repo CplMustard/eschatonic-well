@@ -3,6 +3,7 @@ import aegis_field from "./aegis_field.json";
 import arc_booster from "./arc_booster.json";
 import arcantrik_turbine from "./arcantrik_turbine.json";
 import armor_piercing from "./armor_piercing.json";
+import blast_shielding from "./blast_shielding.json";
 import blast from "./blast.json";
 import carrion_ablator from "./carrion_ablator.json";
 import cleave from "./cleave.json";
@@ -17,6 +18,7 @@ import high_intensity from "./high_intensity.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
 import jack_hunter from "./jack_hunter.json";
 import lock_down from "./lock_down.json";
+import mantlet from "./mantlet.json";
 import mechanikal_optics from "./mechanikal_optics.json";
 import mimetic_cloak from "./mimetic_cloak.json";
 import neural_net from "./neural_net.json";
@@ -43,6 +45,7 @@ import strafe from "./strafe.json";
 import targeter from "./targeter.json";
 import void_gazer from "./void_gazer.json";
 import walking_arsenal from "./walking_arsenal.json";
+import wide_spectrum_scanners from "./wide_spectrum_scanners.json";
 
 const specialRulesData = {
     advanced_optics: advanced_optics, 
@@ -50,6 +53,7 @@ const specialRulesData = {
     arc_booster: arc_booster,
     arcantrik_turbine: arcantrik_turbine,
     armor_piercing: armor_piercing,
+    blast_shielding: blast_shielding,
     blast: blast,
     carrion_ablator: carrion_ablator,
     cleave: cleave,
@@ -64,6 +68,7 @@ const specialRulesData = {
     hunter_killer_rounds: hunter_killer_rounds,
     jack_hunter: jack_hunter,
     lock_down: lock_down,
+    mantlet: mantlet,
     mechanikal_optics: mechanikal_optics,
     mimetic_cloak: mimetic_cloak,
     neural_net: neural_net,
@@ -89,7 +94,8 @@ const specialRulesData = {
     strafe: strafe,
     targeter: targeter,
     void_gazer: void_gazer,
-    walking_arsenal: walking_arsenal
+    walking_arsenal: walking_arsenal,
+    wide_spectrum_scanners: wide_spectrum_scanners
 };
 
 export default specialRulesData;
