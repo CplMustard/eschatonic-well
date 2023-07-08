@@ -22,14 +22,15 @@ function ForceEditor(props) {
 
     function addModelCard(id) {
         const modelData = modelsData[id];
-        const FA = modelData.FA ? modelData.FA : 4;
+        const fa = modelData.fa ? modelData.fa : 4;
         if(!modelCount.current[id]) {
             modelCount.current[id] = 0;
         }
 
-        if(modelCount.current[id] < FA) {
+        if(modelCount.current[id] < fa) {
             modelCount.current[id]++;
             const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, hard_points: modelData.hard_points};
+            console.log(forceEntry.id)
             setForceModelsData(forceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name));
         }
     }
@@ -47,9 +48,10 @@ function ForceEditor(props) {
     }
 
     function removeModelCard(id) {
+        console.log(id)
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
-            modelCount.current[id]--;
+            modelCount.current[forceModelsData[index].modelId]--;
             setForceModelsData([...forceModelsData.slice(0, index), ...forceModelsData.slice(index + 1)]);
         }
     }

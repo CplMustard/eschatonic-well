@@ -8,7 +8,7 @@ function ForceModelList(props) {
     
     forceEntries.forEach((entry, index) =>
         entryComponents.push(
-            <li key={index}>
+            <li key={entry.id}>
                 <button onClick={() => handleCardClicked(entry.id)}>{entry.name}</button>
                 {entry.hard_points && <HardPointList hard_points={entry.hard_points} onChangeHardPoint={()=>{}}/>}
             </li>

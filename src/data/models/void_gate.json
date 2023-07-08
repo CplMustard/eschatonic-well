@@ -9,5 +9,6 @@
         "def": 3,
         "arm": 5,
         "boxes": "# of arc on the model"
-    }
+    },
+    "fa": 2
 }
