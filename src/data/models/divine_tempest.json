@@ -3,7 +3,7 @@
     "name": "Divine Tempest",
     "factions": ["ac"],
     "type": "solo",
-    "champion": true,
+    "subtypes": ["champion"],
     "stats": {
         "dc": 2,
         "base_size": 50,

@@ -3,6 +3,7 @@
     "name": "Phaetheon, the Whisper of Death (Wraith)",
     "factions": ["ac"],
     "type": "solo",
+    "subtypes": ["hero"],
     "stats": {
         "dc": 1,
         "base_size": 30,
@@ -13,7 +14,6 @@
         "arm": 3,
         "boxes": 3
     },
-    "hero": true,
     "weapons": [
         "death_touch"
     ],

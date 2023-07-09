@@ -3,6 +3,7 @@
     "name": "Hierotheos Raxis",
     "factions": ["ac"],
     "type": "solo",
+    "subtypes": ["hero"],
     "stats": {
         "dc": 1,
         "base_size": 40,
@@ -14,7 +15,6 @@
         "foc": 4,
         "boxes": 3
     },
-    "hero": true,
     "weapons": [
         "soul_grinder"
     ],
