@@ -1,0 +1,5 @@
+{
+    "id": "evasive_action",
+    "name": "Evasive Action",
+    "text": "This vehicle can reroll DEF rolls. A roll can be rerolled once as a result of Evasive Action. This Maneuver expires at the start of this unit’s next activation." 
+}

@@ -1,0 +1,11 @@
+{
+    "id": "whispers_of_annihilation",
+    "name": "Whispers of Annihilation",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["psychoclasm"]
+    }]
+}

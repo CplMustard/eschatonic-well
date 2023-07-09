@@ -3,11 +3,10 @@ import geometric from "./geometric.json";
 import harmonic from "./harmonic.json";
 import overdrive from "./overdrive.json";
 
-const cypherTypeData = {
-    fury: fury, 
-    geometric: geometric,
-    harmonic: harmonic,
-    overdrive: overdrive
-};
-
-export default cypherTypeData;
+const cypher_typesData = {
+	fury: fury,
+	geometric: geometric,
+	harmonic: harmonic,
+	overdrive: overdrive
+}
+export default cypher_typesData

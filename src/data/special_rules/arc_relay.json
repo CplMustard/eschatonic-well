@@ -1,0 +1,5 @@
+{
+    "id": "arc_relay",
+    "name": "Arc Relay [{0}]",
+    "text": "This model can channel Fury Cyphers. A Fury Cypher channeled through this model is RNG {0}"
+}

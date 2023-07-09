@@ -1,0 +1,5 @@
+{
+    "id": "wing_roll",
+    "name": "Wing Roll",
+    "text": "When this model is missed by an attack, after the attack is resolved, this model can immediately make an attack targeting the model that missed it. This Maneuver expires at the start of this unit’s next activation or immediately after this model makes an attack as a result of Wing Roll." 
+}

@@ -4,12 +4,11 @@ import energy from "./energy.json";
 import explosion from "./explosion.json";
 import kinetic from "./kinetic.json";
 
-const damageTypesData = {
-    ballistic: ballistic, 
-    beam: beam,
-    energy: energy,
-    explosion: explosion,
-    kinetic: kinetic
-};
-
-export default damageTypesData;
+const damage_typesData = {
+	ballistic: ballistic,
+	beam: beam,
+	energy: energy,
+	explosion: explosion,
+	kinetic: kinetic
+}
+export default damage_typesData

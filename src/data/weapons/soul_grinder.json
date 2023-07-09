@@ -1,0 +1,11 @@
+{
+    "id": "soul_grinder",
+    "name": "Soul Grinder",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["spray"]
+    }]
+}

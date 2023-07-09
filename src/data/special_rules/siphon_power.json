@@ -1,0 +1,5 @@
+{
+    "id": "siphon_power",
+    "name": "Siphon Power",
+    "text": "When an attack with this weapon destroys an enemy model that was charged, you can immediately charge this model after the attack is resolved if this model was not already charged." 
+}

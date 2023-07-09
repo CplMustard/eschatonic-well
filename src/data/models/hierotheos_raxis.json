@@ -1,0 +1,30 @@
+{
+    "id": "hierotheos_raxis",
+    "name": "Hierotheos Raxis",
+    "factions": ["ac"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 3,
+        "rat": 4,
+        "def": 2,
+        "arm": 4,
+        "foc": 4,
+        "boxes": 3
+    },
+    "hero": true,
+    "weapons": [
+        "soul_grinder"
+    ],
+    "advantages": [
+        "pathfinder"
+    ],
+    "special_rules": [
+        "arc_relay|13",
+        "kinetic_field",
+        "psycho_relay",
+        "thanotech_reclaimer"
+    ]
+}

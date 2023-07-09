@@ -75,7 +75,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### LICENSE
 
-Copyright (c) 2022 Jack Anderson
+Copyright (c) 2023 Jack Anderson
+
+All trademarks contained herein including Privateer Press (r), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds,
+The Hyperuranion, Arcanessence, and their logos are property of Privateer Press, Inc., 21220 87th Ave. S.E., Woodinville, WA 98072
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

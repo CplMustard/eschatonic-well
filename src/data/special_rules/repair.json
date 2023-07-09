@@ -1,0 +1,5 @@
+{
+    "id": "repair",
+    "name": "Special Action: Repair",
+    "text": "This model can make a special action to repair a friendly model within 1\" of it. Roll three action dice. For each strike rolled, remove 1 damage point from the model being repaired." 
+}

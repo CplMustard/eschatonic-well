@@ -1,0 +1,11 @@
+{
+    "id": "phase_pounce",
+    "name": "Phase Pounce",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["kinetic"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["gorge", "phase_strike"]
+    }]
+}

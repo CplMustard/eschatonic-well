@@ -1,0 +1,5 @@
+{
+    "id": "incorporeal",
+    "name": "Incorporeal",
+    "text": "This model can move through structures and through other models if it has enough movement to move completely past them. Additionally, this model gains +3 ARM against Ballistic, Cold, Corrosion, Explosion, Fire, and Kinetic damage." 
+}

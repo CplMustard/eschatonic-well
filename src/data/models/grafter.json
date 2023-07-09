@@ -1,0 +1,24 @@
+{
+    "id": "grafter",
+    "name": "Grafter",
+    "factions": ["ac"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "boxes": 2
+    },
+    "weapons": [
+        "bone_saw"
+    ],
+    "special_rules": [
+        "adrenalizer",
+        "repair",
+        "resurrection_protocol"
+    ]
+}

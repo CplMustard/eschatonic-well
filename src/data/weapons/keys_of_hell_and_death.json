@@ -1,0 +1,11 @@
+{
+    "id": "keys_of_hell_and_death",
+    "name": "Keys of Hell & Death",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["high_intensity", "siphon_power"]
+    }]
+}

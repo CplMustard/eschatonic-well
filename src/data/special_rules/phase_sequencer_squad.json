@@ -1,0 +1,5 @@
+{
+    "id": "phase_sequencer",
+    "name": "Phase Sequencer",
+    "text": "Once per activation, this unit can spike to use Phase Sequencer. That activation, models in this squad can move through structures and through other models if they have enough movement to move completely past them."
+}

@@ -1,0 +1,11 @@
+{
+    "id": "psychokinetic_hood",
+    "name": "Psychokinetic Hood",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 8, 
+        "pow": 4,
+        "special_rules": ["spray"]
+    }]
+}

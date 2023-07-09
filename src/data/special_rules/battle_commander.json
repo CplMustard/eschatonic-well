@@ -1,0 +1,5 @@
+{
+    "id": "battle_commander",
+    "name": "Battle Commander [{0}]",
+    "text": "While within 10\" of this model, friendly squad models gain the {0} special rule." 
+}

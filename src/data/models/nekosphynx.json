@@ -1,0 +1,30 @@
+{
+    "id": "nekosphynx",
+    "name": "Nekosphynx",
+    "factions": ["ac"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 50,
+        "spd": 7,
+        "mat": 4,
+        "rat": 3,
+        "def": 4,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "phase_pounce",
+        "claws"
+    ],
+    "advantages": [
+        "pathfinder",
+        "stealth",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "cadre|Terminus Cabal",
+        "shadow_phaser",
+        "void_spiral"
+    ]
+}

@@ -2,38 +2,55 @@ import aerolith from "./aerolith.json";
 import blast_shield from "./blast_shield.json";
 import carapax from "./carapax.json";
 import defense_pylon from "./defense_pylon.json";
+import divine_tempest from "./divine_tempest.json";
 import dragoon_gunner from "./dragoon_gunner.json";
 import dusk_wolf from "./dusk_wolf.json";
 import firebrand from "./firebrand.json";
 import force_barrier from "./force_barrier.json";
+import grafter from "./grafter.json";
+import hierotheos_raxis from "./hierotheos_raxis.json";
+import immortal_weaver from "./immortal_weaver.json";
+import marauder from "./marauder.json";
+import nekosphynx from "./nekosphynx.json";
 import paladin_aegis from "./paladin_aegis.json";
 import paladin_commander from "./paladin_commander.json";
+import phaetheon_living from "./phaetheon_living.json";
+import phaetheon_wraith from "./phaetheon_wraith.json";
 import quartermaster from "./quartermaster.json";
 import raker from "./raker.json";
 import relikon from "./relikon.json";
+import vassal_boss from "./vassal_boss.json";
 import vassal_reavers from "./vassal_reavers.json";
 import void_gate from "./void_gate.json";
 import warder from "./warder.json";
 import witch_hounds from "./witch_hounds.json";
 
 const modelsData = {
-    aerolith: aerolith,
-    blast_shield: blast_shield,
-    carapax: carapax,
-    defense_pylon: defense_pylon,
-    dragoon_gunner: dragoon_gunner,
-    dusk_wolf: dusk_wolf, 
-    firebrand: firebrand,
-    force_barrier: force_barrier,
-    paladin_aegis: paladin_aegis,
-    paladin_commander: paladin_commander,
-    quartermaster: quartermaster,
-    raker: raker,
-    relikon: relikon,
-    vassal_reavers: vassal_reavers,
-    void_gate: void_gate,
-    warder: warder,
-    witch_hounds: witch_hounds
-};
-
-export default modelsData;
+	aerolith: aerolith,
+	blast_shield: blast_shield,
+	carapax: carapax,
+	defense_pylon: defense_pylon,
+	divine_tempest: divine_tempest,
+	dragoon_gunner: dragoon_gunner,
+	dusk_wolf: dusk_wolf,
+	firebrand: firebrand,
+	force_barrier: force_barrier,
+	grafter: grafter,
+	hierotheos_raxis: hierotheos_raxis,
+	immortal_weaver: immortal_weaver,
+	marauder: marauder,
+	nekosphynx: nekosphynx,
+	paladin_aegis: paladin_aegis,
+	paladin_commander: paladin_commander,
+	phaetheon_living: phaetheon_living,
+	phaetheon_wraith: phaetheon_wraith,
+	quartermaster: quartermaster,
+	raker: raker,
+	relikon: relikon,
+	vassal_boss: vassal_boss,
+	vassal_reavers: vassal_reavers,
+	void_gate: void_gate,
+	warder: warder,
+	witch_hounds: witch_hounds
+}
+export default modelsData

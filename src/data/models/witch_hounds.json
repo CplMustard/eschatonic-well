@@ -18,8 +18,8 @@
         "force_strike"
     ],
     "special_rules": [
-        "arc_exchange",
         "cadre|Alliance Regulators",
+        "arc_exchange",
         "psycho_disruptor",
         "spotlight"
     ]

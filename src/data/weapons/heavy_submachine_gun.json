@@ -1,0 +1,11 @@
+{
+    "id": "heavy_submachine_gun",
+    "name": "Heavy Submachine Gun",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["armor_piercing", "phase_trajectile"]
+    }]
+}

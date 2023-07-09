@@ -1,0 +1,11 @@
+{
+    "id": "death_touch",
+    "name": "Death Touch",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["corrosion"], 
+        "rng": 1, 
+        "pow": 4,
+        "special_rules": ["corrosion", "gorge"]
+    }]
+}
