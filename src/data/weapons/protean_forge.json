@@ -1,0 +1,11 @@
+{
+    "id": "protean_forge",
+    "name": "Protean Forge",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 3,
+        "special_rules": ["attack_mode_protean_forge"]
+    }]
+}

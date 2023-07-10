@@ -1,0 +1,11 @@
+{
+    "id": "consecrator",
+    "name": "Consecrator",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["null_strike"]
+    }]
+}

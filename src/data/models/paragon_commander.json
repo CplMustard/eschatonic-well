@@ -1,0 +1,31 @@
+{
+    "id": "paragon_commander",
+    "name": "Paragon Commander",
+    "factions": ["emp"],
+    "type": "solo",
+    "subtypes": ["aeon"],
+    "stats": {
+        "dc": 2,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 5,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "foc": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "numinous_agitator",
+        "celestial_cleaver"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "cadre|Harbingers of Cyriss",
+        "arc_relay|10",
+        "arcantrik_amplifier"
+    ]
+}

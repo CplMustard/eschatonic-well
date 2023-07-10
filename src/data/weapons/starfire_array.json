@@ -1,0 +1,11 @@
+{
+    "id": "starfire_array",
+    "name": "Starfire Array",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["strafe"]
+    }]
+}

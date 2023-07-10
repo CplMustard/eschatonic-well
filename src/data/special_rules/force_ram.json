@@ -1,5 +1,5 @@
 {
     "id": "force_ram",
     "name": "Force Ram",
-    "text": "When this model hits a target with an attack with this weapon, it can spike once to cause the target to be slammed rather than suffering the effects of Lock Down. Before damage is rolled, the model hit is slammed 3˝ directly away from this model. Collateral damage is equal to the POW of this weapon."
+    "text": "When this model hits a target with an attack with this weapon, it can spike once to cause the target to be slammed. Before damage is rolled, the model hit is slammed 3˝ directly away from this model. Collateral damage is equal to the POW of this weapon."
 }

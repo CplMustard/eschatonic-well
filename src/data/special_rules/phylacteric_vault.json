@@ -1,0 +1,5 @@
+{
+    "id": "phylacteric_vault",
+    "name": "Phylacteric Vault [{0}]",
+    "text": "Each time one or more friendly {0} models are destroyed by an enemy attack within 10\" of this model, you can charge this unit or another friendly unit within 10\" of this model with 1 Arc." 
+}

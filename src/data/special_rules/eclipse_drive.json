@@ -1,0 +1,5 @@
+{
+    "id": "eclipse_drive",
+    "name": "Eclipse Drive",
+    "text": "This unit can spike at the end of its activation to use Eclipse Drive. If it does so, do not place an activation token on this unit at the end of its activation." 
+}

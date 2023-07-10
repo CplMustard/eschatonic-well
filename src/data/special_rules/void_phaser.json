@@ -1,0 +1,5 @@
+{
+    "id": "void_phaser",
+    "name": "Void Phaser",
+    "text": "During its activation, this model can spike to reposition a target friendly unit with large or smaller bases that is within 5\" of it. You can immediately reposition the target unit anywhere within 3\" of its current location. If Void Phaser targets a squad, after repositioning the first model in the squad, reposition the remaining models in the squad within 2\" of that model." 
+}

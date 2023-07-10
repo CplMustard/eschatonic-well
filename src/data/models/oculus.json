@@ -1,0 +1,26 @@
+{
+    "id": "oculus",
+    "name": "Oculus",
+    "factions": ["emp"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "foc": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "consecrator"
+    ],
+    "special_rules": [
+        "arc_capacitor",
+        "arc_relay|14",
+        "phase_aligner",
+        "psycho_reactor"
+    ]
+}

@@ -6,6 +6,6 @@
         "damage_types": ["force"], 
         "rng": 12,
         "pow": 3,
-        "special_rules": ["lock_down", "force_ram"]
+        "special_rules": ["lock_down", "force_ram_aegis"]
     }]
 }

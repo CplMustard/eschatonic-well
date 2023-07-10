@@ -1,0 +1,5 @@
+{
+    "id": "dislocator",
+    "name": "Dislocator",
+    "text": "When this model hits an enemy model with this weapon, after the attack is resolved, this model can spike once to reposition the model hit anywhere within 3\" of its current location." 
+}

@@ -1,0 +1,11 @@
+{
+    "id": "abyssal_pulse",
+    "name": "Abyssal Pulse",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 5,
+        "special_rules": ["negative_energy", "soul_seeker"]
+    }]
+}

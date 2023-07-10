@@ -1,0 +1,11 @@
+{
+    "id": "void_howler",
+    "name": "Void Howler",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 8, 
+        "pow": 4,
+        "special_rules": ["spray", "null_strike"]
+    }]
+}

@@ -1,0 +1,11 @@
+{
+    "id": "numinous_agitator",
+    "name": "Numinous Agitator ",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["malefactor"]
+    }]
+}

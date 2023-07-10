@@ -1,0 +1,5 @@
+{
+    "id": "phase_aligner",
+    "name": "Phase Aligner",
+    "text": "While this model is charged, ignore line of sight when resolving Fury attacks channeled through it." 
+}
