@@ -1,0 +1,29 @@
+{
+    "id": "paladin_weaver",
+    "name": "Paladin Weaver",
+    "factions": ["isa"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "foc": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "handgun",
+        "null_hammer"
+    ],
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "arcantrik_amplifier",
+        "arc_relay|12",
+        "realignment_codex"
+    ]
+}

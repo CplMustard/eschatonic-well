@@ -1,0 +1,11 @@
+{
+    "id": "radliffe_v9",
+    "name": "Radliffe V9",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["strafe"]
+    }]
+}

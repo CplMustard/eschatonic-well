@@ -1,0 +1,11 @@
+{
+    "id": "castigator_missiles",
+    "name": "Castigator Missiles",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["blast"]
+    }]
+}

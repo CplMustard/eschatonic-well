@@ -1,0 +1,10 @@
+{
+    "id": "repair_tool",
+    "name": "Repair Tool",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 4
+    }]
+}

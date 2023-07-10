@@ -1,0 +1,11 @@
+{
+    "id": "arc_blade",
+    "name": "Arc Blade",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 5,
+        "special_rules": ["attack_mode_arc_blade"]
+    }]
+}

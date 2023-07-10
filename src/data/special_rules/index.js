@@ -15,6 +15,7 @@ import arc_disruptor from "./arc_disruptor.json";
 import arc_exchange from "./arc_exchange.json";
 import arc_relay from "./arc_relay.json";
 import armor_piercing from "./armor_piercing.json";
+import attack_mode_arc_blade from "./attack_mode_arc_blade.json";
 import attack_mode_protean_forge from "./attack_mode_protean_forge.json";
 import battle_commander from "./battle_commander.json";
 import blast from "./blast.json";
@@ -28,6 +29,7 @@ import corrosion from "./corrosion.json";
 import cortex_shock from "./cortex_shock.json";
 import defense_matrix from "./defense_matrix.json";
 import dislocator from "./dislocator.json";
+import dominion_converter from "./dominion_converter.json";
 import dynamic_accelerator from "./dynamic_accelerator.json";
 import eclipse_drive from "./eclipse_drive.json";
 import eruption from "./eruption.json";
@@ -57,6 +59,7 @@ import mantlet from "./mantlet.json";
 import mechanikal_optics from "./mechanikal_optics.json";
 import mimetic_cloak from "./mimetic_cloak.json";
 import negative_energy from "./negative_energy.json";
+import neural_command_web from "./neural_command_web.json";
 import neural_net from "./neural_net.json";
 import neural_web from "./neural_web.json";
 import nullifier from "./nullifier.json";
@@ -70,6 +73,7 @@ import phase_strike from "./phase_strike.json";
 import phase_trajectile from "./phase_trajectile.json";
 import phylacteric_vault from "./phylacteric_vault.json";
 import power_attack from "./power_attack.json";
+import power_focus from "./power_focus.json";
 import psychoclasm from "./psychoclasm.json";
 import psycho_disruptor from "./psycho_disruptor.json";
 import psycho_reactor from "./psycho_reactor.json";
@@ -79,6 +83,7 @@ import rapid_strike from "./rapid_strike.json";
 import realignment_codex from "./realignment_codex.json";
 import reflex_accelerator from "./reflex_accelerator.json";
 import refractor_field from "./refractor_field.json";
+import relentless from "./relentless.json";
 import repair from "./repair.json";
 import repulsor from "./repulsor.json";
 import repulsor_ram from "./repulsor_ram.json";
@@ -105,9 +110,13 @@ import targeter from "./targeter.json";
 import temporal_anomaly from "./temporal_anomaly.json";
 import thanotech_reclaimer from "./thanotech_reclaimer.json";
 import thaumaturgic_initiator from "./thaumaturgic_initiator.json";
+import thrusters from "./thrusters.json";
+import void_disruptor from "./void_disruptor.json";
 import void_gate from "./void_gate.json";
 import void_gazer from "./void_gazer.json";
+import void_jumper from "./void_jumper.json";
 import void_phaser from "./void_phaser.json";
+import void_shifter from "./void_shifter.json";
 import void_spiral from "./void_spiral.json";
 import walking_arsenal from "./walking_arsenal.json";
 import weapon_expert from "./weapon_expert.json";
@@ -131,6 +140,7 @@ const special_rulesData = {
 	arc_exchange: arc_exchange,
 	arc_relay: arc_relay,
 	armor_piercing: armor_piercing,
+	attack_mode_arc_blade: attack_mode_arc_blade,
 	attack_mode_protean_forge: attack_mode_protean_forge,
 	battle_commander: battle_commander,
 	blast: blast,
@@ -144,6 +154,7 @@ const special_rulesData = {
 	cortex_shock: cortex_shock,
 	defense_matrix: defense_matrix,
 	dislocator: dislocator,
+	dominion_converter: dominion_converter,
 	dynamic_accelerator: dynamic_accelerator,
 	eclipse_drive: eclipse_drive,
 	eruption: eruption,
@@ -173,6 +184,7 @@ const special_rulesData = {
 	mechanikal_optics: mechanikal_optics,
 	mimetic_cloak: mimetic_cloak,
 	negative_energy: negative_energy,
+	neural_command_web: neural_command_web,
 	neural_net: neural_net,
 	neural_web: neural_web,
 	nullifier: nullifier,
@@ -186,6 +198,7 @@ const special_rulesData = {
 	phase_trajectile: phase_trajectile,
 	phylacteric_vault: phylacteric_vault,
 	power_attack: power_attack,
+	power_focus: power_focus,
 	psychoclasm: psychoclasm,
 	psycho_disruptor: psycho_disruptor,
 	psycho_reactor: psycho_reactor,
@@ -195,6 +208,7 @@ const special_rulesData = {
 	realignment_codex: realignment_codex,
 	reflex_accelerator: reflex_accelerator,
 	refractor_field: refractor_field,
+	relentless: relentless,
 	repair: repair,
 	repulsor: repulsor,
 	repulsor_ram: repulsor_ram,
@@ -221,9 +235,13 @@ const special_rulesData = {
 	temporal_anomaly: temporal_anomaly,
 	thanotech_reclaimer: thanotech_reclaimer,
 	thaumaturgic_initiator: thaumaturgic_initiator,
+	thrusters: thrusters,
+	void_disruptor: void_disruptor,
 	void_gate: void_gate,
 	void_gazer: void_gazer,
+	void_jumper: void_jumper,
 	void_phaser: void_phaser,
+	void_shifter: void_shifter,
 	void_spiral: void_spiral,
 	walking_arsenal: walking_arsenal,
 	weapon_expert: weapon_expert,

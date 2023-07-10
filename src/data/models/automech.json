@@ -1,0 +1,28 @@
+{
+    "id": "automech",
+    "name": "Automech",
+    "factions": ["isa"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 2,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "torch",
+        "repair_tool"
+    ],
+    "advantages": [
+        "pathfinder"
+    ],
+    "special_rules": [
+        "jump_start",
+        "reflex_accelerator",
+        "repair"
+    ]
+}

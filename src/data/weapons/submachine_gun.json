@@ -1,0 +1,11 @@
+{
+    "id": "submachine_gun",
+    "name": "Submachine Gun",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["strafe"]
+    }]
+}

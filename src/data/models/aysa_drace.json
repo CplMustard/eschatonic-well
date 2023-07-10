@@ -1,0 +1,28 @@
+{
+    "id": "aysa_drace",
+    "name": "Major Aysa Drace",
+    "factions": ["isa"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "submachine_gun"
+    ],
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "aegis_field",
+        "arc_exchange",
+        "field_reinforcement",
+        "neural_command_web"
+    ]
+}

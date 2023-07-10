@@ -1,0 +1,11 @@
+{
+    "id": "purifier",
+    "name": "Purifier",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["fire"]
+    }]
+}

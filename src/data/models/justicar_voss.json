@@ -1,0 +1,29 @@
+{
+    "id": "justicar_voss",
+    "name": "Justicar Voss",
+    "factions": ["isa"],
+    "type": "solo",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 5,
+        "rat": 3,
+        "def": 4,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "arc_blade",
+        "arc_blade"
+    ],
+    "advantages": [
+        "compound_armor",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "relentless",
+        "void_jumper",
+        "void_shifter"
+    ]
+}

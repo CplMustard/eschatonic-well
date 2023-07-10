@@ -1,0 +1,11 @@
+{
+    "id": "torch",
+    "name": "Torch",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["fire"], 
+        "rng": 4, 
+        "pow": 4,
+        "special_rules": ["fire", "spray"]
+    }]
+}

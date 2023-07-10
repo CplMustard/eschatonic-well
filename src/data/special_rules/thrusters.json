@@ -1,0 +1,5 @@
+{
+    "id": "thrusters",
+    "name": "Thrusters",
+    "text": "While charged, this model ignores movement penalties for rough terrain. Additionally, for each Arc this model is charged with, it gains +1 DEF." 
+}

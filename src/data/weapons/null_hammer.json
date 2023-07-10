@@ -1,0 +1,11 @@
+{
+    "id": "null_hammer",
+    "name": "Null Hammer",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 4,
+        "special_rules": ["null_strike"]
+    }]
+}

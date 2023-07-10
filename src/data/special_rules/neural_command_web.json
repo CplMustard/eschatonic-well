@@ -1,0 +1,5 @@
+{
+    "id": "neural_command_web",
+    "name": "Neural Command Web",
+    "text": "During its activation, this model can spike to use Neural Command Web. When it does so, choose one of the following effects:\nBattle Matrix: While within 10\" of this model, other friendly models gain +1 Power Die on their attack rolls. Battle Matrix expires at the start of this model's next activation.\nField Promotion: Choose a friendly squad model within 10\" of this model. Replace the target model with an equal- or smaller-base-sized solo from your reserves. The replaced model is destroyed.\nImpulse Agitator: Choose a friendly non-vehicle unit within 10\" of this model. That unit can immediately move up to its SPD." 
+}
