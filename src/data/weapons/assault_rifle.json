@@ -1,0 +1,10 @@
+{
+    "id": "assault_rifle",
+    "name": "Assault Rifle",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 12, 
+        "pow": 4
+    }]
+}

@@ -1,0 +1,11 @@
+{
+    "id": "force_driver",
+    "name": "Force Driver",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["shockwave"]
+    }]
+}

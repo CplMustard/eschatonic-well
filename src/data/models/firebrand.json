@@ -59,7 +59,7 @@
             "type": "weapon",
             "options": [
                 "empty",
-                "harbinger_cannon",
+                "harbinger_cannon_warjack",
                 "immolator",
                 "maelstrom",
                 "null_cannon"

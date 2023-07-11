@@ -1,0 +1,31 @@
+{
+    "id": "regulators",
+    "name": "Regulators",
+    "factions": ["isa"],
+    "type": "squad",
+    "cadre": "alliance_regulators",
+    "stats": {
+        "dc": 3,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 4,
+        "rat": 3,
+        "def": 2,
+        "arm": 4,
+        "squad_size": 3,
+        "boxes": 2
+    },
+    "weapons": [
+        "void_hammer"
+    ],
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "thrusters"
+    ],
+    "attachments": [
+        "witch_hounds",
+        "quartermaster"
+    ]
+}

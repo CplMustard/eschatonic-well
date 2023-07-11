@@ -31,7 +31,10 @@ import marauder from "./marauder.json";
 import nekosphynx from "./nekosphynx.json";
 import oculus from "./oculus.json";
 import paladin_aegis from "./paladin_aegis.json";
+import paladin_annihilators from "./paladin_annihilators.json";
 import paladin_commander from "./paladin_commander.json";
+import paladin_defenders from "./paladin_defenders.json";
+import paladin_enforcers from "./paladin_enforcers.json";
 import paladin_siegebreaker from "./paladin_siegebreaker.json";
 import paladin_weaver from "./paladin_weaver.json";
 import paragon_commander from "./paragon_commander.json";
@@ -40,6 +43,7 @@ import phaetheon_wraith from "./phaetheon_wraith.json";
 import quartermaster from "./quartermaster.json";
 import raker from "./raker.json";
 import ranger_outrider from "./ranger_outrider.json";
+import regulators from "./regulators.json";
 import regulator_reeve from "./regulator_reeve.json";
 import relikon from "./relikon.json";
 import saber_guardians from "./saber_guardians.json";
@@ -47,6 +51,7 @@ import saber_strikeforce from "./saber_strikeforce.json";
 import saber_vanguard from "./saber_vanguard.json";
 import synturions from "./synturions.json";
 import talons from "./talons.json";
+import tracers from "./tracers.json";
 import vassal_boss from "./vassal_boss.json";
 import vassal_raiders from "./vassal_raiders.json";
 import vassal_reavers from "./vassal_reavers.json";
@@ -89,7 +94,10 @@ const modelsData = {
 	nekosphynx: nekosphynx,
 	oculus: oculus,
 	paladin_aegis: paladin_aegis,
+	paladin_annihilators: paladin_annihilators,
 	paladin_commander: paladin_commander,
+	paladin_defenders: paladin_defenders,
+	paladin_enforcers: paladin_enforcers,
 	paladin_siegebreaker: paladin_siegebreaker,
 	paladin_weaver: paladin_weaver,
 	paragon_commander: paragon_commander,
@@ -98,6 +106,7 @@ const modelsData = {
 	quartermaster: quartermaster,
 	raker: raker,
 	ranger_outrider: ranger_outrider,
+	regulators: regulators,
 	regulator_reeve: regulator_reeve,
 	relikon: relikon,
 	saber_guardians: saber_guardians,
@@ -105,6 +114,7 @@ const modelsData = {
 	saber_vanguard: saber_vanguard,
 	synturions: synturions,
 	talons: talons,
+	tracers: tracers,
 	vassal_boss: vassal_boss,
 	vassal_raiders: vassal_raiders,
 	vassal_reavers: vassal_reavers,

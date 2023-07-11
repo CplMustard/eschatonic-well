@@ -1,0 +1,11 @@
+{
+    "id": "void_hammer",
+    "name": "Void Hammer",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["disruption_engine", "null_strike"]
+    }]
+}

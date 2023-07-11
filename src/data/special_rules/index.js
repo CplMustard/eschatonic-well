@@ -30,9 +30,12 @@ import corrosion from "./corrosion.json";
 import cortex_shock from "./cortex_shock.json";
 import defense_matrix from "./defense_matrix.json";
 import dislocator from "./dislocator.json";
+import disruption_engine from "./disruption_engine.json";
+import divination_lock from "./divination_lock.json";
 import dominion_converter from "./dominion_converter.json";
 import dynamic_accelerator from "./dynamic_accelerator.json";
 import eclipse_drive from "./eclipse_drive.json";
+import entropic_field from "./entropic_field.json";
 import eruption from "./eruption.json";
 import field_reinforcement from "./field_reinforcement.json";
 import fire from "./fire.json";
@@ -49,6 +52,7 @@ import havoc_engine from "./havoc_engine.json";
 import heightened_reflexes from "./heightened_reflexes.json";
 import high_intensity from "./high_intensity.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
+import hunter_killer_salvo from "./hunter_killer_salvo.json";
 import impulse_reactor from "./impulse_reactor.json";
 import incorporeal from "./incorporeal.json";
 import inhabiting_spirit from "./inhabiting_spirit.json";
@@ -80,6 +84,7 @@ import phase_trajectile from "./phase_trajectile.json";
 import phylacteric_vault from "./phylacteric_vault.json";
 import power_attack from "./power_attack.json";
 import power_focus from "./power_focus.json";
+import power_harvester from "./power_harvester.json";
 import psychoclasm from "./psychoclasm.json";
 import psycho_disruptor from "./psycho_disruptor.json";
 import psycho_reactor from "./psycho_reactor.json";
@@ -104,6 +109,7 @@ import scything_run from "./scything_run.json";
 import self_sacrifice from "./self_sacrifice.json";
 import shadow_phaser from "./shadow_phaser.json";
 import shield from "./shield.json";
+import shockwave from "./shockwave.json";
 import sidestep from "./sidestep.json";
 import singularity_collapse from "./singularity_collapse.json";
 import siphon_power from "./siphon_power.json";
@@ -167,9 +173,12 @@ const special_rulesData = {
 	cortex_shock: cortex_shock,
 	defense_matrix: defense_matrix,
 	dislocator: dislocator,
+	disruption_engine: disruption_engine,
+	divination_lock: divination_lock,
 	dominion_converter: dominion_converter,
 	dynamic_accelerator: dynamic_accelerator,
 	eclipse_drive: eclipse_drive,
+	entropic_field: entropic_field,
 	eruption: eruption,
 	field_reinforcement: field_reinforcement,
 	fire: fire,
@@ -186,6 +195,7 @@ const special_rulesData = {
 	heightened_reflexes: heightened_reflexes,
 	high_intensity: high_intensity,
 	hunter_killer_rounds: hunter_killer_rounds,
+	hunter_killer_salvo: hunter_killer_salvo,
 	impulse_reactor: impulse_reactor,
 	incorporeal: incorporeal,
 	inhabiting_spirit: inhabiting_spirit,
@@ -217,6 +227,7 @@ const special_rulesData = {
 	phylacteric_vault: phylacteric_vault,
 	power_attack: power_attack,
 	power_focus: power_focus,
+	power_harvester: power_harvester,
 	psychoclasm: psychoclasm,
 	psycho_disruptor: psycho_disruptor,
 	psycho_reactor: psycho_reactor,
@@ -241,6 +252,7 @@ const special_rulesData = {
 	self_sacrifice: self_sacrifice,
 	shadow_phaser: shadow_phaser,
 	shield: shield,
+	shockwave: shockwave,
 	sidestep: sidestep,
 	singularity_collapse: singularity_collapse,
 	siphon_power: siphon_power,

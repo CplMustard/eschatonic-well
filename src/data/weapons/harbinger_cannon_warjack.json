@@ -1,11 +1,12 @@
 {
     "id": "harbinger_cannon",
     "name": "Harbinger Cannon",
+    "point_cost": 2,
     "profiles": [{
         "type": "range", 
         "damage_types": ["ballistic"], 
         "rng": 12, 
         "pow": 4,
-        "special_rules": ["strafe"]
+        "special_rules": ["strafe", "hunter_killer_rounds"]
     }]
 }

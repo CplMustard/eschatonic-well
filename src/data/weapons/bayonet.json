@@ -1,0 +1,10 @@
+{
+    "id": "bayonet",
+    "name": "Bayonet",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 3
+    }]
+}

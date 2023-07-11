@@ -1,10 +1,12 @@
 import abyssal_pulse from "./abyssal_pulse.json";
 import arclock_pistol from "./arclock_pistol.json";
 import arc_blade from "./arc_blade.json";
+import assault_rifle from "./assault_rifle.json";
 import assault_rifle_and_bayonet from "./assault_rifle_and_bayonet.json";
 import assault_rifle_quartermaster from "./assault_rifle_quartermaster.json";
 import battle_rifle from "./battle_rifle.json";
 import battle_staff from "./battle_staff.json";
+import bayonet from "./bayonet.json";
 import blazer from "./blazer.json";
 import bone_saw from "./bone_saw.json";
 import castigator_missiles from "./castigator_missiles.json";
@@ -19,6 +21,7 @@ import death_touch from "./death_touch.json";
 import empty from "./empty.json";
 import energy_blade from "./energy_blade.json";
 import flamethrower from "./flamethrower.json";
+import force_driver from "./force_driver.json";
 import force_generator from "./force_generator.json";
 import force_hammer from "./force_hammer.json";
 import force_strike from "./force_strike.json";
@@ -30,11 +33,13 @@ import fusion_glaive_empyrean from "./fusion_glaive_empyrean.json";
 import fusion_halberd from "./fusion_halberd.json";
 import fusion_saw from "./fusion_saw.json";
 import fusion_scythe from "./fusion_scythe.json";
+import fusion_spear from "./fusion_spear.json";
 import fusion_sword from "./fusion_sword.json";
 import fusion_torch from "./fusion_torch.json";
 import grenade_launcher from "./grenade_launcher.json";
 import handgun from "./handgun.json";
 import harbinger_cannon from "./harbinger_cannon.json";
+import harbinger_cannon_warjack from "./harbinger_cannon_warjack.json";
 import headbutt from "./headbutt.json";
 import heavy_pistol from "./heavy_pistol.json";
 import heavy_submachine_gun from "./heavy_submachine_gun.json";
@@ -85,6 +90,7 @@ import tentacle_strike from "./tentacle_strike.json";
 import thumper_cannon from "./thumper_cannon.json";
 import torch from "./torch.json";
 import void_cannon from "./void_cannon.json";
+import void_hammer from "./void_hammer.json";
 import void_howler from "./void_howler.json";
 import whispers_of_annihilation from "./whispers_of_annihilation.json";
 import wildflower_mine_layer from "./wildflower_mine_layer.json";
@@ -95,10 +101,12 @@ const weaponsData = {
 	abyssal_pulse: abyssal_pulse,
 	arclock_pistol: arclock_pistol,
 	arc_blade: arc_blade,
+	assault_rifle: assault_rifle,
 	assault_rifle_and_bayonet: assault_rifle_and_bayonet,
 	assault_rifle_quartermaster: assault_rifle_quartermaster,
 	battle_rifle: battle_rifle,
 	battle_staff: battle_staff,
+	bayonet: bayonet,
 	blazer: blazer,
 	bone_saw: bone_saw,
 	castigator_missiles: castigator_missiles,
@@ -113,6 +121,7 @@ const weaponsData = {
 	empty: empty,
 	energy_blade: energy_blade,
 	flamethrower: flamethrower,
+	force_driver: force_driver,
 	force_generator: force_generator,
 	force_hammer: force_hammer,
 	force_strike: force_strike,
@@ -124,11 +133,13 @@ const weaponsData = {
 	fusion_halberd: fusion_halberd,
 	fusion_saw: fusion_saw,
 	fusion_scythe: fusion_scythe,
+	fusion_spear: fusion_spear,
 	fusion_sword: fusion_sword,
 	fusion_torch: fusion_torch,
 	grenade_launcher: grenade_launcher,
 	handgun: handgun,
 	harbinger_cannon: harbinger_cannon,
+	harbinger_cannon_warjack: harbinger_cannon_warjack,
 	headbutt: headbutt,
 	heavy_pistol: heavy_pistol,
 	heavy_submachine_gun: heavy_submachine_gun,
@@ -179,6 +190,7 @@ const weaponsData = {
 	thumper_cannon: thumper_cannon,
 	torch: torch,
 	void_cannon: void_cannon,
+	void_hammer: void_hammer,
 	void_howler: void_howler,
 	whispers_of_annihilation: whispers_of_annihilation,
 	wildflower_mine_layer: wildflower_mine_layer,
