@@ -4,6 +4,7 @@
     "factions": ["emp"],
     "type": "solo",
     "subtypes": ["aeon", "champion"],
+    "cadre": "harbingers_of_cyriss",
     "stats": {
         "dc": 2,
         "base_size": 50,
@@ -23,7 +24,6 @@
         "weapon_expert"
     ],
     "special_rules": [
-        "cadre|Harbingers of Cyriss",
         "phylacteric_vault|Aeon",
         "sacred_restoration",
         "slip_field"

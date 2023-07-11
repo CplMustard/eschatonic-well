@@ -3,6 +3,7 @@
     "name": "Nekosphynx",
     "factions": ["ac"],
     "type": "solo",
+    "cadre": "terminus_cabal",
     "stats": {
         "dc": 1,
         "base_size": 50,
@@ -23,7 +24,6 @@
         "weapon_expert"
     ],
     "special_rules": [
-        "cadre|Terminus Cabal",
         "shadow_phaser",
         "void_spiral"
     ]

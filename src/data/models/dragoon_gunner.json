@@ -3,6 +3,7 @@
     "name": "Dragoon Gunner",
     "factions": ["mw"],
     "type": "attachment",
+    "cadre": "dragoon_air_cavalry",
     "stats": {
         "dc": 1,
         "base_size": 30,
@@ -21,7 +22,6 @@
         "flight"
     ],
     "special_rules": [
-        "cadre|Dragoon Air Cavalry",
         "reflex_accelerator"
     ]
 }

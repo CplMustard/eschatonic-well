@@ -1,0 +1,11 @@
+{
+    "id": "compact_battle_rifle",
+    "name": "Compact Battle Rifle",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 4
+    }]
+
+}

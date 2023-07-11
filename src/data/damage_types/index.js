@@ -11,4 +11,4 @@ const damage_typesData = {
 	explosion: explosion,
 	kinetic: kinetic
 }
-export default damage_typesData
+export default damage_typesData;

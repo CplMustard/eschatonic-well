@@ -3,6 +3,7 @@
     "name": "Witch Hounds",
     "factions": ["isa"],
     "type": "attachment",
+    "cadre": "alliance_regulators",
     "stats": {
         "dc": 1,
         "base_size": 30,
@@ -18,7 +19,6 @@
         "force_strike"
     ],
     "special_rules": [
-        "cadre|Alliance Regulators",
         "arc_exchange",
         "psycho_disruptor",
         "spotlight"

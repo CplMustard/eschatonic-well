@@ -5,4 +5,4 @@ const cyphersData = {
 	arcane_synthesis: arcane_synthesis,
 	pyrokinetic_surge: pyrokinetic_surge
 }
-export default cyphersData
+export default cyphersData;

@@ -1,0 +1,11 @@
+{
+    "id": "battle_staff",
+    "name": "Battle Staff",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 4,
+        "special_rules": ["repulsor"]
+    }]
+}

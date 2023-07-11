@@ -1,0 +1,5 @@
+{
+    "id": "tune_up",
+    "name": "Tune Up",
+    "text": "This model can take a special action to tune up a friendly warjack within 1\" of it. Continuous effects on the warjack immediately expire, then the warjack gains the tune up continuous effect." 
+}

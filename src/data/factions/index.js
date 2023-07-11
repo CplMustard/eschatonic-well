@@ -13,4 +13,4 @@ const factionsData = {
 	ll: ll,
 	mw: mw
 }
-export default factionsData
+export default factionsData;

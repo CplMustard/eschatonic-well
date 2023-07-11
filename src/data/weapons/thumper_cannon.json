@@ -1,0 +1,11 @@
+{
+    "id": "thumper_cannon",
+    "name": "Thumper Cannon",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["armor_piercing", "mechanikal_optics"]
+    }]
+}

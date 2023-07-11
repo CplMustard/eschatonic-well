@@ -1,3 +1,4 @@
+import cadresData from "./cadres";
 import cortexesData from "./cortexes";
 import cyphersData from "./cyphers";
 import cypherTypesData from "./cypher_types";
@@ -9,6 +10,7 @@ import specialRulesData from "./special_rules";
 import weaponsData from "./weapons";
 
 export {
+    cadresData,
     cortexesData,
     cyphersData,
     cypherTypesData,

@@ -1,0 +1,11 @@
+{
+    "id": "arclock_pistol",
+    "name": "Arclock Pistol",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["attack_mode_arclock_pistol"]
+    }]
+}

@@ -15,6 +15,7 @@ import arc_disruptor from "./arc_disruptor.json";
 import arc_exchange from "./arc_exchange.json";
 import arc_relay from "./arc_relay.json";
 import armor_piercing from "./armor_piercing.json";
+import attack_mode_arclock_pistol from "./attack_mode_arclock_pistol.json";
 import attack_mode_arc_blade from "./attack_mode_arc_blade.json";
 import attack_mode_protean_forge from "./attack_mode_protean_forge.json";
 import battle_commander from "./battle_commander.json";
@@ -35,7 +36,9 @@ import eclipse_drive from "./eclipse_drive.json";
 import eruption from "./eruption.json";
 import field_reinforcement from "./field_reinforcement.json";
 import fire from "./fire.json";
+import fire_and_displace from "./fire_and_displace.json";
 import flight from "./flight.json";
+import flight_commander from "./flight_commander.json";
 import force_field from "./force_field.json";
 import force_projector from "./force_projector.json";
 import force_ram from "./force_ram.json";
@@ -54,6 +57,7 @@ import jump_start from "./jump_start.json";
 import kinetic_field from "./kinetic_field.json";
 import living_terror from "./living_terror.json";
 import lock_down from "./lock_down.json";
+import maelstrom_activator from "./maelstrom_activator.json";
 import malefactor from "./malefactor.json";
 import mantlet from "./mantlet.json";
 import mechanikal_optics from "./mechanikal_optics.json";
@@ -102,6 +106,7 @@ import slip_displacer from "./slip_displacer.json";
 import slip_field from "./slip_field.json";
 import smart_lock from "./smart_lock.json";
 import soul_seeker from "./soul_seeker.json";
+import spider from "./spider.json";
 import spotlight from "./spotlight.json";
 import spray from "./spray.json";
 import stealth from "./stealth.json";
@@ -111,6 +116,7 @@ import temporal_anomaly from "./temporal_anomaly.json";
 import thanotech_reclaimer from "./thanotech_reclaimer.json";
 import thaumaturgic_initiator from "./thaumaturgic_initiator.json";
 import thrusters from "./thrusters.json";
+import tune_up from "./tune_up.json";
 import void_disruptor from "./void_disruptor.json";
 import void_gate from "./void_gate.json";
 import void_gazer from "./void_gazer.json";
@@ -140,6 +146,7 @@ const special_rulesData = {
 	arc_exchange: arc_exchange,
 	arc_relay: arc_relay,
 	armor_piercing: armor_piercing,
+	attack_mode_arclock_pistol: attack_mode_arclock_pistol,
 	attack_mode_arc_blade: attack_mode_arc_blade,
 	attack_mode_protean_forge: attack_mode_protean_forge,
 	battle_commander: battle_commander,
@@ -160,7 +167,9 @@ const special_rulesData = {
 	eruption: eruption,
 	field_reinforcement: field_reinforcement,
 	fire: fire,
+	fire_and_displace: fire_and_displace,
 	flight: flight,
+	flight_commander: flight_commander,
 	force_field: force_field,
 	force_projector: force_projector,
 	force_ram: force_ram,
@@ -179,6 +188,7 @@ const special_rulesData = {
 	kinetic_field: kinetic_field,
 	living_terror: living_terror,
 	lock_down: lock_down,
+	maelstrom_activator: maelstrom_activator,
 	malefactor: malefactor,
 	mantlet: mantlet,
 	mechanikal_optics: mechanikal_optics,
@@ -227,6 +237,7 @@ const special_rulesData = {
 	slip_field: slip_field,
 	smart_lock: smart_lock,
 	soul_seeker: soul_seeker,
+	spider: spider,
 	spotlight: spotlight,
 	spray: spray,
 	stealth: stealth,
@@ -236,6 +247,7 @@ const special_rulesData = {
 	thanotech_reclaimer: thanotech_reclaimer,
 	thaumaturgic_initiator: thaumaturgic_initiator,
 	thrusters: thrusters,
+	tune_up: tune_up,
 	void_disruptor: void_disruptor,
 	void_gate: void_gate,
 	void_gazer: void_gazer,
@@ -247,4 +259,4 @@ const special_rulesData = {
 	weapon_expert: weapon_expert,
 	wide_spectrum_scanners: wide_spectrum_scanners
 }
-export default special_rulesData
+export default special_rulesData;

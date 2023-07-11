@@ -1,0 +1,11 @@
+{
+    "id": "light_flamethrower",
+    "name": "Light Flamethrower",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["fire"], 
+        "rng": 6, 
+        "pow": 3,
+        "special_rules": ["fire", "spray"]
+    }]
+}

@@ -12,7 +12,6 @@
     },
     "special_rules": [
         "arcane_parasite",
-        "blast_shielding",
-        "mantlet"
+        "blast_shielding"
     ]
 }

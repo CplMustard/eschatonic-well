@@ -4,6 +4,7 @@
     "factions": ["emp"],
     "type": "solo",
     "subtypes": ["aeon"],
+    "cadre": "harbingers_of_cyriss",
     "stats": {
         "dc": 2,
         "base_size": 40,
@@ -24,7 +25,6 @@
     ],
     "special_rules": [
         "arcanum_module",
-        "cadre|Harbingers of Cyriss",
         "arc_relay|10",
         "arcantrik_amplifier"
     ]

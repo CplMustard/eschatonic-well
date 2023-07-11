@@ -9,4 +9,4 @@ const cypher_typesData = {
 	harmonic: harmonic,
 	overdrive: overdrive
 }
-export default cypher_typesData
+export default cypher_typesData;

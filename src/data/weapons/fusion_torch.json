@@ -1,0 +1,11 @@
+{
+    "id": "fusion_torch",
+    "name": "Fusion Torch",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 8, 
+        "pow": 3,
+        "special_rules": ["high_intensity"]
+    }]
+}

@@ -14,7 +14,6 @@
         "compound_armor"
     ],
     "special_rules": [
-        "field_reinforcement",
-        "mantlet"
+        "field_reinforcement"
     ]
 }

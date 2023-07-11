@@ -21,4 +21,4 @@ const cortexesData = {
 	vanquisher: vanquisher,
 	void_gazer: void_gazer
 }
-export default cortexesData
+export default cortexesData;

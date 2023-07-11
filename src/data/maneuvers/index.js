@@ -11,4 +11,4 @@ const maneuversData = {
 	meditations_of_annihilation: meditations_of_annihilation,
 	wing_roll: wing_roll
 }
-export default maneuversData
+export default maneuversData;

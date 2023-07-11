@@ -3,6 +3,7 @@
     "name": "Relikon",
     "factions": ["ac"],
     "type": "attachment",
+    "cadre": "terminus_cabal",
     "stats": {
         "dc": 1,
         "base_size": 40,
@@ -17,7 +18,6 @@
         "mortifier"
     ],
     "special_rules": [
-        "cadre|Terminus Cabal",
         "anathema_drive",
         "arc_amplifier",
         "slip_displacer"

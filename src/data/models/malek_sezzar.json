@@ -1,32 +1,31 @@
 {
-    "id": "phaetheon_living",
-    "name": "Phaetheon, the Whisper of Death (Living)",
-    "factions": ["ac"],
+    "id": "malek_sezzar",
+    "name": "Warchief Malek Sezzar",
+    "factions": ["mw"],
     "type": "solo",
     "subtypes": ["hero"],
     "stats": {
         "dc": 1,
         "base_size": 30,
         "spd": 6,
-        "mat": 5,
+        "mat": 4,
         "rat": 4,
         "def": 3,
-        "arm": 3,
+        "arm": 4,
         "boxes": 3
     },
     "weapons": [
-        "heavy_pistol",
-        "witherbane"
+        "thumper_cannon",
+        "light_flamethrower"
     ],
     "advantages": [
+        "pathfinder",
         "weapon_expert"
     ],
     "special_rules": [
-        "inhabiting_spirit",
+        "command_interface|Ranger",
+        "fire_and_displace",
         "mimetic_cloak",
-        "phase_stalker"
-    ],
-    "attachments": [
-        "phaetheon_wraith"
+        "spider"
     ]
 }

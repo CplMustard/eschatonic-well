@@ -1,0 +1,6 @@
+{
+    "id": "attack_mode_arclock_pistol",
+    "name": "Attack Mode",
+    "text": "Each time this weapon is used to make an attack, choose one of the following special rules to apply to that attack:",
+    "subrules": ["blast", "fire", "revelator"]
+}

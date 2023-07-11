@@ -1,0 +1,12 @@
+{
+    "id": "long_rifle",
+    "name": "Long Rifle",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["mechanikal_optics"]
+    }]
+
+}

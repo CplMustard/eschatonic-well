@@ -1,0 +1,30 @@
+{
+    "id": "dragoon_strike_team_leader",
+    "name": "Dragoon Strike Team Leader",
+    "factions": ["mw"],
+    "type": "solo",
+    "cadre": "dragoon_air_cavalry",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 4,
+        "rat": 4,
+        "def": 4,
+        "arm": 3,
+        "boxes": 2
+    },
+    "weapons": [
+        "compact_battle_rifle",
+        "energy_blade"
+    ],
+    "advantages": [
+        "flight",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "command_interface|Dragoon",
+        "flight_commander",
+        "heightened_reflexes"
+    ]
+}

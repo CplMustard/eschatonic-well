@@ -1,17 +1,22 @@
 import abyssal_pulse from "./abyssal_pulse.json";
+import arclock_pistol from "./arclock_pistol.json";
 import arc_blade from "./arc_blade.json";
 import assault_rifle_and_bayonet from "./assault_rifle_and_bayonet.json";
 import assault_rifle_quartermaster from "./assault_rifle_quartermaster.json";
 import battle_rifle from "./battle_rifle.json";
+import battle_staff from "./battle_staff.json";
 import blazer from "./blazer.json";
 import bone_saw from "./bone_saw.json";
 import castigator_missiles from "./castigator_missiles.json";
 import celestial_cleaver from "./celestial_cleaver.json";
 import claw from "./claw.json";
 import claws from "./claws.json";
+import combat_blade from "./combat_blade.json";
+import compact_battle_rifle from "./compact_battle_rifle.json";
 import consecrator from "./consecrator.json";
 import death_touch from "./death_touch.json";
 import empty from "./empty.json";
+import energy_blade from "./energy_blade.json";
 import flamethrower from "./flamethrower.json";
 import force_generator from "./force_generator.json";
 import force_hammer from "./force_hammer.json";
@@ -20,15 +25,19 @@ import fusion_blade from "./fusion_blade.json";
 import fusion_glaive from "./fusion_glaive.json";
 import fusion_saw from "./fusion_saw.json";
 import fusion_sword from "./fusion_sword.json";
+import fusion_torch from "./fusion_torch.json";
 import grenade_launcher from "./grenade_launcher.json";
 import handgun from "./handgun.json";
 import harbinger_cannon from "./harbinger_cannon.json";
+import headbutt from "./headbutt.json";
 import heavy_pistol from "./heavy_pistol.json";
 import heavy_submachine_gun from "./heavy_submachine_gun.json";
 import immolator from "./immolator.json";
 import impaler from "./impaler.json";
 import keys_of_hell_and_death from "./keys_of_hell_and_death.json";
+import light_flamethrower from "./light_flamethrower.json";
 import light_meteor_cannon from "./light_meteor_cannon.json";
+import long_rifle from "./long_rifle.json";
 import maelstrom from "./maelstrom.json";
 import mandibles from "./mandibles.json";
 import mortifier from "./mortifier.json";
@@ -55,6 +64,7 @@ import repulsor_shield from "./repulsor_shield.json";
 import ripper from "./ripper.json";
 import shredder from "./shredder.json";
 import slug_gun from "./slug_gun.json";
+import sniper_rifle from "./sniper_rifle.json";
 import soul_grinder from "./soul_grinder.json";
 import spiker from "./spiker.json";
 import starfire_array from "./starfire_array.json";
@@ -62,28 +72,35 @@ import submachine_gun from "./submachine_gun.json";
 import sun_piercer from "./sun_piercer.json";
 import talon_rocket_pod from "./talon_rocket_pod.json";
 import tentacle_clamps from "./tentacle_clamps.json";
+import thumper_cannon from "./thumper_cannon.json";
 import torch from "./torch.json";
 import void_cannon from "./void_cannon.json";
 import void_howler from "./void_howler.json";
 import whispers_of_annihilation from "./whispers_of_annihilation.json";
 import wildflower_mine_layer from "./wildflower_mine_layer.json";
 import witherbane from "./witherbane.json";
+import wrench from "./wrench.json";
 
 const weaponsData = {
 	abyssal_pulse: abyssal_pulse,
+	arclock_pistol: arclock_pistol,
 	arc_blade: arc_blade,
 	assault_rifle_and_bayonet: assault_rifle_and_bayonet,
 	assault_rifle_quartermaster: assault_rifle_quartermaster,
 	battle_rifle: battle_rifle,
+	battle_staff: battle_staff,
 	blazer: blazer,
 	bone_saw: bone_saw,
 	castigator_missiles: castigator_missiles,
 	celestial_cleaver: celestial_cleaver,
 	claw: claw,
 	claws: claws,
+	combat_blade: combat_blade,
+	compact_battle_rifle: compact_battle_rifle,
 	consecrator: consecrator,
 	death_touch: death_touch,
 	empty: empty,
+	energy_blade: energy_blade,
 	flamethrower: flamethrower,
 	force_generator: force_generator,
 	force_hammer: force_hammer,
@@ -92,15 +109,19 @@ const weaponsData = {
 	fusion_glaive: fusion_glaive,
 	fusion_saw: fusion_saw,
 	fusion_sword: fusion_sword,
+	fusion_torch: fusion_torch,
 	grenade_launcher: grenade_launcher,
 	handgun: handgun,
 	harbinger_cannon: harbinger_cannon,
+	headbutt: headbutt,
 	heavy_pistol: heavy_pistol,
 	heavy_submachine_gun: heavy_submachine_gun,
 	immolator: immolator,
 	impaler: impaler,
 	keys_of_hell_and_death: keys_of_hell_and_death,
+	light_flamethrower: light_flamethrower,
 	light_meteor_cannon: light_meteor_cannon,
+	long_rifle: long_rifle,
 	maelstrom: maelstrom,
 	mandibles: mandibles,
 	mortifier: mortifier,
@@ -127,6 +148,7 @@ const weaponsData = {
 	ripper: ripper,
 	shredder: shredder,
 	slug_gun: slug_gun,
+	sniper_rifle: sniper_rifle,
 	soul_grinder: soul_grinder,
 	spiker: spiker,
 	starfire_array: starfire_array,
@@ -134,11 +156,13 @@ const weaponsData = {
 	sun_piercer: sun_piercer,
 	talon_rocket_pod: talon_rocket_pod,
 	tentacle_clamps: tentacle_clamps,
+	thumper_cannon: thumper_cannon,
 	torch: torch,
 	void_cannon: void_cannon,
 	void_howler: void_howler,
 	whispers_of_annihilation: whispers_of_annihilation,
 	wildflower_mine_layer: wildflower_mine_layer,
-	witherbane: witherbane
+	witherbane: witherbane,
+	wrench: wrench
 }
-export default weaponsData
+export default weaponsData;

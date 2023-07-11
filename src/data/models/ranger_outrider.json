@@ -1,0 +1,28 @@
+{
+    "id": "ranger_outrider",
+    "name": "Ranger Outrider",
+    "factions": ["mw"],
+    "type": "solo",
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 8,
+        "mat": 4,
+        "rat": 3,
+        "def": 3,
+        "arm": 4,
+        "boxes": 4
+    },
+    "weapons": [
+        "long_rifle",
+        "headbutt"
+    ],
+    "advantages": [
+        "pathfinder",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "eclipse_drive",
+        "sidestep"
+    ]
+}

@@ -3,6 +3,7 @@
     "name": "Regulator Reeve",
     "factions": ["isa"],
     "type": "solo",
+    "cadre": "alliance_regulators",
     "stats": {
         "dc": 1,
         "base_size": 40,
@@ -24,7 +25,6 @@
     ],
     "special_rules": [
         "arc_relay|12",
-        "cadre|Alliance Regulators",
         "thrusters",
         "void_disruptor"
     ]
