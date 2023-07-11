@@ -10,7 +10,7 @@ import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 
-import { modelsData, weaponsData, factionsData } from './data'
+import { modelsData, weaponsData, factionsData, cadresData } from './data'
 
 function ModelCardViewer(props) {
     const params = useParams();
@@ -39,12 +39,13 @@ function ModelCardViewer(props) {
     }
 
     function CardHeader(props) {
-        const { name, type, factions } = props;
+        const { name, type, subtypes, factions } = props;
         const factionNames = [];
         factions.forEach((faction) => factionNames.push(factionsData[faction].name))
         return <div>
             <h1>{name}</h1>
             <h1>{factionNames.join(", ")}</h1>
+            {subtypes && <h1>{subtypes.join(", ")}</h1>}
             <h1>{type}</h1>
         </div>
     }
@@ -70,7 +71,7 @@ function ModelCardViewer(props) {
     } else if (!isLoaded) {
         return <div>Loading Card Data...</div>
     } else {
-        const { name, type, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules, attachments } = cardData;
+        const { name, type, subtypes, cadre, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules, attachments } = cardData;
 
         if(hard_points && hardPointOptions.length === 0) {
             const defaultHardPoints = [];
@@ -84,17 +85,27 @@ function ModelCardViewer(props) {
         const allWeapons = hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
         const weaponPointCost = hard_points ? hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
         const attachmentCardData = attachments ? attachments.map((attachment) => modelsData[attachment]) : undefined;
+        let all_special_rules = special_rules ? special_rules : [];
+        if(cadre) {
+            all_special_rules = ["cadre|" + cadresData[cadre].name].concat(all_special_rules);
+        }
+        if(type === "void_gate") {
+            all_special_rules = ["void_gate"].concat(all_special_rules);;
+        }
+        if(type === "mantlet") {
+            all_special_rules = ["mantlet"].concat(all_special_rules);;
+        }
 
         return (
             <div>
-                <CardHeader name={name} type={type} factions={factions} />
+                <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
                 <Statline stats={stats} />
                 {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
                 {weapon_points && <h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && <Cortex cortexID={hardPointCortexOption}/>}
-                {special_rules && <SpecialRuleList special_rules={special_rules} header={'Special Rules'}/>}
+                {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
                 {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
             </div>
         );
