@@ -1,0 +1,5 @@
+{
+    "id": "self_sacrifice",
+    "name": "Self Sacrifice [{0}]",
+    "text": "While this model is charged, when a friendly {0} model is targeted and hit by an enemy attack while within 5˝ of this model you can choose to have this model be hit instead." 
+}

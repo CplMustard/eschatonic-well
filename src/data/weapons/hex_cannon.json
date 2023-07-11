@@ -1,0 +1,12 @@
+{
+    "id": "hex_cannon",
+    "name": "Hex Cannon",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "ranged", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["malefactor"]
+    }]
+}

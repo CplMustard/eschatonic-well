@@ -1,6 +1,6 @@
 {
     "id": "quartermaster",
-    "name": "Quartermaster",
+    "name": "The Quartermaster",
     "factions": ["ac", "emp", "isa", "mw"],
     "hero": true,
     "type": "attachment",

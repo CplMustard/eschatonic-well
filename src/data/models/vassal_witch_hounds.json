@@ -1,0 +1,28 @@
+{
+    "id": "vassal_witch_hounds",
+    "name": "Vassal Witch Hounds",
+    "factions": ["ac"],
+    "type": "squad",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 4,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 2,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "hex_cannon"
+    ],
+    "special_rules": [
+        "mimetic_cloak",
+        "phase_sequencer_squad"
+    ],
+    "attachments": [
+        "raker",
+        "quartermaster"
+    ]
+}

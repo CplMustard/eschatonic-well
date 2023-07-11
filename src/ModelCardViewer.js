@@ -51,7 +51,7 @@ function ModelCardViewer(props) {
     }
 
     function Statline(props) {
-        const { spd, str, mat, rat, def, arm, foc, base_size, dc, boxes } = props.stats;
+        const { spd, str, mat, rat, def, arm, foc, base_size, squad_size, dc, boxes } = props.stats;
         return <div className={"statline"}>
             {spd && <div className={"statline-entry"}><div>SPD</div><div>{spd}</div></div>}
             {str && <div className={"statline-entry"}><div>STR</div><div>{str}</div></div>}
@@ -61,6 +61,7 @@ function ModelCardViewer(props) {
             {arm && <div className={"statline-entry"}><div>ARM</div><div>{arm}</div></div>}
             {foc && <div className={"statline-entry"}><div>FOC</div><div>{foc}</div></div>}
             {base_size && <div className={"statline-entry"}><div>BASE SIZE</div><div>{base_size}</div></div>}
+            {squad_size && <div className={"statline-entry"}><div>SQUAD SIZE</div><div>{squad_size}</div></div>}
             {dc && <div className={"statline-entry"}><div>DC</div><div>{dc}</div></div>}
             {boxes && <div className={"statline-entry"}><div>BOXES</div><div>{boxes}</div></div>}
         </div>
@@ -90,10 +91,10 @@ function ModelCardViewer(props) {
             all_special_rules = ["cadre|" + cadresData[cadre].name].concat(all_special_rules);
         }
         if(type === "void_gate") {
-            all_special_rules = ["void_gate"].concat(all_special_rules);;
+            all_special_rules = ["void_gate"].concat(all_special_rules);
         }
         if(type === "mantlet") {
-            all_special_rules = ["mantlet"].concat(all_special_rules);;
+            all_special_rules = ["mantlet"].concat(all_special_rules);
         }
 
         return (

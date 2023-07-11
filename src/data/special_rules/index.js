@@ -94,15 +94,19 @@ import repulsor_ram from "./repulsor_ram.json";
 import reserve_power_cells from "./reserve_power_cells.json";
 import resurrection_protocol from "./resurrection_protocol.json";
 import revelator from "./revelator.json";
+import rites_of_shadow from "./rites_of_shadow.json";
 import rites_of_sorrow from "./rites_of_sorrow.json";
+import rites_of_vengeance from "./rites_of_vengeance.json";
 import sacred_restoration from "./sacred_restoration.json";
 import scything_run from "./scything_run.json";
+import self_sacrifice from "./self_sacrifice.json";
 import shadow_phaser from "./shadow_phaser.json";
 import shield from "./shield.json";
 import sidestep from "./sidestep.json";
 import singularity_collapse from "./singularity_collapse.json";
 import siphon_power from "./siphon_power.json";
 import slip_displacer from "./slip_displacer.json";
+import slip_displacer_squad from "./slip_displacer_squad.json";
 import slip_field from "./slip_field.json";
 import smart_lock from "./smart_lock.json";
 import soul_seeker from "./soul_seeker.json";
@@ -225,15 +229,19 @@ const special_rulesData = {
 	reserve_power_cells: reserve_power_cells,
 	resurrection_protocol: resurrection_protocol,
 	revelator: revelator,
+	rites_of_shadow: rites_of_shadow,
 	rites_of_sorrow: rites_of_sorrow,
+	rites_of_vengeance: rites_of_vengeance,
 	sacred_restoration: sacred_restoration,
 	scything_run: scything_run,
+	self_sacrifice: self_sacrifice,
 	shadow_phaser: shadow_phaser,
 	shield: shield,
 	sidestep: sidestep,
 	singularity_collapse: singularity_collapse,
 	siphon_power: siphon_power,
 	slip_displacer: slip_displacer,
+	slip_displacer_squad: slip_displacer_squad,
 	slip_field: slip_field,
 	smart_lock: smart_lock,
 	soul_seeker: soul_seeker,

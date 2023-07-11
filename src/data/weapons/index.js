@@ -21,8 +21,10 @@ import flamethrower from "./flamethrower.json";
 import force_generator from "./force_generator.json";
 import force_hammer from "./force_hammer.json";
 import force_strike from "./force_strike.json";
+import fusion_athame from "./fusion_athame.json";
 import fusion_blade from "./fusion_blade.json";
 import fusion_glaive from "./fusion_glaive.json";
+import fusion_halberd from "./fusion_halberd.json";
 import fusion_saw from "./fusion_saw.json";
 import fusion_sword from "./fusion_sword.json";
 import fusion_torch from "./fusion_torch.json";
@@ -32,6 +34,7 @@ import harbinger_cannon from "./harbinger_cannon.json";
 import headbutt from "./headbutt.json";
 import heavy_pistol from "./heavy_pistol.json";
 import heavy_submachine_gun from "./heavy_submachine_gun.json";
+import hex_cannon from "./hex_cannon.json";
 import immolator from "./immolator.json";
 import impaler from "./impaler.json";
 import keys_of_hell_and_death from "./keys_of_hell_and_death.json";
@@ -105,8 +108,10 @@ const weaponsData = {
 	force_generator: force_generator,
 	force_hammer: force_hammer,
 	force_strike: force_strike,
+	fusion_athame: fusion_athame,
 	fusion_blade: fusion_blade,
 	fusion_glaive: fusion_glaive,
+	fusion_halberd: fusion_halberd,
 	fusion_saw: fusion_saw,
 	fusion_sword: fusion_sword,
 	fusion_torch: fusion_torch,
@@ -116,6 +121,7 @@ const weaponsData = {
 	headbutt: headbutt,
 	heavy_pistol: heavy_pistol,
 	heavy_submachine_gun: heavy_submachine_gun,
+	hex_cannon: hex_cannon,
 	immolator: immolator,
 	impaler: impaler,
 	keys_of_hell_and_death: keys_of_hell_and_death,

@@ -40,8 +40,12 @@ import raker from "./raker.json";
 import ranger_outrider from "./ranger_outrider.json";
 import regulator_reeve from "./regulator_reeve.json";
 import relikon from "./relikon.json";
+import synturions from "./synturions.json";
+import talons from "./talons.json";
 import vassal_boss from "./vassal_boss.json";
+import vassal_raiders from "./vassal_raiders.json";
 import vassal_reavers from "./vassal_reavers.json";
+import vassal_witch_hounds from "./vassal_witch_hounds.json";
 import void_gate from "./void_gate.json";
 import warder from "./warder.json";
 import witch_hounds from "./witch_hounds.json";
@@ -89,8 +93,12 @@ const modelsData = {
 	ranger_outrider: ranger_outrider,
 	regulator_reeve: regulator_reeve,
 	relikon: relikon,
+	synturions: synturions,
+	talons: talons,
 	vassal_boss: vassal_boss,
+	vassal_raiders: vassal_raiders,
 	vassal_reavers: vassal_reavers,
+	vassal_witch_hounds: vassal_witch_hounds,
 	void_gate: void_gate,
 	warder: warder,
 	witch_hounds: witch_hounds
