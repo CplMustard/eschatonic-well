@@ -1,0 +1,5 @@
+{
+    "id": "delayed_blast",
+    "name": "Delayed Blast",
+    "text": "When this model hits with an attack with this weapon, before damage is rolled, this model can immediately move up to 3\". Additionally, when resolving an attack with this weapon, ignore this model when determining the two closest models to the target." 
+}

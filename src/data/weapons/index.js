@@ -5,6 +5,7 @@ import assault_rifle from "./assault_rifle.json";
 import assault_rifle_and_bayonet from "./assault_rifle_and_bayonet.json";
 import assault_rifle_quartermaster from "./assault_rifle_quartermaster.json";
 import battle_rifle from "./battle_rifle.json";
+import battle_rifle_dragoon from "./battle_rifle_dragoon.json";
 import battle_staff from "./battle_staff.json";
 import bayonet from "./bayonet.json";
 import blazer from "./blazer.json";
@@ -26,6 +27,8 @@ import force_generator from "./force_generator.json";
 import force_hammer from "./force_hammer.json";
 import force_strike from "./force_strike.json";
 import fusion_athame from "./fusion_athame.json";
+import fusion_axe from "./fusion_axe.json";
+import fusion_axe_infiltrators from "./fusion_axe_infiltrators.json";
 import fusion_blade from "./fusion_blade.json";
 import fusion_blade_empyrean from "./fusion_blade_empyrean.json";
 import fusion_glaive from "./fusion_glaive.json";
@@ -52,6 +55,7 @@ import light_flamethrower from "./light_flamethrower.json";
 import light_meteor_cannon from "./light_meteor_cannon.json";
 import long_rifle from "./long_rifle.json";
 import maelstrom from "./maelstrom.json";
+import magnetic_charge from "./magnetic_charge.json";
 import mandibles from "./mandibles.json";
 import mortifier from "./mortifier.json";
 import nailer from "./nailer.json";
@@ -84,6 +88,7 @@ import spiker from "./spiker.json";
 import starfire_array from "./starfire_array.json";
 import submachine_gun from "./submachine_gun.json";
 import sun_piercer from "./sun_piercer.json";
+import talon_rocket_launcher from "./talon_rocket_launcher.json";
 import talon_rocket_pod from "./talon_rocket_pod.json";
 import tentacle_clamps from "./tentacle_clamps.json";
 import tentacle_strike from "./tentacle_strike.json";
@@ -105,6 +110,7 @@ const weaponsData = {
 	assault_rifle_and_bayonet: assault_rifle_and_bayonet,
 	assault_rifle_quartermaster: assault_rifle_quartermaster,
 	battle_rifle: battle_rifle,
+	battle_rifle_dragoon: battle_rifle_dragoon,
 	battle_staff: battle_staff,
 	bayonet: bayonet,
 	blazer: blazer,
@@ -126,6 +132,8 @@ const weaponsData = {
 	force_hammer: force_hammer,
 	force_strike: force_strike,
 	fusion_athame: fusion_athame,
+	fusion_axe: fusion_axe,
+	fusion_axe_infiltrators: fusion_axe_infiltrators,
 	fusion_blade: fusion_blade,
 	fusion_blade_empyrean: fusion_blade_empyrean,
 	fusion_glaive: fusion_glaive,
@@ -152,6 +160,7 @@ const weaponsData = {
 	light_meteor_cannon: light_meteor_cannon,
 	long_rifle: long_rifle,
 	maelstrom: maelstrom,
+	magnetic_charge: magnetic_charge,
 	mandibles: mandibles,
 	mortifier: mortifier,
 	nailer: nailer,
@@ -184,6 +193,7 @@ const weaponsData = {
 	starfire_array: starfire_array,
 	submachine_gun: submachine_gun,
 	sun_piercer: sun_piercer,
+	talon_rocket_launcher: talon_rocket_launcher,
 	talon_rocket_pod: talon_rocket_pod,
 	tentacle_clamps: tentacle_clamps,
 	tentacle_strike: tentacle_strike,

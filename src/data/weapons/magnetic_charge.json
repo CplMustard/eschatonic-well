@@ -1,0 +1,11 @@
+{
+    "id": "magnetic_charge",
+    "name": "Magnetic Charge",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["explosion"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["blast", "delayed_blast"]
+    }]
+}

@@ -1,0 +1,29 @@
+{
+    "id": "ranger_infiltrators",
+    "name": "Ranger Infiltrators",
+    "factions": ["mw"],
+    "type": "squad",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 4,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "fusion_axe_infiltrators",
+        "magnetic_charge"
+    ],
+    "special_rules": [
+        "dynamic_accelerator",
+        "slip_displacer_squad"
+    ],
+    "attachments": [
+        "warder",
+        "quartermaster"
+    ]
+}

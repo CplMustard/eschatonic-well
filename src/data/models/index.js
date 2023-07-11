@@ -11,7 +11,9 @@ import coalition_weaver from "./coalition_weaver.json";
 import combat_engineer from "./combat_engineer.json";
 import defense_pylon from "./defense_pylon.json";
 import divine_tempest from "./divine_tempest.json";
+import dragoon_assault_team from "./dragoon_assault_team.json";
 import dragoon_gunner from "./dragoon_gunner.json";
+import dragoon_strike_team from "./dragoon_strike_team.json";
 import dragoon_strike_team_leader from "./dragoon_strike_team_leader.json";
 import dusk_wolf from "./dusk_wolf.json";
 import eternal_metator from "./eternal_metator.json";
@@ -42,6 +44,9 @@ import phaetheon_living from "./phaetheon_living.json";
 import phaetheon_wraith from "./phaetheon_wraith.json";
 import quartermaster from "./quartermaster.json";
 import raker from "./raker.json";
+import ranger_fire_team from "./ranger_fire_team.json";
+import ranger_heavy_support from "./ranger_heavy_support.json";
+import ranger_infiltrators from "./ranger_infiltrators.json";
 import ranger_outrider from "./ranger_outrider.json";
 import regulators from "./regulators.json";
 import regulator_reeve from "./regulator_reeve.json";
@@ -74,7 +79,9 @@ const modelsData = {
 	combat_engineer: combat_engineer,
 	defense_pylon: defense_pylon,
 	divine_tempest: divine_tempest,
+	dragoon_assault_team: dragoon_assault_team,
 	dragoon_gunner: dragoon_gunner,
+	dragoon_strike_team: dragoon_strike_team,
 	dragoon_strike_team_leader: dragoon_strike_team_leader,
 	dusk_wolf: dusk_wolf,
 	eternal_metator: eternal_metator,
@@ -105,6 +112,9 @@ const modelsData = {
 	phaetheon_wraith: phaetheon_wraith,
 	quartermaster: quartermaster,
 	raker: raker,
+	ranger_fire_team: ranger_fire_team,
+	ranger_heavy_support: ranger_heavy_support,
+	ranger_infiltrators: ranger_infiltrators,
 	ranger_outrider: ranger_outrider,
 	regulators: regulators,
 	regulator_reeve: regulator_reeve,

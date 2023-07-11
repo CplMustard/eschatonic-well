@@ -1,0 +1,11 @@
+{
+    "id": "fusion_axe_infiltrators",
+    "name": "Fusion Axe",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 5,
+        "special_rules": ["cleave"]
+    }]
+}

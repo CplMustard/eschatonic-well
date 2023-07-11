@@ -1,0 +1,11 @@
+{
+    "id": "talon_rocket_launcher",
+    "name": "Talon Rocket Launcher",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["blast", "targeter"]
+    }]
+}

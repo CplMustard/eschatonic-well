@@ -1,0 +1,30 @@
+{
+    "id": "dragoon_assault_team",
+    "name": "Dragoon Assault Team",
+    "factions": ["mw"],
+    "type": "squad",
+    "cadre": "dragoon_air_cavalry",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 4,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "compact_battle_rifle",
+        "fusion_axe"
+    ],
+    "special_rules": [
+        "reflex_accelerator",
+        "sequence_dominator"
+    ],
+    "attachments": [
+        "dragoon_gunner",
+        "quartermaster"
+    ]
+}

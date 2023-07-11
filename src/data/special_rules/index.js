@@ -29,6 +29,7 @@ import compound_armor from "./compound_armor.json";
 import corrosion from "./corrosion.json";
 import cortex_shock from "./cortex_shock.json";
 import defense_matrix from "./defense_matrix.json";
+import delayed_blast from "./delayed_blast.json";
 import dislocator from "./dislocator.json";
 import disruption_engine from "./disruption_engine.json";
 import divination_lock from "./divination_lock.json";
@@ -107,6 +108,7 @@ import rites_of_vengeance from "./rites_of_vengeance.json";
 import sacred_restoration from "./sacred_restoration.json";
 import scything_run from "./scything_run.json";
 import self_sacrifice from "./self_sacrifice.json";
+import sequence_dominator from "./sequence_dominator.json";
 import shadow_phaser from "./shadow_phaser.json";
 import shield from "./shield.json";
 import shockwave from "./shockwave.json";
@@ -172,6 +174,7 @@ const special_rulesData = {
 	corrosion: corrosion,
 	cortex_shock: cortex_shock,
 	defense_matrix: defense_matrix,
+	delayed_blast: delayed_blast,
 	dislocator: dislocator,
 	disruption_engine: disruption_engine,
 	divination_lock: divination_lock,
@@ -250,6 +253,7 @@ const special_rulesData = {
 	sacred_restoration: sacred_restoration,
 	scything_run: scything_run,
 	self_sacrifice: self_sacrifice,
+	sequence_dominator: sequence_dominator,
 	shadow_phaser: shadow_phaser,
 	shield: shield,
 	shockwave: shockwave,

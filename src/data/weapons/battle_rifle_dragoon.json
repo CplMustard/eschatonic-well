@@ -1,0 +1,12 @@
+{
+    "id": "battle_rifle_dragoon",
+    "name": "Battle Rifle",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 12, 
+        "pow": 4
+    }]
+
+}
