@@ -1,0 +1,5 @@
+{
+    "id": "havoc_engine",
+    "name": "Havoc Engine",
+    "text": "If this model destroys an enemy model with an attack during its activation while charged, it can immediately make an additional attack with another weapon. This model cannot attack with the same weapon twice during its activation as a result of Havoc Engine." 
+}

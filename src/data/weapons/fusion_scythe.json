@@ -1,0 +1,11 @@
+{
+    "id": "fusion_scythe",
+    "name": "Fusion Scythe",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 4,
+        "special_rules": ["high_intensity"]
+    }]
+}

@@ -45,6 +45,7 @@ import force_ram from "./force_ram.json";
 import force_ram_aegis from "./force_ram_aegis.json";
 import fury_reciprocator from "./fury_reciprocator.json";
 import gorge from "./gorge.json";
+import havoc_engine from "./havoc_engine.json";
 import heightened_reflexes from "./heightened_reflexes.json";
 import high_intensity from "./high_intensity.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
@@ -63,6 +64,7 @@ import mantlet from "./mantlet.json";
 import mechanikal_optics from "./mechanikal_optics.json";
 import mimetic_cloak from "./mimetic_cloak.json";
 import negative_energy from "./negative_energy.json";
+import nemesis_engine from "./nemesis_engine.json";
 import neural_command_web from "./neural_command_web.json";
 import neural_net from "./neural_net.json";
 import neural_web from "./neural_web.json";
@@ -180,6 +182,7 @@ const special_rulesData = {
 	force_ram_aegis: force_ram_aegis,
 	fury_reciprocator: fury_reciprocator,
 	gorge: gorge,
+	havoc_engine: havoc_engine,
 	heightened_reflexes: heightened_reflexes,
 	high_intensity: high_intensity,
 	hunter_killer_rounds: hunter_killer_rounds,
@@ -198,6 +201,7 @@ const special_rulesData = {
 	mechanikal_optics: mechanikal_optics,
 	mimetic_cloak: mimetic_cloak,
 	negative_energy: negative_energy,
+	nemesis_engine: nemesis_engine,
 	neural_command_web: neural_command_web,
 	neural_net: neural_net,
 	neural_web: neural_web,

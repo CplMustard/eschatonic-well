@@ -1,10 +1,10 @@
 {
-    "id": "fusion_blade_empyrean",
+    "id": "fusion_blade_antecessors",
     "name": "Fusion Blade",
     "profiles": [{
         "type": "melee", 
         "damage_types": ["kinetic"], 
         "rng": 1, 
-        "pow": 3
+        "pow": 4
     }]
 }

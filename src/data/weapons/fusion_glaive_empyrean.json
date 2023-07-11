@@ -1,0 +1,11 @@
+{
+    "id": "fusion_glaive_empyrean",
+    "name": "Fusion Glaive",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 5,
+        "special_rules": ["power_attack"]
+    }]
+}

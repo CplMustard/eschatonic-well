@@ -1,10 +1,10 @@
 {
-    "id": "fusion_blade_empyrean",
-    "name": "Fusion Blade",
+    "id": "tentacle_strike",
+    "name": "Tentacle Strike",
     "profiles": [{
         "type": "melee", 
         "damage_types": ["kinetic"], 
         "rng": 1, 
-        "pow": 3
+        "pow": 2
     }]
 }

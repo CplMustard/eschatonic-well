@@ -1,0 +1,11 @@
+{
+    "id": "darkhold",
+    "name": "Darkhold",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["soul_seeker"]
+    }]
+}

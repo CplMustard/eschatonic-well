@@ -1,0 +1,30 @@
+{
+    "id": "saber_guardians",
+    "name": "Saber Guardians",
+    "factions": ["emp"],
+    "type": "squad",
+    "stats": {
+        "dc": 3,
+        "base_size": 30,
+        "spd": 4,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "reticulum",
+        "tentacle_strike"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "eclipse_drive",
+        "havoc_engine"
+    ],
+    "attachments": [
+        "aerolith",
+        "quartermaster"
+    ]
+}

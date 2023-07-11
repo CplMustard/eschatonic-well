@@ -1,0 +1,11 @@
+{
+    "id": "ion_cannon",
+    "name": "Ion Cannon",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["high_intensity"]
+    }]
+}

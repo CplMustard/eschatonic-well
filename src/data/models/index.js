@@ -1,4 +1,5 @@
 import aerolith from "./aerolith.json";
+import antecessors_eternal from "./antecessors_eternal.json";
 import artemis_fang from "./artemis_fang.json";
 import astreus from "./astreus.json";
 import aurelion from "./aurelion.json";
@@ -14,6 +15,7 @@ import dragoon_gunner from "./dragoon_gunner.json";
 import dragoon_strike_team_leader from "./dragoon_strike_team_leader.json";
 import dusk_wolf from "./dusk_wolf.json";
 import eternal_metator from "./eternal_metator.json";
+import exalted_paragons from "./exalted_paragons.json";
 import factotum from "./factotum.json";
 import firebrand from "./firebrand.json";
 import force_barrier from "./force_barrier.json";
@@ -40,6 +42,9 @@ import raker from "./raker.json";
 import ranger_outrider from "./ranger_outrider.json";
 import regulator_reeve from "./regulator_reeve.json";
 import relikon from "./relikon.json";
+import saber_guardians from "./saber_guardians.json";
+import saber_strikeforce from "./saber_strikeforce.json";
+import saber_vanguard from "./saber_vanguard.json";
 import synturions from "./synturions.json";
 import talons from "./talons.json";
 import vassal_boss from "./vassal_boss.json";
@@ -52,6 +57,7 @@ import witch_hounds from "./witch_hounds.json";
 
 const modelsData = {
 	aerolith: aerolith,
+	antecessors_eternal: antecessors_eternal,
 	artemis_fang: artemis_fang,
 	astreus: astreus,
 	aurelion: aurelion,
@@ -67,6 +73,7 @@ const modelsData = {
 	dragoon_strike_team_leader: dragoon_strike_team_leader,
 	dusk_wolf: dusk_wolf,
 	eternal_metator: eternal_metator,
+	exalted_paragons: exalted_paragons,
 	factotum: factotum,
 	firebrand: firebrand,
 	force_barrier: force_barrier,
@@ -93,6 +100,9 @@ const modelsData = {
 	ranger_outrider: ranger_outrider,
 	regulator_reeve: regulator_reeve,
 	relikon: relikon,
+	saber_guardians: saber_guardians,
+	saber_strikeforce: saber_strikeforce,
+	saber_vanguard: saber_vanguard,
 	synturions: synturions,
 	talons: talons,
 	vassal_boss: vassal_boss,

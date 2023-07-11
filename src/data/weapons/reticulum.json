@@ -1,0 +1,11 @@
+{
+    "id": "reticulum",
+    "name": "Reticulum",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["lock_down", "high_intensity"]
+    }]
+}
