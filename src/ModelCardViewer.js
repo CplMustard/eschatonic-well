@@ -9,6 +9,7 @@ import Cortex from './Cortex';
 import HardPointList from './HardPointList';
 import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
+import ManeuverList from './ManeuverList';
 
 import { modelsData, weaponsData, factionsData, cadresData } from './data'
 
@@ -72,7 +73,7 @@ function ModelCardViewer(props) {
     } else if (!isLoaded) {
         return <div>Loading Card Data...</div>
     } else {
-        const { name, type, subtypes, cadre, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules, attachments } = cardData;
+        const { name, type, subtypes, cadre, weapon_points, factions, stats, weapons, hard_points, advantages, special_rules, maneuvers, attachments } = cardData;
 
         if(hard_points && hardPointOptions.length === 0) {
             const defaultHardPoints = [];
@@ -107,6 +108,7 @@ function ModelCardViewer(props) {
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexID={hardPointCortexOption}/>}
                 {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
+                {maneuvers && <ManeuverList maneuvers={maneuvers} header={'Maneuvers'}/>}
                 {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
             </div>
         );
