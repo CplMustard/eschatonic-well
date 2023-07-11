@@ -5,7 +5,7 @@ dirnames = next(directory)[1]
 for folder in dirnames:
     datapackname = folder + 'Data'
     filenames = os.listdir('./src/data/' + folder)
-    filenames.remove("index.js")
+    if "index.js" in filenames: filenames.remove("index.js")
     f = open('./src/data/' + folder + '/index.js', 'w', encoding="utf-8")
     for filename in filenames:
         stem = filename.split('.')[0]
@@ -19,5 +19,5 @@ for folder in dirnames:
             f.write(",")
         
     f.write("\n}")
-    f.write('\nexport default ' + datapackname)
+    f.write('\nexport default ' + datapackname + ';')
     f.close()
