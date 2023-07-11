@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpecialRuleList from './SpecialRuleList';
 
-import { weaponsData } from './data';
+import { weaponsData, damageTypesData } from './data';
 
 function Weapon(props) {
     const [error, setError] = useState(null);
@@ -16,11 +16,14 @@ function Weapon(props) {
 
     function WeaponStatline(props) {
         const { name, type, damage_types, rng, pow, special_rules } = props;
+        
+        const damageTypeNames = [];
+        damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
         return <div>
             <h2>{type}</h2>
             <h2>{name}</h2>
             {rng && pow && <div className="statline">
-                {damage_types && <div className="statline-entry"><div>DAMAGE TYPES</div><div>{damage_types}</div></div>}
+                {damageTypeNames && <div className="statline-entry"><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></div>}
                 {rng && <div className="statline-entry"><div>RNG</div><div>{rng}</div></div>}
                 {pow && <div className="statline-entry"><div>POW</div><div>{pow}</div></div>}
             </div>}
