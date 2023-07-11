@@ -1,0 +1,12 @@
+{
+    "id": "shadow_matrix",
+    "name": "Shadow Matrix",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 14, 
+        "pow": 5,
+        "special_rules": ["dislocator", "soul_seeker"]
+    }]
+}

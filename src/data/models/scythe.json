@@ -1,0 +1,43 @@
+{
+    "id": "scythe",
+    "name": "Scythe",
+    "factions": ["ac"],
+    "type": "vehicle",
+    "weapon_points": 3,
+    "stats": {
+        "dc": 3,
+        "base_size": 80,
+        "spd": 8,
+        "mat": 4,
+        "rat": 3,
+        "def": 3,
+        "arm": 4,
+        "boxes": 4
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "heavy_displacer",
+                "heavy_stinger",
+                "hollowphage_cannon"
+            ]
+        }
+    ],
+    "weapons": [
+        "heavy_fusion_blade"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "phase_stalker",
+        "scything_run"
+    ],
+    "maneuvers": [
+        "force_the_engine",
+        "low_flying",
+        "wing_roll"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "id": "cyclone_cannon_razorbat",
+    "name": "Cyclone Cannon",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["strafe"]
+    }]
+
+}

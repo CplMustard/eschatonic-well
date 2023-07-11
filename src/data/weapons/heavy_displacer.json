@@ -1,0 +1,12 @@
+{
+    "id": "heavy_displacer",
+    "name": "Heavy Displacer",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 15, 
+        "pow": 4,
+        "special_rules": ["dislocator"]
+    }]
+}

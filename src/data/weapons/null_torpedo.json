@@ -1,0 +1,12 @@
+{
+    "id": "null_torpedo",
+    "name": "Null Torpedo",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 5,
+        "special_rules": ["system_failure", "null_strike"]
+    }]
+}

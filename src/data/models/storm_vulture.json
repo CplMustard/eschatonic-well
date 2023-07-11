@@ -1,0 +1,47 @@
+{
+    "id": "storm_vulture",
+    "name": "Storm Vulture",
+    "factions": ["mw"],
+    "type": "vehicle",
+    "subtypes": ["champion"],
+    "cadre": "dragoon_air_cavalry",
+    "weapon_points": 2,
+    "stats": {
+        "dc": 3,
+        "base_size": 50,
+        "spd": 6,
+        "str": 5,
+        "mat": 4,
+        "rat": 4,
+        "def": 2,
+        "arm": 4,
+        "boxes": 3
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "flamethrower",
+                "heavy_machine_gun",
+                "vortex_missile"
+            ]
+        }
+    ],
+    "weapons": [
+        "howitzer",
+        "ripper"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "arcantrik_turbine",
+        "impulse_reciprocator"
+    ],
+    "maneuvers": [
+        "sow_the_field",
+        "wide_range_scan",
+        "with_both_feet"
+    ]
+}

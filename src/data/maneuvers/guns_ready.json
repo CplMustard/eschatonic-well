@@ -1,0 +1,5 @@
+{
+    "id": "guns_ready",
+    "name": "Guns Ready",
+    "text": "When an enemy model moves into the area within 10\" of the Razorbat and ends its movement, the Razorbat can make one attack targeting the enemy model. This Maneuver expires at the start of this unit’s next activation or immediately after this model makes an attack as a result of Guns Ready." 
+}

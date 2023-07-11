@@ -1,0 +1,11 @@
+{
+    "id": "howitzer",
+    "name": "Howitzer",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 15, 
+        "pow": 5,
+        "special_rules": ["blast"]
+    }]
+}

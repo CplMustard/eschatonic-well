@@ -1,0 +1,12 @@
+{
+    "id": "talon_mkii",
+    "name": "Talon Mk II",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["blast", "anti_air", "mechanikal_optics", "turret"]
+    }]
+}

@@ -1,0 +1,12 @@
+{
+    "id": "nova_cannon",
+    "name": "Nova Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 5,
+        "special_rules": ["fire", "spray"]
+    }]
+}

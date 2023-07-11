@@ -105,7 +105,7 @@ function ModelCardViewer(props) {
                 {weapon_points && <h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
-                {hardPointCortexOption && <Cortex cortexID={hardPointCortexOption}/>}
+                {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexID={hardPointCortexOption}/>}
                 {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
                 {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
             </div>

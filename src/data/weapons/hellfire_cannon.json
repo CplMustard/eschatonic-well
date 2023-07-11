@@ -1,0 +1,12 @@
+{
+    "id": "hellfire_cannon",
+    "name": "Hellfire Cannon",
+    "cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["fire"], 
+        "rng": 12, 
+        "pow": 5,
+        "special_rules": ["arcantrik_amplifier", "fire", "spray"]
+    }]
+}

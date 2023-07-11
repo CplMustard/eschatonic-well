@@ -1,0 +1,10 @@
+{
+    "id": "heavy_fusion_blade",
+    "name": "Heavy Fusion Blade",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 5
+    }]
+}

@@ -1,0 +1,48 @@
+{
+    "id": "execrator_nix",
+    "name": "Execrator Nix",
+    "factions": ["emp"],
+    "type": "vehicle",
+    "subtypes": ["hero"],
+    "weapon_points": 3,
+    "stats": {
+        "dc": 3,
+        "base_size": 80,
+        "spd": 8,
+        "mat": 3,
+        "rat": 5,
+        "def": 3,
+        "arm": 4,
+        "boxes": 4
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "force_generator_zenith",
+                "heavy_antiminator",
+                "nova_cannon",
+                "shadow_matrix"
+            ]
+        }
+    ],
+    "weapons": [
+        "ion_blasters"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "gate_launcher",
+        "slip_displacer"
+    ],
+    "maneuvers": [
+        "sequence_alpha",
+        "sequence_epsilon",
+        "sequence_gamma",
+        "sequence_theta",
+        "sequence_omega"
+    ]
+}

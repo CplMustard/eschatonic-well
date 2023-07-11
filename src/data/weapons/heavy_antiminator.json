@@ -1,0 +1,12 @@
+{
+    "id": "heavy_antiminator",
+    "name": "Heavy Antiminator",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["strafe", "malefactor"]
+    }]
+}

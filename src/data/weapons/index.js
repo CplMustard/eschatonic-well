@@ -9,6 +9,7 @@ import battle_rifle_dragoon from "./battle_rifle_dragoon.json";
 import battle_staff from "./battle_staff.json";
 import bayonet from "./bayonet.json";
 import blazer from "./blazer.json";
+import blazer_razorbat from "./blazer_razorbat.json";
 import bone_saw from "./bone_saw.json";
 import castigator_missiles from "./castigator_missiles.json";
 import celestial_cleaver from "./celestial_cleaver.json";
@@ -17,13 +18,17 @@ import claws from "./claws.json";
 import combat_blade from "./combat_blade.json";
 import compact_battle_rifle from "./compact_battle_rifle.json";
 import consecrator from "./consecrator.json";
+import cyclone_cannon_razorbat from "./cyclone_cannon_razorbat.json";
 import darkhold from "./darkhold.json";
 import death_touch from "./death_touch.json";
 import empty from "./empty.json";
 import energy_blade from "./energy_blade.json";
+import fixed_guns from "./fixed_guns.json";
 import flamethrower from "./flamethrower.json";
+import force_cannon from "./force_cannon.json";
 import force_driver from "./force_driver.json";
 import force_generator from "./force_generator.json";
+import force_generator_zenith from "./force_generator_zenith.json";
 import force_hammer from "./force_hammer.json";
 import force_strike from "./force_strike.json";
 import fusion_athame from "./fusion_athame.json";
@@ -44,11 +49,20 @@ import handgun from "./handgun.json";
 import harbinger_cannon from "./harbinger_cannon.json";
 import harbinger_cannon_warjack from "./harbinger_cannon_warjack.json";
 import headbutt from "./headbutt.json";
+import heavy_antiminator from "./heavy_antiminator.json";
+import heavy_displacer from "./heavy_displacer.json";
+import heavy_fusion_blade from "./heavy_fusion_blade.json";
+import heavy_machine_gun from "./heavy_machine_gun.json";
 import heavy_pistol from "./heavy_pistol.json";
+import heavy_stinger from "./heavy_stinger.json";
 import heavy_submachine_gun from "./heavy_submachine_gun.json";
+import hellfire_cannon from "./hellfire_cannon.json";
 import hex_cannon from "./hex_cannon.json";
+import hollowphage_cannon from "./hollowphage_cannon.json";
+import howitzer from "./howitzer.json";
 import immolator from "./immolator.json";
 import impaler from "./impaler.json";
+import ion_blasters from "./ion_blasters.json";
 import ion_cannon from "./ion_cannon.json";
 import keys_of_hell_and_death from "./keys_of_hell_and_death.json";
 import light_flamethrower from "./light_flamethrower.json";
@@ -59,12 +73,15 @@ import magnetic_charge from "./magnetic_charge.json";
 import mandibles from "./mandibles.json";
 import mortifier from "./mortifier.json";
 import nailer from "./nailer.json";
+import nova_cannon from "./nova_cannon.json";
 import null_cannon from "./null_cannon.json";
 import null_detonator from "./null_detonator.json";
 import null_hammer from "./null_hammer.json";
+import null_torpedo from "./null_torpedo.json";
 import numinous_agitator from "./numinous_agitator.json";
 import particle_accelerator from "./particle_accelerator.json";
 import particle_blaster from "./particle_blaster.json";
+import particle_blaster_dragoon from "./particle_blaster_dragoon.json";
 import phase_pounce from "./phase_pounce.json";
 import plasma_spear from "./plasma_spear.json";
 import plasma_sword from "./plasma_sword.json";
@@ -80,7 +97,9 @@ import repair_tool from "./repair_tool.json";
 import repulsor_shield from "./repulsor_shield.json";
 import reticulum from "./reticulum.json";
 import ripper from "./ripper.json";
+import shadow_matrix from "./shadow_matrix.json";
 import shredder from "./shredder.json";
+import slug_cannon from "./slug_cannon.json";
 import slug_gun from "./slug_gun.json";
 import sniper_rifle from "./sniper_rifle.json";
 import soul_grinder from "./soul_grinder.json";
@@ -88,8 +107,10 @@ import spiker from "./spiker.json";
 import starfire_array from "./starfire_array.json";
 import submachine_gun from "./submachine_gun.json";
 import sun_piercer from "./sun_piercer.json";
+import talon_mkii from "./talon_mkii.json";
 import talon_rocket_launcher from "./talon_rocket_launcher.json";
 import talon_rocket_pod from "./talon_rocket_pod.json";
+import tempest_cannon from "./tempest_cannon.json";
 import tentacle_clamps from "./tentacle_clamps.json";
 import tentacle_strike from "./tentacle_strike.json";
 import thumper_cannon from "./thumper_cannon.json";
@@ -97,6 +118,7 @@ import torch from "./torch.json";
 import void_cannon from "./void_cannon.json";
 import void_hammer from "./void_hammer.json";
 import void_howler from "./void_howler.json";
+import vortex_missile from "./vortex_missile.json";
 import whispers_of_annihilation from "./whispers_of_annihilation.json";
 import wildflower_mine_layer from "./wildflower_mine_layer.json";
 import witherbane from "./witherbane.json";
@@ -114,6 +136,7 @@ const weaponsData = {
 	battle_staff: battle_staff,
 	bayonet: bayonet,
 	blazer: blazer,
+	blazer_razorbat: blazer_razorbat,
 	bone_saw: bone_saw,
 	castigator_missiles: castigator_missiles,
 	celestial_cleaver: celestial_cleaver,
@@ -122,13 +145,17 @@ const weaponsData = {
 	combat_blade: combat_blade,
 	compact_battle_rifle: compact_battle_rifle,
 	consecrator: consecrator,
+	cyclone_cannon_razorbat: cyclone_cannon_razorbat,
 	darkhold: darkhold,
 	death_touch: death_touch,
 	empty: empty,
 	energy_blade: energy_blade,
+	fixed_guns: fixed_guns,
 	flamethrower: flamethrower,
+	force_cannon: force_cannon,
 	force_driver: force_driver,
 	force_generator: force_generator,
+	force_generator_zenith: force_generator_zenith,
 	force_hammer: force_hammer,
 	force_strike: force_strike,
 	fusion_athame: fusion_athame,
@@ -149,11 +176,20 @@ const weaponsData = {
 	harbinger_cannon: harbinger_cannon,
 	harbinger_cannon_warjack: harbinger_cannon_warjack,
 	headbutt: headbutt,
+	heavy_antiminator: heavy_antiminator,
+	heavy_displacer: heavy_displacer,
+	heavy_fusion_blade: heavy_fusion_blade,
+	heavy_machine_gun: heavy_machine_gun,
 	heavy_pistol: heavy_pistol,
+	heavy_stinger: heavy_stinger,
 	heavy_submachine_gun: heavy_submachine_gun,
+	hellfire_cannon: hellfire_cannon,
 	hex_cannon: hex_cannon,
+	hollowphage_cannon: hollowphage_cannon,
+	howitzer: howitzer,
 	immolator: immolator,
 	impaler: impaler,
+	ion_blasters: ion_blasters,
 	ion_cannon: ion_cannon,
 	keys_of_hell_and_death: keys_of_hell_and_death,
 	light_flamethrower: light_flamethrower,
@@ -164,12 +200,15 @@ const weaponsData = {
 	mandibles: mandibles,
 	mortifier: mortifier,
 	nailer: nailer,
+	nova_cannon: nova_cannon,
 	null_cannon: null_cannon,
 	null_detonator: null_detonator,
 	null_hammer: null_hammer,
+	null_torpedo: null_torpedo,
 	numinous_agitator: numinous_agitator,
 	particle_accelerator: particle_accelerator,
 	particle_blaster: particle_blaster,
+	particle_blaster_dragoon: particle_blaster_dragoon,
 	phase_pounce: phase_pounce,
 	plasma_spear: plasma_spear,
 	plasma_sword: plasma_sword,
@@ -185,7 +224,9 @@ const weaponsData = {
 	repulsor_shield: repulsor_shield,
 	reticulum: reticulum,
 	ripper: ripper,
+	shadow_matrix: shadow_matrix,
 	shredder: shredder,
+	slug_cannon: slug_cannon,
 	slug_gun: slug_gun,
 	sniper_rifle: sniper_rifle,
 	soul_grinder: soul_grinder,
@@ -193,8 +234,10 @@ const weaponsData = {
 	starfire_array: starfire_array,
 	submachine_gun: submachine_gun,
 	sun_piercer: sun_piercer,
+	talon_mkii: talon_mkii,
 	talon_rocket_launcher: talon_rocket_launcher,
 	talon_rocket_pod: talon_rocket_pod,
+	tempest_cannon: tempest_cannon,
 	tentacle_clamps: tentacle_clamps,
 	tentacle_strike: tentacle_strike,
 	thumper_cannon: thumper_cannon,
@@ -202,6 +245,7 @@ const weaponsData = {
 	void_cannon: void_cannon,
 	void_hammer: void_hammer,
 	void_howler: void_howler,
+	vortex_missile: vortex_missile,
 	whispers_of_annihilation: whispers_of_annihilation,
 	wildflower_mine_layer: wildflower_mine_layer,
 	witherbane: witherbane,

@@ -1,0 +1,12 @@
+{
+    "id": "force_cannon",
+    "name": "Force Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["repulsor"]
+    }]
+}

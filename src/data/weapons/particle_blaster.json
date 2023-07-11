@@ -1,11 +1,12 @@
 {
     "id": "particle_blaster",
     "name": "Particle Blaster",
+    "point_cost": 3,
     "profiles": [{
         "type": "range", 
-        "damage_types": ["energy"], 
-        "rng": 8, 
+        "damage_types": ["beam"], 
+        "rng": 14, 
         "pow": 5,
-        "special_rules": ["reserve_power_cells", "singularity_collapse"]
+        "special_rules": ["high_intensity", "singularity_collapse", "turret"]
     }]
 }

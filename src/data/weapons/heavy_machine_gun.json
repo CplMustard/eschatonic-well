@@ -1,0 +1,13 @@
+{
+    "id": "heavy_machine_gun",
+    "name": "Heavy Machine Gun",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["strafe"]
+    }]
+
+}

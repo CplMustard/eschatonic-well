@@ -1,0 +1,5 @@
+{
+    "id": "sequence_gamma",
+    "name": "Sequence Gamma",
+    "text": "This model adds one power die to attack rolls against models with Flight. Additionally, this model gains +1 on DEF rolls against attacks made by models with Flight. This Maneuver expires at the beginning of this model's next activation." 
+}

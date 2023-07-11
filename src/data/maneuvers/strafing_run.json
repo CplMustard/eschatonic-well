@@ -1,0 +1,5 @@
+{
+    "id": "strafing_run",
+    "name": "Strafing Run",
+    "text": "This model’s Fixed Guns ranged weapon gains Strafe. Additionally, this model adds one power die to attack rolls against enemy warrior models. This Maneuver expires at the end of this activation." 
+}

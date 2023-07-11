@@ -1,0 +1,12 @@
+{
+    "id": "slug_cannon",
+    "name": "Slug Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 12, 
+        "pow": 5,
+        "special_rules": ["repulsor", "turret"]
+    }]
+}

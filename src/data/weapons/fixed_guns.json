@@ -1,11 +1,10 @@
 {
-    "id": "battle_rifle_dragoon",
-    "name": "Battle Rifle",
+    "id": "fixed_guns",
+    "name": "Fixed Guns",
     "profiles": [{
         "type": "range", 
         "damage_types": ["ballistic"], 
         "rng": 12, 
         "pow": 4
     }]
-
 }

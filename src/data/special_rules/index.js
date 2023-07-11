@@ -3,6 +3,7 @@ import advanced_optics from "./advanced_optics.json";
 import aegis_field from "./aegis_field.json";
 import anathema_drive from "./anathema_drive.json";
 import annihilation_synthesizer from "./annihilation_synthesizer.json";
+import anti_air from "./anti_air.json";
 import apotropaic_reactor from "./apotropaic_reactor.json";
 import arcane_parasite from "./arcane_parasite.json";
 import arcantrik_amplifier from "./arcantrik_amplifier.json";
@@ -38,6 +39,7 @@ import dynamic_accelerator from "./dynamic_accelerator.json";
 import eclipse_drive from "./eclipse_drive.json";
 import entropic_field from "./entropic_field.json";
 import eruption from "./eruption.json";
+import evasion_drive from "./evasion_drive.json";
 import field_reinforcement from "./field_reinforcement.json";
 import fire from "./fire.json";
 import fire_and_displace from "./fire_and_displace.json";
@@ -48,13 +50,16 @@ import force_projector from "./force_projector.json";
 import force_ram from "./force_ram.json";
 import force_ram_aegis from "./force_ram_aegis.json";
 import fury_reciprocator from "./fury_reciprocator.json";
+import gate_launcher from "./gate_launcher.json";
 import gorge from "./gorge.json";
 import havoc_engine from "./havoc_engine.json";
 import heightened_reflexes from "./heightened_reflexes.json";
 import high_intensity from "./high_intensity.json";
+import high_performance from "./high_performance.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
 import hunter_killer_salvo from "./hunter_killer_salvo.json";
 import impulse_reactor from "./impulse_reactor.json";
+import impulse_reciprocator from "./impulse_reciprocator.json";
 import incorporeal from "./incorporeal.json";
 import inhabiting_spirit from "./inhabiting_spirit.json";
 import intercept_driver from "./intercept_driver.json";
@@ -74,6 +79,7 @@ import neural_command_web from "./neural_command_web.json";
 import neural_net from "./neural_net.json";
 import neural_web from "./neural_web.json";
 import nullifier from "./nullifier.json";
+import null_blast from "./null_blast.json";
 import null_strike from "./null_strike.json";
 import pathfinder from "./pathfinder.json";
 import phase_aligner from "./phase_aligner.json";
@@ -125,12 +131,14 @@ import spotlight from "./spotlight.json";
 import spray from "./spray.json";
 import stealth from "./stealth.json";
 import strafe from "./strafe.json";
+import system_failure from "./system_failure.json";
 import targeter from "./targeter.json";
 import temporal_anomaly from "./temporal_anomaly.json";
 import thanotech_reclaimer from "./thanotech_reclaimer.json";
 import thaumaturgic_initiator from "./thaumaturgic_initiator.json";
 import thrusters from "./thrusters.json";
 import tune_up from "./tune_up.json";
+import turret from "./turret.json";
 import void_disruptor from "./void_disruptor.json";
 import void_gate from "./void_gate.json";
 import void_gazer from "./void_gazer.json";
@@ -148,6 +156,7 @@ const special_rulesData = {
 	aegis_field: aegis_field,
 	anathema_drive: anathema_drive,
 	annihilation_synthesizer: annihilation_synthesizer,
+	anti_air: anti_air,
 	apotropaic_reactor: apotropaic_reactor,
 	arcane_parasite: arcane_parasite,
 	arcantrik_amplifier: arcantrik_amplifier,
@@ -183,6 +192,7 @@ const special_rulesData = {
 	eclipse_drive: eclipse_drive,
 	entropic_field: entropic_field,
 	eruption: eruption,
+	evasion_drive: evasion_drive,
 	field_reinforcement: field_reinforcement,
 	fire: fire,
 	fire_and_displace: fire_and_displace,
@@ -193,13 +203,16 @@ const special_rulesData = {
 	force_ram: force_ram,
 	force_ram_aegis: force_ram_aegis,
 	fury_reciprocator: fury_reciprocator,
+	gate_launcher: gate_launcher,
 	gorge: gorge,
 	havoc_engine: havoc_engine,
 	heightened_reflexes: heightened_reflexes,
 	high_intensity: high_intensity,
+	high_performance: high_performance,
 	hunter_killer_rounds: hunter_killer_rounds,
 	hunter_killer_salvo: hunter_killer_salvo,
 	impulse_reactor: impulse_reactor,
+	impulse_reciprocator: impulse_reciprocator,
 	incorporeal: incorporeal,
 	inhabiting_spirit: inhabiting_spirit,
 	intercept_driver: intercept_driver,
@@ -219,6 +232,7 @@ const special_rulesData = {
 	neural_net: neural_net,
 	neural_web: neural_web,
 	nullifier: nullifier,
+	null_blast: null_blast,
 	null_strike: null_strike,
 	pathfinder: pathfinder,
 	phase_aligner: phase_aligner,
@@ -270,12 +284,14 @@ const special_rulesData = {
 	spray: spray,
 	stealth: stealth,
 	strafe: strafe,
+	system_failure: system_failure,
 	targeter: targeter,
 	temporal_anomaly: temporal_anomaly,
 	thanotech_reclaimer: thanotech_reclaimer,
 	thaumaturgic_initiator: thaumaturgic_initiator,
 	thrusters: thrusters,
 	tune_up: tune_up,
+	turret: turret,
 	void_disruptor: void_disruptor,
 	void_gate: void_gate,
 	void_gazer: void_gazer,

@@ -1,0 +1,5 @@
+{
+    "id": "pursuit_intercept",
+    "name": "Pursuit Intercept",
+    "text": "This model adds two power dice to attack rolls against enemy models with Flight. When this model destroys one or more enemy models with an attack, after the attack is resolved, this model can immediately move up to 3\". This Maneuver expires at the end of this activation." 
+}

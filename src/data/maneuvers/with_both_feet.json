@@ -1,0 +1,5 @@
+{
+    "id": "with_both_feet",
+    "name": "With Both Feet",
+    "text": "When this model advances and ends its movement this turn, it can immediately make one melee attack against an enemy model within 1\". If the target is hit, before damage is rolled, the model hit is slammed directly away from the attacking model. Roll a number of Action Dice equal to this model's STR. For every strike rolled, move the model hit 1\". The model hit suffers a damage roll equal with a POW equal to this model's STR. Collateral damage is equal to this model's STR." 
+}

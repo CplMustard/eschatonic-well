@@ -1,0 +1,11 @@
+{
+    "id": "ion_blasters",
+    "name": "Ion Blasters",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 12, 
+        "pow": 3,
+        "special_rules": ["strafe", "high_intensity"]
+    }]
+}

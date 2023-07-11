@@ -1,0 +1,5 @@
+{
+    "id": "sequence_alpha",
+    "name": "Sequence Alpha",
+    "text": "This model does not gain an activation token at the end of this activation." 
+}
