@@ -1,6 +1,6 @@
 {
-    "id": "ranger_fire_team",
-    "name": "Ranger Fire Team",
+    "id": "ranger_heavy_support",
+    "name": "Ranger Heavy Support",
     "factions": ["mw"],
     "type": "squad",
     "stats": {

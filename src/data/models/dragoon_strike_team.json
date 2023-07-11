@@ -1,6 +1,6 @@
 {
-    "id": "dragoon_assault_team",
-    "name": "Dragoon Assault Team",
+    "id": "dragoon_strike_team",
+    "name": "Dragoon Strike Team",
     "factions": ["mw"],
     "type": "squad",
     "cadre": "dragoon_air_cavalry",
