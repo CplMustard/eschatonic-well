@@ -1,0 +1,5 @@
+{
+    "id": "battle_cruiser",
+    "name": "Battle Cruiser",
+    "special_rules": ["battle_cruiser"]
+}

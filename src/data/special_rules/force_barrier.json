@@ -1,0 +1,5 @@
+{
+    "id": "force_barrier",
+    "name": "Force Barrier",
+    "text": "When this model is damaged, it can spike to reduce the damage it would suffer. For each Arc cleared from this model as a result of Force Barrier, reduce the damage this model takes by 1." 
+}

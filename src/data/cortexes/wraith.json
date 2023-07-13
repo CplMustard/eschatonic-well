@@ -1,0 +1,5 @@
+{
+    "id": "wraith",
+    "name": "Wraith",
+    "special_rules": ["void_spiral"]
+}

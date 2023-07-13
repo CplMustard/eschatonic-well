@@ -1,0 +1,5 @@
+{
+    "id": "misanthrope",
+    "name": "Misanthrope",
+    "special_rules": ["arc_exchange", "entropic_field"]
+}

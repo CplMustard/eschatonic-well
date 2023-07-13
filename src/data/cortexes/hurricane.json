@@ -1,0 +1,5 @@
+{
+    "id": "hurricane",
+    "name": "Hurricane",
+    "special_rules": ["arcantrik_turbine"]
+}

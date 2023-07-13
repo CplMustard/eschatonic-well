@@ -1,0 +1,12 @@
+{
+    "id": "gravitonic_lash",
+    "name": "Gravitonic Lash",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 6, 
+        "pow": 3,
+        "special_rules": ["winch"]
+    }]
+}

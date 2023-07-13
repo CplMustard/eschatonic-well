@@ -1,0 +1,12 @@
+{
+    "id": "rocket_pod",
+    "name": "Rocket Pod",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["blast"]
+    }]
+}

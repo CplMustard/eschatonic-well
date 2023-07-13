@@ -1,0 +1,12 @@
+{
+    "id": "displacer",
+    "name": "Displacer",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 13, 
+        "pow": 4,
+        "special_rules": ["dislocator"]
+    }]
+}

@@ -1,0 +1,5 @@
+{
+    "id": "spider",
+    "name": "Spider",
+    "special_rules": ["pathfinder", "spider"]
+}

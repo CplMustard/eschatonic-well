@@ -1,0 +1,5 @@
+{
+    "id": "divinator",
+    "name": "Divinator",
+    "special_rules": ["smart_lock"]
+}

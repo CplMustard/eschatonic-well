@@ -1,0 +1,12 @@
+{
+    "id": "dark_star",
+    "name": "Dark Star",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["singularity_collapse"]
+    }]
+}

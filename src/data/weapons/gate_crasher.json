@@ -1,0 +1,8 @@
+{
+    "id": "gate_crasher",
+    "name": "Gate Crasher",
+    "point_cost": 3,
+    "profiles": [{
+        "special_rules": ["gate_launcher"]
+    }]
+}

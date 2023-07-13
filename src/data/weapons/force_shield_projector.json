@@ -1,0 +1,12 @@
+{
+    "id": "force_shield_projector",
+    "name": "Force Shield Projector",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["shield"]
+    }]
+}

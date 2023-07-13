@@ -1,0 +1,12 @@
+{
+    "id": "eclipse_inducer",
+    "name": "Eclipse Inducer",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["siphon_power"]
+    }]
+}

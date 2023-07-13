@@ -1,0 +1,5 @@
+{
+    "id": "specter",
+    "name": "Specter",
+    "special_rules": ["vortex_capacitor"]
+}

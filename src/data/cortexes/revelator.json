@@ -1,0 +1,5 @@
+{
+    "id": "revelator",
+    "name": "Revelator",
+    "special_rules": ["revelator", "wide_spectrum_scanners"]
+}

@@ -1,10 +1,10 @@
 {
-    "id": "starfire_array",
-    "name": "Starfire Array",
-    "point_cost": 2,
+    "id": "cyclone_cannon",
+    "name": "Cyclone Cannon",
+    "point_cost": 3,
     "profiles": [{
         "type": "range", 
-        "damage_types": ["beam"], 
+        "damage_types": ["ballistic"], 
         "rng": 12, 
         "pow": 4,
         "special_rules": ["strafe", "defense_matrix"]

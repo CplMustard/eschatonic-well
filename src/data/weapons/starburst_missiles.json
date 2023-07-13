@@ -1,0 +1,12 @@
+{
+    "id": "starburst_missiles",
+    "name": "Starburst Missiles",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["blast", "targeter"]
+    }]
+}

@@ -1,0 +1,5 @@
+{
+    "id": "oracle",
+    "name": "Oracle",
+    "special_rules": ["oracle_targeting_array"]
+}

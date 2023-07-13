@@ -1,0 +1,12 @@
+{
+    "id": "phase_trajectile_cannon",
+    "name": "Phase Trajectile Cannon",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["phase_trajectile"]
+    }]
+}

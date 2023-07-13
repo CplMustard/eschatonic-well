@@ -1,0 +1,84 @@
+{
+    "id": "sentinel",
+    "name": "Sentinel",
+    "factions": ["emp"],
+    "type": "warjack",
+    "weapon_points": 8,
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 6,
+        "str": 5,
+        "mat": 4,
+        "rat": 4,
+        "def": 2,
+        "arm": 5,
+        "boxes": 4
+    },
+    "weapons": [],
+    "hard_points": [
+        {
+            "name": "Cortex",
+            "type": "cortex",
+            "options": [
+                "avatar",
+                "divinator",
+                "hellion",
+                "hurricane",
+                "numen"
+            ]
+        },
+        {
+            "name": "Left Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "antiminator",
+                "arcantrik_destabilizer",
+                "gravitonic_lash",
+                "heavy_plasma_blade",
+                "metaperceptor",
+                "phase_trajectile_cannon"
+            ]
+        },
+        {
+            "name": "Right Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "antiminator",
+                "arcantrik_destabilizer",
+                "gravitonic_lash",
+                "heavy_plasma_blade",
+                "metaperceptor",
+                "phase_trajectile_cannon"
+            ]
+        },
+        {
+            "name": "Back",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "force_shield_projector",
+                "meteor_cannon",
+                "nova_cannon",
+                "starfire_array"
+            ]
+        },
+        {
+            "name": "Chest",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "chronomorphic_accelerator",
+                "cyclotronic_razor",
+                "dark_star",
+                "eclipse_inducer"
+            ]
+        }
+    ],
+    "special_rules": [
+        "force_barrier",
+        "quantum_anchor"
+    ]
+}

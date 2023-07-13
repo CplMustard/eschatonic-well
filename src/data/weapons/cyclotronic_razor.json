@@ -1,0 +1,12 @@
+{
+    "id": "cyclotronic_razor",
+    "name": "Cyclotronic Razor",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 10, 
+        "pow": 1,
+        "special_rules": ["high_intensity", "shockwave"]
+    }]
+}

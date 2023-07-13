@@ -18,7 +18,7 @@ function Weapon(props) {
         const { name, type, damage_types, rng, pow, special_rules } = props;
         
         const damageTypeNames = [];
-        damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
+        damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
         return <div>
             <h2>{type}</h2>
             <h2>{name}</h2>

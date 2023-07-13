@@ -1,12 +1,12 @@
 {
-    "id": "starfire_array",
-    "name": "Starfire Array",
+    "id": "hellstormer",
+    "name": "Hellstormer",
     "point_cost": 2,
     "profiles": [{
         "type": "range", 
         "damage_types": ["beam"], 
         "rng": 12, 
         "pow": 4,
-        "special_rules": ["strafe", "defense_matrix"]
+        "special_rules": ["strafe"]
     }]
 }

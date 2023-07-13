@@ -10,6 +10,7 @@ import blast_shield from "./blast_shield.json";
 import carapax from "./carapax.json";
 import coalition_weaver from "./coalition_weaver.json";
 import combat_engineer from "./combat_engineer.json";
+import daemon from "./daemon.json";
 import defense_pylon from "./defense_pylon.json";
 import divine_tempest from "./divine_tempest.json";
 import dragoon_assault_team from "./dragoon_assault_team.json";
@@ -27,6 +28,7 @@ import firebrand from "./firebrand.json";
 import force_barrier from "./force_barrier.json";
 import fulcrum from "./fulcrum.json";
 import grafter from "./grafter.json";
+import headsman from "./headsman.json";
 import heavy_saber from "./heavy_saber.json";
 import hierotheos_raxis from "./hierotheos_raxis.json";
 import hunter from "./hunter.json";
@@ -35,7 +37,9 @@ import interceptor from "./interceptor.json";
 import justicar_voss from "./justicar_voss.json";
 import malek_sezzar from "./malek_sezzar.json";
 import marauder from "./marauder.json";
+import morningstar from "./morningstar.json";
 import nekosphynx from "./nekosphynx.json";
+import nemesis from "./nemesis.json";
 import oculus from "./oculus.json";
 import paladin_aegis from "./paladin_aegis.json";
 import paladin_annihilators from "./paladin_annihilators.json";
@@ -60,8 +64,11 @@ import relikon from "./relikon.json";
 import saber_guardians from "./saber_guardians.json";
 import saber_strikeforce from "./saber_strikeforce.json";
 import saber_vanguard from "./saber_vanguard.json";
+import scourge from "./scourge.json";
 import scythe from "./scythe.json";
+import sentinel from "./sentinel.json";
 import storm_vulture from "./storm_vulture.json";
+import strike_raptor from "./strike_raptor.json";
 import synturions from "./synturions.json";
 import talons from "./talons.json";
 import tracers from "./tracers.json";
@@ -87,6 +94,7 @@ const modelsData = {
 	carapax: carapax,
 	coalition_weaver: coalition_weaver,
 	combat_engineer: combat_engineer,
+	daemon: daemon,
 	defense_pylon: defense_pylon,
 	divine_tempest: divine_tempest,
 	dragoon_assault_team: dragoon_assault_team,
@@ -104,6 +112,7 @@ const modelsData = {
 	force_barrier: force_barrier,
 	fulcrum: fulcrum,
 	grafter: grafter,
+	headsman: headsman,
 	heavy_saber: heavy_saber,
 	hierotheos_raxis: hierotheos_raxis,
 	hunter: hunter,
@@ -112,7 +121,9 @@ const modelsData = {
 	justicar_voss: justicar_voss,
 	malek_sezzar: malek_sezzar,
 	marauder: marauder,
+	morningstar: morningstar,
 	nekosphynx: nekosphynx,
+	nemesis: nemesis,
 	oculus: oculus,
 	paladin_aegis: paladin_aegis,
 	paladin_annihilators: paladin_annihilators,
@@ -137,8 +148,11 @@ const modelsData = {
 	saber_guardians: saber_guardians,
 	saber_strikeforce: saber_strikeforce,
 	saber_vanguard: saber_vanguard,
+	scourge: scourge,
 	scythe: scythe,
+	sentinel: sentinel,
 	storm_vulture: storm_vulture,
+	strike_raptor: strike_raptor,
 	synturions: synturions,
 	talons: talons,
 	tracers: tracers,

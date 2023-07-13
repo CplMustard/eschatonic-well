@@ -1,0 +1,12 @@
+{
+    "id": "chronomorphic_accelerator",
+    "name": "Chronomorphic Accelerator",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["corrosion", "lock_down"]
+    }]
+}

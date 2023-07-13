@@ -1,0 +1,12 @@
+{
+    "id": "stinger_cannon",
+    "name": "Stinger Cannon",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["targeter"]
+    }]
+}

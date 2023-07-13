@@ -1,0 +1,5 @@
+{
+    "id": "guardian",
+    "name": "Guardian",
+    "special_rules": ["intercept_driver"]
+}

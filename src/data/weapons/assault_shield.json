@@ -1,0 +1,12 @@
+{
+    "id": "assault_shield",
+    "name": "Assault Shield",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 4,
+        "special_rules": ["shield"]
+    }]
+}

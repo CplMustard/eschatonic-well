@@ -1,0 +1,12 @@
+{
+    "id": "antiminator",
+    "name": "Antiminator",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 8, 
+        "pow": 4,
+        "special_rules": ["malefactor"]
+    }]
+}

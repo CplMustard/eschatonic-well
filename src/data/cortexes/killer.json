@@ -1,0 +1,5 @@
+{
+    "id": "killer",
+    "name": "Killer",
+    "special_rules": ["relentless"]
+}

@@ -1,0 +1,5 @@
+{
+    "id": "winch",
+    "name": "Winch",
+    "text": "When this weapon damages an enemy model with an equal or smaller base, immediately after the attack is resolved, the damaged model can be moved directly toward this model until it contacts a model, an obstacle, or structure." 
+}

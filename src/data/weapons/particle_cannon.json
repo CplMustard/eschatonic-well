@@ -1,0 +1,12 @@
+{
+    "id": "particle_cannon",
+    "name": "Particle Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 6,
+        "special_rules": ["singularity_collapse"]
+    }]
+}

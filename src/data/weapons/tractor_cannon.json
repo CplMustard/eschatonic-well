@@ -1,0 +1,11 @@
+{
+    "id": "tractor_cannon",
+    "name": "Tractor Cannon",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 14, 
+        "pow": 4,
+        "special_rules": ["lock_down", "winch"]
+    }]
+}

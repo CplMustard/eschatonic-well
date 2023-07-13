@@ -1,0 +1,5 @@
+{
+    "id": "dragon",
+    "name": "Dragon",
+    "special_rules": ["dominion_converter"]
+}

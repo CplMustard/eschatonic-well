@@ -1,12 +1,13 @@
 {
-    "id": "protean_forge",
-    "name": "Protean Forge",
+    "id": "heavy_plasma_blade",
+    "name": "Heavy Plasma Blade",
     "point_cost": 2,
     "profiles": [{
         "type": "melee", 
         "damage_types": ["kinetic"], 
         "rng": 2, 
-        "pow": 3,
-        "special_rules": ["attack_mode_protean_forge"]
+        "pow": 6,
+        "special_rules": ["fire"]
     }]
+
 }

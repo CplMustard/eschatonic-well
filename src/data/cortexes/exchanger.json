@@ -1,0 +1,5 @@
+{
+    "id": "exchanger",
+    "name": "Exchanger",
+    "special_rules": ["arc_exchange"]
+}

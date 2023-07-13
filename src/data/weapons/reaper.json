@@ -1,0 +1,12 @@
+{
+    "id": "reaper",
+    "name": "Reaper",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 8, 
+        "pow": 4,
+        "special_rules": ["winch"]
+    }]
+}

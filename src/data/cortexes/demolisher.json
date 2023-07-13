@@ -1,0 +1,5 @@
+{
+    "id": "demolisher",
+    "name": "Demolisher",
+    "special_rules": ["dynamic_accelerator", "structural_analyzer"]
+}

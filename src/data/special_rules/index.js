@@ -1,6 +1,7 @@
 import adrenalizer from "./adrenalizer.json";
 import advanced_optics from "./advanced_optics.json";
 import aegis_field from "./aegis_field.json";
+import afterburner from "./afterburner.json";
 import anathema_drive from "./anathema_drive.json";
 import annihilation_synthesizer from "./annihilation_synthesizer.json";
 import anti_air from "./anti_air.json";
@@ -14,14 +15,17 @@ import arc_booster from "./arc_booster.json";
 import arc_capacitor from "./arc_capacitor.json";
 import arc_disruptor from "./arc_disruptor.json";
 import arc_exchange from "./arc_exchange.json";
+import arc_field from "./arc_field.json";
 import arc_relay from "./arc_relay.json";
 import armor_piercing from "./armor_piercing.json";
 import attack_mode_arclock_pistol from "./attack_mode_arclock_pistol.json";
 import attack_mode_arc_blade from "./attack_mode_arc_blade.json";
 import attack_mode_protean_forge from "./attack_mode_protean_forge.json";
 import battle_commander from "./battle_commander.json";
+import battle_cruiser from "./battle_cruiser.json";
 import blast from "./blast.json";
 import blast_shielding from "./blast_shielding.json";
+import bomber from "./bomber.json";
 import cadre from "./cadre.json";
 import carrion_ablator from "./carrion_ablator.json";
 import cleave from "./cleave.json";
@@ -45,6 +49,7 @@ import fire from "./fire.json";
 import fire_and_displace from "./fire_and_displace.json";
 import flight from "./flight.json";
 import flight_commander from "./flight_commander.json";
+import force_barrier from "./force_barrier.json";
 import force_field from "./force_field.json";
 import force_projector from "./force_projector.json";
 import force_ram from "./force_ram.json";
@@ -64,6 +69,7 @@ import incorporeal from "./incorporeal.json";
 import inhabiting_spirit from "./inhabiting_spirit.json";
 import intercept_driver from "./intercept_driver.json";
 import jack_hunter from "./jack_hunter.json";
+import jump_jets from "./jump_jets.json";
 import jump_start from "./jump_start.json";
 import kinetic_field from "./kinetic_field.json";
 import living_terror from "./living_terror.json";
@@ -81,6 +87,7 @@ import neural_web from "./neural_web.json";
 import nullifier from "./nullifier.json";
 import null_blast from "./null_blast.json";
 import null_strike from "./null_strike.json";
+import oracle_targeting_array from "./oracle_targeting_array.json";
 import pathfinder from "./pathfinder.json";
 import phase_aligner from "./phase_aligner.json";
 import phase_sequencer from "./phase_sequencer.json";
@@ -96,6 +103,8 @@ import psychoclasm from "./psychoclasm.json";
 import psycho_disruptor from "./psycho_disruptor.json";
 import psycho_reactor from "./psycho_reactor.json";
 import psycho_relay from "./psycho_relay.json";
+import quantum_anchor from "./quantum_anchor.json";
+import range_amplifier from "./range_amplifier.json";
 import range_extender from "./range_extender.json";
 import rapid_strike from "./rapid_strike.json";
 import realignment_codex from "./realignment_codex.json";
@@ -115,6 +124,7 @@ import sacred_restoration from "./sacred_restoration.json";
 import scything_run from "./scything_run.json";
 import self_sacrifice from "./self_sacrifice.json";
 import sequence_dominator from "./sequence_dominator.json";
+import servo_booster from "./servo_booster.json";
 import shadow_phaser from "./shadow_phaser.json";
 import shield from "./shield.json";
 import shockwave from "./shockwave.json";
@@ -131,6 +141,8 @@ import spotlight from "./spotlight.json";
 import spray from "./spray.json";
 import stealth from "./stealth.json";
 import strafe from "./strafe.json";
+import structural_analyzer from "./structural_analyzer.json";
+import stun_module from "./stun_module.json";
 import system_failure from "./system_failure.json";
 import targeter from "./targeter.json";
 import temporal_anomaly from "./temporal_anomaly.json";
@@ -146,14 +158,17 @@ import void_jumper from "./void_jumper.json";
 import void_phaser from "./void_phaser.json";
 import void_shifter from "./void_shifter.json";
 import void_spiral from "./void_spiral.json";
+import vortex_capacitor from "./vortex_capacitor.json";
 import walking_arsenal from "./walking_arsenal.json";
 import weapon_expert from "./weapon_expert.json";
 import wide_spectrum_scanners from "./wide_spectrum_scanners.json";
+import winch from "./winch.json";
 
 const special_rulesData = {
 	adrenalizer: adrenalizer,
 	advanced_optics: advanced_optics,
 	aegis_field: aegis_field,
+	afterburner: afterburner,
 	anathema_drive: anathema_drive,
 	annihilation_synthesizer: annihilation_synthesizer,
 	anti_air: anti_air,
@@ -167,14 +182,17 @@ const special_rulesData = {
 	arc_capacitor: arc_capacitor,
 	arc_disruptor: arc_disruptor,
 	arc_exchange: arc_exchange,
+	arc_field: arc_field,
 	arc_relay: arc_relay,
 	armor_piercing: armor_piercing,
 	attack_mode_arclock_pistol: attack_mode_arclock_pistol,
 	attack_mode_arc_blade: attack_mode_arc_blade,
 	attack_mode_protean_forge: attack_mode_protean_forge,
 	battle_commander: battle_commander,
+	battle_cruiser: battle_cruiser,
 	blast: blast,
 	blast_shielding: blast_shielding,
+	bomber: bomber,
 	cadre: cadre,
 	carrion_ablator: carrion_ablator,
 	cleave: cleave,
@@ -198,6 +216,7 @@ const special_rulesData = {
 	fire_and_displace: fire_and_displace,
 	flight: flight,
 	flight_commander: flight_commander,
+	force_barrier: force_barrier,
 	force_field: force_field,
 	force_projector: force_projector,
 	force_ram: force_ram,
@@ -217,6 +236,7 @@ const special_rulesData = {
 	inhabiting_spirit: inhabiting_spirit,
 	intercept_driver: intercept_driver,
 	jack_hunter: jack_hunter,
+	jump_jets: jump_jets,
 	jump_start: jump_start,
 	kinetic_field: kinetic_field,
 	living_terror: living_terror,
@@ -234,6 +254,7 @@ const special_rulesData = {
 	nullifier: nullifier,
 	null_blast: null_blast,
 	null_strike: null_strike,
+	oracle_targeting_array: oracle_targeting_array,
 	pathfinder: pathfinder,
 	phase_aligner: phase_aligner,
 	phase_sequencer: phase_sequencer,
@@ -249,6 +270,8 @@ const special_rulesData = {
 	psycho_disruptor: psycho_disruptor,
 	psycho_reactor: psycho_reactor,
 	psycho_relay: psycho_relay,
+	quantum_anchor: quantum_anchor,
+	range_amplifier: range_amplifier,
 	range_extender: range_extender,
 	rapid_strike: rapid_strike,
 	realignment_codex: realignment_codex,
@@ -268,6 +291,7 @@ const special_rulesData = {
 	scything_run: scything_run,
 	self_sacrifice: self_sacrifice,
 	sequence_dominator: sequence_dominator,
+	servo_booster: servo_booster,
 	shadow_phaser: shadow_phaser,
 	shield: shield,
 	shockwave: shockwave,
@@ -284,6 +308,8 @@ const special_rulesData = {
 	spray: spray,
 	stealth: stealth,
 	strafe: strafe,
+	structural_analyzer: structural_analyzer,
+	stun_module: stun_module,
 	system_failure: system_failure,
 	targeter: targeter,
 	temporal_anomaly: temporal_anomaly,
@@ -299,8 +325,10 @@ const special_rulesData = {
 	void_phaser: void_phaser,
 	void_shifter: void_shifter,
 	void_spiral: void_spiral,
+	vortex_capacitor: vortex_capacitor,
 	walking_arsenal: walking_arsenal,
 	weapon_expert: weapon_expert,
-	wide_spectrum_scanners: wide_spectrum_scanners
+	wide_spectrum_scanners: wide_spectrum_scanners,
+	winch: winch
 }
 export default special_rulesData;

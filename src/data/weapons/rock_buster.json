@@ -1,0 +1,12 @@
+{
+    "id": "rock_buster",
+    "name": "Rock Buster",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 3,
+        "special_rules": ["armor_piercing"]
+    }]
+}

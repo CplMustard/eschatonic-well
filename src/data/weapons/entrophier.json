@@ -1,0 +1,12 @@
+{
+    "id": "entrophier",
+    "name": "Entrophier",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["cold"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["lock_down", "stun_module"]
+    }]
+}

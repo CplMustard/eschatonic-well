@@ -1,0 +1,5 @@
+{
+    "id": "hound",
+    "name": "Hound",
+    "special_rules": ["pathfinder", "mimetic_cloak"]
+}

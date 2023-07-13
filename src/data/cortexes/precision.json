@@ -1,0 +1,5 @@
+{
+    "id": "precision",
+    "name": "Precision",
+    "special_rules": ["structural_analyzer"]
+}

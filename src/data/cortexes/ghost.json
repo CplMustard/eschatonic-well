@@ -1,0 +1,5 @@
+{
+    "id": "ghost",
+    "name": "Ghost",
+    "special_rules": ["mimetic_cloak"]
+}

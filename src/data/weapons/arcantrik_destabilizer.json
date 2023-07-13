@@ -1,0 +1,13 @@
+{
+    "id": "arcantrik_destabilizer",
+    "name": "Arcantrik Destabilizer",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 4,
+        "special_rules": ["null_strike", "stun_module"]
+    }]
+
+}

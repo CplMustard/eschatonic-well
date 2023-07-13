@@ -1,0 +1,5 @@
+{
+    "id": "dog_fighter",
+    "name": "Dog Fighter",
+    "special_rules": ["slip_field"]
+}

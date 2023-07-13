@@ -1,12 +1,11 @@
 {
-    "id": "starfire_array",
+    "id": "starfire_array_astreus",
     "name": "Starfire Array",
-    "point_cost": 2,
     "profiles": [{
         "type": "range", 
         "damage_types": ["beam"], 
         "rng": 12, 
         "pow": 4,
-        "special_rules": ["strafe", "defense_matrix"]
+        "special_rules": ["strafe"]
     }]
 }
