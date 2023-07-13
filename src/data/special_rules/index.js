@@ -23,6 +23,7 @@ import attack_mode_arc_blade from "./attack_mode_arc_blade.json";
 import attack_mode_protean_forge from "./attack_mode_protean_forge.json";
 import battle_commander from "./battle_commander.json";
 import battle_cruiser from "./battle_cruiser.json";
+import battle_matrix from "./battle_matrix.json";
 import blast from "./blast.json";
 import blast_shielding from "./blast_shielding.json";
 import bomber from "./bomber.json";
@@ -44,6 +45,7 @@ import eclipse_drive from "./eclipse_drive.json";
 import entropic_field from "./entropic_field.json";
 import eruption from "./eruption.json";
 import evasion_drive from "./evasion_drive.json";
+import field_promotion from "./field_promotion.json";
 import field_reinforcement from "./field_reinforcement.json";
 import fire from "./fire.json";
 import fire_and_displace from "./fire_and_displace.json";
@@ -63,6 +65,7 @@ import high_intensity from "./high_intensity.json";
 import high_performance from "./high_performance.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
 import hunter_killer_salvo from "./hunter_killer_salvo.json";
+import impulse_agitator from "./impulse_agitator.json";
 import impulse_reactor from "./impulse_reactor.json";
 import impulse_reciprocator from "./impulse_reciprocator.json";
 import incorporeal from "./incorporeal.json";
@@ -190,6 +193,7 @@ const special_rulesData = {
 	attack_mode_protean_forge: attack_mode_protean_forge,
 	battle_commander: battle_commander,
 	battle_cruiser: battle_cruiser,
+	battle_matrix: battle_matrix,
 	blast: blast,
 	blast_shielding: blast_shielding,
 	bomber: bomber,
@@ -211,6 +215,7 @@ const special_rulesData = {
 	entropic_field: entropic_field,
 	eruption: eruption,
 	evasion_drive: evasion_drive,
+	field_promotion: field_promotion,
 	field_reinforcement: field_reinforcement,
 	fire: fire,
 	fire_and_displace: fire_and_displace,
@@ -230,6 +235,7 @@ const special_rulesData = {
 	high_performance: high_performance,
 	hunter_killer_rounds: hunter_killer_rounds,
 	hunter_killer_salvo: hunter_killer_salvo,
+	impulse_agitator: impulse_agitator,
 	impulse_reactor: impulse_reactor,
 	impulse_reciprocator: impulse_reciprocator,
 	incorporeal: incorporeal,
