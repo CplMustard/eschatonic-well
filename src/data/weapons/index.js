@@ -36,9 +36,12 @@ import energy_blade from "./energy_blade.json";
 import energy_sniper_rifle from "./energy_sniper_rifle.json";
 import entrophier from "./entrophier.json";
 import eye_of_sorrows from "./eye_of_sorrows.json";
+import fist from "./fist.json";
 import fixed_guns from "./fixed_guns.json";
 import flamethrower from "./flamethrower.json";
+import flux_disruptor from "./flux_disruptor.json";
 import force_cannon from "./force_cannon.json";
+import force_constrictor from "./force_constrictor.json";
 import force_driver from "./force_driver.json";
 import force_generator from "./force_generator.json";
 import force_generator_zenith from "./force_generator_zenith.json";
@@ -46,6 +49,7 @@ import force_hammer from "./force_hammer.json";
 import force_rod from "./force_rod.json";
 import force_shield_projector from "./force_shield_projector.json";
 import force_strike from "./force_strike.json";
+import force_strike_tulcan from "./force_strike_tulcan.json";
 import fusion_athame from "./fusion_athame.json";
 import fusion_axe from "./fusion_axe.json";
 import fusion_axe_infiltrators from "./fusion_axe_infiltrators.json";
@@ -99,6 +103,7 @@ import metaperceptor from "./metaperceptor.json";
 import meteor_cannon from "./meteor_cannon.json";
 import mortifier from "./mortifier.json";
 import nailer from "./nailer.json";
+import nexus_forge from "./nexus_forge.json";
 import nova_cannon from "./nova_cannon.json";
 import null_cannon from "./null_cannon.json";
 import null_detonator from "./null_detonator.json";
@@ -149,6 +154,7 @@ import sun_piercer from "./sun_piercer.json";
 import talon_mkii from "./talon_mkii.json";
 import talon_rocket_launcher from "./talon_rocket_launcher.json";
 import talon_rocket_pod from "./talon_rocket_pod.json";
+import teleforce_blaster from "./teleforce_blaster.json";
 import tempest_cannon from "./tempest_cannon.json";
 import tentacle_clamps from "./tentacle_clamps.json";
 import tentacle_strike from "./tentacle_strike.json";
@@ -205,9 +211,12 @@ const weaponsData = {
 	energy_sniper_rifle: energy_sniper_rifle,
 	entrophier: entrophier,
 	eye_of_sorrows: eye_of_sorrows,
+	fist: fist,
 	fixed_guns: fixed_guns,
 	flamethrower: flamethrower,
+	flux_disruptor: flux_disruptor,
 	force_cannon: force_cannon,
+	force_constrictor: force_constrictor,
 	force_driver: force_driver,
 	force_generator: force_generator,
 	force_generator_zenith: force_generator_zenith,
@@ -215,6 +224,7 @@ const weaponsData = {
 	force_rod: force_rod,
 	force_shield_projector: force_shield_projector,
 	force_strike: force_strike,
+	force_strike_tulcan: force_strike_tulcan,
 	fusion_athame: fusion_athame,
 	fusion_axe: fusion_axe,
 	fusion_axe_infiltrators: fusion_axe_infiltrators,
@@ -268,6 +278,7 @@ const weaponsData = {
 	meteor_cannon: meteor_cannon,
 	mortifier: mortifier,
 	nailer: nailer,
+	nexus_forge: nexus_forge,
 	nova_cannon: nova_cannon,
 	null_cannon: null_cannon,
 	null_detonator: null_detonator,
@@ -318,6 +329,7 @@ const weaponsData = {
 	talon_mkii: talon_mkii,
 	talon_rocket_launcher: talon_rocket_launcher,
 	talon_rocket_pod: talon_rocket_pod,
+	teleforce_blaster: teleforce_blaster,
 	tempest_cannon: tempest_cannon,
 	tentacle_clamps: tentacle_clamps,
 	tentacle_strike: tentacle_strike,

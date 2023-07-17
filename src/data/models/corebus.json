@@ -1,0 +1,30 @@
+{
+    "id": "corebus",
+    "name": "Corebus",
+    "factions": ["emp", "mw"],
+    "type": "solo",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 6,
+        "mat": 4,
+        "rat": 4,
+        "def": 2,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "teleforce_blaster",
+        "fist",
+        "fist"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "dynamic_accelerator",
+        "gladiator",
+        "guardian"
+    ]
+}

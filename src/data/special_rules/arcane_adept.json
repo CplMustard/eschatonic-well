@@ -1,0 +1,5 @@
+{
+    "id": "arcane_adept",
+    "name": "Arcane Adept",
+    "text": "Instead of discarding a Cypher card during step 8 of your turn, you can give the Cypher card to this model. Reveal the Cypher cards given to this model to your opponent. This model can have up to three Cypher cards at any time. This model can play one Cypher during each of its activations. Furies played by this model are channeled through this model and are RNG 15. When resolving an attack roll for a Fury played by this model, instead of adding Action Dice equal to the FOC of this model, add Power Dice equal to this model’s FOC. You can discard any of this model’s Cypher cards at the end of any of its activations." 
+}

@@ -1,5 +1,6 @@
 {
     "id": "walking_arsenal",
     "name": "Walking Arsenal",
-    "text": "This model can spike at any time during its activation to use one of the following munitions:\nHollowphage Rounds - The first ranged weapon attack made by each model in this squad gains Corrosion this activation.\nNull Detonators - In addition to their other weapons, models in this squad gain Null Detonators this activation.\nSeeker Ammunition - Ranged attacks made by models in this squad ignore cover this activation." 
+    "text": "This model can spike at any time during its activation to use one of the following munitions:",
+    "subrules": ["hollowphage_rounds", "null_detonators", "seeker_ammunition"]
 }

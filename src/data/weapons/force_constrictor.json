@@ -1,0 +1,11 @@
+{
+    "id": "force_constrictor",
+    "name": "Force Constrictor",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 10, 
+        "pow": 3,
+        "special_rules": ["stun_module"]
+    }]
+}

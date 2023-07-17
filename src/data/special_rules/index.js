@@ -2,10 +2,12 @@ import adrenalizer from "./adrenalizer.json";
 import advanced_optics from "./advanced_optics.json";
 import aegis_field from "./aegis_field.json";
 import afterburner from "./afterburner.json";
+import alien_artifacts from "./alien_artifacts.json";
 import anathema_drive from "./anathema_drive.json";
 import annihilation_synthesizer from "./annihilation_synthesizer.json";
 import anti_air from "./anti_air.json";
 import apotropaic_reactor from "./apotropaic_reactor.json";
+import arcane_adept from "./arcane_adept.json";
 import arcane_parasite from "./arcane_parasite.json";
 import arcantrik_amplifier from "./arcantrik_amplifier.json";
 import arcantrik_turbine from "./arcantrik_turbine.json";
@@ -21,6 +23,7 @@ import armor_piercing from "./armor_piercing.json";
 import attack_mode_arclock_pistol from "./attack_mode_arclock_pistol.json";
 import attack_mode_arc_blade from "./attack_mode_arc_blade.json";
 import attack_mode_protean_forge from "./attack_mode_protean_forge.json";
+import awakened_spirit from "./awakened_spirit.json";
 import battle_commander from "./battle_commander.json";
 import battle_cruiser from "./battle_cruiser.json";
 import battle_matrix from "./battle_matrix.json";
@@ -43,6 +46,7 @@ import dominion_converter from "./dominion_converter.json";
 import dynamic_accelerator from "./dynamic_accelerator.json";
 import eclipse_drive from "./eclipse_drive.json";
 import entropic_field from "./entropic_field.json";
+import environment_suit from "./environment_suit.json";
 import eruption from "./eruption.json";
 import evasion_drive from "./evasion_drive.json";
 import field_promotion from "./field_promotion.json";
@@ -58,12 +62,16 @@ import force_projector from "./force_projector.json";
 import force_ram from "./force_ram.json";
 import force_ram_aegis from "./force_ram_aegis.json";
 import fury_reciprocator from "./fury_reciprocator.json";
+import gate_jammer from "./gate_jammer.json";
 import gate_launcher from "./gate_launcher.json";
+import gladiator from "./gladiator.json";
 import gorge from "./gorge.json";
+import guardian from "./guardian.json";
 import havoc_engine from "./havoc_engine.json";
 import heightened_reflexes from "./heightened_reflexes.json";
 import high_intensity from "./high_intensity.json";
 import high_performance from "./high_performance.json";
+import hollowphage_rounds from "./hollowphage_rounds.json";
 import hunter_killer_rounds from "./hunter_killer_rounds.json";
 import hunter_killer_salvo from "./hunter_killer_salvo.json";
 import impulse_agitator from "./impulse_agitator.json";
@@ -90,9 +98,11 @@ import neural_net from "./neural_net.json";
 import neural_web from "./neural_web.json";
 import nullifier from "./nullifier.json";
 import null_blast from "./null_blast.json";
+import null_detonators from "./null_detonators.json";
 import null_strike from "./null_strike.json";
 import oracle_targeting_array from "./oracle_targeting_array.json";
 import pathfinder from "./pathfinder.json";
+import penumbral_agitator from "./penumbral_agitator.json";
 import phase_aligner from "./phase_aligner.json";
 import phase_sequencer from "./phase_sequencer.json";
 import phase_sequencer_squad from "./phase_sequencer_squad.json";
@@ -103,11 +113,13 @@ import phylacteric_vault from "./phylacteric_vault.json";
 import power_attack from "./power_attack.json";
 import power_focus from "./power_focus.json";
 import power_harvester from "./power_harvester.json";
+import power_vacuum from "./power_vacuum.json";
 import psychoclasm from "./psychoclasm.json";
 import psycho_disruptor from "./psycho_disruptor.json";
 import psycho_reactor from "./psycho_reactor.json";
 import psycho_relay from "./psycho_relay.json";
 import quantum_anchor from "./quantum_anchor.json";
+import quantum_harmonizer from "./quantum_harmonizer.json";
 import range_amplifier from "./range_amplifier.json";
 import range_extender from "./range_extender.json";
 import rapid_strike from "./rapid_strike.json";
@@ -127,9 +139,11 @@ import rites_of_sorrow from "./rites_of_sorrow.json";
 import rites_of_vengeance from "./rites_of_vengeance.json";
 import sacred_restoration from "./sacred_restoration.json";
 import scything_run from "./scything_run.json";
+import seeker_ammunition from "./seeker_ammunition.json";
 import self_sacrifice from "./self_sacrifice.json";
 import sequence_dominator from "./sequence_dominator.json";
 import servo_booster from "./servo_booster.json";
+import shadow_conductor from "./shadow_conductor.json";
 import shadow_phaser from "./shadow_phaser.json";
 import shield from "./shield.json";
 import shockwave from "./shockwave.json";
@@ -154,6 +168,7 @@ import temporal_anomaly from "./temporal_anomaly.json";
 import thanotech_reclaimer from "./thanotech_reclaimer.json";
 import thaumaturgic_initiator from "./thaumaturgic_initiator.json";
 import thrusters from "./thrusters.json";
+import transabyssal_gate from "./transabyssal_gate.json";
 import tune_up from "./tune_up.json";
 import turret from "./turret.json";
 import void_disruptor from "./void_disruptor.json";
@@ -174,10 +189,12 @@ const special_rulesData = {
 	advanced_optics: advanced_optics,
 	aegis_field: aegis_field,
 	afterburner: afterburner,
+	alien_artifacts: alien_artifacts,
 	anathema_drive: anathema_drive,
 	annihilation_synthesizer: annihilation_synthesizer,
 	anti_air: anti_air,
 	apotropaic_reactor: apotropaic_reactor,
+	arcane_adept: arcane_adept,
 	arcane_parasite: arcane_parasite,
 	arcantrik_amplifier: arcantrik_amplifier,
 	arcantrik_turbine: arcantrik_turbine,
@@ -193,6 +210,7 @@ const special_rulesData = {
 	attack_mode_arclock_pistol: attack_mode_arclock_pistol,
 	attack_mode_arc_blade: attack_mode_arc_blade,
 	attack_mode_protean_forge: attack_mode_protean_forge,
+	awakened_spirit: awakened_spirit,
 	battle_commander: battle_commander,
 	battle_cruiser: battle_cruiser,
 	battle_matrix: battle_matrix,
@@ -215,6 +233,7 @@ const special_rulesData = {
 	dynamic_accelerator: dynamic_accelerator,
 	eclipse_drive: eclipse_drive,
 	entropic_field: entropic_field,
+	environment_suit: environment_suit,
 	eruption: eruption,
 	evasion_drive: evasion_drive,
 	field_promotion: field_promotion,
@@ -230,12 +249,16 @@ const special_rulesData = {
 	force_ram: force_ram,
 	force_ram_aegis: force_ram_aegis,
 	fury_reciprocator: fury_reciprocator,
+	gate_jammer: gate_jammer,
 	gate_launcher: gate_launcher,
+	gladiator: gladiator,
 	gorge: gorge,
+	guardian: guardian,
 	havoc_engine: havoc_engine,
 	heightened_reflexes: heightened_reflexes,
 	high_intensity: high_intensity,
 	high_performance: high_performance,
+	hollowphage_rounds: hollowphage_rounds,
 	hunter_killer_rounds: hunter_killer_rounds,
 	hunter_killer_salvo: hunter_killer_salvo,
 	impulse_agitator: impulse_agitator,
@@ -262,9 +285,11 @@ const special_rulesData = {
 	neural_web: neural_web,
 	nullifier: nullifier,
 	null_blast: null_blast,
+	null_detonators: null_detonators,
 	null_strike: null_strike,
 	oracle_targeting_array: oracle_targeting_array,
 	pathfinder: pathfinder,
+	penumbral_agitator: penumbral_agitator,
 	phase_aligner: phase_aligner,
 	phase_sequencer: phase_sequencer,
 	phase_sequencer_squad: phase_sequencer_squad,
@@ -275,11 +300,13 @@ const special_rulesData = {
 	power_attack: power_attack,
 	power_focus: power_focus,
 	power_harvester: power_harvester,
+	power_vacuum: power_vacuum,
 	psychoclasm: psychoclasm,
 	psycho_disruptor: psycho_disruptor,
 	psycho_reactor: psycho_reactor,
 	psycho_relay: psycho_relay,
 	quantum_anchor: quantum_anchor,
+	quantum_harmonizer: quantum_harmonizer,
 	range_amplifier: range_amplifier,
 	range_extender: range_extender,
 	rapid_strike: rapid_strike,
@@ -299,9 +326,11 @@ const special_rulesData = {
 	rites_of_vengeance: rites_of_vengeance,
 	sacred_restoration: sacred_restoration,
 	scything_run: scything_run,
+	seeker_ammunition: seeker_ammunition,
 	self_sacrifice: self_sacrifice,
 	sequence_dominator: sequence_dominator,
 	servo_booster: servo_booster,
+	shadow_conductor: shadow_conductor,
 	shadow_phaser: shadow_phaser,
 	shield: shield,
 	shockwave: shockwave,
@@ -326,6 +355,7 @@ const special_rulesData = {
 	thanotech_reclaimer: thanotech_reclaimer,
 	thaumaturgic_initiator: thaumaturgic_initiator,
 	thrusters: thrusters,
+	transabyssal_gate: transabyssal_gate,
 	tune_up: tune_up,
 	turret: turret,
 	void_disruptor: void_disruptor,

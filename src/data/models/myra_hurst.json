@@ -1,0 +1,30 @@
+{
+    "id": "myra_hurst",
+    "name": "Doctor Myra Hurst",
+    "factions": ["emp", "isa"],
+    "type": "solo",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 4,
+        "arm": 3,
+        "boxes": 2
+    },
+    "weapons": [
+        "assault_rifle"
+    ],
+    "advantages": [
+        "revelator"
+    ],
+    "special_rules": [
+        "aegis_field",
+        "arc_amplifier",
+        "arc_exchange",
+        "psycho_relay",
+        "void_disruptor"
+    ]
+}

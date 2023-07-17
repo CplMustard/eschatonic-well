@@ -1,0 +1,6 @@
+{
+    "id": "alien_artifacts",
+    "name": "Alien Artifacts",
+    "text": "This model can spike at any time during its activation to use one of the following alien artifacts:",
+    "subrules": ["penumbral_agitator", "quantum_harmonizer", "shadow_conductor"]
+}

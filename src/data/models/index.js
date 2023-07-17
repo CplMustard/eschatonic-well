@@ -12,6 +12,7 @@ import blast_shield from "./blast_shield.json";
 import carapax from "./carapax.json";
 import coalition_weaver from "./coalition_weaver.json";
 import combat_engineer from "./combat_engineer.json";
+import corebus from "./corebus.json";
 import daemon from "./daemon.json";
 import defense_pylon from "./defense_pylon.json";
 import divine_tempest from "./divine_tempest.json";
@@ -25,11 +26,13 @@ import eternal_metator from "./eternal_metator.json";
 import exalted_paragons from "./exalted_paragons.json";
 import execrator_nix from "./execrator_nix.json";
 import factotum from "./factotum.json";
+import fenrik_leech from "./fenrik_leech.json";
 import fiddler_and_co from "./fiddler_and_co.json";
 import firebrand from "./firebrand.json";
 import force_barrier from "./force_barrier.json";
 import fulcrum from "./fulcrum.json";
 import grafter from "./grafter.json";
+import harlan_sek from "./harlan_sek.json";
 import headsman from "./headsman.json";
 import heavy_saber from "./heavy_saber.json";
 import hierotheos_raxis from "./hierotheos_raxis.json";
@@ -40,7 +43,9 @@ import jax_redblade from "./jax_redblade.json";
 import justicar_voss from "./justicar_voss.json";
 import malek_sezzar from "./malek_sezzar.json";
 import marauder from "./marauder.json";
+import master_tulcan from "./master_tulcan.json";
 import morningstar from "./morningstar.json";
+import myra_hurst from "./myra_hurst.json";
 import nekosphynx from "./nekosphynx.json";
 import nemesis from "./nemesis.json";
 import oculus from "./oculus.json";
@@ -80,6 +85,7 @@ import vassal_raiders from "./vassal_raiders.json";
 import vassal_reavers from "./vassal_reavers.json";
 import vassal_witch_hounds from "./vassal_witch_hounds.json";
 import void_gate from "./void_gate.json";
+import voitek_sudal from "./voitek_sudal.json";
 import warder from "./warder.json";
 import witch_hounds from "./witch_hounds.json";
 import zenith from "./zenith.json";
@@ -99,6 +105,7 @@ const modelsData = {
 	carapax: carapax,
 	coalition_weaver: coalition_weaver,
 	combat_engineer: combat_engineer,
+	corebus: corebus,
 	daemon: daemon,
 	defense_pylon: defense_pylon,
 	divine_tempest: divine_tempest,
@@ -112,11 +119,13 @@ const modelsData = {
 	exalted_paragons: exalted_paragons,
 	execrator_nix: execrator_nix,
 	factotum: factotum,
+	fenrik_leech: fenrik_leech,
 	fiddler_and_co: fiddler_and_co,
 	firebrand: firebrand,
 	force_barrier: force_barrier,
 	fulcrum: fulcrum,
 	grafter: grafter,
+	harlan_sek: harlan_sek,
 	headsman: headsman,
 	heavy_saber: heavy_saber,
 	hierotheos_raxis: hierotheos_raxis,
@@ -127,7 +136,9 @@ const modelsData = {
 	justicar_voss: justicar_voss,
 	malek_sezzar: malek_sezzar,
 	marauder: marauder,
+	master_tulcan: master_tulcan,
 	morningstar: morningstar,
+	myra_hurst: myra_hurst,
 	nekosphynx: nekosphynx,
 	nemesis: nemesis,
 	oculus: oculus,
@@ -167,6 +178,7 @@ const modelsData = {
 	vassal_reavers: vassal_reavers,
 	vassal_witch_hounds: vassal_witch_hounds,
 	void_gate: void_gate,
+	voitek_sudal: voitek_sudal,
 	warder: warder,
 	witch_hounds: witch_hounds,
 	zenith: zenith

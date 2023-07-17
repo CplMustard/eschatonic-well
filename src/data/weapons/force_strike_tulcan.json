@@ -1,0 +1,11 @@
+{
+    "id": "force_strike_tulcan",
+    "name": "Abyssal Pulse",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["force"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["cleave", "null_strike"]
+    }]
+}
