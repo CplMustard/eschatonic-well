@@ -33,6 +33,7 @@ import displacer from "./displacer.json";
 import eclipse_inducer from "./eclipse_inducer.json";
 import empty from "./empty.json";
 import energy_blade from "./energy_blade.json";
+import energy_sniper_rifle from "./energy_sniper_rifle.json";
 import entrophier from "./entrophier.json";
 import eye_of_sorrows from "./eye_of_sorrows.json";
 import fixed_guns from "./fixed_guns.json";
@@ -92,6 +93,7 @@ import light_meteor_cannon from "./light_meteor_cannon.json";
 import long_rifle from "./long_rifle.json";
 import maelstrom from "./maelstrom.json";
 import magnetic_charge from "./magnetic_charge.json";
+import magnum from "./magnum.json";
 import mandibles from "./mandibles.json";
 import metaperceptor from "./metaperceptor.json";
 import meteor_cannon from "./meteor_cannon.json";
@@ -104,6 +106,7 @@ import null_hammer from "./null_hammer.json";
 import null_torpedo from "./null_torpedo.json";
 import numinous_agitator from "./numinous_agitator.json";
 import obliterator from "./obliterator.json";
+import oblivion from "./oblivion.json";
 import particle_accelerator from "./particle_accelerator.json";
 import particle_blaster from "./particle_blaster.json";
 import particle_blaster_dragoon from "./particle_blaster_dragoon.json";
@@ -199,6 +202,7 @@ const weaponsData = {
 	eclipse_inducer: eclipse_inducer,
 	empty: empty,
 	energy_blade: energy_blade,
+	energy_sniper_rifle: energy_sniper_rifle,
 	entrophier: entrophier,
 	eye_of_sorrows: eye_of_sorrows,
 	fixed_guns: fixed_guns,
@@ -258,6 +262,7 @@ const weaponsData = {
 	long_rifle: long_rifle,
 	maelstrom: maelstrom,
 	magnetic_charge: magnetic_charge,
+	magnum: magnum,
 	mandibles: mandibles,
 	metaperceptor: metaperceptor,
 	meteor_cannon: meteor_cannon,
@@ -270,6 +275,7 @@ const weaponsData = {
 	null_torpedo: null_torpedo,
 	numinous_agitator: numinous_agitator,
 	obliterator: obliterator,
+	oblivion: oblivion,
 	particle_accelerator: particle_accelerator,
 	particle_blaster: particle_blaster,
 	particle_blaster_dragoon: particle_blaster_dragoon,

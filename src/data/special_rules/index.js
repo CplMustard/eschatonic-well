@@ -51,6 +51,7 @@ import fire from "./fire.json";
 import fire_and_displace from "./fire_and_displace.json";
 import flight from "./flight.json";
 import flight_commander from "./flight_commander.json";
+import flight_pack from "./flight_pack.json";
 import force_barrier from "./force_barrier.json";
 import force_field from "./force_field.json";
 import force_projector from "./force_projector.json";
@@ -120,6 +121,7 @@ import repulsor_ram from "./repulsor_ram.json";
 import reserve_power_cells from "./reserve_power_cells.json";
 import resurrection_protocol from "./resurrection_protocol.json";
 import revelator from "./revelator.json";
+import riposte from "./riposte.json";
 import rites_of_shadow from "./rites_of_shadow.json";
 import rites_of_sorrow from "./rites_of_sorrow.json";
 import rites_of_vengeance from "./rites_of_vengeance.json";
@@ -221,6 +223,7 @@ const special_rulesData = {
 	fire_and_displace: fire_and_displace,
 	flight: flight,
 	flight_commander: flight_commander,
+	flight_pack: flight_pack,
 	force_barrier: force_barrier,
 	force_field: force_field,
 	force_projector: force_projector,
@@ -290,6 +293,7 @@ const special_rulesData = {
 	reserve_power_cells: reserve_power_cells,
 	resurrection_protocol: resurrection_protocol,
 	revelator: revelator,
+	riposte: riposte,
 	rites_of_shadow: rites_of_shadow,
 	rites_of_sorrow: rites_of_sorrow,
 	rites_of_vengeance: rites_of_vengeance,

@@ -1,0 +1,28 @@
+{
+    "id": "baron_mooregrave",
+    "name": "Baron Cassius Mooregrave",
+    "factions": ["ac", "isa"],
+    "type": "solo",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 5,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "oblivion",
+        "magnum"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "living_terror",
+        "phase_stalker"
+    ]
+}

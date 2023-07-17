@@ -1,0 +1,10 @@
+{
+    "id": "magnum",
+    "name": "Magnum",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 8, 
+        "pow": 4
+    }]
+}

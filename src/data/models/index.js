@@ -5,7 +5,9 @@ import artemis_fang from "./artemis_fang.json";
 import astreus from "./astreus.json";
 import aurelion from "./aurelion.json";
 import automech from "./automech.json";
+import axel_for_hire from "./axel_for_hire.json";
 import aysa_drace from "./aysa_drace.json";
+import baron_mooregrave from "./baron_mooregrave.json";
 import blast_shield from "./blast_shield.json";
 import carapax from "./carapax.json";
 import coalition_weaver from "./coalition_weaver.json";
@@ -34,6 +36,7 @@ import hierotheos_raxis from "./hierotheos_raxis.json";
 import hunter from "./hunter.json";
 import immortal_weaver from "./immortal_weaver.json";
 import interceptor from "./interceptor.json";
+import jax_redblade from "./jax_redblade.json";
 import justicar_voss from "./justicar_voss.json";
 import malek_sezzar from "./malek_sezzar.json";
 import marauder from "./marauder.json";
@@ -89,7 +92,9 @@ const modelsData = {
 	astreus: astreus,
 	aurelion: aurelion,
 	automech: automech,
+	axel_for_hire: axel_for_hire,
 	aysa_drace: aysa_drace,
+	baron_mooregrave: baron_mooregrave,
 	blast_shield: blast_shield,
 	carapax: carapax,
 	coalition_weaver: coalition_weaver,
@@ -118,6 +123,7 @@ const modelsData = {
 	hunter: hunter,
 	immortal_weaver: immortal_weaver,
 	interceptor: interceptor,
+	jax_redblade: jax_redblade,
 	justicar_voss: justicar_voss,
 	malek_sezzar: malek_sezzar,
 	marauder: marauder,

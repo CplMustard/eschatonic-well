@@ -1,0 +1,11 @@
+{
+    "id": "oblivion",
+    "name": "Oblivion",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 5,
+        "special_rules": ["high_intensity", "gorge", "siphon_power"]
+    }]
+}

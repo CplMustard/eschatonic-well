@@ -1,0 +1,11 @@
+{
+    "id": "energy_sniper_rifle",
+    "name": "Energy Sniper Rifle ",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 14, 
+        "pow": 5,
+        "special_rules": ["high_intensity", "singularity_collapse"]
+    }]
+}
