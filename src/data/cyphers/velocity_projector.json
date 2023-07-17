@@ -1,0 +1,8 @@
+{
+    "id": "velocity_projector",
+    "name": "Velocity Projector",
+    "type": "fury",
+    "factions": ["all"],
+    "pow": 4,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, the model is slammed 3\" directly away from the model the fury is being channeled through before suffering a damage roll. Models with an an equal or smaller base that were contacted by the slammed model suffer a collateral damage roll equal to the POW of this card.\n\nThis Fury causes force damage."
+}

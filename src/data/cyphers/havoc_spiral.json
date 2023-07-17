@@ -1,0 +1,8 @@
+{
+    "id": "havoc_spiral",
+    "name": "Havoc Spiral",
+    "type": "fury",
+    "factions": ["all"],
+    "pow": 3,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits and damages that enemy model, immediately after the attack is resolved, the damaged model can be moved directly toward the channeling model until it contacts a model, an obstacle, or structure.\n\nThis Fury causes force damage."
+}

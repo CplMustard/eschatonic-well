@@ -1,5 +1,5 @@
 {
-    "id": "battle_cruiser",
-    "name": "Battle Cruiser",
-    "special_rules": ["battle_cruiser"]
+    "id": "eidolon",
+    "name": "Eidolon",
+    "special_rules": ["arcanum_module"]
 }

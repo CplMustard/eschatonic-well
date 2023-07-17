@@ -1,0 +1,8 @@
+{
+    "id": "atrophic_decomposer",
+    "name": "Atrophic Decomposer",
+    "type": "fury",
+    "factions": ["ac"],
+    "pow": 2,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, the model hit suffers the Corrosion continuous effect in addition to suffering a damage roll.\n\nThis Fury causes corrosion damage. "
+}

@@ -1,0 +1,7 @@
+{
+    "id": "cryo_lock",
+    "name": "Cryo Lock",
+    "type": "fury",
+    "factions": ["all"],
+    "text": "Target an enemy unit model in range.\n\nMake a Fury attack roll against the target model. If this attack hits, it does no damage. Instead, the hit unit gains an activation token.\n\nModels that are immune to cold damage are not affected by this Fury."
+}
