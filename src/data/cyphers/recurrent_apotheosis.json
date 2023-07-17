@@ -1,0 +1,7 @@
+{
+    "id": "recurrent_apotheosis",
+    "name": "Recurrent Apotheosis",
+    "type": "harmonic",
+    "factions": ["ac"],
+    "text": "Target a friendly warrior model.\n\nReplace the target model with a solo from your reserves. The replaced model is destroyed."
+}

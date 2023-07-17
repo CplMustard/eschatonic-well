@@ -1,0 +1,7 @@
+{
+    "id": "photochimeric_mantle",
+    "name": "Photochimeric Mantle",
+    "type": "harmonic",
+    "factions": ["all"],
+    "text": "Target a friendly unit.\n\nThe unit gains Stealth. A model with Stealth cannot be targeted by attacks made by models more than 8\" away.\n\nPhotochimeric Mantle expires at the end of the Pulse round."
+}

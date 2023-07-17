@@ -1,0 +1,7 @@
+{
+    "id": "canker_bane",
+    "name": "Canker Bane",
+    "type": "harmonic",
+    "factions": ["ac"],
+    "text": "Target a friendly unit.\n\nModels hit by melee attacks made by the affected unit suffer the Corrosion continuous effect.\n\nCanker Bane expires at the end of the Pulse round."
+}

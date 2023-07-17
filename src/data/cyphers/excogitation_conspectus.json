@@ -1,0 +1,7 @@
+{
+    "id": "excogitation_conspectus",
+    "name": "Excogitation Conspectus",
+    "type": "harmonic",
+    "factions": ["emp"],
+    "text": "Target a friendly unit.\n\nWhen a model is targeted by an enemy Cypher while within 5\" of a model affected by this Cypher, you can immediately choose one Cypher card from your discard pile and return it to your hand.\n\nExcogitation Conspectus expires at the end of the Pulse round."
+}

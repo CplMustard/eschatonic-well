@@ -1,0 +1,7 @@
+{
+    "id": "divination_algorithm",
+    "name": "Divination Algorithm",
+    "type": "harmonic",
+    "factions": ["all"],
+    "text": "Target a friendly unit.\n\nThis unit's ranged weapons gain +1 RNG and POW.\n\nDivination Algorithm expires at the end of the Pulse round."
+}

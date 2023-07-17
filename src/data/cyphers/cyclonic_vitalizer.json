@@ -1,0 +1,7 @@
+{
+    "id": "cyclonic_vitalizer",
+    "name": "Canker Bane",
+    "type": "harmonic",
+    "factions": ["mw"],
+    "text": "Target a friendly unit.\n\nThe unit can move up to 3\" at the start of each of your turns.\n\nCyclonic Vitalizer expires at the end of the Pulse round."
+}

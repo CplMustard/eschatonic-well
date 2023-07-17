@@ -1,0 +1,7 @@
+{
+    "id": "gremian_tormentor",
+    "name": "Canker Bane",
+    "type": "harmonic",
+    "factions": ["mw"],
+    "text": "Target a friendly unit.\n\nWhen an enemy warjack ends it activation within 2\" of an affected model, the warjack suffers the System Failure continuous effect.\n\nGremian Tormentor expires at the end of the Pulse round."
+}
