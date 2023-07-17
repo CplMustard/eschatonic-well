@@ -15,7 +15,7 @@
         "boxes": 1
     },
     "weapons": [
-        "particle_blaster",
+        "particle_blaster_dragoon",
         "fusion_blade"
     ],
     "advantages": [
