@@ -1,0 +1,7 @@
+{
+    "id": "mortality_destabilizer",
+    "name": "Mortality Destabilizer",
+    "type": "geometric",
+    "factions": ["all"],
+    "text": "Target a friendly squad.\n\nReturn one destroyed non-attachment model to this squad, then discard this card. Place the returned model with 2˝ of another model in the squad."
+}

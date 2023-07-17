@@ -1,0 +1,7 @@
+{
+    "id": "conviction_countermeasure",
+    "name": "Conviction Countermeasure",
+    "type": "geometric",
+    "factions": ["mw"],
+    "text": "Target a friendly squad.\n\nAffected models gain +1 DEF. While securing an objective, affected models can reroll their defense rolls. A defense roll can be rerolled once as a result of Conviction Countermeasure.\n\nConviction Countermeasure expires at the end of the Pulse round."
+}

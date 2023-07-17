@@ -1,0 +1,7 @@
+{
+    "id": "devotion_paradigm",
+    "name": "Devotion Paradigm",
+    "type": "geometric",
+    "factions": ["isa"],
+    "text": "Target a friendly squad.\n\nReturn one destroyed non-attachment model to this squad at the start of each of your turns. Place the returned model with 2\" of another model in the squad.\n\nDevotion Paradigm expires at the end of the Pulse round."
+}

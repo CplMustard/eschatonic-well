@@ -1,0 +1,7 @@
+{
+    "id": "discordian_agitator",
+    "name": "Discordian Agitator",
+    "type": "geometric",
+    "factions": ["all"],
+    "text": "Target a friendly squad.\n\nDuring the squad's activation, each model in the squad can make one additional melee attack.\n\nDiscordian Agitator expires at the end of this turn."
+}
