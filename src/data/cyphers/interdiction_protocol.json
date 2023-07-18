@@ -1,0 +1,7 @@
+{
+    "id": "interdiction_protocol",
+    "name": "Interdiction Protocol",
+    "type": "overdrive",
+    "factions": ["all"],
+    "text": "Target a friendly warjack.\n\nFriendly warrior models within 5\" of this warjack gain +2 DEF.\n\nInterdiction Protocol expires at the end of the Pulse round."
+}
