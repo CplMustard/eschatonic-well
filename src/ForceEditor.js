@@ -48,7 +48,6 @@ function ForceEditor(props) {
     }
 
     function removeModelCard(id) {
-        console.log(id)
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
             modelCount.current[forceModelsData[index].modelId]--;
@@ -57,9 +56,10 @@ function ForceEditor(props) {
     }
 
     function removeCypherCard(id) {
-        const index = forceCyphersData.indexOf(cyphersData[id]);
+        console.log(id)
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         if(index !== -1) {
-            cypherCount.current[id]--;
+            cypherCount.current[forceCyphersData[index].cypherId]--;
             setForceCyphersData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
         }
     }
