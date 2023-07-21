@@ -10,9 +10,10 @@ function ForceEditorView() {
     }
 
     const factionButtons = []
-    Object.entries(factionsData).forEach((faction, index) => {
-        console.log(faction)
-        factionButtons.push(<button key={index} onClick={() => changeFaction(faction[1].id)}>{faction[1].name}</button>)
+    Object.entries(factionsData).forEach(([key, value]) => {
+        if(!value.hidden) {
+            factionButtons.push(<button key={key} onClick={() => changeFaction(value.id)}>{value.name}</button>);
+        }
     })
     return (
         <div>

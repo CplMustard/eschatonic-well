@@ -1,4 +1,5 @@
 {
     "name": "Lost Legion",
-    "id": "ll"
+    "id": "ll",
+    "hidden": true
 }

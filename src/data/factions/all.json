@@ -1,4 +1,5 @@
 {
     "name": "Universal",
-    "id": "all"
+    "id": "all",
+    "hidden": true
 }
