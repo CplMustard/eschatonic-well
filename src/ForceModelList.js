@@ -13,8 +13,13 @@ function ForceModelList(props) {
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
         value.forEach((entry, index) => {
-            entryComponents.push(<li key={index}><button onClick={() => handleCardClicked(entry.id)}>{entry.name}</button>{viewCardClicked && <button onClick={() => viewCardClicked(entry.modelId)}>VIEW</button>}</li>);
-            {entry.hard_points && <HardPointList hard_points={entry.hard_points} onChangeHardPoint={()=>{}}/>}
+            entryComponents.push(
+                <li key={index}>
+                    <button onClick={() => handleCardClicked(entry.id)}>{entry.name}</button>
+                    {viewCardClicked && <button onClick={() => viewCardClicked(entry.modelId)}>VIEW</button>}
+                    {entry.hard_points && <HardPointList hard_points={entry.hard_points} onChangeHardPoint={()=>{}}/>}
+                </li>
+            );
         })
         forceGroupComponents.push(<div key={key}><h4>{key}</h4><li><ul>{entryComponents}</ul></li></div>)
     })
