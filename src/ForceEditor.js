@@ -38,7 +38,7 @@ function ForceEditor(props) {
 
         if(modelCount.current[id] < fa) {
             modelCount.current[id]++;
-            const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, hard_points: modelData.hard_points};
+            const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, type: modelData.type, hard_points: modelData.hard_points};
             console.log(forceEntry.id)
             setForceModelsData(forceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name));
         }
@@ -51,7 +51,7 @@ function ForceEditor(props) {
 
         if(cypherCount.current[id] === 0) {
             cypherCount.current[id]++;
-            const cypherEntry = {id: uuidv1(), cypherId: id, name: cyphersData[id].name};
+            const cypherEntry = {id: uuidv1(), cypherId: id, type: cyphersData[id].type, name: cyphersData[id].name};
             setForceCyphersData(forceCyphersData.concat(cypherEntry).sort((a, b) => a.name > b.name));
         }
     }
