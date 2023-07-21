@@ -1,11 +1,10 @@
 import './App.css';
-import CardListViewer from './CardListViewer';
-import ForceEditor from './ForceEditor';
+import ForceEditorView from './ForceEditorView';
 
 function App() {
     return (
         <div className="App">
-            <ForceEditor factionID={"isa"}></ForceEditor>
+            <ForceEditorView></ForceEditorView>
         </div>
     );
 }
