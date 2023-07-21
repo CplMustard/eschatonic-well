@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
 import CardList from './CardList';
@@ -10,6 +10,7 @@ import { cyphersData, modelsData } from './data';
 
 function ForceEditor(props) {
     const params = useParams();
+    const navigate  = useNavigate();
     const [forceModelsData, setForceModelsData] = useState([]);
     const [forceCyphersData, setForceCyphersData] = useState([]);
     const modelCount = useRef({});
@@ -19,6 +20,14 @@ function ForceEditor(props) {
 
     const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
+
+    function openModelCard(id) {
+        navigate(`/model/${id}`);
+    }
+
+    function openCypherCard(id) {
+        navigate(`/cypher/${id}`);
+    }
 
     function addModelCard(id) {
         const modelData = modelsData[id];
@@ -66,10 +75,10 @@ function ForceEditor(props) {
 
     return (
         <div>
-            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={removeModelCard}></ForceModelList>
-            <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={removeCypherCard}></ForceCypherList>
-            <CardList header={"Models"} cards={models} handleCardClicked={addModelCard}></CardList>
-            <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={addCypherCard}></CardList>
+            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={removeModelCard} viewCardClicked={openModelCard}></ForceModelList>
+            <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={removeCypherCard} viewCardClicked={openCypherCard}></ForceCypherList>
+            <CardList header={"Models"} cards={models} handleCardClicked={addModelCard} viewCardClicked={openModelCard}></CardList>
+            <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={addCypherCard} viewCardClicked={openCypherCard}></CardList>
         </div>
     );
 }
