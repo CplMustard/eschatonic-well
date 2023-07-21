@@ -7,7 +7,7 @@ function CardList(props) {
         memo[current["type"]] = [...memo[current["type"]] || [], current];
         return memo;
     }, {});
-    Object.entries(cardGroups).forEach(([key, value]) => {
+    Object.entries(cardGroups).sort().forEach(([key, value]) => {
         const cardComponents = []
         value.forEach((card, index) =>
             cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{viewCardClicked && <button onClick={() => viewCardClicked(card.id)}>VIEW</button>}</li>)
