@@ -1,4 +1,5 @@
 {
     "name": "Attachment",
-    "id": "attachment"
+    "id": "attachment",
+    "hidden": "true"
 }

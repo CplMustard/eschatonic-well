@@ -1,4 +1,5 @@
 {
     "name": "Champion",
-    "id": "champion"
+    "id": "champion",
+    "hidden": true
 }
