@@ -1,11 +1,12 @@
 .App {
-  text-align: center;
+  margin: 0;
 }
 
 .statline {
   display: flex;
   align-items: center;
-  justify-content: center;
+  align-content: flex-start;
+  justify-content: flex-start;
 }
 
 .statline-entry {
@@ -15,11 +16,13 @@
 .special-rule {
   display: flex;
   align-items: center;
-  justify-content: center;
+  align-content: flex-start;
+  justify-content: flex-start;
 }
 
 .special-rule-title {
   font-weight: bold;
   margin: 0 1rem;
   align-self: baseline;
+  white-space: nowrap;
 }

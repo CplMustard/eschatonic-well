@@ -1,6 +1,7 @@
 {
     "id": "harbingers_of_cyriss",
     "name": "Harbingers of Cyriss",
+    "faction": "emp",
     "models": [
         "antecessors_eternal",
         "exalted_paragons",

@@ -1,6 +1,7 @@
 {
     "id": "dragoon_air_cavalry",
     "name": "Dragoon Air Cavalry",
+    "faction": "mw",
     "models": [
         "dragoon_assault_team",
         "dragoon_strike_team",

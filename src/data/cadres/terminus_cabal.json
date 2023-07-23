@@ -1,6 +1,7 @@
 {
     "id": "terminus_cabal",
     "name": "Terminus Cabal",
+    "faction": "ac",
     "models": [
         "nekosphynx",
         "synturions",

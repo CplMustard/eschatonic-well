@@ -1,6 +1,7 @@
 {
     "id": "alliance_regulators",
     "name": "Alliance Regulators",
+    "faction": "isa",
     "models": [
         "regulators",
         "regulator_reeve",

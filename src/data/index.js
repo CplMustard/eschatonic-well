@@ -6,6 +6,7 @@ import damageTypesData from "./damage_types";
 import factionsData from "./factions";
 import maneuversData from "./maneuvers";
 import modelsData from "./models";
+import modelTypesData from "./model_types";
 import specialRulesData from "./special_rules";
 import weaponsData from "./weapons";
 
@@ -18,6 +19,7 @@ export {
     factionsData,
     maneuversData,
     modelsData,
+    modelTypesData,
     specialRulesData,
     weaponsData
 };
