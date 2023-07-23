@@ -6,7 +6,7 @@ import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
-import { cyphersData, modelsData } from './data';
+import { cyphersData, modelsData, weaponsData } from './data';
 
 function ForceEditor(props) {
     const params = useParams();
@@ -38,8 +38,14 @@ function ForceEditor(props) {
 
         if(modelCount.current[id] < fa) {
             modelCount.current[id]++;
-            const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, type: modelData.type, hard_points: modelData.hard_points};
-            console.log(forceEntry.id)
+            const defaultHardPoints = [];
+            if(modelData.hard_points) {
+                modelData.hard_points.forEach((hard_point) => {
+                    defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0})
+                }, [weaponsData]);
+            }
+            const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, type: modelData.type, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints };
+            console.log(forceEntry)
             setForceModelsData(forceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name));
         }
     }
@@ -65,7 +71,6 @@ function ForceEditor(props) {
     }
 
     function removeCypherCard(id) {
-        console.log(id)
         const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         if(index !== -1) {
             cypherCount.current[forceCyphersData[index].cypherId]--;
@@ -73,9 +78,17 @@ function ForceEditor(props) {
         }
     }
 
+    function updateModelHardPoint(option, type, point_cost, hardPointIndex, id) {
+        console.log(id)
+        const entry = forceModelsData[id]
+        const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
+        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions };
+        setForceModelsData(forceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name));
+    }
+
     return (
         <div>
-            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={removeModelCard} viewCardClicked={openModelCard}></ForceModelList>
+            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={removeModelCard} viewCardClicked={openModelCard} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={removeCypherCard} viewCardClicked={openCypherCard}></ForceCypherList>
             <CardList header={"Models"} cards={models} handleCardClicked={addModelCard} viewCardClicked={openModelCard}></CardList>
             <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={addCypherCard} viewCardClicked={openCypherCard}></CardList>
