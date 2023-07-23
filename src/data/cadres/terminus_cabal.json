@@ -1,4 +1,12 @@
 {
     "id": "terminus_cabal",
-    "name": "Terminus Cabal"
+    "name": "Terminus Cabal",
+    "models": [
+        "nekosphynx",
+        "synturions",
+        "talons"
+    ],
+    "champion": [
+        "divine_tempest"
+    ]
 }

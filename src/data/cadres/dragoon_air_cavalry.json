@@ -1,4 +1,12 @@
 {
     "id": "dragoon_air_cavalry",
-    "name": "Dragoon Air Cavalry"
+    "name": "Dragoon Air Cavalry",
+    "models": [
+        "dragoon_assault_team",
+        "dragoon_strike_team",
+        "dragoon_strike_team_leader"
+    ],
+    "champion": [
+        "storm_vulture"
+    ]
 }

@@ -1,4 +1,12 @@
 {
     "id": "alliance_regulators",
-    "name": "Alliance Regulators"
+    "name": "Alliance Regulators",
+    "models": [
+        "regulators",
+        "regulator_reeve",
+        "tracers"
+    ],
+    "champion": [
+        "headsman"
+    ]
 }

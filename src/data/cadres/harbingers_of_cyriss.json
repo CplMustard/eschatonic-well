@@ -1,4 +1,12 @@
 {
     "id": "harbingers_of_cyriss",
-    "name": "Harbingers of Cyriss"
+    "name": "Harbingers of Cyriss",
+    "models": [
+        "antecessors_eternal",
+        "exalted_paragons",
+        "paragon_commander"
+    ],
+    "champion": [
+        "eternal_metator"
+    ]
 }
