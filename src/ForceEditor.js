@@ -21,6 +21,43 @@ function ForceEditor(props) {
     const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
+    function insertModelCard(forceModelsData, modelId) {
+        let newForceModelsData = forceModelsData;
+        const newId = uuidv1();
+        const modelData = modelsData[modelId];
+        const defaultHardPoints = [];
+        if(modelData.hard_points) {
+            modelData.hard_points.forEach((hard_point) => {
+                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0})
+            }, [weaponsData]);
+        }
+        if (modelData.attachments) {
+            modelData.attachments.forEach((attachment) => {
+                if(newForceModelsData.findIndex((forceModel) => forceModel.modelId === attachment) === -1) {
+                    newForceModelsData = insertModelCard(newForceModelsData, attachment);
+                }
+            });
+        }
+        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+        return newForceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name);
+    }
+
+    function deleteModelCard(forceModelsData, index) {
+        //TODO: this doesn't quite work because the index changes when attachments are deleted
+        let newForceModelsData = forceModelsData;
+        const modelId = newForceModelsData[index].modelId;
+        const modelData = modelsData[modelId];
+        if (modelData.attachments) {
+            modelData.attachments.forEach((attachment) => {
+                const attachmentIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === attachment);
+                if(attachmentIndex !== -1) {
+                    newForceModelsData = deleteModelCard(newForceModelsData, attachmentIndex);
+                }
+            });
+        }
+        return [...newForceModelsData.slice(0, index), ...newForceModelsData.slice(index + 1)];
+    }
+
     function openModelCard(id) {
         navigate(`/model/${id}`);
     }
@@ -29,23 +66,16 @@ function ForceEditor(props) {
         navigate(`/cypher/${id}`);
     }
 
-    function addModelCard(id) {
-        const modelData = modelsData[id];
+    function addModelCard(modelId) {
+        const modelData = modelsData[modelId];
         const fa = modelData.fa ? modelData.fa : 4;
-        if(!modelCount.current[id]) {
-            modelCount.current[id] = 0;
+        if(!modelCount.current[modelId]) {
+            modelCount.current[modelId] = 0;
         }
 
-        if(modelCount.current[id] < fa) {
-            modelCount.current[id]++;
-            const defaultHardPoints = [];
-            if(modelData.hard_points) {
-                modelData.hard_points.forEach((hard_point) => {
-                    defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0})
-                }, [weaponsData]);
-            }
-            const forceEntry = {id: uuidv1(), modelId: id, name: modelData.name, type: modelData.type, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints };
-            setForceModelsData(forceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name));
+        if(modelCount.current[modelId] < fa) {
+            modelCount.current[modelId]++;
+            setForceModelsData(insertModelCard(forceModelsData, modelId));
         }
     }
 
@@ -65,7 +95,7 @@ function ForceEditor(props) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
             modelCount.current[forceModelsData[index].modelId]--;
-            setForceModelsData([...forceModelsData.slice(0, index), ...forceModelsData.slice(index + 1)]);
+            setForceModelsData(deleteModelCard(forceModelsData, index));
         }
     }
 
@@ -81,16 +111,16 @@ function ForceEditor(props) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         const entry = forceModelsData[index]
         const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
-        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions };
+        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
         setForceModelsData([...forceModelsData.slice(0, index), forceEntry, ...forceModelsData.slice(index + 1)]);
     }
 
     return (
         <div>
-            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={removeModelCard} viewCardClicked={openModelCard} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
-            <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={removeCypherCard} viewCardClicked={openCypherCard}></ForceCypherList>
-            <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={addModelCard} viewCardClicked={openModelCard}></CardList>
-            <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={addCypherCard} viewCardClicked={openCypherCard}></CardList>
+            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
+            <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
+            <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={addModelCard} cardActionText={"ADD"}></CardList>
+            <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={openCypherCard} cardActionClicked={addCypherCard} cardActionText={"ADD"}></CardList>
         </div>
     );
 }

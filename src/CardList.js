@@ -3,7 +3,7 @@ import React from 'react';
 import { modelTypesData } from './data';
 
 function CardList(props) {
-    const { cards, header, hideHiddenTypes, handleCardClicked, viewCardClicked } = props;
+    const { cards, header, hideHiddenTypes, handleCardClicked, cardActionClicked, cardActionText } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
         memo[current["type"]] = [...memo[current["type"]] || [], current];
@@ -13,7 +13,7 @@ function CardList(props) {
         if (!hideHiddenTypes || (modelTypesData[key] && !modelTypesData[key].hidden)) {
             const cardComponents = []
             value.forEach((card, index) =>
-                cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{viewCardClicked && <button onClick={() => viewCardClicked(card.id)}>VIEW</button>}</li>)
+                cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{cardActionClicked && <button onClick={() => cardActionClicked(card.id)}>{cardActionText}</button>}</li>)
             )
             cardGroupComponents.push(<div key={key}><h4>{key}</h4><li><ul>{cardComponents}</ul></li></div>)
         }
