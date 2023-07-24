@@ -21,14 +21,11 @@ function ForceEditor(props) {
     const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
-    function countCadreModels (forceModelsData, cadre) {
+    function countCadreModels (cadre) {
         if (cadre) {
             const cadreModels = cadresData[cadre].models;
             const cadreModelCounts = [];
-            cadreModels.forEach((cadreModelId) => {
-                cadreModelCounts.push(forceModelsData.filter((forceModel) => forceModel.modelId === cadreModelId).length);
-            });
-            console.log(cadreModelCounts);
+            cadreModels.forEach((cadreModelId) => cadreModelCounts.push(modelCount.current[cadreModelId] ? modelCount.current[cadreModelId] : 0));
             return Math.min(...cadreModelCounts);
         }
         return 0;
@@ -90,11 +87,15 @@ function ForceEditor(props) {
 
         if(modelCount.current[modelId] < fa) {
             modelCount.current[modelId]++;
-            const newForceModelsData = insertModelCard(forceModelsData, modelId);
-            setForceModelsData(newForceModelsData);
+            let newForceModelsData = insertModelCard(forceModelsData, modelId);
             if(modelData.cadre) {
-                console.log(countCadreModels(newForceModelsData, modelData.cadre));
+                const cadre = cadresData[modelData.cadre];
+                const championCount = newForceModelsData.filter((forceModel) => forceModel.modelId === cadre.champion).length;
+                if(championCount !== countCadreModels(cadre.id)) {
+                    newForceModelsData = insertModelCard(newForceModelsData, cadre.champion);
+                }
             }
+            setForceModelsData(newForceModelsData);
         }
     }
 
@@ -115,11 +116,18 @@ function ForceEditor(props) {
         if(index !== -1) {
             modelCount.current[forceModelsData[index].modelId]--;
             const modelData = modelsData[forceModelsData[index].modelId];
-            const newForceModelsData = deleteModelCard(forceModelsData, index);
-            setForceModelsData(newForceModelsData);
+            let newForceModelsData = deleteModelCard(forceModelsData, index);
+
             if(modelData.cadre) {
-                console.log(countCadreModels(newForceModelsData, modelData.cadre));
+                const cadre = cadresData[modelData.cadre];
+                const championCount = newForceModelsData.filter((forceModel) => forceModel.modelId === cadre.champion).length
+                console.log(championCount)
+                if(championCount !== countCadreModels(cadre.id)) {
+                    const championIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
+                    newForceModelsData = deleteModelCard(newForceModelsData, championIndex);
+                }
             }
+            setForceModelsData(newForceModelsData);
         }
     }
 
