@@ -24,8 +24,8 @@ function ForceEditor(props) {
 
     function countUnits(forceModelsData) {
         return forceModelsData.filter((forceModel) => {
-            const hadHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
-            return !modelTypesData[forceModel.type].hidden && !hadHiddenSubtype
+            const hasHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
+            return !modelTypesData[forceModel.type].hidden && !hasHiddenSubtype;
         }).length;
     }
 
