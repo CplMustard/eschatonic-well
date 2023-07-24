@@ -6,7 +6,7 @@ import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
-import { cyphersData, modelsData, weaponsData } from './data';
+import { cadresData, cyphersData, modelsData, weaponsData } from './data';
 
 function ForceEditor(props) {
     const params = useParams();
@@ -21,6 +21,18 @@ function ForceEditor(props) {
     const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
+    function countCadreModels (forceModelsData, cadre) {
+        if (cadre) {
+            const cadreModels = cadresData[cadre].models;
+            const cadreModelCounts = [];
+            cadreModels.forEach((cadreModelId) => {
+                cadreModelCounts.push(forceModelsData.filter((forceModel) => forceModel.modelId === cadreModelId).length);
+            });
+            console.log(cadreModelCounts);
+            return Math.min(...cadreModelCounts);
+        }
+        return 0;
+    }
     function insertModelCard(forceModelsData, modelId) {
         let newForceModelsData = forceModelsData;
         const newId = uuidv1();
@@ -51,10 +63,8 @@ function ForceEditor(props) {
             modelData.attachments.forEach((attachment) => {
                 //only delete if we're the last eligible unit for this attachment
                 const attachmentIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === attachment);
-                const remainingEligibleUnits = newForceModelsData.filter((forceModel) => {
-                    return modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment);
-                })
-                if(attachmentIndex !== -1 && remainingEligibleUnits.length === 0) {
+                const remainingEligibleUnitCount = newForceModelsData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length
+                if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
                     newForceModelsData = deleteModelCard(newForceModelsData, attachmentIndex);
                 }
             });
@@ -80,7 +90,11 @@ function ForceEditor(props) {
 
         if(modelCount.current[modelId] < fa) {
             modelCount.current[modelId]++;
-            setForceModelsData(insertModelCard(forceModelsData, modelId));
+            const newForceModelsData = insertModelCard(forceModelsData, modelId);
+            setForceModelsData(newForceModelsData);
+            if(modelData.cadre) {
+                console.log(countCadreModels(newForceModelsData, modelData.cadre));
+            }
         }
     }
 
@@ -100,7 +114,12 @@ function ForceEditor(props) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
             modelCount.current[forceModelsData[index].modelId]--;
-            setForceModelsData(deleteModelCard(forceModelsData, index));
+            const modelData = modelsData[forceModelsData[index].modelId];
+            const newForceModelsData = deleteModelCard(forceModelsData, index);
+            setForceModelsData(newForceModelsData);
+            if(modelData.cadre) {
+                console.log(countCadreModels(newForceModelsData, modelData.cadre));
+            }
         }
     }
 
