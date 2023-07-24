@@ -14,6 +14,7 @@ function ForceEditor(props) {
     const [forceModelsData, setForceModelsData] = useState([]);
     const [forceCyphersData, setForceCyphersData] = useState([]);
     const [unitCount, setUnitCount] = useState(0);
+    const [heroSoloCount, setHeroSoloCount] = useState(0);
     const modelCount = useRef({});
     const cypherCount = useRef({});
 
@@ -26,6 +27,13 @@ function ForceEditor(props) {
         return forceModelsData.filter((forceModel) => {
             const hasHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
             return !modelTypesData[forceModel.type].hidden && !hasHiddenSubtype;
+        }).length;
+    }
+
+    function countHeroSolos(forceModelsData) {
+        return forceModelsData.filter((forceModel) => {
+            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") : false;
+            return forceModel.type === "solo" && hasHeroSubtype;
         }).length;
     }
 
@@ -107,6 +115,7 @@ function ForceEditor(props) {
             }
             setForceModelsData(newForceModelsData);
             setUnitCount(countUnits(newForceModelsData));
+            setHeroSoloCount(countHeroSolos(newForceModelsData));
         }
     }
 
@@ -140,6 +149,7 @@ function ForceEditor(props) {
             }
             setForceModelsData(newForceModelsData);
             setUnitCount(countUnits(newForceModelsData));
+            setHeroSoloCount(countHeroSolos(newForceModelsData));
         }
     }
 
@@ -162,6 +172,7 @@ function ForceEditor(props) {
     return (
         <div>
             <h3>Units: {unitCount}</h3>
+            <h3>Hero Solos: {heroSoloCount}</h3>
             <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={addModelCard} cardActionText={"ADD"}></CardList>
