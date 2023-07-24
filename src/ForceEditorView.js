@@ -5,6 +5,7 @@ import { factionsData } from './data'
 
 function ForceEditorView() {
     const [factionID, setFactionID] = useState("all");
+    
     function changeFaction(id) {
         setFactionID(id);
     }
