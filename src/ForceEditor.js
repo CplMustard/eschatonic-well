@@ -43,19 +43,23 @@ function ForceEditor(props) {
     }
 
     function deleteModelCard(forceModelsData, index) {
-        //TODO: this doesn't quite work because the index changes when attachments are deleted
         let newForceModelsData = forceModelsData;
         const modelId = newForceModelsData[index].modelId;
         const modelData = modelsData[modelId];
+        newForceModelsData = [...newForceModelsData.slice(0, index), ...newForceModelsData.slice(index + 1)]
         if (modelData.attachments) {
             modelData.attachments.forEach((attachment) => {
+                //only delete if we're the last eligible unit for this attachment
                 const attachmentIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === attachment);
-                if(attachmentIndex !== -1) {
+                const remainingEligibleUnits = newForceModelsData.filter((forceModel) => {
+                    return modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment);
+                })
+                if(attachmentIndex !== -1 && remainingEligibleUnits.length === 0) {
                     newForceModelsData = deleteModelCard(newForceModelsData, attachmentIndex);
                 }
             });
         }
-        return [...newForceModelsData.slice(0, index), ...newForceModelsData.slice(index + 1)];
+        return newForceModelsData;
     }
 
     function openModelCard(id) {
