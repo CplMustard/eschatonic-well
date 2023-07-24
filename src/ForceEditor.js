@@ -72,7 +72,8 @@ function ForceEditor(props) {
 
     function addModelCard(modelId) {
         const modelData = modelsData[modelId];
-        const fa = modelData.fa ? modelData.fa : 4;
+        const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
+        const fa = modelData.fa ? modelData.fa : defaultFA;
         if(!modelCount.current[modelId]) {
             modelCount.current[modelId] = 0;
         }
