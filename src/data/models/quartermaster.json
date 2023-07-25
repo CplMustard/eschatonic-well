@@ -4,6 +4,7 @@
     "factions": ["ac", "emp", "isa", "mw"],
     "hero": true,
     "type": "attachment",
+    "subtypes": ["hero"],
     "stats": {
         "dc": 1,
         "base_size": 30,

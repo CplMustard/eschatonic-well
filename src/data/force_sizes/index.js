@@ -1,16 +1,16 @@
-import 11_2 from "./11_2.json";
-import 15_3 from "./15_3.json";
-import 4_0 from "./4_0.json";
-import 5_1 from "./5_1.json";
-import 6_0 from "./6_0.json";
-import 8_1 from "./8_1.json";
+import force_11_2 from "./force_11_2.json";
+import force_15_3 from "./force_15_3.json";
+import force_4_0 from "./force_4_0.json";
+import force_5_1 from "./force_5_1.json";
+import force_6_0 from "./force_6_0.json";
+import force_8_1 from "./force_8_1.json";
 
 const force_sizesData = {
-	11_2: 11_2,
-	15_3: 15_3,
-	4_0: 4_0,
-	5_1: 5_1,
-	6_0: 6_0,
-	8_1: 8_1
+	force_11_2: force_11_2,
+	force_15_3: force_15_3,
+	force_4_0: force_4_0,
+	force_5_1: force_5_1,
+	force_6_0: force_6_0,
+	force_8_1: force_8_1
 }
 export default force_sizesData;

@@ -13,12 +13,12 @@ function ForceEditor(props) {
     const navigate  = useNavigate();
     const [forceModelsData, setForceModelsData] = useState([]);
     const [forceCyphersData, setForceCyphersData] = useState([]);
-    const [unitCount, setUnitCount] = useState(0);
-    const [heroSoloCount, setHeroSoloCount] = useState(0);
     const modelCount = useRef({});
     const cypherCount = useRef({});
 
     const factionID = props.factionID ? props.factionID : params.factionID;
+    const { maxUnits, freeHeroSolos } = props;
+    const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
 
     const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
@@ -27,7 +27,7 @@ function ForceEditor(props) {
         return forceModelsData.filter((forceModel) => {
             const hasHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
             return !modelTypesData[forceModel.type].hidden && !hasHiddenSubtype;
-        }).length;
+        }).length - Math.min(countHeroSolos(forceModelsData), freeHeroSolos ? freeHeroSolos : 0);
     }
 
     function countHeroSolos(forceModelsData) {
@@ -114,8 +114,6 @@ function ForceEditor(props) {
                 }
             }
             setForceModelsData(newForceModelsData);
-            setUnitCount(countUnits(newForceModelsData));
-            setHeroSoloCount(countHeroSolos(newForceModelsData));
         }
     }
 
@@ -148,8 +146,6 @@ function ForceEditor(props) {
                 }
             }
             setForceModelsData(newForceModelsData);
-            setUnitCount(countUnits(newForceModelsData));
-            setHeroSoloCount(countHeroSolos(newForceModelsData));
         }
     }
 
@@ -171,8 +167,8 @@ function ForceEditor(props) {
 
     return (
         <div>
-            <h3>Units: {unitCount}</h3>
-            <h3>Hero Solos: {heroSoloCount}</h3>
+            <h3>Units: {countUnits(forceModelsData)}{maxUnits && <span> / {maxUnits}</span>}</h3>
+            {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(forceModelsData), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}
             <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={addModelCard} cardActionText={"ADD"}></CardList>

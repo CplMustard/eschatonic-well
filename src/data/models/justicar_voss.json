@@ -3,6 +3,7 @@
     "name": "Justicar Voss",
     "factions": ["isa"],
     "type": "solo",
+    "subtypes": ["hero"],
     "stats": {
         "dc": 1,
         "base_size": 30,

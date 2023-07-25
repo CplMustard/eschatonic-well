@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import ForceEditor from './ForceEditor';
 
-import { factionsData } from './data'
+import { factionsData, forceSizesData } from './data'
 
 function ForceEditorView() {
     const [factionID, setFactionID] = useState("all");
+    const [forceSize, setForceSize] = useState({});
     
     function changeFaction(id) {
         setFactionID(id);
+    }
+
+    function changeForceSize(forceSize) {
+        setForceSize(forceSize);
     }
 
     const factionButtons = []
@@ -15,11 +20,17 @@ function ForceEditorView() {
         if(!value.hidden) {
             factionButtons.push(<button key={key} onClick={() => changeFaction(value.id)}>{value.name}</button>);
         }
-    })
+    });
+    const forceSizeButtons = []
+    Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
+        forceSizeButtons.push(<button key={key} onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</button>);
+    });
+    forceSizeButtons.push(<button key={"custom"} onClick={() => changeForceSize({})}>CUSTOM</button>);
     return (
         <div>
-            {factionButtons}
-            <ForceEditor factionID={factionID}></ForceEditor>
+            {factionButtons}<br/>
+            {forceSizeButtons}
+            <ForceEditor factionID={factionID} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}></ForceEditor>
         </div>
     );
 }
