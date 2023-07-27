@@ -1,6 +1,5 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import CardList from './CardList';
 
