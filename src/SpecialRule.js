@@ -30,8 +30,10 @@ function SpecialRule(props) {
         const subrules = ruleData.subrules
         const subruleEntries = subrules ? subrules.map((subrule) => {console.log(subrule); return <li key={subrule}><SpecialRule ruleID={subrule}/></li>}) : undefined
         return (
-            <div className="special-rule">
-                <div className="special-rule-title">{ruleTitleString}</div><div>{ruleString}</div>
+            <div>
+                <div className="special-rule">
+                    <div className="special-rule-title">{ruleTitleString}</div><div>{ruleString}</div>
+                </div>
                 {subrules && <div><ul>{subruleEntries}</ul></div>}
             </div>
         );

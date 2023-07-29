@@ -10,7 +10,7 @@ function Maneuver(props) {
     useEffect(() => {
         setIsLoaded(true);
         setManeuverData(maneuversData[props.maneuverID]);
-    }, [props.manueverID]);
+    });
 
     if (error) {
         return <div>Error: {error.message}</div>;
