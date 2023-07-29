@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
@@ -11,11 +11,38 @@ import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weap
 function ForceEditor(props) {
     const params = useParams();
     const navigate  = useNavigate();
-    const [forceName, setForceName] = useState("New Force");
-    const [forceModelsData, setForceModelsData] = useState([]);
-    const [forceCyphersData, setForceCyphersData] = useState([]);
+    const [forceName, setForceName] = useState(() => {
+        // getting stored value
+        const saved = localStorage.getItem("forceName");
+        const initialValue = JSON.parse(saved);
+        return initialValue || "New Force";
+    });
+    const [forceModelsData, setForceModelsData] = useState(() => {
+        // getting stored value
+        const saved = localStorage.getItem("forceModelsData");
+        const initialValue = JSON.parse(saved);
+        return initialValue || [];
+    });
+    const [forceCyphersData, setForceCyphersData] = useState(() => {
+        // getting stored value
+        const saved = localStorage.getItem("forceCyphersData");
+        const initialValue = JSON.parse(saved);
+        return initialValue || [];
+    });
     const modelCount = useRef({});
     const cypherCount = useRef({});
+
+    useEffect(() => {
+        localStorage.setItem("forceName", JSON.stringify(forceName));
+    }, [forceName]);
+
+    useEffect(() => {
+        localStorage.setItem("forceModelsData", JSON.stringify(forceModelsData));
+    }, [forceModelsData]);
+
+    useEffect(() => {
+        localStorage.setItem("forceCyphersData", JSON.stringify(forceCyphersData));
+    }, [forceCyphersData]);
 
     const factionID = props.factionID ? props.factionID : params.factionID;
     const { maxUnits, freeHeroSolos } = props;
