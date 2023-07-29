@@ -27,7 +27,7 @@ function ForceEditorView() {
     });
     forceSizeButtons.push(<button key={"custom"} onClick={() => changeForceSize({})}>CUSTOM</button>);
     return (
-        <div>
+        <div className="container">
             {factionButtons}<br/>
             {forceSizeButtons}
             <ForceEditor factionID={factionID} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}></ForceEditor>

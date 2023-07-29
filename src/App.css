@@ -9,6 +9,11 @@ h3 h4 h5 h6 {
   margin: 0;
 }
 
+.container {
+  max-width: 100%;
+  display: inline;
+}
+
 .statline {
   display: flex;
   align-items: center;

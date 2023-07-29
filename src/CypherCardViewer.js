@@ -19,7 +19,7 @@ function CypherCardViewer(props) {
 
     function Cypher(props) {
         const { name, factions, type, pow, text } = props;
-        return <div>
+        return <div className="card-container">
             <h1>{name}</h1>
             <h1>{factions}</h1>
             <h1>{type}</h1>
@@ -34,7 +34,7 @@ function CypherCardViewer(props) {
         return <div>Loading Card Data...</div>
     } else {
         return (
-            <div>
+            <div className="container">
                 <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
             </div>
         );

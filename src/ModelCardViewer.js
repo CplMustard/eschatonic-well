@@ -99,7 +99,7 @@ function ModelCardViewer(props) {
         }
 
         return (
-            <div>
+            <div className="container">
                 <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
                 <Statline stats={stats} />
                 {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
