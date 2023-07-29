@@ -1,7 +1,7 @@
 {
     "id": "meteor_cannon",
     "name": "Meteor Cannon",
-    "point_cost": 2,
+    "point_cost": 3,
     "profiles": [{
         "type": "range", 
         "damage_types": ["force"], 
