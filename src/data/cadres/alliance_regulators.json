@@ -7,7 +7,5 @@
         "regulator_reeve",
         "tracers"
     ],
-    "champion": [
-        "headsman"
-    ]
+    "champion": "headsman"
 }

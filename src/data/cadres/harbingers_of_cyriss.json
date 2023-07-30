@@ -7,7 +7,5 @@
         "exalted_paragons",
         "paragon_commander"
     ],
-    "champion": [
-        "eternal_metator"
-    ]
+    "champion": "eternal_metator"
 }

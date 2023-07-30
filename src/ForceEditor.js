@@ -171,10 +171,12 @@ function ForceEditor(props) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
             const modelData = modelsData[forceModelsData[index].modelId];
-            let newForceModelsData = deleteModelCard(forceModelsData, index);
+            let newForceModelsData = forceModelsData;
+            newForceModelsData = deleteModelCard(newForceModelsData, index);
 
             if(modelData.cadre) {
                 const cadre = cadresData[modelData.cadre];
+                console.log(cadre)
                 //remove a champion for this cadre if the count doesn't match
                 if(modelCount(newForceModelsData, cadre.champion) !== countCadreModels(newForceModelsData, cadre.id)) {
                     const championIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === cadre.champion);

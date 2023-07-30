@@ -7,7 +7,5 @@
         "dragoon_strike_team",
         "dragoon_strike_team_leader"
     ],
-    "champion": [
-        "storm_vulture"
-    ]
+    "champion": "storm_vulture"
 }

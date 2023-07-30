@@ -7,7 +7,5 @@
         "synturions",
         "talons"
     ],
-    "champion": [
-        "divine_tempest"
-    ]
+    "champion": "divine_tempest"
 }
