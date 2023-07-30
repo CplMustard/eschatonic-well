@@ -17,7 +17,7 @@ function ForceModelList(props) {
             entryComponents.push(
                 <li key={index}>
                     <button onClick={() => handleCardClicked(entry.modelId)}>{entry.name}</button>
-                    {cardActionClicked && <button onClick={() => cardActionClicked(entry.id)}>{cardActionText}</button>}
+                    {cardActionClicked && entry.showAction && <button onClick={() => cardActionClicked(entry.id)}>{cardActionText}</button>}
                     {entry.hard_points && <span>
                         {entry.weapon_points && <h6>Weapon Points: {weaponPointCost}/{entry.weapon_points}</h6>}
                         <HardPointList hard_points={entry.hard_points} onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)}/>

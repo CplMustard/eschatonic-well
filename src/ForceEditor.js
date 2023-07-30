@@ -91,8 +91,12 @@ function ForceEditor(props) {
                     newForceModelsData = insertModelCard(newForceModelsData, attachment);
                 }
             });
-        }
-        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+        }            
+        const hasHiddenType = modelTypesData[modelData.type].hidden;
+        const hasHiddenSubtypes = modelData.subtypes ? modelData.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
+        const canRemove = !(hasHiddenType || hasHiddenSubtypes)
+        console.log(canRemove)
+        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, showAction: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         return newForceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name);
     }
 
@@ -168,6 +172,7 @@ function ForceEditor(props) {
 
     function removeModelCard(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
+        console.log(index)
         if(index !== -1) {
             modelCount.current[forceModelsData[index].modelId]--;
             const modelData = modelsData[forceModelsData[index].modelId];
@@ -198,7 +203,7 @@ function ForceEditor(props) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         const entry = forceModelsData[index]
         const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
-        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, subtypes: entry.subtypes,  weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
+        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, subtypes: entry.subtypes, showAction: entry.showAction, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
         setForceModelsData([...forceModelsData.slice(0, index), forceEntry, ...forceModelsData.slice(index + 1)]);
     }
 
