@@ -7,14 +7,14 @@ function SpecialRule(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [ruleData, setRuleData] = useState({});
 
-    const ruleParts = props.ruleID.split('|');
-    const ruleID = ruleParts.shift(); //don't include template strings in ID
+    const ruleParts = props.ruleId.split('|');
+    const ruleId = ruleParts.shift(); //don't include template strings in ID
     const ruleArguments = ruleParts
 
     useEffect(() => {
         setIsLoaded(true);
-        setRuleData(specialRulesData[ruleID]);
-    }, [ruleID]);
+        setRuleData(specialRulesData[ruleId]);
+    }, [ruleId]);
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -28,7 +28,7 @@ function SpecialRule(props) {
             ruleString = ruleString.replaceAll(`{${index}}`, argument);
         });
         const subrules = ruleData.subrules
-        const subruleEntries = subrules ? subrules.map((subrule) => {console.log(subrule); return <li key={subrule}><SpecialRule ruleID={subrule}/></li>}) : undefined
+        const subruleEntries = subrules ? subrules.map((subrule) => {console.log(subrule); return <li key={subrule}><SpecialRule ruleId={subrule}/></li>}) : undefined
         return (
             <div>
                 <div className="special-rule">

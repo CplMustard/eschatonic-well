@@ -2,13 +2,14 @@ import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
+import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
-import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+import { cadresData, cyphersData, factionsData, forceSizesData, modelTypesData, modelsData, weaponsData } from './data';
 
 const minCyphers = 15;
 const maxCyphers = 15;
@@ -51,13 +52,15 @@ function ForceEditor(props) {
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
     const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
 
-    const factionID = props.factionID ? props.factionID : params.factionID;
-    const { maxUnits, freeHeroSolos } = props;
+    const factionId = props.factionId ? props.factionId : params.factionId;
+    const { forceSize } = props
+    const maxUnits = forceSize.units;
+    const freeHeroSolos = forceSize.hero_solos;
 
-    const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
-    const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
+    const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
+    const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
-    function saveForce(forceName, forceModelsData, forceCyphersData) {
+    function saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData) {
         const json = JSON.stringify(forceModelsData.concat(forceCyphersData));
         console.log(forceName + ": \n");
         console.log(json);
@@ -200,22 +203,23 @@ function ForceEditor(props) {
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
     const cadreButtonComponents = []
     Object.entries(cadresData).forEach(([key, value]) => {
-        if(value.faction === factionID) {
+        if(value.faction === factionId) {
             cadreButtonComponents.push(<span key={key}><label>{value.name} <button onClick={() => addModelCards(value.models)}>ADD</button></label></span>);
         }
     })
 
     return (
         <div>
-            {<h3>Faction: {factionID ? factionsData[factionID].name : "ALL"}</h3>}
+            {<h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3>}
             <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <CypherCountComponent cyphers={forceCyphersData}/>
             <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)}/></label>
-            <button onClick={() => {saveForce(forceName, forceModelsData, forceCyphersData)}}>SAVE</button>
+            <button onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</button>
+            <button onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</button>
 
             <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
-            <h3>Cadres </h3>{factionID && factionID !== "all" && cadreButtonComponents}
+            <h3>Cadres </h3>{factionId && factionId !== "all" && cadreButtonComponents}
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={(modelId) => addModelCards([modelId])} cardActionText={"ADD"}></CardList>
             <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={(cypherId) => addCypherCards([cypherId])} cardActionText={"ADD"}></CardList>
         </div>

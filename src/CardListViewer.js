@@ -9,9 +9,9 @@ function CardListViewer(props) {
     const params = useParams();
     const navigate  = useNavigate();
 
-    const factionID = props.factionID ? props.factionID : params.factionID;
-    const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
-    const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
+    const factionId = props.factionId ? props.factionId : params.factionId;
+    const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
+    const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
     function openModelCard(id) {
         navigate(`/model/${id}`);

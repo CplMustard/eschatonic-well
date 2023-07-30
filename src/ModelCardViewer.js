@@ -23,12 +23,12 @@ function ModelCardViewer(props) {
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
-    const modelID = props.modelID ? props.modelID : params.modelID;
+    const modelId = props.modelId ? props.modelId : params.modelId;
 
     useEffect(() => {
         setIsLoaded(true);
-        setCardData(modelsData[modelID]);
-    }, [modelID]);
+        setCardData(modelsData[modelId]);
+    }, [modelId]);
 
     function openModelCard(id) {
         navigate(`/model/${id}`);
@@ -106,7 +106,7 @@ function ModelCardViewer(props) {
                 {weapon_points && <h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
-                {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexID={hardPointCortexOption}/>}
+                {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
                 {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
                 {maneuvers && <ManeuverList maneuvers={maneuvers} header={'Maneuvers'}/>}
                 {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}

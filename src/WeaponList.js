@@ -4,8 +4,8 @@ import Weapon from './Weapon';
 
 function WeaponList(props) {
     const weaponComponents = [];
-    props.weapons.forEach((weaponID, index) => 
-        weaponID !== "empty" && weaponComponents.push(<li key={index}><Weapon weaponID={weaponID}/></li>)
+    props.weapons.forEach((weaponId, index) => 
+    weaponId !== "empty" && weaponComponents.push(<li key={index}><Weapon weaponId={weaponId}/></li>)
     )
     return <ul>{weaponComponents}</ul>;
 }

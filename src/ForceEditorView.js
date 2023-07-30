@@ -7,11 +7,11 @@ import ForceEditor from './ForceEditor';
 import { factionsData, forceSizesData } from './data'
 
 function ForceEditorView() {
-    const [factionID, setFactionID] = useLocalStorage("factionID", "all");
+    const [factionId, setFactionId] = useLocalStorage("factionId", "all");
     const [forceSize, setForceSize] = useLocalStorage("forceSize", {});
     
     function changeFaction(id) {
-        setFactionID(id);
+        setFactionId(id);
     }
 
     function changeForceSize(forceSize) {
@@ -34,7 +34,7 @@ function ForceEditorView() {
         <div className="container">
             {factionButtons}<br/>
             {forceSizeButtons}
-            <ForceEditor factionID={factionID} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}></ForceEditor>
+            <ForceEditor factionId={factionId} forceSize={forceSize}></ForceEditor>
         </div>
     );
 }

@@ -11,8 +11,8 @@ function Weapon(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setWeaponData(weaponsData[props.weaponID]);
-    }, [props.weaponID]);
+        setWeaponData(weaponsData[props.weaponId]);
+    }, [props.weaponId]);
 
     function WeaponStatline(props) {
         const { name, type, damage_types, rng, pow, special_rules } = props;

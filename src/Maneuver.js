@@ -9,7 +9,7 @@ function Maneuver(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setManeuverData(maneuversData[props.maneuverID]);
+        setManeuverData(maneuversData[props.maneuverId]);
     });
 
     if (error) {

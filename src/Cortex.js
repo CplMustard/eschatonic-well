@@ -11,8 +11,8 @@ function Cortex(props) {
 
     useEffect(() => {
         setIsLoaded(true);
-        setCortexData(cortexesData[props.cortexID]);
-    }, [props.cortexID]);
+        setCortexData(cortexesData[props.cortexId]);
+    }, [props.cortexId]);
 
     if (error) {
         return <div>Error: {error.message}</div>;

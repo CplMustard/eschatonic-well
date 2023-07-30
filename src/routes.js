@@ -14,7 +14,7 @@ const routes = [
         element: <ForceEditorView/>
     },
     {
-        path: "/force/:forceID",
+        path: "/force/:forceId",
         element: <ForceEditorView/>
     },
     {
@@ -22,7 +22,7 @@ const routes = [
         element: <CardListViewer/>
     },
     {
-        path: "/matches/:matchID",
+        path: "/matches/:matchId",
         element: <CardListViewer/>
     },
     {
@@ -30,7 +30,7 @@ const routes = [
         element: <CypherCardViewer/>
     },
     {
-        path: "/rack/:rackID",
+        path: "/rack/:rackId",
         element: <CypherCardViewer/>
     },
     {
@@ -38,15 +38,15 @@ const routes = [
         element: <CardListViewer/>
     },
     {
-        path: "/cards/:factionID",
+        path: "/cards/:factionId",
         element: <CardListViewer/>
     },
     {
-        path: "/model/:modelID",
+        path: "/model/:modelId",
         element: <ModelCardViewer/>
     },
     {
-        path: "/cypher/:cypherID",
+        path: "/cypher/:cypherId",
         element: <CypherCardViewer/>
     },
 ];

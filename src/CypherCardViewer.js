@@ -10,12 +10,12 @@ function CypherCardViewer(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [cypherData, setCypherData] = useState({});
 
-    const cypherID = props.cypherID ? props.cypherID : params.cypherID;
+    const cypherId = props.cypherId ? props.cypherId : params.cypherId;
 
     useEffect(() => {
         setIsLoaded(true);
-        setCypherData(cyphersData[cypherID]);
-    }, [cypherID]);
+        setCypherData(cyphersData[cypherId]);
+    }, [cypherId]);
 
     function Cypher(props) {
         const { name, factions, type, pow, text } = props;
