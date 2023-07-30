@@ -28,8 +28,14 @@ function ModelCardViewer(props) {
     useEffect(() => {
         setIsLoaded(true);
         setCardData(modelsData[modelId]);
-        if(location.state.hardPointOptions) {
-            setHardPointOptions(location.state.hardPointOptions);
+
+        if(location.state.entryId) {
+            const saved = localStorage.getItem("forceModelsData");
+            const forceModelsData = JSON.parse(saved);
+            const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
+            if(entry && entry.hardPointOptions) {
+                setHardPointOptions(entry.hardPointOptions);
+            }
         }
     }, [modelId]);
 

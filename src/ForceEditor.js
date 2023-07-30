@@ -104,6 +104,7 @@ function ForceEditor(props) {
         const hasHiddenType = modelTypesData[modelData.type].hidden;
         const hasHiddenSubtypes = modelData.subtypes ? modelData.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
         const canRemove = !(hasHiddenType || hasHiddenSubtypes)
+        console.log(newId)
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, showAction: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         return newForceModelsData.concat(forceEntry);
     }
@@ -126,8 +127,8 @@ function ForceEditor(props) {
         return newForceModelsData;
     }
 
-    function openModelCard(id, hardPointOptions) {
-        navigate(`/model/${id}`, {state: { hardPointOptions: hardPointOptions }});
+    function openModelCard(modelId, entryId) {
+        navigate(`/model/${modelId}`, {state: { entryId: entryId }});
     }
 
     function openCypherCard(id) {
