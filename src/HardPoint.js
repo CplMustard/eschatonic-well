@@ -3,19 +3,20 @@ import React from 'react';
 import { cortexesData, weaponsData } from './data';
 
 function HardPoint(props) {
+    const { hard_point, index, selectedOption, onChangeHardPoint } = props
     function handleChange (e) {
-        props.onChangeHardPoint(e.target.value, props.hard_point.type, props.hard_point.type === "weapon" ? weaponsData[e.target.value].point_cost : 0, props.index); 
+        onChangeHardPoint(e.target.value, hard_point.type, hard_point.type === "weapon" ? weaponsData[e.target.value].point_cost : 0, index); 
     }
 
     const optionComponents = []
-    props.hard_point.options.forEach((option, index) => {
-        const optionName = props.hard_point.type === "weapon" ? `${weaponsData[option].name} (${weaponsData[option].point_cost})` : cortexesData[option].name
+    hard_point.options.forEach((option, index) => {
+        const optionName = hard_point.type === "weapon" ? `${weaponsData[option].name} (${weaponsData[option].point_cost})` : cortexesData[option].name
         optionComponents.push(<option key={index} value={option}>{optionName}</option>);
     });
     return (
         <div>
-            <span>{props.hard_point.name}</span>
-            <select onChange={handleChange.bind(this)}>
+            <span>{hard_point.name}</span>
+            <select onChange={handleChange.bind(this)} defaultValue={selectedOption.option}>
                 {optionComponents}
             </select>
         </div>
