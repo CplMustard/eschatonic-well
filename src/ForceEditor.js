@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
@@ -50,8 +50,6 @@ function ForceEditor(props) {
     const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
     const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
-    const modelCount = useRef({});
-    const cypherCount = useRef({});
 
     const factionID = props.factionID ? props.factionID : params.factionID;
     const { maxUnits, freeHeroSolos } = props;
@@ -65,11 +63,19 @@ function ForceEditor(props) {
         console.log(json);
     }
 
-    function countCadreModels(cadre) {
+    function modelCount(modelsData, modelId) {
+        return modelsData.filter((forceModel) => forceModel.modelId === modelId).length;
+    }
+
+    function cypherCount(cyphersData, cypherId) {
+        return cyphersData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
+    }
+
+    function countCadreModels(modelsData, cadre) {
         if (cadre) {
             const cadreModels = cadresData[cadre].models;
             const cadreModelCounts = [];
-            cadreModels.forEach((cadreModelId) => cadreModelCounts.push(modelCount.current[cadreModelId] ? modelCount.current[cadreModelId] : 0));
+            cadreModels.forEach((cadreModelId) => cadreModelCounts.push(modelCount(modelsData, cadreModelId)));
             return Math.min(...cadreModelCounts);
         }
         return 0;
@@ -95,9 +101,8 @@ function ForceEditor(props) {
         const hasHiddenType = modelTypesData[modelData.type].hidden;
         const hasHiddenSubtypes = modelData.subtypes ? modelData.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
         const canRemove = !(hasHiddenType || hasHiddenSubtypes)
-        console.log(canRemove)
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, showAction: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
-        return newForceModelsData.concat(forceEntry).sort((a, b) => a.name > b.name);
+        return newForceModelsData.concat(forceEntry);
     }
 
     function deleteModelCard(forceModelsData, index) {
@@ -127,23 +132,18 @@ function ForceEditor(props) {
     }
 
     function addModelCards(modelIds) {
-        let newForceModelsData = forceModelsData
+        let newForceModelsData = forceModelsData;
         modelIds.forEach((modelId) => {
             const modelData = modelsData[modelId];
             const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
             const fa = modelData.fa ? modelData.fa : defaultFA;
-            if(!modelCount.current[modelId]) {
-                modelCount.current[modelId] = 0;
-            }
     
-            if(modelCount.current[modelId] < fa) {
-                modelCount.current[modelId]++;
+            if(modelCount(newForceModelsData, modelId) < fa) {
                 newForceModelsData = insertModelCard(newForceModelsData, modelId);
                 if(modelData.cadre) {
                     const cadre = cadresData[modelData.cadre];
-                    const championCount = newForceModelsData.filter((forceModel) => forceModel.modelId === cadre.champion).length;
                     //add a champion for this cadre if the count doesn't match
-                    if(championCount !== countCadreModels(cadre.id)) {
+                    if(modelCount(newForceModelsData, cadre.champion) !== countCadreModels(newForceModelsData, cadre.id)) {
                         newForceModelsData = insertModelCard(newForceModelsData, cadre.champion);
                     }
                 }
@@ -154,35 +154,26 @@ function ForceEditor(props) {
     }
 
     function addCypherCards(cypherIds) {
-        let newForceCyphersData = forceCyphersData
+        let newForceCyphersData = forceCyphersData;
         cypherIds.forEach((cypherId) => {
-            if(!cypherCount.current[cypherId]) {
-                cypherCount.current[cypherId] = 0;
-            }
-
-            if(cypherCount.current[cypherId] === 0) {
-                cypherCount.current[cypherId]++;
+            if(cypherCount(newForceCyphersData, cypherId) === 0) {
                 const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name};
-                newForceCyphersData = newForceCyphersData.concat(cypherEntry).sort((a, b) => a.name > b.name);
+                newForceCyphersData = newForceCyphersData.concat(cypherEntry);
             }
         });
-            
         setForceCyphersData(newForceCyphersData);
     }
 
     function removeModelCard(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
-        console.log(index)
         if(index !== -1) {
-            modelCount.current[forceModelsData[index].modelId]--;
             const modelData = modelsData[forceModelsData[index].modelId];
             let newForceModelsData = deleteModelCard(forceModelsData, index);
 
             if(modelData.cadre) {
                 const cadre = cadresData[modelData.cadre];
-                const championCount = newForceModelsData.filter((forceModel) => forceModel.modelId === cadre.champion).length;
                 //remove a champion for this cadre if the count doesn't match
-                if(championCount !== countCadreModels(cadre.id)) {
+                if(modelCount(newForceModelsData, cadre.champion) !== countCadreModels(newForceModelsData, cadre.id)) {
                     const championIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
                     newForceModelsData = deleteModelCard(newForceModelsData, championIndex);
                 }
@@ -194,7 +185,6 @@ function ForceEditor(props) {
     function removeCypherCard(id) {
         const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         if(index !== -1) {
-            cypherCount.current[forceCyphersData[index].cypherId]--;
             setForceCyphersData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
         }
     }
@@ -211,7 +201,7 @@ function ForceEditor(props) {
     const cadreButtonComponents = []
     Object.entries(cadresData).forEach(([key, value]) => {
         if(value.faction === factionID) {
-            cadreButtonComponents.push(<div key={key}><button onClick={() => addModelCards(value.models)}>{value.name}</button></div>);
+            cadreButtonComponents.push(<span key={key}><label>{value.name} <button onClick={() => addModelCards(value.models)}>ADD</button></label></span>);
         }
     })
 
@@ -220,12 +210,12 @@ function ForceEditor(props) {
             {<h3>Faction: {factionID ? factionsData[factionID].name : "ALL"}</h3>}
             <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <CypherCountComponent cyphers={forceCyphersData}/>
-            <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)} /></label>
+            <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)}/></label>
             <button onClick={() => {saveForce(forceName, forceModelsData, forceCyphersData)}}>SAVE</button>
 
-            <h3>Cadres: </h3>{factionID && factionID !== "all" && cadreButtonComponents}
-            <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
-            <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
+            <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
+            <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
+            <h3>Cadres </h3>{factionID && factionID !== "all" && cadreButtonComponents}
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={(modelId) => addModelCards([modelId])} cardActionText={"ADD"}></CardList>
             <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={(cypherId) => addCypherCards([cypherId])} cardActionText={"ADD"}></CardList>
         </div>

@@ -12,7 +12,7 @@ function ForceModelList(props) {
     }, {});
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
-        value.forEach((entry, index) => {
+        value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
             const weaponPointCost = entry.hard_points ? entry.hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
             entryComponents.push(
                 <li key={index}>

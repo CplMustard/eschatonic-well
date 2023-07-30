@@ -10,7 +10,7 @@ function ForceCypherList(props) {
     }, {});
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
-        value.forEach((entry, index) => {
+        value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
             entryComponents.push(<li key={index}><button onClick={() => handleCardClicked(entry.cypherId)}>{entry.name}</button>{cardActionClicked && <button onClick={() => cardActionClicked(entry.id)}>{cardActionText}</button>}</li>)
         });
         forceGroupComponents.push(<div key={key}><h4>{key} ({entryComponents.length})</h4><li><ul>{entryComponents}</ul></li></div>);
