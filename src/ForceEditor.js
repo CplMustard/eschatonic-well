@@ -104,7 +104,6 @@ function ForceEditor(props) {
         const hasHiddenType = modelTypesData[modelData.type].hidden;
         const hasHiddenSubtypes = modelData.subtypes ? modelData.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
         const canRemove = !(hasHiddenType || hasHiddenSubtypes)
-        console.log(newId)
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, showAction: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         return newForceModelsData.concat(forceEntry);
     }
@@ -177,7 +176,6 @@ function ForceEditor(props) {
 
             if(modelData.cadre) {
                 const cadre = cadresData[modelData.cadre];
-                console.log(cadre)
                 //remove a champion for this cadre if the count doesn't match
                 if(modelCount(newForceModelsData, cadre.champion) !== countCadreModels(newForceModelsData, cadre.id)) {
                     const championIndex = newForceModelsData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
