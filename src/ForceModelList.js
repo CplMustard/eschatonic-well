@@ -16,7 +16,7 @@ function ForceModelList(props) {
             const weaponPointCost = entry.hard_points ? entry.hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
             entryComponents.push(
                 <li key={index}>
-                    <button onClick={() => handleCardClicked(entry.modelId)}>{entry.name}</button>
+                    <button onClick={() => handleCardClicked(entry.modelId, entry.hardPointOptions)}>{entry.name}</button>
                     {cardActionClicked && entry.showAction && <button onClick={() => cardActionClicked(entry.id)}>{cardActionText}</button>}
                     {entry.hard_points && <span>
                         {entry.weapon_points && <h6>Weapon Points: {weaponPointCost}/{entry.weapon_points}</h6>}

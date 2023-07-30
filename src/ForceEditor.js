@@ -126,8 +126,8 @@ function ForceEditor(props) {
         return newForceModelsData;
     }
 
-    function openModelCard(id) {
-        navigate(`/model/${id}`);
+    function openModelCard(id, hardPointOptions) {
+        navigate(`/model/${id}`, {state: { hardPointOptions: hardPointOptions }});
     }
 
     function openCypherCard(id) {

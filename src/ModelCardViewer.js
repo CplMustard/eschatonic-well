@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import './App.css';
 
@@ -15,7 +14,8 @@ import { modelsData, weaponsData, factionsData, cadresData } from './data'
 
 function ModelCardViewer(props) {
     const params = useParams();
-    const navigate  = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -28,6 +28,9 @@ function ModelCardViewer(props) {
     useEffect(() => {
         setIsLoaded(true);
         setCardData(modelsData[modelId]);
+        if(location.state.hardPointOptions) {
+            setHardPointOptions(location.state.hardPointOptions);
+        }
     }, [modelId]);
 
     function openModelCard(id) {
