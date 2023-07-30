@@ -6,7 +6,23 @@ import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
-import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+import { cadresData, cyphersData, cypherTypesData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+
+const minCyphers = 15;
+const maxCyphers = 15;
+
+function CypherCountComponent(props) {
+    const { cyphers } = props;
+    const cypherTypeCountComponents = []
+    Object.values(cypherTypesData).forEach((cypherType) => {
+        const count = cyphers.filter((cypher) => cypher.type === cypherType.id).length;
+        cypherTypeCountComponents.push(<span key={cypherType.id}>{cypherType.name}: {count} </span>);
+    })
+    return <>
+        <h3>Cyphers: {cyphers.length} / {maxCyphers}</h3>
+        <h3>{cypherTypeCountComponents}</h3>
+    </>
+}
 
 function ForceEditor(props) {
     const params = useParams();
@@ -199,20 +215,21 @@ function ForceEditor(props) {
         setForceModelsData([...forceModelsData.slice(0, index), forceEntry, ...forceModelsData.slice(index + 1)]);
     }
 
+    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
+
     return (
         <div>
             {factionID && <h3>Faction: {factionsData[factionID].name}</h3>}
             <h3>Units: {countUnits(forceModelsData)}{maxUnits && <span> / {maxUnits}</span>}</h3>
-            {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(forceModelsData), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}  
-            <label>
-                Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)} />        
-            </label>
+            {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(forceModelsData), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}
+            <CypherCountComponent cyphers={forceCyphersData}/>
+            <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)} /></label>
             <button onClick={() => {saveForce(forceName, forceModelsData, forceCyphersData)}}>SAVE</button>
 
             <ForceModelList header={"Models"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Cyphers"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={addModelCard} cardActionText={"ADD"}></CardList>
-            <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={openCypherCard} cardActionClicked={addCypherCard} cardActionText={"ADD"}></CardList>
+            <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={addCypherCard} cardActionText={"ADD"}></CardList>
         </div>
     );
 }
