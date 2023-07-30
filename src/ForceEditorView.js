@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
+import { useLocalStorage } from "./util/useLocalStorage";
+
 import ForceEditor from './ForceEditor';
 
 import { factionsData, forceSizesData } from './data'
 
 function ForceEditorView() {
-    const [factionID, setFactionID] = useState(() => {
-        // getting stored value
-        const saved = localStorage.getItem("factionID");
-        const initialValue = JSON.parse(saved);
-        return initialValue || "all";
-    });
-    const [forceSize, setForceSize] = useState(() => {
-        // getting stored value
-        const saved = localStorage.getItem("forceSize");
-        const initialValue = JSON.parse(saved);
-        return initialValue || {};
-    });
-
-    useEffect(() => {
-        localStorage.setItem("factionID", JSON.stringify(factionID));
-    }, [factionID]);
-
-    useEffect(() => {
-        localStorage.setItem("forceSize", JSON.stringify(forceSize));
-    }, [forceSize]);
+    const [factionID, setFactionID] = useLocalStorage("factionID", "all");
+    const [forceSize, setForceSize] = useLocalStorage("forceSize", {});
     
     function changeFaction(id) {
         setFactionID(id);

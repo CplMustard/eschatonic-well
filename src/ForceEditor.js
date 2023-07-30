@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
+import { useLocalStorage } from "./util/useLocalStorage";
+
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
@@ -45,38 +47,11 @@ function CypherCountComponent(props) {
 function ForceEditor(props) {
     const params = useParams();
     const navigate  = useNavigate();
-    const [forceName, setForceName] = useState(() => {
-        // getting stored value
-        const saved = localStorage.getItem("forceName");
-        const initialValue = JSON.parse(saved);
-        return initialValue || "New Force";
-    });
-    const [forceModelsData, setForceModelsData] = useState(() => {
-        // getting stored value
-        const saved = localStorage.getItem("forceModelsData");
-        const initialValue = JSON.parse(saved);
-        return initialValue || [];
-    });
-    const [forceCyphersData, setForceCyphersData] = useState(() => {
-        // getting stored value
-        const saved = localStorage.getItem("forceCyphersData");
-        const initialValue = JSON.parse(saved);
-        return initialValue || [];
-    });
+    const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
+    const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
+    const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
     const modelCount = useRef({});
     const cypherCount = useRef({});
-
-    useEffect(() => {
-        localStorage.setItem("forceName", JSON.stringify(forceName));
-    }, [forceName]);
-
-    useEffect(() => {
-        localStorage.setItem("forceModelsData", JSON.stringify(forceModelsData));
-    }, [forceModelsData]);
-
-    useEffect(() => {
-        localStorage.setItem("forceCyphersData", JSON.stringify(forceCyphersData));
-    }, [forceCyphersData]);
 
     const factionID = props.factionID ? props.factionID : params.factionID;
     const { maxUnits, freeHeroSolos } = props;
