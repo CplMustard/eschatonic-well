@@ -2,5 +2,7 @@
     "id": "cloaking_device",
     "name": "Cloaking Device",
     "point_cost": 1,
-    "special_rules": ["mimetic_cloak"]
+    "profiles": [{
+        "special_rules": ["mimetic_cloak"]
+    }]
 }

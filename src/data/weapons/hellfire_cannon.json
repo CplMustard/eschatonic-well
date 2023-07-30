@@ -1,7 +1,7 @@
 {
     "id": "hellfire_cannon",
     "name": "Hellfire Cannon",
-    "cost": 3,
+    "point_cost": 3,
     "profiles": [{
         "type": "range", 
         "damage_types": ["fire"], 

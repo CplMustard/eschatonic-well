@@ -1,5 +1,5 @@
 {
-    "id": "oracle",
-    "name": "Oracle",
-    "special_rules": ["oracle_targeting_array"]
+    "id": "impulse_reciprocator",
+    "name": "Impulse Reciprocator",
+    "special_rules": ["impulse_reciprocator"]
 }
