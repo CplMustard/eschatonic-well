@@ -6,21 +6,39 @@ import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
-import { cadresData, cyphersData, cypherTypesData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
 
 const minCyphers = 15;
 const maxCyphers = 15;
 
+function ModelCountComponent(props) {
+    const {models, maxUnits, freeHeroSolos} = props;
+
+    function countUnits(forceModelsData) {
+        return forceModelsData.filter((forceModel) => {
+            const hasHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
+            return !modelTypesData[forceModel.type].hidden && !hasHiddenSubtype;
+        }).length - Math.min(countHeroSolos(forceModelsData), freeHeroSolos ? freeHeroSolos : 0);
+    }
+
+    function countHeroSolos(forceModelsData) {
+        return forceModelsData.filter((forceModel) => {
+            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") : false;
+            return forceModel.type === "solo" && hasHeroSubtype;
+        }).length;
+    }
+
+    const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
+    return <>
+        <h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3>
+        {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}
+    </>
+}
+
 function CypherCountComponent(props) {
     const { cyphers } = props;
-    const cypherTypeCountComponents = []
-    Object.values(cypherTypesData).forEach((cypherType) => {
-        const count = cyphers.filter((cypher) => cypher.type === cypherType.id).length;
-        cypherTypeCountComponents.push(<span key={cypherType.id}>{cypherType.name}: {count} </span>);
-    })
     return <>
         <h3>Cyphers: {cyphers.length} / {maxCyphers}</h3>
-        <h3>{cypherTypeCountComponents}</h3>
     </>
 }
 
@@ -62,7 +80,6 @@ function ForceEditor(props) {
 
     const factionID = props.factionID ? props.factionID : params.factionID;
     const { maxUnits, freeHeroSolos } = props;
-    const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
 
     const models = factionID ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionID) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionID ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionID) || cypher.factions.includes('all'))) : Object.values(cyphersData);
@@ -71,20 +88,6 @@ function ForceEditor(props) {
         const json = JSON.stringify(forceModelsData.concat(forceCyphersData));
         console.log(forceName + ": \n");
         console.log(json);
-    }
-
-    function countUnits(forceModelsData) {
-        return forceModelsData.filter((forceModel) => {
-            const hasHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
-            return !modelTypesData[forceModel.type].hidden && !hasHiddenSubtype;
-        }).length - Math.min(countHeroSolos(forceModelsData), freeHeroSolos ? freeHeroSolos : 0);
-    }
-
-    function countHeroSolos(forceModelsData) {
-        return forceModelsData.filter((forceModel) => {
-            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") : false;
-            return forceModel.type === "solo" && hasHeroSubtype;
-        }).length;
     }
 
     function countCadreModels(cadre) {
@@ -219,9 +222,8 @@ function ForceEditor(props) {
 
     return (
         <div>
-            {factionID && <h3>Faction: {factionsData[factionID].name}</h3>}
-            <h3>Units: {countUnits(forceModelsData)}{maxUnits && <span> / {maxUnits}</span>}</h3>
-            {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(forceModelsData), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}
+            {<h3>Faction: {factionID ? factionsData[factionID].name : "ALL"}</h3>}
+            <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <CypherCountComponent cyphers={forceCyphersData}/>
             <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)} /></label>
             <button onClick={() => {saveForce(forceName, forceModelsData, forceCyphersData)}}>SAVE</button>

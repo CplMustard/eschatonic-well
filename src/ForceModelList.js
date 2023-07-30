@@ -25,7 +25,7 @@ function ForceModelList(props) {
                 </li>
             );
         })
-        forceGroupComponents.push(<div key={key}><h4>{key}</h4><li><ul>{entryComponents}</ul></li></div>)
+        forceGroupComponents.push(<div key={key}><h4>{key} ({entryComponents.length})</h4><li><ul>{entryComponents}</ul></li></div>)
     })
     return <><h3>{header}</h3><ul>{forceGroupComponents}</ul></>;
 }

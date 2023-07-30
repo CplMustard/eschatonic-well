@@ -39,6 +39,7 @@ function ForceEditorView() {
             factionButtons.push(<button key={key} onClick={() => changeFaction(value.id)}>{value.name}</button>);
         }
     });
+    factionButtons.push(<button key={"custom"} onClick={() => changeFaction("")}>ALL</button>);
     const forceSizeButtons = []
     Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
         forceSizeButtons.push(<button key={key} onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</button>);
