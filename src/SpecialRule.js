@@ -28,7 +28,7 @@ function SpecialRule(props) {
             ruleString = ruleString.replaceAll(`{${index}}`, argument);
         });
         const subrules = ruleData.subrules
-        const subruleEntries = subrules ? subrules.map((subrule) => {console.log(subrule); return <li key={subrule}><SpecialRule ruleId={subrule}/></li>}) : undefined
+        const subruleEntries = subrules ? subrules.map((subrule) => <li key={subrule}><SpecialRule ruleId={subrule}/></li>) : undefined
         return (
             <div>
                 <div className="special-rule">
