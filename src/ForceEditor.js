@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
@@ -66,7 +67,29 @@ function ForceEditor(props) {
     const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
-    function saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData) {
+    const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData) => {
+        const metaData = JSON.stringify({"forceName": forceName, "factionId": factionId, "forceSize": forceSize});
+        const forceData = JSON.stringify(forceModelsData.concat(forceCyphersData));
+        const json = metaData + '\n' +  forceData
+
+        try {
+            const result = await Filesystem.writeFile({
+                path: `eschatonic-well/forces/${forceName}.txt`,
+                data: json,
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+                recursive: true
+            });
+            
+            console.log(result);
+            return result;
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
+
+    function loadForce(fileName) {
         const json = JSON.stringify(forceModelsData.concat(forceCyphersData));
         console.log(forceName + ": \n");
         console.log(json);
