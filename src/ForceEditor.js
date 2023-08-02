@@ -9,18 +9,24 @@ import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
-import { cadresData, cyphersData, factionsData, forceSizesData, modelTypesData, modelsData, weaponsData } from './data';
+import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
 
 const minCyphers = 15;
 const maxCyphers = 15;
+
+function isHidden(modelId) {
+    const modelData = modelsData[modelId];
+    const hasHiddenType = modelTypesData[modelData.type].hidden;
+    const hasHiddenSubtypes = modelData.subtypes ? modelData.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
+    return (hasHiddenType || hasHiddenSubtypes || modelData.hidden)
+}
 
 function ModelCountComponent(props) {
     const {models, maxUnits, freeHeroSolos} = props;
 
     function countUnits(forceModelsData) {
-        return forceModelsData.filter((forceModel) => {
-            const hasHiddenSubtype = forceModel.subtypes ? forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
-            return !modelTypesData[forceModel.type].hidden && !hasHiddenSubtype;
+        return forceModelsData.filter((forceModel) => {        
+            return !isHidden(forceModel.modelId);
         }).length - Math.min(countHeroSolos(forceModelsData), freeHeroSolos ? freeHeroSolos : 0);
     }
 
@@ -101,9 +107,7 @@ function ForceEditor(props) {
                 }
             });
         }            
-        const hasHiddenType = modelTypesData[modelData.type].hidden;
-        const hasHiddenSubtypes = modelData.subtypes ? modelData.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
-        const canRemove = !(hasHiddenType || hasHiddenSubtypes)
+        const canRemove = !isHidden(modelId);
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, showAction: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         return newForceModelsData.concat(forceEntry);
     }

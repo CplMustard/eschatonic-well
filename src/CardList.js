@@ -14,7 +14,7 @@ function CardList(props) {
             const cardComponents = []
             value.forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && card.subtypes ? card.subtypes.every((subtype) => modelTypesData[subtype].hidden) : false;
-                if(!hasHiddenSubtype) {
+                if(!hasHiddenSubtype && !card.hidden) {
                     cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{cardActionClicked && <button onClick={() => cardActionClicked(card.id)}>{cardActionText}</button>}</li>);
                 }
             })
