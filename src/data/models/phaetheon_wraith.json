@@ -4,6 +4,7 @@
     "factions": ["ac"],
     "type": "solo",
     "subtypes": ["hero"],
+    "hidden": true,
     "stats": {
         "dc": 1,
         "base_size": 30,

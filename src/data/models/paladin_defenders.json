@@ -10,7 +10,7 @@
         "mat": 3,
         "rat": 3,
         "def": 3,
-        "arm": 3,
+        "arm": 4,
         "squad_size": 3,
         "boxes": 1
     },

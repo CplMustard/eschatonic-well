@@ -47,7 +47,7 @@ function CypherCountComponent(props) {
 
 function ForceEditor(props) {
     const params = useParams();
-    const navigate  = useNavigate();
+    const navigate = useNavigate();
     const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
     const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
