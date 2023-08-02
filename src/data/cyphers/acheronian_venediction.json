@@ -3,5 +3,5 @@
     "name": "Acheronian Venediction",
     "type": "geometric",
     "factions": ["ac"],
-    "text": "Target a friendlyish squad.\n\nWhen one or more affected models are destroyed by an enemy attack, immediately after the attack is resolved, the attacking enemy model suffers 1 damage point.\n\nAcheronian Venediction expires at the end of the Pulse round."
+    "text": "Target a friendly squad.\n\nWhen one or more affected models are destroyed by an enemy attack, immediately after the attack is resolved, the attacking enemy model suffers 1 damage point.\n\nAcheronian Venediction expires at the end of the Pulse round."
 }

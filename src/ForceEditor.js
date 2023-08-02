@@ -68,14 +68,12 @@ function ForceEditor(props) {
     const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
     const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData) => {
-        const metaData = JSON.stringify({"forceName": forceName, "factionId": factionId, "forceSize": forceSize});
-        const forceData = JSON.stringify(forceModelsData.concat(forceCyphersData));
-        const json = metaData + '\n' +  forceData
+        const json = {"forceName": forceName, "factionId": factionId, "forceSize": forceSize, forceModelsData: forceModelsData, forceCyphersData: forceCyphersData};
 
         try {
             const result = await Filesystem.writeFile({
                 path: `eschatonic-well/forces/${forceName}.txt`,
-                data: json,
+                data: JSON.stringify(json),
                 directory: Directory.Data,
                 encoding: Encoding.UTF8,
                 recursive: true
