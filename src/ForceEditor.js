@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
@@ -59,6 +59,8 @@ function ForceEditor(props) {
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
     const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
 
+    useEffect(() => clearForce(), [props.factionId]);
+
     const factionId = props.factionId ? props.factionId : params.factionId;
     const { forceSize } = props
     const maxUnits = forceSize.units;
@@ -91,6 +93,11 @@ function ForceEditor(props) {
         const json = JSON.stringify(forceModelsData.concat(forceCyphersData));
         console.log(forceName + ": \n");
         console.log(json);
+    }
+
+    function clearForce() {
+        setForceModelsData([]);
+        setForceCyphersData([]);
     }
 
     function modelCount(modelsData, modelId) {
@@ -242,6 +249,7 @@ function ForceEditor(props) {
             <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)}/></label>
             <button onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</button>
             <button onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</button>
+            <button onClick={() => {clearForce()}}>CLEAR</button>
 
             <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
