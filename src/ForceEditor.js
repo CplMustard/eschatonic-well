@@ -4,7 +4,7 @@ import { v1 as uuidv1 } from 'uuid';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 import { copyForceToText } from "./util/copyForceToText";
-import { useLocalStorage } from "./util/useLocalStorage";
+import { getStorageValue, useLocalStorage } from "./util/useLocalStorage";
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
@@ -59,7 +59,11 @@ function ForceEditor(props) {
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
     const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
 
-    useEffect(() => clearForce(), [props.factionId]);
+    useEffect(() => {
+        if(props.factionId !== getStorageValue("factionId", "any")) {
+            clearForce()
+        }}, [props.factionId]
+    );
 
     const factionId = props.factionId ? props.factionId : params.factionId;
     const { forceSize } = props
