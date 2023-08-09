@@ -10,7 +10,7 @@ export function copyForceToText(forceName, factionId, forceSize, forceModelsData
             ? (entry.hardPointOptions.filter((hardPoint) => hardPoint.type === "cortex").map((cortex) => cortexesData[cortex.option].name).join(", "))
             : undefined;
         const weaponsString = (entry.hardPointOptions && entry.hardPointOptions.length !== 0) 
-            ? (entry.hardPointOptions.filter((hardPoint) => hardPoint.type === "weapon").map((weapon) => weaponsData[weapon.option].name).join(", "))
+            ? (entry.hardPointOptions.filter((hardPoint) => hardPoint.type === "weapon").filter((weapon) => weapon.option !== "empty").map((weapon) => weaponsData[weapon.option].name).join(", "))
             : undefined;
         return `${entry.name}${(entry.subtypes && entry.subtypes.includes("hero")) ? " (hero)" : ""}${cortexString ? `\n  - Cortex: ${cortexString}` : ""}${weaponsString ? `\n  - Weapons: ${weaponsString}` : ""}`;
     }
