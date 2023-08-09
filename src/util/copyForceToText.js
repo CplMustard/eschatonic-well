@@ -43,27 +43,33 @@ export function copyForceToText(forceName, factionId, forceSize, forceModelsData
         forceString += `\n- ${printEntry(model)}`;
     });
 
-    forceString += `\n\nExtra hero solos:`;
-    freeHeroSoloEntries.forEach((model) => {
-        forceString += `\n- ${printEntry(model)}`;
-    });
-
-    forceString += `\n\nBonus champions:`;
-    championEntries.forEach((model) => {
-        forceString += `\n- ${printEntry(model)}`;
-    });
-    
-    forceString += `\n\nRack:`;
-    const forceGroups = forceCyphersData.reduce((memo, current) => {
-        memo[current["type"]] = [...memo[current["type"]] || [], current];
-        return memo;
-    }, {});
-    Object.entries(forceGroups).sort().forEach(([key, value]) => {
-        forceString += `\n- ${cypherTypesData[key].name} (${value.length})`;
-        value.forEach((cypher) => {
-            forceString += `\n  - ${printEntry(cypher)}`;
+    if(freeHeroSoloEntries.length !== 0) {
+        forceString += `\n\nExtra hero solos:`;
+        freeHeroSoloEntries.forEach((model) => {
+            forceString += `\n- ${printEntry(model)}`;
         });
-    })
+    }
+
+    if(championEntries.length !== 0) {
+        forceString += `\n\nBonus champions:`;
+        championEntries.forEach((model) => {
+            forceString += `\n- ${printEntry(model)}`;
+        });
+    }
+    
+    if(forceCyphersData.length !== 0) {
+        forceString += `\n\nRack:`;
+        const forceGroups = forceCyphersData.reduce((memo, current) => {
+            memo[current["type"]] = [...memo[current["type"]] || [], current];
+            return memo;
+        }, {});
+        Object.entries(forceGroups).sort().forEach(([key, value]) => {
+            forceString += `\n- ${cypherTypesData[key].name} (${value.length})`;
+            value.forEach((cypher) => {
+                forceString += `\n  - ${printEntry(cypher)}`;
+            });
+        })
+    }
 
     forceString += `\n\n${listOutputMessage}`;
 
