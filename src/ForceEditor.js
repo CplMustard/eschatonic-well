@@ -64,12 +64,8 @@ function ForceEditor(props) {
 
         const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
         const availableMantlets = factionId ? allMantlets.filter((modelData) => {
-            console.log(modelData)
-            console.log(modelData.factions.includes(factionId))
-            return modelData.factions.includes(factionId)
+            return modelData.factions.includes(factionId);
         }) : allMantlets;
-        console.log(factionId)
-        console.log(availableMantlets)
         availableMantlets.forEach((modelData) => {
             if(newForceModelsData.findIndex((forceModel) => forceModel.modelId === modelData.id) === -1) {
                 newForceModelsData = insertModelCard(newForceModelsData, modelData.id);
