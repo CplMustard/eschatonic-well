@@ -18,9 +18,7 @@ function CardList(props) {
                     cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{cardActionClicked && <button onClick={() => cardActionClicked(card.id)}>{cardActionText}</button>}</li>);
                 }
             })
-            console.log(key)
             const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
-            console.log(cardTypeName)
             cardGroupComponents.push(<div key={key}><h4>{cardTypeName}</h4><li><ul>{cardComponents}</ul></li></div>)
         }
     })
