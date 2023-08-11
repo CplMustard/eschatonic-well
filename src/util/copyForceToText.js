@@ -35,7 +35,7 @@ export function copyForceToText(forceName, factionId, forceSize, forceModelsData
     newForceModelsData = newForceModelsData.filter(((forceModel) => !(modelsData[forceModel.modelId].hidden || modelTypesData[forceModel.type].hidden || (forceModel.subtypes && forceModel.subtypes.every((subtype) => modelTypesData[subtype].hidden)))));
 
     forceString += `\nForce: ${forceName}`;
-    forceString += `\nFaction: ${factionsData[factionId].name}`;
+    forceString += `\nFaction: ${factionId ? factionsData[factionId].name : "All"}`;
     forceString += `\nSize: ${forceSize.name}`;
 
     forceString += `\n\nUnits:`;
