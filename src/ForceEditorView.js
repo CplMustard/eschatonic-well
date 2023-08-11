@@ -157,7 +157,7 @@ function ForceEditorView() {
     forceSizeButtons.push(<button key={"custom"} onClick={() => changeForceSize({})}>CUSTOM</button>);
     return (
         <div className="container">
-            Forces:{loadForceButtons}<br/>
+            {loadForceButtons.length !== 0 && <>Load Force:{loadForceButtons}<br/></>}
             {factionButtons}<br/>
             {forceSizeButtons}<br/>
             <br/>
