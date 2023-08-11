@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { modelTypesData } from './data';
+import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
     const { cards, header, hideHiddenTypes, handleCardClicked, cardActionClicked, cardActionText } = props;
@@ -18,7 +18,10 @@ function CardList(props) {
                     cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{cardActionClicked && <button onClick={() => cardActionClicked(card.id)}>{cardActionText}</button>}</li>);
                 }
             })
-            cardGroupComponents.push(<div key={key}><h4>{key}</h4><li><ul>{cardComponents}</ul></li></div>)
+            console.log(key)
+            const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
+            console.log(cardTypeName)
+            cardGroupComponents.push(<div key={key}><h4>{cardTypeName}</h4><li><ul>{cardComponents}</ul></li></div>)
         }
     })
     return <><h3>{header}</h3><ul>{cardGroupComponents}</ul></>;

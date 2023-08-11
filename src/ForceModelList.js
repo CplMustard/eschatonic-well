@@ -2,6 +2,8 @@ import React from 'react';
 
 import HardPointList from './HardPointList';
 
+import { modelTypesData } from './data'
+
 function ForceModelList(props) {
     const { forceEntries, header, handleCardClicked, cardActionClicked, cardActionText, updateModelHardPoint } = props;
 
@@ -25,7 +27,8 @@ function ForceModelList(props) {
                 </li>
             );
         })
-        forceGroupComponents.push(<div key={key}><h4>{key} ({entryComponents.length})</h4><li><ul>{entryComponents}</ul></li></div>)
+        const cardTypeName = modelTypesData[key].name;
+        forceGroupComponents.push(<div key={key}><h4>{cardTypeName} ({entryComponents.length})</h4><li><ul>{entryComponents}</ul></li></div>)
     })
     return <><h3>{header}</h3><ul>{forceGroupComponents}</ul></>;
 }
