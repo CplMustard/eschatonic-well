@@ -10,7 +10,7 @@ import SpecialRuleList from './SpecialRuleList';
 import WeaponList from './WeaponList';
 import ManeuverList from './ManeuverList';
 
-import { modelsData, weaponsData, factionsData, cadresData } from './data'
+import { modelsData, modelTypesData, weaponsData, factionsData, cadresData } from './data'
 
 function ModelCardViewer(props) {
     const params = useParams();
@@ -57,12 +57,16 @@ function ModelCardViewer(props) {
     function CardHeader(props) {
         const { name, type, subtypes, factions } = props;
         const factionNames = [];
+        const subtypeNames = [];
         factions.forEach((faction) => factionNames.push(factionsData[faction].name))
+        if(subtypes) {
+            subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name))
+        }
         return <div>
             <h1>{name}</h1>
             <h1>{factionNames.join(", ")}</h1>
-            {subtypes && <h1>{subtypes.join(", ")}</h1>}
-            <h1>{type}</h1>
+            <h1>{subtypeNames.join(", ")}</h1>
+            <h1>{modelTypesData[type].name}</h1>
         </div>
     }
 

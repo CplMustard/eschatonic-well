@@ -4,6 +4,8 @@ import SpecialRuleList from './SpecialRuleList';
 
 import { weaponsData, damageTypesData } from './data';
 
+const weaponTypeNames = {"melee": "Melee", "range": "Ranged"}
+
 function Weapon(props) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -20,7 +22,7 @@ function Weapon(props) {
         const damageTypeNames = [];
         damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
         return <div>
-            <h2>{type}</h2>
+            <h2>{weaponTypeNames[type]}</h2>
             <h2>{name}</h2>
             {rng && pow && <div className="statline">
                 {damageTypeNames && <div className="statline-entry"><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></div>}
