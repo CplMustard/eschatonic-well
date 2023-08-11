@@ -139,7 +139,7 @@ function ForceEditorView() {
             {factionButtons}<br/>
             {forceSizeButtons}<br/>
             <br/>
-            <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)}/></label>
+            <label>Force Name: <input type="text" value={sanitize(forceName)} defaultValue={sanitize(forceName)} onChange={(e) => setForceName(sanitize(e.target.value))}/></label>
             <button onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</button>
             <button onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</button>
             <button onClick={() => {clearForce()}}>CLEAR</button>
