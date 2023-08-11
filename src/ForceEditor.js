@@ -1,10 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
-
-import { copyForceToText } from "./util/copyForceToText";
-import { getStorageValue, useLocalStorage } from "./util/useLocalStorage";
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
@@ -55,54 +51,14 @@ function CypherCountComponent(props) {
 function ForceEditor(props) {
     const params = useParams();
     const navigate = useNavigate();
-    const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
-    const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
-    const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
-
-    useEffect(() => {
-        if(props.factionId !== getStorageValue("factionId", "any")) {
-            clearForce()
-        }}, [props.factionId]
-    );
 
     const factionId = props.factionId ? props.factionId : params.factionId;
-    const { forceSize } = props
+    const { forceSize, forceModelsData, setForceModelsData, forceCyphersData, setForceCyphersData } = props
     const maxUnits = forceSize.units;
     const freeHeroSolos = forceSize.hero_solos;
 
     const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
-
-    const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData) => {
-        const json = {"forceName": forceName, "factionId": factionId, "forceSize": forceSize, forceModelsData: forceModelsData, forceCyphersData: forceCyphersData};
-
-        try {
-            const result = await Filesystem.writeFile({
-                path: `eschatonic-well/forces/${forceName}.txt`,
-                data: JSON.stringify(json),
-                directory: Directory.Data,
-                encoding: Encoding.UTF8,
-                recursive: true
-            });
-            
-            console.log(result);
-            return result;
-        } catch (e) {
-            console.log(e);
-        }
-
-    }
-
-    function loadForce(fileName) {
-        const json = JSON.stringify(forceModelsData.concat(forceCyphersData));
-        console.log(forceName + ": \n");
-        console.log(json);
-    }
-
-    function clearForce() {
-        setForceModelsData([]);
-        setForceCyphersData([]);
-    }
 
     function modelCount(modelsData, modelId) {
         return modelsData.filter((forceModel) => forceModel.modelId === modelId).length;
@@ -250,10 +206,6 @@ function ForceEditor(props) {
             {<h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3>}
             <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <CypherCountComponent cyphers={forceCyphersData}/>
-            <label>Force Name: <input type="text" defaultValue={forceName} onChange={(e) => setForceName(e.target.value)}/></label>
-            <button onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</button>
-            <button onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</button>
-            <button onClick={() => {clearForce()}}>CLEAR</button>
 
             <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
