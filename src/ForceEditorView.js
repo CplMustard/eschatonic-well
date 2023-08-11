@@ -25,17 +25,19 @@ function ForceEditorView() {
 
 
     useEffect(() => {
-        listForces().then((result) => {
-            if(forcesDirty) {
-                const newLoadForceButtons = [];
-                result.files.forEach((file, index) => {
-                    const forceName = file.name.replace(forcesExtension, "");
-                    newLoadForceButtons.push(<div key={index}><button onClick={() => loadForce(file.name)}>{forceName}</button><button onClick={() => deleteForce(file.name)}>DELETE</button></div>);
-                    setLoadForceButtons(newLoadForceButtons);
-                });
-                setForcesDirty(false);
-            }
-        });
+        createForcesDir().then(() => 
+            listForces().then((result) => {
+                if(forcesDirty && result) {
+                    const newLoadForceButtons = [];
+                    result.files.forEach((file, index) => {
+                        const forceName = file.name.replace(forcesExtension, "");
+                        newLoadForceButtons.push(<div key={index}><button onClick={() => loadForce(file.name)}>{forceName}</button><button onClick={() => deleteForce(file.name)}>DELETE</button></div>);
+                        setLoadForceButtons(newLoadForceButtons);
+                    });
+                    setForcesDirty(false);
+                }
+            })
+        );
     }, [forcesDirty])
     
     function changeFaction(id) {
@@ -52,14 +54,34 @@ function ForceEditorView() {
         setForceCyphersData([]);
     }
 
+    const createForcesDir = async () => {
+        try {
+            listForces();
+            return;
+        } catch (e) {
+            const result = await Filesystem.mkdir({
+                path: forcesPath,
+                directory: Directory.Data,
+                recursive: true
+            });
+            
+            console.log(result);
+            return result;
+        }
+    }
+
     const listForces = async () => {
-        const result = await Filesystem.readdir({
-            path: forcesPath,
-            directory: Directory.Data
-        });
-        
-        console.log(result);
-        return result;
+        try {
+            const result = await Filesystem.readdir({
+                path: forcesPath,
+                directory: Directory.Data
+            });
+            
+            console.log(result);
+            return result;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData) => {
@@ -139,10 +161,13 @@ function ForceEditorView() {
             {factionButtons}<br/>
             {forceSizeButtons}<br/>
             <br/>
-            <label>Force Name: <input type="text" value={sanitize(forceName)} defaultValue={sanitize(forceName)} onChange={(e) => setForceName(sanitize(e.target.value))}/></label>
+            <label>Force Name: <input type="text" value={sanitize(forceName)} onChange={(e) => setForceName(sanitize(e.target.value))}/></label>
             <button onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</button>
             <button onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</button>
-            <button onClick={() => {clearForce()}}>CLEAR</button>
+            <button onClick={() => {
+                clearForce();
+                setForceName("New Force");
+            }}>CLEAR</button>
             <ForceEditor factionId={factionId} forceSize={forceSize} forceName={forceName} forceModelsData={forceModelsData} setForceModelsData={setForceModelsData} forceCyphersData={forceCyphersData} setForceCyphersData={setForceCyphersData}></ForceEditor>
         </div>
     );

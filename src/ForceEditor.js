@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 
 import CardList from './CardList';
@@ -8,8 +8,9 @@ import ForceCypherList from './ForceCypherList';
 
 import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
 
-const minCyphers = 15;
+const minCyphers = 12;
 const maxCyphers = 15;
+const voidGateId = "void_gate";
 
 function isHidden(modelId) {
     const modelData = modelsData[modelId];
@@ -49,13 +50,34 @@ function CypherCountComponent(props) {
 }
 
 function ForceEditor(props) {
-    const params = useParams();
     const navigate = useNavigate();
 
-    const factionId = props.factionId ? props.factionId : params.factionId;
-    const { forceSize, forceModelsData, setForceModelsData, forceCyphersData, setForceCyphersData } = props
+    const { factionId, forceSize, forceModelsData, setForceModelsData, forceCyphersData, setForceCyphersData } = props;
     const maxUnits = forceSize.units;
     const freeHeroSolos = forceSize.hero_solos;
+
+    useEffect(() => {
+        let newForceModelsData = forceModelsData;
+        if(forceModelsData.findIndex((forceModel) => forceModel.modelId === voidGateId) === -1) {
+            newForceModelsData = insertModelCard(forceModelsData, voidGateId);
+        }
+
+        const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
+        const availableMantlets = factionId ? allMantlets.filter((modelData) => {
+            console.log(modelData)
+            console.log(modelData.factions.includes(factionId))
+            return modelData.factions.includes(factionId)
+        }) : allMantlets;
+        console.log(factionId)
+        console.log(availableMantlets)
+        availableMantlets.forEach((modelData) => {
+            if(newForceModelsData.findIndex((forceModel) => forceModel.modelId === modelData.id) === -1) {
+                newForceModelsData = insertModelCard(newForceModelsData, modelData.id);
+            }
+        });
+        
+        setForceModelsData(newForceModelsData);
+    }, [forceModelsData, factionId]);
 
     const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
