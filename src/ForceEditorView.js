@@ -29,7 +29,8 @@ function ForceEditorView() {
             if(forcesDirty) {
                 const newLoadForceButtons = [];
                 result.files.forEach((file, index) => {
-                    newLoadForceButtons.push(<div key={index}><button onClick={() => loadForce(file.name)}>{file.name}</button><button onClick={() => deleteForce(file.name)}>DELETE</button></div>);
+                    const forceName = file.name.replace(forcesExtension, "");
+                    newLoadForceButtons.push(<div key={index}><button onClick={() => loadForce(file.name)}>{forceName}</button><button onClick={() => deleteForce(file.name)}>DELETE</button></div>);
                     setLoadForceButtons(newLoadForceButtons);
                 });
                 setForcesDirty(false);
