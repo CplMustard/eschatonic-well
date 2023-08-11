@@ -16,7 +16,7 @@ function HardPoint(props) {
     return (
         <div>
             <span>{hard_point.name}</span>
-            <select onChange={handleChange.bind(this)} defaultValue={selectedOption.option}>
+            <select onChange={handleChange.bind(this)} value={selectedOption.option}>
                 {optionComponents}
             </select>
         </div>
