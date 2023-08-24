@@ -29,7 +29,7 @@ function ModelCardViewer(props) {
         setIsLoaded(true);
         setCardData(modelsData[modelId]);
 
-        if(location.state.entryId) {
+        if(location.state && location.state.entryId) {
             const saved = localStorage.getItem("forceModelsData");
             const forceModelsData = JSON.parse(saved);
             const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
