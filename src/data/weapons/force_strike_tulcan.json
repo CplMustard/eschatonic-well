@@ -1,6 +1,6 @@
 {
     "id": "force_strike_tulcan",
-    "name": "Abyssal Pulse",
+    "name": "Force Strike",
     "profiles": [{
         "type": "melee", 
         "damage_types": ["force"], 
