@@ -1,6 +1,6 @@
 {
     "id": "marauder",
-    "name": "Maurader",
+    "name": "Marauder",
     "factions": ["ac"],
     "type": "solo",
     "stats": {

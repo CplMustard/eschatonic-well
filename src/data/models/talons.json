@@ -12,6 +12,7 @@
         "rat": 3,
         "def": 4,
         "arm": 3,
+        "foc": 3,
         "squad_size": 3,
         "boxes": 1
     },
