@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron:start": "npm run build && npx cap open @capacitor-community/electron",
+    "electron:start": "npm run build && npx cap copy @capacitor-community/electron && npx cap open @capacitor-community/electron",
     "android:start": "npm run build && npx cap run android"
   },
   "eslintConfig": {
