@@ -1,4 +1,5 @@
 import React from 'react';
+import { IonItem, IonButton, IonList } from '@ionic/react';
 
 import { cypherTypesData, modelTypesData } from './data';
 
@@ -15,14 +16,14 @@ function CardList(props) {
             value.forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
                 if(!hasHiddenSubtype && !card.hidden) {
-                    cardComponents.push(<li key={index}><button onClick={() => handleCardClicked(card.id)}>{card.name}</button>{cardActionClicked && <button onClick={() => cardActionClicked(card.id)}>{cardActionText}</button>}</li>);
+                    cardComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(card.id)}>{card.name}</IonButton>{cardActionClicked && <IonButton onClick={() => cardActionClicked(card.id)}>{cardActionText}</IonButton>}</IonItem>);
                 }
             })
             const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
-            cardGroupComponents.push(<div key={key}><h4>{cardTypeName}</h4><li><ul>{cardComponents}</ul></li></div>)
+            cardGroupComponents.push(<div key={key}><h4>{cardTypeName}</h4><IonItem><IonList>{cardComponents}</IonList></IonItem></div>)
         }
     })
-    return <><h3>{header}</h3><ul>{cardGroupComponents}</ul></>;
+    return <><h3>{header}</h3><IonList>{cardGroupComponents}</IonList></>;
 }
 
 export default CardList;

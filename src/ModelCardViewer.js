@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import './App.css';
 
@@ -72,19 +73,21 @@ function ModelCardViewer(props) {
 
     function Statline(props) {
         const { spd, str, mat, rat, def, arm, foc, base_size, squad_size, dc, boxes } = props.stats;
-        return <div className={"statline"}>
-            {spd && <div className={"statline-entry"}><div>SPD</div><div>{spd}</div></div>}
-            {str && <div className={"statline-entry"}><div>STR</div><div>{str}</div></div>}
-            {mat && <div className={"statline-entry"}><div>MAT</div><div>{mat}</div></div>}
-            {rat && <div className={"statline-entry"}><div>RAT</div><div>{rat}</div></div>}
-            {def && <div className={"statline-entry"}><div>DEF</div><div>{def}</div></div>}
-            {arm && <div className={"statline-entry"}><div>ARM</div><div>{arm}</div></div>}
-            {foc && <div className={"statline-entry"}><div>FOC</div><div>{foc}</div></div>}
-            {base_size && <div className={"statline-entry"}><div>BASE SIZE</div><div>{base_size}</div></div>}
-            {squad_size && <div className={"statline-entry"}><div>SQUAD SIZE</div><div>{squad_size}</div></div>}
-            {dc && <div className={"statline-entry"}><div>DC</div><div>{dc}</div></div>}
-            {boxes && <div className={"statline-entry"}><div>BOXES</div><div>{boxes}</div></div>}
-        </div>
+        return <IonGrid fixed="true">
+            <IonRow class="ion-justify-content-start">
+                {spd && <IonCol><div>SPD</div><div>{spd}</div></IonCol>}
+                {str && <IonCol><div>STR</div><div>{str}</div></IonCol>}
+                {mat && <IonCol><div>MAT</div><div>{mat}</div></IonCol>}
+                {rat && <IonCol><div>RAT</div><div>{rat}</div></IonCol>}
+                {def && <IonCol><div>DEF</div><div>{def}</div></IonCol>}
+                {arm && <IonCol><div>ARM</div><div>{arm}</div></IonCol>}
+                {foc && <IonCol><div>FOC</div><div>{foc}</div></IonCol>}
+                {base_size && <IonCol><div>BASE SIZE</div><div>{base_size}</div></IonCol>}
+                {squad_size && <IonCol><div>SQUAD SIZE</div><div>{squad_size}</div></IonCol>}
+                {dc && <IonCol><div>DC</div><div>{dc}</div></IonCol>}
+                {boxes && <IonCol><div>BOXES</div><div>{boxes}</div></IonCol>}
+            </IonRow>
+        </IonGrid>
     }
 
     if (error) {

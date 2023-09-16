@@ -7,6 +7,7 @@ import ForceModelList from './ForceModelList';
 import ForceCypherList from './ForceCypherList';
 
 import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+import CadreList from './CadreList';
 
 const minCyphers = 12;
 const maxCyphers = 15;
@@ -212,12 +213,6 @@ function ForceEditor(props) {
     }
 
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
-    const cadreButtonComponents = []
-    Object.entries(cadresData).forEach(([key, value]) => {
-        if(value.faction === factionId) {
-            cadreButtonComponents.push(<span key={key}><label>{value.name} <button onClick={() => addModelCards(value.models)}>ADD</button></label></span>);
-        }
-    })
 
     return (
         <div>
@@ -227,7 +222,7 @@ function ForceEditor(props) {
 
             <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
             <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
-            <h3>Cadres </h3>{factionId && factionId !== "all" && cadreButtonComponents}
+            <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={(modelId) => addModelCards([modelId])} cardActionText={"ADD"}></CardList>
             <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={(cypherId) => addCypherCards([cypherId])} cardActionText={"ADD"}></CardList>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IonItem, IonList, IonLabel, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import SpecialRuleList from './SpecialRuleList';
 
@@ -21,16 +22,22 @@ function Weapon(props) {
         
         const damageTypeNames = [];
         damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
-        return <div>
-            <h2>{weaponTypeNames[type]}</h2>
-            <h2>{name}</h2>
-            {rng && pow && <div className="statline">
-                {damageTypeNames && <div className="statline-entry"><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></div>}
-                {rng && <div className="statline-entry"><div>RNG</div><div>{rng}</div></div>}
-                {pow && <div className="statline-entry"><div>POW</div><div>{pow}</div></div>}
-            </div>}
-            {special_rules && <SpecialRuleList special_rules={special_rules}/>}
-        </div>
+        return <IonItem>
+            <IonLabel>
+                <h1>{weaponTypeNames[type]}</h1>
+                <h1>{name}</h1>
+                {rng && pow && <IonGrid fixed="true">
+                    <IonRow class="ion-justify-content-start">
+                        {damageTypeNames && <IonCol><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></IonCol>}
+                        {rng && <IonCol><div>RNG</div><div>{rng}</div></IonCol>}
+                        {pow && <IonCol><div>POW</div><div>{pow}</div></IonCol>}
+                    </IonRow>
+                    {special_rules && <IonRow>
+                        <SpecialRuleList special_rules={special_rules}/>
+                    </IonRow>}
+                </IonGrid>}
+            </IonLabel>
+        </IonItem>
     }
 
     if (error) {
@@ -58,7 +65,7 @@ function Weapon(props) {
         } 
         return (
             <div>
-                {weaponStatlineComponents}
+                <IonList>{weaponStatlineComponents}</IonList>
             </div>
         );
     }

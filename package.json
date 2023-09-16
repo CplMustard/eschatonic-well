@@ -15,6 +15,7 @@
     "@capacitor/filesystem": "^5.1.1",
     "@capacitor/ios": "^5.2.2",
     "@capacitor/preferences": "^5.0.6",
+    "@ionic/react": "^7.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

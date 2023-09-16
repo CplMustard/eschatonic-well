@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IonItem, IonLabel, IonList } from '@ionic/react';
 
 import { specialRulesData } from './data';
 
@@ -28,13 +29,13 @@ function SpecialRule(props) {
             ruleString = ruleString.replaceAll(`{${index}}`, argument);
         });
         const subrules = ruleData.subrules
-        const subruleEntries = subrules ? subrules.map((subrule) => <li key={subrule}><SpecialRule ruleId={subrule}/></li>) : undefined
+        const subruleEntries = subrules ? subrules.map((subrule) => <IonItem key={subrule}><SpecialRule ruleId={subrule}/></IonItem>) : undefined
         return (
             <div>
-                <div className="special-rule">
-                    <div className="special-rule-title">{ruleTitleString}</div><div>{ruleString}</div>
+                <div>
+                    <IonLabel>{ruleTitleString}</IonLabel><div>{ruleString}</div>
                 </div>
-                {subrules && <div><ul>{subruleEntries}</ul></div>}
+                {subrules && <div><IonList>{subruleEntries}</IonList></div>}
             </div>
         );
     }
