@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom";
 
-import { cyphersData } from './data'
+import { cyphersData, cypherTypesData, factionsData } from './data'
 
 function CypherCardViewer(props) {
     const params = useParams();
@@ -21,8 +21,8 @@ function CypherCardViewer(props) {
         const { name, factions, type, pow, text } = props;
         return <div className="card-container">
             <h1>{name}</h1>
-            <h1>{factions}</h1>
-            <h1>{type}</h1>
+            <h1>{factions && factionsData[factions].name}</h1>
+            <h1>{type && cypherTypesData[type].name}</h1>
             {pow && <h1><div>POW:</div> <div>{pow}</div></h1>}
             <div>{text}</div>
         </div>
