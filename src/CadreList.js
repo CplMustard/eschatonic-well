@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem, IonLabel, IonButton, IonList } from '@ionic/react';
+import { IonItem, IonLabel, IonButton, IonList, IonListHeader } from '@ionic/react';
 
 function CadreList(props) {
     const { cadresData, addModelCards, factionId } = props
@@ -12,7 +12,7 @@ function CadreList(props) {
 
     return (
         <div>
-            <IonLabel>Cadres</IonLabel>{factionId && factionId !== "all" && <IonList>{cadreButtonComponents}</IonList>}
+            <IonListHeader color="primary"><IonLabel>Cadres</IonLabel></IonListHeader>{factionId && factionId !== "all" && <IonList>{cadreButtonComponents}</IonList>}
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem, IonButton, IonList } from '@ionic/react';
+import { IonText, IonItem, IonButton, IonLabel, IonList, IonListHeader } from '@ionic/react';
 
 import { cypherTypesData, modelTypesData } from './data';
 
@@ -20,10 +20,17 @@ function CardList(props) {
                 }
             })
             const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
-            cardGroupComponents.push(<div key={key}><h4>{cardTypeName}</h4><IonItem><IonList>{cardComponents}</IonList></IonItem></div>)
+            cardGroupComponents.push(<div key={key}>
+                <IonText color="primary">
+                    <h4>{cardTypeName}</h4>
+                </IonText>
+                <IonItem>
+                    <IonList>{cardComponents}</IonList>
+                </IonItem>
+            </div>)
         }
     })
-    return <><h3>{header}</h3><IonList>{cardGroupComponents}</IonList></>;
+    return <><IonListHeader color="primary"><IonLabel>{header}</IonLabel></IonListHeader><IonList>{cardGroupComponents}</IonList></>;
 }
 
 export default CardList;

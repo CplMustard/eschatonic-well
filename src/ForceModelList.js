@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonAccordion, IonButton, IonList, IonItem, IonAccordionGroup } from '@ionic/react';
+import { IonText, IonAccordion, IonButton, IonLabel, IonList, IonListHeader, IonItem, IonAccordionGroup } from '@ionic/react';
 
 import HardPointList from './HardPointList';
 
@@ -29,9 +29,9 @@ function ForceModelList(props) {
             );
         })
         const cardTypeName = modelTypesData[key].name;
-        forceGroupComponents.push(<div key={key}><h4>{cardTypeName} ({entryComponents.length})</h4><IonItem><IonList>{entryComponents}</IonList></IonItem></div>)
+        forceGroupComponents.push(<div key={key}><IonText color="primary"><h4>{cardTypeName} ({entryComponents.length})</h4></IonText><IonItem><IonList>{entryComponents}</IonList></IonItem></div>)
     })
-    return <><h3>{header}</h3><IonList>{forceGroupComponents}</IonList></>;
+    return <><IonListHeader color="primary"><IonLabel>{header}</IonLabel></IonListHeader><IonList>{forceGroupComponents}</IonList></>;
 }
 
 export default ForceModelList;
