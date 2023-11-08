@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonText, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import './App.css';
 
@@ -64,10 +64,10 @@ function ModelCardViewer(props) {
             subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name))
         }
         return <div>
-            <h1>{name}</h1>
-            <h1>{factionNames.join(", ")}</h1>
-            <h1>{subtypeNames.join(", ")}</h1>
-            <h1>{modelTypesData[type].name}</h1>
+            <IonText color="primary"><h1>{name}</h1></IonText>
+            <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
+            <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
+            <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
         </div>
     }
 
@@ -75,17 +75,17 @@ function ModelCardViewer(props) {
         const { spd, str, mat, rat, def, arm, foc, base_size, squad_size, dc, boxes } = props.stats;
         return <IonGrid fixed="true">
             <IonRow class="ion-justify-content-start">
-                {spd && <IonCol><div>SPD</div><div>{spd}</div></IonCol>}
-                {str && <IonCol><div>STR</div><div>{str}</div></IonCol>}
-                {mat && <IonCol><div>MAT</div><div>{mat}</div></IonCol>}
-                {rat && <IonCol><div>RAT</div><div>{rat}</div></IonCol>}
-                {def && <IonCol><div>DEF</div><div>{def}</div></IonCol>}
-                {arm && <IonCol><div>ARM</div><div>{arm}</div></IonCol>}
-                {foc && <IonCol><div>FOC</div><div>{foc}</div></IonCol>}
-                {base_size && <IonCol><div>BASE SIZE</div><div>{base_size}</div></IonCol>}
-                {squad_size && <IonCol><div>SQUAD SIZE</div><div>{squad_size}</div></IonCol>}
-                {dc && <IonCol><div>DC</div><div>{dc}</div></IonCol>}
-                {boxes && <IonCol><div>BOXES</div><div>{boxes}</div></IonCol>}
+                {spd && <IonCol><IonText><div>SPD</div><div>{spd}</div></IonText></IonCol>}
+                {str && <IonCol><IonText><div>STR</div><div>{str}</div></IonText></IonCol>}
+                {mat && <IonCol><IonText><div>MAT</div><div>{mat}</div></IonText></IonCol>}
+                {rat && <IonCol><IonText><div>RAT</div><div>{rat}</div></IonText></IonCol>}
+                {def && <IonCol><IonText><div>DEF</div><div>{def}</div></IonText></IonCol>}
+                {arm && <IonCol><IonText><div>ARM</div><div>{arm}</div></IonText></IonCol>}
+                {foc && <IonCol><IonText><div>FOC</div><div>{foc}</div></IonText></IonCol>}
+                {base_size && <IonCol><IonText><div>BASE SIZE</div><div>{base_size}</div></IonText></IonCol>}
+                {squad_size && <IonCol><IonText><div>SQUAD SIZE</div><div>{squad_size}</div></IonText></IonCol>}
+                {dc && <IonCol><IonText><div>DC</div><div>{dc}</div></IonText></IonCol>}
+                {boxes && <IonCol><IonText><div>BOXES</div><div>{boxes}</div></IonText></IonCol>}
             </IonRow>
         </IonGrid>
     }

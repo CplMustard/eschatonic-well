@@ -5,7 +5,7 @@ import SpecialRule from './SpecialRule';
 
 function SpecialRuleList(props) {
     const specialRuleComponents = [];
-    specialRuleComponents.push(<IonText><h3>{props.header}</h3></IonText>)
+    specialRuleComponents.push(<IonText key={-1} color="primary"><h3>{props.header}</h3></IonText>)
     props.special_rules.forEach((ruleId, index) =>
         specialRuleComponents.push(<IonItem key={index}><SpecialRule ruleId={ruleId} /></IonItem>)
     )

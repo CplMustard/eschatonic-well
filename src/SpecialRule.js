@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonItem, IonLabel, IonList } from '@ionic/react';
+import { IonText, IonItem, IonLabel, IonList } from '@ionic/react';
 
 import { specialRulesData } from './data';
 
@@ -33,7 +33,7 @@ function SpecialRule(props) {
         return (
             <div>
                 <div>
-                    <IonLabel>{ruleTitleString}</IonLabel><div>{ruleString}</div>
+                    <IonText><IonLabel>{ruleTitleString}</IonLabel><div>{ruleString}</div></IonText>
                 </div>
                 {subrules && <div><IonList>{subruleEntries}</IonList></div>}
             </div>

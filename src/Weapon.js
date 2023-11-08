@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonItem, IonList, IonLabel, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonText, IonItem, IonList, IonLabel, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import SpecialRuleList from './SpecialRuleList';
 
@@ -28,9 +28,9 @@ function Weapon(props) {
                 <h1>{name}</h1>
                 {rng && pow && <IonGrid fixed="true">
                     <IonRow class="ion-justify-content-start">
-                        {damageTypeNames && <IonCol><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></IonCol>}
-                        {rng && <IonCol><div>RNG</div><div>{rng}</div></IonCol>}
-                        {pow && <IonCol><div>POW</div><div>{pow}</div></IonCol>}
+                        {damageTypeNames && <IonCol><IonText><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></IonText></IonCol>}
+                        {rng && <IonCol><IonText><div>RNG</div><div>{rng}</div></IonText></IonCol>}
+                        {pow && <IonCol><IonText><div>POW</div><div>{pow}</div></IonText></IonCol>}
                     </IonRow>
                     {special_rules && <IonRow>
                         <SpecialRuleList special_rules={special_rules}/>
