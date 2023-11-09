@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom";
+import { IonText } from '@ionic/react';
 
 import { cyphersData, cypherTypesData, factionsData } from './data'
 
@@ -19,12 +20,12 @@ function CypherCardViewer(props) {
 
     function Cypher(props) {
         const { name, factions, type, pow, text } = props;
-        return <div className="card-container">
-            <h1>{name}</h1>
-            <h1>{factions && factionsData[factions].name}</h1>
-            <h1>{type && cypherTypesData[type].name}</h1>
-            {pow && <h1><div>POW:</div> <div>{pow}</div></h1>}
-            <div>{text}</div>
+        return <div>
+            <IonText color="primary"><h1>{name}</h1></IonText>
+            <IonText color="primary"><h1>{factions && factionsData[factions].name}</h1></IonText>
+            <IonText color="primary"><h1>{type && cypherTypesData[type].name}</h1></IonText>
+            {pow && <IonText><h1>POW: {pow}</h1></IonText>}
+            <IonText>{text}</IonText>
         </div>
     }
 
@@ -34,7 +35,7 @@ function CypherCardViewer(props) {
         return <div>Loading Card Data...</div>
     } else {
         return (
-            <div className="container">
+            <div>
                 <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
             </div>
         );

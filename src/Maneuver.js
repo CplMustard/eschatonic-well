@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IonText, IonLabel } from '@ionic/react';
 
 import { maneuversData } from './data';
 
@@ -18,8 +19,8 @@ function Maneuver(props) {
         return <div>Loading Maneuvers Data...</div>
     } else {
         return (
-            <div className="special-rule">
-                <div className="special-rule-title">{maneuverData.name}</div><div>{maneuverData.text}</div>
+            <div>
+                <IonText><IonLabel>{maneuverData.name}:</IonLabel>{maneuverData.text}</IonText>
             </div>
         );
     }

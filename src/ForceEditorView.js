@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
+import { IonText, IonButton } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
@@ -145,29 +146,29 @@ function ForceEditorView() {
     const factionButtons = [];
     Object.entries(factionsData).forEach(([key, value]) => {
         if(!value.hidden) {
-            factionButtons.push(<button key={key} onClick={() => changeFaction(value.id)}>{value.name}</button>);
+            factionButtons.push(<IonButton key={key} onClick={() => changeFaction(value.id)}>{value.name}</IonButton>);
         }
     });
-    factionButtons.push(<button key={"custom"} onClick={() => changeFaction("")}>ALL</button>);
+    factionButtons.push(<IonButton key={"custom"} onClick={() => changeFaction("")}>ALL</IonButton>);
 
     const forceSizeButtons = [];
     Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
-        forceSizeButtons.push(<button key={key} onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</button>);
+        forceSizeButtons.push(<IonButton key={key} onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</IonButton>);
     });
-    forceSizeButtons.push(<button key={"custom"} onClick={() => changeForceSize({})}>CUSTOM</button>);
+    forceSizeButtons.push(<IonButton key={"custom"} onClick={() => changeForceSize({})}>CUSTOM</IonButton>);
     return (
         <div className="container">
-            {loadForceButtons.length !== 0 && <>Load Force:{loadForceButtons}<br/></>}
+            {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText>{loadForceButtons}<br/></>}
             {factionButtons}<br/>
             {forceSizeButtons}<br/>
             <br/>
-            <label>Force Name: <input type="text" value={forceName} onChange={(e) => setForceName(e.target.value)}/></label>
-            <button onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</button>
-            <button onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</button>
-            <button onClick={() => {
+            <IonText color="primary"><h3>Force Name: <input type="text" value={forceName} onChange={(e) => setForceName(e.target.value)}/></h3></IonText>
+            <IonButton onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</IonButton>
+            <IonButton onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</IonButton>
+            <IonButton onClick={() => {
                 clearForce();
                 setForceName("New Force");
-            }}>CLEAR</button>
+            }}>CLEAR</IonButton>
             <ForceEditor factionId={factionId} forceSize={forceSize} forceName={forceName} forceModelsData={forceModelsData} setForceModelsData={setForceModelsData} forceCyphersData={forceCyphersData} setForceCyphersData={setForceCyphersData}></ForceEditor>
         </div>
     );

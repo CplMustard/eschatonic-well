@@ -125,7 +125,7 @@ function ModelCardViewer(props) {
                 <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
                 <Statline stats={stats} />
                 {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
-                {weapon_points && <h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3>}
+                {weapon_points && <IonText color={weaponPointCost > weapon_points ? "danger" : "primary"}><h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3></IonText>}
                 {allWeapons && <WeaponList weapons={allWeapons} />}
                 {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                 {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}

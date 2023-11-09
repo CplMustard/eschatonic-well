@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IonText } from '@ionic/react';
 
 import SpecialRuleList from './SpecialRuleList';
 
@@ -22,8 +23,8 @@ function Cortex(props) {
         const { special_rules, name } = cortexData;
         return (
             <div>
-                <h2>CORTEX</h2>
-                <h2>{name}</h2>
+                <IonText color="primary"><h3>Cortex:</h3></IonText>
+                <IonText color="primary"><h3>{name}</h3></IonText>
                 {special_rules && <SpecialRuleList special_rules={special_rules}/>}
             </div>
         );

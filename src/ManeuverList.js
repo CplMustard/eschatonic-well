@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem, IonList } from '@ionic/react';
+import { IonText, IonItem, IonList } from '@ionic/react';
 
 import Maneuver from './Maneuver';
 
@@ -8,7 +8,7 @@ function ManeuverList(props) {
     props.maneuvers.forEach((maneuverId, index) =>
         maneuverComponents.push(<IonItem key={index}><Maneuver maneuverId={maneuverId} /></IonItem>)
     )
-    return <><h3>{props.header}</h3><IonList>{maneuverComponents}</IonList></>;
+    return <><IonText color="primary"><h3>{props.header}</h3></IonText><IonList>{maneuverComponents}</IonList></>;
 }
 
 export default ManeuverList;

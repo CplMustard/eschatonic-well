@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
+import { IonText } from '@ionic/react';
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
@@ -38,7 +39,7 @@ function ModelCountComponent(props) {
 
     const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
     return <>
-        <h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3>
+        <IonText color={countUnits(models) > maxUnits ? "danger" : "primary"}><h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3></IonText>
         {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}
     </>
 }
@@ -46,7 +47,7 @@ function ModelCountComponent(props) {
 function CypherCountComponent(props) {
     const { cyphers } = props;
     return <>
-        <h3>Cyphers: {cyphers.length} / {maxCyphers}</h3>
+        <IonText color={cyphers.length > maxCyphers || cyphers.length < minCyphers ? "danger" : "primary"}><h3>Cyphers: {cyphers.length} / {maxCyphers}</h3></IonText>
     </>
 }
 
@@ -216,7 +217,7 @@ function ForceEditor(props) {
 
     return (
         <div>
-            {<h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3>}
+            {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
             <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <CypherCountComponent cyphers={forceCyphersData}/>
 
