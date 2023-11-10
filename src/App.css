@@ -5,6 +5,15 @@
 	--ion-text-color: #bf909f;
 	--ion-text-color-rgb: 191,144,159;
 
+	--ion-color-primary: #1e94ff;
+	--ion-color-primary-rgb: 30,148,255;
+
+	--ion-color-primary-contrast: #ffe8fe;
+	--ion-color-primary-contrast-rgb: 255,232,254;
+
+	--ion-color-primary-shade: #1878d1;
+	--ion-color-primary-tint: #21a9ff;
+
 	--ion-color-step-50: #343535;
 	--ion-color-step-100: #3c3a3a;
 	--ion-color-step-150: #433e40;

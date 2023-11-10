@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { IonText, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
 
 import './App.css';
 
@@ -63,12 +63,14 @@ function ModelCardViewer(props) {
         if(subtypes) {
             subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name))
         }
-        return <div>
-            <IonText color="primary"><h1>{name}</h1></IonText>
-            <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
-            <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
-            <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
-        </div>
+        return <IonCardHeader>
+            <IonCardTitle color="primary"><h1>{name}</h1></IonCardTitle>
+            <IonCardSubtitle>
+                <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
+                <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
+                <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
+            </IonCardSubtitle>
+        </IonCardHeader>
     }
 
     function Statline(props) {
@@ -121,18 +123,20 @@ function ModelCardViewer(props) {
         }
 
         return (
-            <div className="container">
+            <IonCard>
                 <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
-                <Statline stats={stats} />
-                {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
-                {weapon_points && <IonText color={weaponPointCost > weapon_points ? "danger" : "primary"}><h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3></IonText>}
-                {allWeapons && <WeaponList weapons={allWeapons} />}
-                {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
-                {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
-                {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
-                {maneuvers && <ManeuverList maneuvers={maneuvers} header={'Maneuvers'}/>}
-                {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
-            </div>
+                <IonCardContent>
+                    <Statline stats={stats} />
+                    {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
+                    {weapon_points && <IonText color={weaponPointCost > weapon_points ? "danger" : "primary"}><h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3></IonText>}
+                    {allWeapons && <WeaponList weapons={allWeapons} />}
+                    {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
+                    {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
+                    {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
+                    {maneuvers && <ManeuverList maneuvers={maneuvers} header={'Maneuvers'}/>}
+                    {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
+                </IonCardContent>
+            </IonCard>
         );
     }
 }

@@ -32,7 +32,7 @@ function ForceEditorView() {
                     const newLoadForceButtons = [];
                     result.files.forEach((file, index) => {
                         const forceName = file.name.replace(forcesExtension, "");
-                        newLoadForceButtons.push(<div key={index}><button onClick={() => loadForce(file.name)}>{forceName}</button><button onClick={() => deleteForce(file.name)}>DELETE</button></div>);
+                        newLoadForceButtons.push(<div key={index}><IonButton onClick={() => loadForce(file.name)}>{forceName}</IonButton><IonButton onClick={() => deleteForce(file.name)}>DELETE</IonButton></div>);
                         setLoadForceButtons(newLoadForceButtons);
                     });
                     setForcesDirty(false);
@@ -163,12 +163,12 @@ function ForceEditorView() {
             {forceSizeButtons}<br/>
             <br/>
             <IonText color="primary"><h3>Force Name: <input type="text" value={forceName} onChange={(e) => setForceName(e.target.value)}/></h3></IonText>
-            <IonButton onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE</IonButton>
+            <IonButton onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE FORCE</IonButton>
             <IonButton onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</IonButton>
             <IonButton onClick={() => {
                 clearForce();
                 setForceName("New Force");
-            }}>CLEAR</IonButton>
+            }}>CLEAR FORCE</IonButton>
             <ForceEditor factionId={factionId} forceSize={forceSize} forceName={forceName} forceModelsData={forceModelsData} setForceModelsData={setForceModelsData} forceCyphersData={forceCyphersData} setForceCyphersData={setForceCyphersData}></ForceEditor>
         </div>
     );

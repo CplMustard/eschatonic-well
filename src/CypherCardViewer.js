@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom";
-import { IonText } from '@ionic/react';
+import { IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
 
 import { cyphersData, cypherTypesData, factionsData } from './data'
 
@@ -20,13 +20,19 @@ function CypherCardViewer(props) {
 
     function Cypher(props) {
         const { name, factions, type, pow, text } = props;
-        return <div>
-            <IonText color="primary"><h1>{name}</h1></IonText>
-            <IonText color="primary"><h1>{factions && factionsData[factions].name}</h1></IonText>
-            <IonText color="primary"><h1>{type && cypherTypesData[type].name}</h1></IonText>
-            {pow && <IonText><h1>POW: {pow}</h1></IonText>}
-            <IonText>{text}</IonText>
-        </div>
+        return <IonCard>
+            <IonCardHeader>
+                <IonCardTitle color="primary"><h1>{name}</h1></IonCardTitle>
+                <IonCardSubtitle>
+                    <IonText color="primary"><h1>{factions && factionsData[factions].name}</h1></IonText>
+                    <IonText color="primary"><h1>{type && cypherTypesData[type].name}</h1></IonText>
+                    {pow && <IonText color="primary"><h2>POW: {pow}</h2></IonText>}
+                </IonCardSubtitle>
+            </IonCardHeader>
+            <IonCardContent>
+                <IonText>{text}</IonText>
+            </IonCardContent>
+        </IonCard>
     }
 
     if (error) {

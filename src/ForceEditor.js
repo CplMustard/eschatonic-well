@@ -39,8 +39,8 @@ function ModelCountComponent(props) {
 
     const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
     return <>
-        <IonText color={countUnits(models) > maxUnits ? "danger" : "primary"}><h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3></IonText>
-        {showHeroSoloCount && (<h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3>)}
+        <IonText color={countUnits(models) < maxUnits || countUnits(models) > maxUnits ? "danger" : "primary"}><h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3></IonText>
+        {showHeroSoloCount && (<IonText color={countHeroSolos(models) < freeHeroSolos ? "danger" : "primary"}><h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3></IonText>)}
     </>
 }
 
@@ -218,11 +218,13 @@ function ForceEditor(props) {
     return (
         <div>
             {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
-            <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
-            <CypherCountComponent cyphers={forceCyphersData}/>
 
+            <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
+            
+            <CypherCountComponent cyphers={forceCyphersData}/>
             <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
+
             <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={(modelId) => addModelCards([modelId])} cardActionText={"ADD"}></CardList>
             <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={(cypherId) => addCypherCards([cypherId])} cardActionText={"ADD"}></CardList>
