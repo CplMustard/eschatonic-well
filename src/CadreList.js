@@ -6,7 +6,7 @@ function CadreList(props) {
     const cadreButtonComponents = []
     Object.entries(cadresData).forEach(([key, value]) => {
         if(value.faction === factionId) {
-            cadreButtonComponents.push(<IonItem key={key}><label>{value.name} <IonButton onClick={() => addModelCards(value.models)}>ADD</IonButton></label></IonItem>);
+            cadreButtonComponents.push(<IonItem key={key}><label><h2>{value.name}</h2> <IonButton onClick={() => addModelCards(value.models)}>ADD</IonButton></label></IonItem>);
         }
     })
 

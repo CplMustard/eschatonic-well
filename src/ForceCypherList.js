@@ -3,10 +3,8 @@ import { IonText, IonItem, IonButton, IonLabel, IonList, IonListHeader } from '@
 
 import { cypherTypesData } from './data'
 
-const CypherTypeMin = 3;
-
 function ForceCypherList(props) {
-    const { forceEntries, header, handleCardClicked, cardActions } = props;
+    const { forceEntries, header, cypherTypeMin, handleCardClicked, cardActions } = props;
     
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
@@ -23,7 +21,7 @@ function ForceCypherList(props) {
             entryComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(entry.cypherId)}>{entry.name}</IonButton>{cardActionButtons}</IonItem>)
         });
         const cardTypeName = cypherTypesData[key].name;
-        forceGroupComponents.push(<div key={key}><IonText color={entryComponents.length < CypherTypeMin ? "danger" : "primary"}><h4>{cardTypeName} ({entryComponents.length})</h4></IonText><IonItem><IonList>{entryComponents}</IonList></IonItem></div>);
+        forceGroupComponents.push(<div key={key}><IonText color={entryComponents.length < cypherTypeMin ? "danger" : "primary"}><h4>{cardTypeName} ({entryComponents.length})</h4></IonText><IonItem><IonList>{entryComponents}</IonList></IonItem></div>);
     });
     return <><IonListHeader color="primary"><IonLabel>{header}</IonLabel></IonListHeader><IonList>{forceGroupComponents}</IonList></>;
 }

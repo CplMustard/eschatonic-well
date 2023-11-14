@@ -2,20 +2,20 @@ import App from './App';
 import CardListViewer from './CardListViewer';
 import ModelCardViewer from "./ModelCardViewer";
 import CypherCardViewer from "./CypherCardViewer";
-import ForceEditorView from './ForceEditorView';
+import EditorView from './EditorView';
 
 const routes = [
     {
         path: "/",
-        element: <ForceEditorView />,
+        element: <EditorView />,
     },
     {
         path: "/force",
-        element: <ForceEditorView/>
+        element: <EditorView/>
     },
     {
         path: "/force/:forceId",
-        element: <ForceEditorView/>
+        element: <EditorView/>
     },
     {
         path: "/matches",

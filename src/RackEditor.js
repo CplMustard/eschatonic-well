@@ -8,6 +8,7 @@ import ForceCypherList from './ForceCypherList';
 
 import { cyphersData, factionsData } from './data';
 
+const cypherTypeMin = 3;
 const minCyphers = 12;
 const maxCyphers = 15;
 
@@ -21,7 +22,7 @@ function CypherCountComponent(props) {
 function RackEditor(props) {
     const navigate = useNavigate();
 
-    const { factionId, forceCyphersData, setForceCyphersData } = props;
+    const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
     const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
@@ -51,6 +52,28 @@ function RackEditor(props) {
         }
     }
 
+    function addSpecialIssue(id) {
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+        let newSpecialIssueCyphersData = specialIssueCyphersData;
+        newSpecialIssueCyphersData.push(forceCyphersData[index]);
+        removeCypherCard(id);
+        setSpecialIssueCyphersData(newSpecialIssueCyphersData);
+    }
+
+    function removeSpecialIssue(id) {
+        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+        addCypherCards([specialIssueCyphersData[index].cypherId]);
+        let newSpecialIssueCyphersData = specialIssueCyphersData;
+        newSpecialIssueCyphersData = [...newSpecialIssueCyphersData.slice(0, index), ...newSpecialIssueCyphersData.slice(index + 1)]
+        setSpecialIssueCyphersData(newSpecialIssueCyphersData);
+    }
+
+    function canSpecialIssueSwap(id) {
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+        const cypherType = forceCyphersData[index].type
+        return specialIssueCyphersData.filter((forceCypher) => forceCypher.type === cypherType).length !== 0;
+    }
+
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
 
     return (
@@ -58,9 +81,31 @@ function RackEditor(props) {
             {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
 
             <CypherCountComponent cyphers={forceCyphersData}/>
-            <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActions={[{handleClicked: removeCypherCard, text: "REMOVE"}]} ></ForceCypherList>
+            <ForceCypherList 
+                header={"Rack"} 
+                forceEntries={forceCyphersData} 
+                cypherTypeMin={cypherTypeMin}
+                handleCardClicked={openCypherCard} 
+                cardActions={[
+                    {handleClicked: removeCypherCard, text: "REMOVE"},
+                    {handleClicked: addSpecialIssue, text: "SWAP TO SPECIAL ISSUE", isHidden: canSpecialIssueSwap}
+                ]}
+            ></ForceCypherList>
 
-            <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: "ADD"}]}></CardList>
+            <CardList 
+                header={"Cyphers"} 
+                cards={remainingCypherCardList} 
+                handleCardClicked={openCypherCard} 
+                cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: "ADD"}]}
+            ></CardList>
+            <ForceCypherList 
+                header={"Special Issue"} 
+                forceEntries={specialIssueCyphersData} 
+                handleCardClicked={openCypherCard} 
+                cardActions={[
+                    {handleClicked: removeSpecialIssue, text: "SWAP TO RACK"}
+                ]}
+            ></ForceCypherList>
         </div>
     );
 }
