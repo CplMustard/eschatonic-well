@@ -6,7 +6,7 @@ import HardPointList from './HardPointList';
 import { modelTypesData } from './data'
 
 function ForceModelList(props) {
-    const { forceEntries, header, handleCardClicked, cardActionClicked, cardActionText, updateModelHardPoint } = props;
+    const { forceEntries, header, handleCardClicked, cardActions, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
@@ -17,10 +17,14 @@ function ForceModelList(props) {
         const entryComponents = [];
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
             const weaponPointCost = entry.hard_points ? entry.hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
+            const cardActionButtons = [];
+            cardActions && cardActions.forEach((action) => {
+                action.handleClicked && action.text && !(action.isHidden && action.isHidden(entry.id)) && cardActionButtons.push(<IonButton key={action.text} onClick={() => action.handleClicked(entry.id)}>{action.text}</IonButton>)
+            });
             entryComponents.push(
                 <IonItem key={index}>
                     <IonButton onClick={() => handleCardClicked(entry.modelId, entry.id)}>{entry.name}</IonButton>
-                    {cardActionClicked && entry.showAction && <IonButton onClick={() => cardActionClicked(entry.id)}>{cardActionText}</IonButton>}
+                    {cardActionButtons}
                     {entry.hard_points && <span>
                         {entry.weapon_points && <h6>Weapon Points: {weaponPointCost}/{entry.weapon_points}</h6>}
                         <HardPointList hard_points={entry.hard_points} hardPointOptions={entry.hardPointOptions} onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)}/>

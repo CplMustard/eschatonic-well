@@ -4,7 +4,7 @@ import { IonText, IonItem, IonButton, IonLabel, IonList, IonListHeader } from '@
 import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
-    const { cards, header, hideHiddenTypes, handleCardClicked, cardActionClicked, cardActionText } = props;
+    const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
         memo[current["type"]] = [...memo[current["type"]] || [], current];
@@ -16,7 +16,11 @@ function CardList(props) {
             value.forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
                 if(!hasHiddenSubtype && !card.hidden) {
-                    cardComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(card.id)}>{card.name}</IonButton>{cardActionClicked && <IonButton onClick={() => cardActionClicked(card.id)}>{cardActionText}</IonButton>}</IonItem>);
+                    const cardActionButtons = [];
+                    cardActions && cardActions.forEach((action) => {
+                        action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(<IonButton key={action.text} onClick={() => action.handleClicked(card.id)}>{action.text}</IonButton>)
+                    });
+                    cardComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(card.id)}>{card.name}</IonButton>{cardActionButtons}</IonItem>);
                 }
             })
             const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;

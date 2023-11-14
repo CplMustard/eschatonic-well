@@ -6,7 +6,7 @@ import { cypherTypesData } from './data'
 const CypherTypeMin = 3;
 
 function ForceCypherList(props) {
-    const { forceEntries, header, handleCardClicked, cardActionClicked, cardActionText } = props;
+    const { forceEntries, header, handleCardClicked, cardActions } = props;
     
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
@@ -16,7 +16,11 @@ function ForceCypherList(props) {
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
-            entryComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(entry.cypherId)}>{entry.name}</IonButton>{cardActionClicked && <IonButton onClick={() => cardActionClicked(entry.id)}>{cardActionText}</IonButton>}</IonItem>)
+            const cardActionButtons = [];
+            cardActions && cardActions.forEach((action) => {
+                action.handleClicked && action.text && !(action.isHidden && action.isHidden(entry.id)) && cardActionButtons.push(<IonButton key={action.text} onClick={() => action.handleClicked(entry.id)}>{action.text}</IonButton>)
+            });
+            entryComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(entry.cypherId)}>{entry.name}</IonButton>{cardActionButtons}</IonItem>)
         });
         const cardTypeName = cypherTypesData[key].name;
         forceGroupComponents.push(<div key={key}><IonText color={entryComponents.length < CypherTypeMin ? "danger" : "primary"}><h4>{cardTypeName} ({entryComponents.length})</h4></IonText><IonItem><IonList>{entryComponents}</IonList></IonItem></div>);

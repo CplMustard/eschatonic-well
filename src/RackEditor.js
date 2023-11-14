@@ -58,9 +58,9 @@ function RackEditor(props) {
             {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
 
             <CypherCountComponent cyphers={forceCyphersData}/>
-            <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
+            <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActions={[{handleClicked: removeCypherCard, text: "REMOVE"}]} ></ForceCypherList>
 
-            <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={(cypherId) => addCypherCards([cypherId])} cardActionText={"ADD"}></CardList>
+            <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: "ADD"}]}></CardList>
         </div>
     );
 }

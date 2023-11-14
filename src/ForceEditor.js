@@ -101,7 +101,7 @@ function ForceEditor(props) {
             });
         }            
         const canRemove = !isHidden(modelId);
-        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, showAction: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         return newForceModelsData.concat(forceEntry);
     }
 
@@ -168,11 +168,16 @@ function ForceEditor(props) {
         }
     }
 
+    function isCardUnremovable(id) {
+        const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
+        return !forceModelsData[index].canRemove;
+    }
+
     function updateModelHardPoint(option, type, point_cost, hardPointIndex, id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         const entry = forceModelsData[index]
         const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
-        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, subtypes: entry.subtypes, showAction: entry.showAction, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
+        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, subtypes: entry.subtypes, canRemove: entry.canRemove, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
         setForceModelsData([...forceModelsData.slice(0, index), forceEntry, ...forceModelsData.slice(index + 1)]);
     }
 
@@ -181,10 +186,10 @@ function ForceEditor(props) {
             {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
 
             <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
-            <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
+            <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActions={[{handleClicked: removeModelCard, text: "REMOVE", isHidden: isCardUnremovable}]} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
 
             <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
-            <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={(modelId) => addModelCards([modelId])} cardActionText={"ADD"}></CardList>
+            <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: "ADD"}]}></CardList>
         </div>
     );
 }
