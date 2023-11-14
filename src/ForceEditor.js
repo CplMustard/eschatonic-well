@@ -21,14 +21,14 @@ function isHidden(modelId) {
 function ModelCountComponent(props) {
     const {models, maxUnits, freeHeroSolos} = props;
 
-    function countUnits(forceModelsData) {
-        return forceModelsData.filter((forceModel) => {        
+    function countUnits(forceData) {
+        return forceData.filter((forceModel) => {        
             return !isHidden(forceModel.modelId);
-        }).length - Math.min(countHeroSolos(forceModelsData), freeHeroSolos ? freeHeroSolos : 0);
+        }).length - Math.min(countHeroSolos(forceData), freeHeroSolos ? freeHeroSolos : 0);
     }
 
-    function countHeroSolos(forceModelsData) {
-        return forceModelsData.filter((forceModel) => {
+    function countHeroSolos(forceData) {
+        return forceData.filter((forceModel) => {
             const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") : false;
             return forceModel.type === "solo" && hasHeroSubtype;
         }).length;
