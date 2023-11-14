@@ -7,6 +7,7 @@ import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
 
 import ForceEditor from './ForceEditor';
+import RackEditor from './RackEditor';
 
 import { factionsData, forceSizesData } from './data'
 
@@ -169,7 +170,8 @@ function ForceEditorView() {
                 clearForce();
                 setForceName("New Force");
             }}>CLEAR FORCE</IonButton>
-            <ForceEditor factionId={factionId} forceSize={forceSize} forceName={forceName} forceModelsData={forceModelsData} setForceModelsData={setForceModelsData} forceCyphersData={forceCyphersData} setForceCyphersData={setForceCyphersData}></ForceEditor>
+            <ForceEditor factionId={factionId} forceSize={forceSize} forceName={forceName} forceModelsData={forceModelsData} setForceModelsData={setForceModelsData}></ForceEditor>
+            <RackEditor factionId={factionId} forceCyphersData={forceCyphersData} setForceCyphersData={setForceCyphersData}></RackEditor>
         </div>
     );
 }

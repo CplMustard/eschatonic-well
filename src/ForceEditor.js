@@ -5,13 +5,10 @@ import { IonText } from '@ionic/react';
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
-import ForceCypherList from './ForceCypherList';
 
-import { cadresData, cyphersData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+import { cadresData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
 import CadreList from './CadreList';
 
-const minCyphers = 12;
-const maxCyphers = 15;
 const voidGateId = "void_gate";
 
 function isHidden(modelId) {
@@ -44,17 +41,10 @@ function ModelCountComponent(props) {
     </>
 }
 
-function CypherCountComponent(props) {
-    const { cyphers } = props;
-    return <>
-        <IonText color={cyphers.length > maxCyphers || cyphers.length < minCyphers ? "danger" : "primary"}><h3>Cyphers: {cyphers.length} / {maxCyphers}</h3></IonText>
-    </>
-}
-
 function ForceEditor(props) {
     const navigate = useNavigate();
 
-    const { factionId, forceSize, forceModelsData, setForceModelsData, forceCyphersData, setForceCyphersData } = props;
+    const { factionId, forceSize, forceModelsData, setForceModelsData } = props;
     const maxUnits = forceSize.units;
     const freeHeroSolos = forceSize.hero_solos;
 
@@ -78,14 +68,9 @@ function ForceEditor(props) {
     }, [forceModelsData, factionId]);
 
     const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
-    const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
     function modelCount(modelsData, modelId) {
         return modelsData.filter((forceModel) => forceModel.modelId === modelId).length;
-    }
-
-    function cypherCount(cyphersData, cypherId) {
-        return cyphersData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
     }
 
     function countCadreModels(modelsData, cadre) {
@@ -142,10 +127,6 @@ function ForceEditor(props) {
         navigate(`/model/${modelId}`, {state: { entryId: entryId }});
     }
 
-    function openCypherCard(id) {
-        navigate(`/cypher/${id}`);
-    }
-
     function addModelCards(modelIds) {
         let newForceModelsData = forceModelsData;
         modelIds.forEach((modelId) => {
@@ -168,17 +149,6 @@ function ForceEditor(props) {
         setForceModelsData(newForceModelsData);
     }
 
-    function addCypherCards(cypherIds) {
-        let newForceCyphersData = forceCyphersData;
-        cypherIds.forEach((cypherId) => {
-            if(cypherCount(newForceCyphersData, cypherId) === 0) {
-                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name};
-                newForceCyphersData = newForceCyphersData.concat(cypherEntry);
-            }
-        });
-        setForceCyphersData(newForceCyphersData);
-    }
-
     function removeModelCard(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
@@ -198,13 +168,6 @@ function ForceEditor(props) {
         }
     }
 
-    function removeCypherCard(id) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
-        if(index !== -1) {
-            setForceCyphersData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
-        }
-    }
-
     function updateModelHardPoint(option, type, point_cost, hardPointIndex, id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         const entry = forceModelsData[index]
@@ -213,21 +176,15 @@ function ForceEditor(props) {
         setForceModelsData([...forceModelsData.slice(0, index), forceEntry, ...forceModelsData.slice(index + 1)]);
     }
 
-    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
-
     return (
         <div>
             {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
 
             <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <ForceModelList header={"Force"} forceEntries={forceModelsData} handleCardClicked={openModelCard} cardActionClicked={removeModelCard} cardActionText={"REMOVE"} updateModelHardPoint={updateModelHardPoint}></ForceModelList>
-            
-            <CypherCountComponent cyphers={forceCyphersData}/>
-            <ForceCypherList header={"Rack"} forceEntries={forceCyphersData} handleCardClicked={openCypherCard} cardActionClicked={removeCypherCard} cardActionText={"REMOVE"}></ForceCypherList>
 
             <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
             <CardList header={"Models"} cards={models} hideHiddenTypes={true} handleCardClicked={openModelCard} cardActionClicked={(modelId) => addModelCards([modelId])} cardActionText={"ADD"}></CardList>
-            <CardList header={"Cyphers"} cards={remainingCypherCardList} handleCardClicked={openCypherCard} cardActionClicked={(cypherId) => addCypherCards([cypherId])} cardActionText={"ADD"}></CardList>
         </div>
     );
 }
