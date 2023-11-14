@@ -14,6 +14,8 @@ import { factionsData, forceSizesData } from './data'
 const forcesPath = "eschatonic-well/forces/"
 const forcesExtension = ".esch"
 
+
+
 function ForceEditorView() {
     const [factionId, setFactionId] = useLocalStorage("factionId", "all");
     const [forceSize, setForceSize] = useLocalStorage("forceSize", {});
@@ -21,6 +23,8 @@ function ForceEditorView() {
     const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
     const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useLocalStorage("specialIssueModelsData", []);
+    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useLocalStorage("specialIssueCyphersData", []);
 
     const [forcesDirty, setForcesDirty] = useState(true);
     const [loadForceButtons, setLoadForceButtons] = useState([]);
@@ -86,8 +90,16 @@ function ForceEditorView() {
         }
     }
 
-    const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData) => {
-        const json = {"forceName": forceName, "factionId": factionId, "forceSize": forceSize, "forceModelsData": forceModelsData, "forceCyphersData": forceCyphersData};
+    const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
+        const json = {
+            "forceName": forceName,
+            "factionId": factionId,
+            "forceSize": forceSize,
+            "forceModelsData": forceModelsData,
+            "forceCyphersData": forceCyphersData,
+            "specialIssueModelsData": specialIssueModelsData,
+            "specialIssueCyphersData": specialIssueCyphersData
+        };
         const filename = sanitize(forceName);
         try {
             const result = await Filesystem.writeFile({
@@ -121,6 +133,8 @@ function ForceEditorView() {
             setForceSize(json.forceSize);
             setForceModelsData(json.forceModelsData);
             setForceCyphersData(json.forceCyphersData);
+            setSpecialIssueModelsData(json.specialIssueModelsData);
+            setSpecialIssueCyphersData(json.specialIssueCyphersData);
         } catch (e) {
             console.log(e);
         }
@@ -164,14 +178,28 @@ function ForceEditorView() {
             {forceSizeButtons}<br/>
             <br/>
             <IonText color="primary"><h3>Force Name: <input type="text" value={forceName} onChange={(e) => setForceName(e.target.value)}/></h3></IonText>
-            <IonButton onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>SAVE FORCE</IonButton>
-            <IonButton onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData)}}>COPY TO TEXT</IonButton>
+            <IonButton onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>SAVE FORCE</IonButton>
+            <IonButton onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>COPY TO TEXT</IonButton>
             <IonButton onClick={() => {
                 clearForce();
                 setForceName("New Force");
             }}>CLEAR FORCE</IonButton>
-            <ForceEditor factionId={factionId} forceSize={forceSize} forceName={forceName} forceModelsData={forceModelsData} setForceModelsData={setForceModelsData}></ForceEditor>
-            <RackEditor factionId={factionId} forceCyphersData={forceCyphersData} setForceCyphersData={setForceCyphersData}></RackEditor>
+            <ForceEditor 
+                factionId={factionId} 
+                forceSize={forceSize} 
+                forceName={forceName} 
+                forceModelsData={forceModelsData} 
+                setForceModelsData={setForceModelsData} 
+                specialIssueModelsData={specialIssueModelsData} 
+                setSpecialIssueModelsData={setSpecialIssueModelsData}
+            ></ForceEditor>
+            <RackEditor 
+                factionId={factionId}
+                forceCyphersData={forceCyphersData}
+                setForceCyphersData={setForceCyphersData}
+                specialIssueCyphersData={specialIssueCyphersData} 
+                setSpecialIssueCyphersData={setSpecialIssueCyphersData}
+            ></RackEditor>
         </div>
     );
 }
