@@ -183,7 +183,8 @@ function ForceEditor(props) {
     function addModelCards(modelIds) {
         let newForceData = forceModelsData;
         modelIds.forEach((modelId) => {
-            if(checkFA(newForceData, modelId)) {
+            // Make sure to check the special issue list for FA as well
+            if(checkFA([...newForceData, ...specialIssueModelsData], modelId)) {
                 newForceData = insertModelCard(newForceData, modelId);
             }
         })
