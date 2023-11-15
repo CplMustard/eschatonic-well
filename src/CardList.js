@@ -14,8 +14,8 @@ function CardList(props) {
         if (!hideHiddenTypes || (modelTypesData[key] && !modelTypesData[key].hidden)) {
             const cardComponents = []
             value.forEach((card, index) => {
-                const hasHiddenSubtype = hideHiddenTypes && card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
-                if(!hasHiddenSubtype && !card.hidden) {
+                const hasHiddenSubtype = hideHiddenTypes && card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false);
+                if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
                     cardActions && cardActions.forEach((action) => {
                         action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(<IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>{action.text}</IonButton>)
