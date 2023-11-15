@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonText, IonButton, IonLabel, IonList, IonItemDivider, IonListHeader, IonItem, IonItemGroup, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonText, IonButton, IonLabel, IonList, IonItemDivider, IonListHeader, IonItemGroup, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import HardPointList from './HardPointList';
 
@@ -18,29 +18,29 @@ function ForceModelList(props) {
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
             const weaponPointCost = entry.hard_points ? entry.hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
             const cardActionButtons = [];
-            cardActions && cardActions.forEach((action) => {
+            cardActions && cardActions.forEach((action, index) => {
                 action.handleClicked && action.text && !(action.isHidden && action.isHidden(entry.id)) && cardActionButtons.push(
-                    <IonCol size="auto">
-                        <IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(entry.id)}>
+                    <IonCol key={index} size="auto">
+                        <IonButton size="medium" expand="full" onClick={() => action.handleClicked(entry.id)}>
                             {action.text}
                         </IonButton>
                     </IonCol>
                 )
             });
-            entryComponents.push(<>
-                <IonRow key={index}>
+            entryComponents.push(<div key={index}>
+                <IonRow>
                     <IonCol>
-                        <IonButton size="medium" expand="full" onClick={() => handleCardClicked(entry.modelId, entry.id)}>{entry.name}</IonButton>
+                        <IonButton size="medium" expand="full" onClick={() => handleCardClicked(entry.modelId, entry.id)}><div>{entry.name}</div></IonButton>
                     </IonCol>
                     {cardActionButtons}
                 </IonRow>
                 <IonRow>
-                    {entry.hard_points && <div>
-                        {entry.weapon_points && <IonText color="primary"><h4>Weapon Points: {weaponPointCost}/{entry.weapon_points}</h4></IonText>}
+                    {entry.hard_points && <IonCol>
+                        {entry.weapon_points && <IonText color="primary">Weapon Points: {weaponPointCost}/{entry.weapon_points}</IonText>}
                         <HardPointList hard_points={entry.hard_points} hardPointOptions={entry.hardPointOptions} onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)}/>
-                    </div>}
+                    </IonCol>}
                 </IonRow>
-            </>
+            </div>
             );
         })
         const cardTypeName = modelTypesData[key].name;
@@ -53,7 +53,7 @@ function ForceModelList(props) {
             </IonGrid>
         </IonItemGroup>)
     })
-    return <><IonListHeader color="primary"><IonLabel>{header}</IonLabel></IonListHeader><IonList>{forceGroupComponents}</IonList></>;
+    return <><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></>;
 }
 
 export default ForceModelList;

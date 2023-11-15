@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 import { IonText, IonIcon } from '@ionic/react';
-import { add, remove } from 'ionicons/icons';
+import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
 import ForceCypherList from './ForceCypherList';
@@ -89,7 +89,7 @@ function RackEditor(props) {
                 handleCardClicked={openCypherCard} 
                 cardActions={[
                     {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
-                    {handleClicked: addSpecialIssue, text: "SWAP TO SPECIAL ISSUE", isHidden: canSpecialIssueSwap}
+                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
                 ]}
             ></ForceCypherList>
 
@@ -98,7 +98,7 @@ function RackEditor(props) {
                 forceEntries={specialIssueCyphersData} 
                 handleCardClicked={openCypherCard} 
                 cardActions={[
-                    {handleClicked: removeSpecialIssue, text: "SWAP TO RACK"}
+                    {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]}
             ></ForceCypherList>
 

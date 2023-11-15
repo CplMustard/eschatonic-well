@@ -15,10 +15,10 @@ function ForceCypherList(props) {
         const entryComponents = [];
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
             const cardActionButtons = [];
-            cardActions && cardActions.forEach((action) => {
+            cardActions && cardActions.forEach((action, index) => {
                 action.handleClicked && action.text && !(action.isHidden && action.isHidden(entry.id)) && cardActionButtons.push(
-                    <IonCol size="auto">
-                        <IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(entry.id)}>
+                    <IonCol key={index} size="auto">
+                        <IonButton size="medium" expand="full" onClick={() => action.handleClicked(entry.id)}>
                             {action.text}
                         </IonButton>
                     </IonCol>
@@ -26,7 +26,7 @@ function ForceCypherList(props) {
             });
             entryComponents.push(<IonRow key={index}>
                 <IonCol>
-                    <IonButton size="medium" expand="full" onClick={() => handleCardClicked(entry.cypherId)}>{entry.name}</IonButton>
+                    <IonButton size="medium" expand="full" onClick={() => handleCardClicked(entry.cypherId)}><div>{entry.name}</div></IonButton>
                 </IonCol>
                 {cardActionButtons}
             </IonRow>)
@@ -41,7 +41,7 @@ function ForceCypherList(props) {
             </IonGrid>
         </IonItemGroup>);
     });
-    return <><IonListHeader color="primary"><IonLabel><h2>{header}</h2></IonLabel></IonListHeader><IonList>{forceGroupComponents}</IonList></>;
+    return <><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></>;
 }
 
 export default ForceCypherList;

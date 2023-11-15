@@ -17,10 +17,10 @@ function CardList(props) {
                 const hasHiddenSubtype = hideHiddenTypes && card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false);
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
-                    cardActions && cardActions.forEach((action) => {
+                    cardActions && cardActions.forEach((action, index) => {
                         action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(
-                            <IonCol size="auto">
-                                <IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>
+                            <IonCol key={index} size="auto">
+                                <IonButton size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>
                                     {action.text}
                                 </IonButton>
                             </IonCol>
@@ -29,7 +29,9 @@ function CardList(props) {
                     cardComponents.push(<IonRow key={index}>
                         <IonCol>
                             <IonButton size="medium" expand="full" onClick={() => handleCardClicked(card.id)}>
-                                {card.name}
+                                <div>
+                                    {card.name}
+                                </div>
                             </IonButton>
                         </IonCol>
                         {cardActionButtons}
@@ -45,7 +47,7 @@ function CardList(props) {
             </IonItemGroup>)
         }
     })
-    return <><IonListHeader color="primary"><IonLabel>{header}</IonLabel></IonListHeader><IonList>{cardGroupComponents}</IonList></>;
+    return <><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{cardGroupComponents}</IonList></>;
 }
 
 export default CardList;

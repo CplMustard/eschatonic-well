@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonText, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonText, IonLabel, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
@@ -9,14 +9,16 @@ import { useLocalStorage } from "./util/useLocalStorage";
 import ForceEditor from './ForceEditor';
 import RackEditor from './RackEditor';
 
-import { factionsData, forceSizesData } from './data'
+import { factionsData, forceSizesData } from './data';
 
-const forcesPath = "eschatonic-well/forces/"
-const forcesExtension = ".esch"
+const forcesPath = "eschatonic-well/forces/";
+const forcesExtension = ".esch";
+
+const customForceSize = {id: "custom", name: "Custom"};
 
 function EditorView() {
     const [factionId, setFactionId] = useLocalStorage("factionId", "all");
-    const [forceSize, setForceSize] = useLocalStorage("forceSize", {});
+    const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
 
     const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
     const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
@@ -27,7 +29,6 @@ function EditorView() {
     const [forcesDirty, setForcesDirty] = useState(true);
     const [loadForceButtons, setLoadForceButtons] = useState([]);
 
-
     useEffect(() => {
         createForcesDir().then(() => 
             listForces().then((result) => {
@@ -36,7 +37,7 @@ function EditorView() {
                     result.files.forEach((file, index) => {
                         const forceName = file.name.replace(forcesExtension, "");
                         newLoadForceButtons.push(<IonRow key={index}>
-                            <IonCol><IonButton expand="full" onClick={() => loadForce(file.name)}>{forceName}</IonButton></IonCol>
+                            <IonCol><IonButton expand="full" onClick={() => loadForce(file.name)}><div>{forceName}</div></IonButton></IonCol>
                             <IonCol size="auto"><IonButton expand="full" onClick={() => deleteForce(file.name)}>DELETE</IonButton></IonCol>
                         </IonRow>);
                         setLoadForceButtons(newLoadForceButtons);
@@ -52,8 +53,8 @@ function EditorView() {
         clearForce();
     }
 
-    function changeForceSize(forceSize) {
-        setForceSize(forceSize);
+    function changeForceSize(forceSizeId) {
+        setForceSize(forceSizesData[forceSizeId]);
     }
 
     function clearForce() {
@@ -161,32 +162,34 @@ function EditorView() {
         }
     }
 
-    const factionButtons = [];
+    const factionSelectOptions = [];
     Object.entries(factionsData).forEach(([key, value]) => {
         if(!value.hidden) {
-            factionButtons.push(<IonButton key={key} expand="full" onClick={() => changeFaction(value.id)}>{value.name}</IonButton>);
+            factionSelectOptions.push(<IonSelectOption key={key} value={value.id}>{value.name}</IonSelectOption>);
         }
     });
-    factionButtons.push(<IonButton key={"custom"} expand="full" onClick={() => changeFaction("")}>ALL</IonButton>);
+    factionSelectOptions.push(<IonSelectOption key={"all"} value={""}>ALL</IonSelectOption>);
 
-    const forceSizeButtons = [];
+    const forceSizeOptions = [];
     Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
-        forceSizeButtons.push(<IonButton key={key} expand="full" onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</IonButton>);
+        forceSizeOptions.push(<IonSelectOption key={key} value={value.id}>{`${value.name} ${value.id !== "custom" ? `(${value.units} / ${value.hero_solos})` : ""}`}</IonSelectOption>);
     });
-    forceSizeButtons.push(<IonButton key={"custom"} expand="full" onClick={() => changeForceSize({})}>CUSTOM</IonButton>);
     return (
         <div className="container">
             {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
-            {factionButtons}<br/>
-            {forceSizeButtons}<br/>
-            <br/>
+            <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+            <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
             <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
-            <IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>SAVE FORCE</IonButton>
-            <IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>COPY TO TEXT</IonButton>
-            <IonButton expand="full" onClick={() => {
-                clearForce();
-                setForceName("New Force");
-            }}>CLEAR FORCE</IonButton>
+            <IonGrid>
+                <IonRow>
+                    <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
+                    <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                    <IonCol><IonButton expand="full" onClick={() => {
+                        clearForce();
+                        setForceName("New Force");
+                    }}><div>CLEAR</div></IonButton></IonCol>
+                </IonRow>
+            </IonGrid>
             <ForceEditor 
                 factionId={factionId} 
                 forceSize={forceSize} 

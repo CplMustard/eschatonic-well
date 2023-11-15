@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 import { IonText, IonIcon } from '@ionic/react';
-import { add, remove } from 'ionicons/icons';
+import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
@@ -261,7 +261,7 @@ function ForceEditor(props) {
                 handleCardClicked={openModelCard} 
                 cardActions={[
                     {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isHidden: isCardUnremovable}, 
-                    {handleClicked: addSpecialIssue, text: "SWAP TO SPECIAL ISSUE", isHidden: canSpecialIssueSwap}
+                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceModelList>
@@ -271,7 +271,7 @@ function ForceEditor(props) {
                 forceEntries={specialIssueModelsData} 
                 handleCardClicked={openModelCard} 
                 cardActions={[
-                    {handleClicked: removeSpecialIssue, text: "SWAP TO FORCELIST"}
+                    {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceModelList>

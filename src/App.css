@@ -38,3 +38,10 @@
 body {
 	color: #bf909f;
 }
+
+ion-button{
+	div{
+	  text-align:left;
+	  width:100%;
+	}
+  }
