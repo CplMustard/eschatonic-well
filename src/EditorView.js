@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonText, IonButton } from '@ionic/react';
+import { IonText, IonInput, IonButton } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
@@ -35,7 +35,7 @@ function EditorView() {
                     const newLoadForceButtons = [];
                     result.files.forEach((file, index) => {
                         const forceName = file.name.replace(forcesExtension, "");
-                        newLoadForceButtons.push(<div key={index}><IonButton onClick={() => loadForce(file.name)}>{forceName}</IonButton><IonButton onClick={() => deleteForce(file.name)}>DELETE</IonButton></div>);
+                        newLoadForceButtons.push(<div key={index}><IonButton expand="full" onClick={() => loadForce(file.name)}>{forceName}</IonButton><IonButton expand="full" onClick={() => deleteForce(file.name)}>DELETE</IonButton></div>);
                         setLoadForceButtons(newLoadForceButtons);
                     });
                     setForcesDirty(false);
@@ -161,26 +161,26 @@ function EditorView() {
     const factionButtons = [];
     Object.entries(factionsData).forEach(([key, value]) => {
         if(!value.hidden) {
-            factionButtons.push(<IonButton key={key} onClick={() => changeFaction(value.id)}>{value.name}</IonButton>);
+            factionButtons.push(<IonButton key={key} expand="full" onClick={() => changeFaction(value.id)}>{value.name}</IonButton>);
         }
     });
-    factionButtons.push(<IonButton key={"custom"} onClick={() => changeFaction("")}>ALL</IonButton>);
+    factionButtons.push(<IonButton key={"custom"} expand="full" onClick={() => changeFaction("")}>ALL</IonButton>);
 
     const forceSizeButtons = [];
     Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
-        forceSizeButtons.push(<IonButton key={key} onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</IonButton>);
+        forceSizeButtons.push(<IonButton key={key} expand="full" onClick={() => changeForceSize(value)}>{`${value.name} (${value.units} / ${value.hero_solos})`}</IonButton>);
     });
-    forceSizeButtons.push(<IonButton key={"custom"} onClick={() => changeForceSize({})}>CUSTOM</IonButton>);
+    forceSizeButtons.push(<IonButton key={"custom"} expand="full" onClick={() => changeForceSize({})}>CUSTOM</IonButton>);
     return (
         <div className="container">
             {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText>{loadForceButtons}<br/></>}
             {factionButtons}<br/>
             {forceSizeButtons}<br/>
             <br/>
-            <IonText color="primary"><h3>Force Name: <input type="text" value={forceName} onChange={(e) => setForceName(e.target.value)}/></h3></IonText>
-            <IonButton onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>SAVE FORCE</IonButton>
-            <IonButton onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>COPY TO TEXT</IonButton>
-            <IonButton onClick={() => {
+            <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onChange={(e) => setForceName(e.target.value)}/></h2></IonText>
+            <IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>SAVE FORCE</IonButton>
+            <IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}>COPY TO TEXT</IonButton>
+            <IonButton expand="full" onClick={() => {
                 clearForce();
                 setForceName("New Force");
             }}>CLEAR FORCE</IonButton>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonText, IonItem, IonList, IonLabel, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonText, IonItem, IonList, IonLabel, IonGrid, IonCol, IonRow, IonHeader } from '@ionic/react';
 
 import SpecialRuleList from './SpecialRuleList';
 
@@ -22,22 +22,22 @@ function Weapon(props) {
         
         const damageTypeNames = [];
         damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
-        return <IonItem>
-            <IonLabel>
+        return <>
+            <IonHeader color="primary">
                 <h1>{weaponTypeNames[type]}</h1>
                 <h1>{name}</h1>
-                {rng && pow && <IonGrid fixed="true">
-                    <IonRow class="ion-justify-content-start">
-                        {damageTypeNames && <IonCol><IonText><div>DAMAGE TYPES</div><div>{damageTypeNames.join(", ")}</div></IonText></IonCol>}
-                        {rng && <IonCol><IonText><div>RNG</div><div>{rng}</div></IonText></IonCol>}
-                        {pow && <IonCol><IonText><div>POW</div><div>{pow}</div></IonText></IonCol>}
-                    </IonRow>
-                    {special_rules && <IonRow>
-                        <SpecialRuleList special_rules={special_rules}/>
-                    </IonRow>}
-                </IonGrid>}
-            </IonLabel>
-        </IonItem>
+            </IonHeader>
+            {rng && pow && <IonGrid fixed="true">
+                <IonRow class="ion-justify-content-start">
+                    {damageTypeNames && <IonCol><IonText><h1>DAMAGE TYPES</h1><h1>{damageTypeNames.join(", ")}</h1></IonText></IonCol>}
+                    {rng && <IonCol><IonText><h1>RNG</h1><h1>{rng}</h1></IonText></IonCol>}
+                    {pow && <IonCol><IonText><h1>POW</h1><h1>{pow}</h1></IonText></IonCol>}
+                </IonRow>
+                {special_rules && <IonRow>
+                    <SpecialRuleList special_rules={special_rules}/>
+                </IonRow>}
+            </IonGrid>}
+        </>
     }
 
     if (error) {

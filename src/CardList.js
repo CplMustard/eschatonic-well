@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonText, IonItem, IonButton, IonLabel, IonList, IonListHeader } from '@ionic/react';
+import { IonText, IonItem, IonButton, IonLabel, IonList, IonItemDivider, IonItemGroup, IonListHeader } from '@ionic/react';
 
 import { cypherTypesData, modelTypesData } from './data';
 
@@ -18,20 +18,18 @@ function CardList(props) {
                 if(!hasHiddenSubtype && !card.hidden) {
                     const cardActionButtons = [];
                     cardActions && cardActions.forEach((action) => {
-                        action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(<IonButton key={action.text} onClick={() => action.handleClicked(card.id)}>{action.text}</IonButton>)
+                        action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(<IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>{action.text}</IonButton>)
                     });
-                    cardComponents.push(<IonItem key={index}><IonButton onClick={() => handleCardClicked(card.id)}>{card.name}</IonButton>{cardActionButtons}</IonItem>);
+                    cardComponents.push(<IonItem key={index}><IonButton size="medium" expand="full" onClick={() => handleCardClicked(card.id)}>{card.name}</IonButton>{cardActionButtons}</IonItem>);
                 }
             })
             const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
-            cardGroupComponents.push(<div key={key}>
-                <IonText color="primary">
-                    <h4>{cardTypeName}</h4>
-                </IonText>
-                <IonItem>
-                    <IonList>{cardComponents}</IonList>
-                </IonItem>
-            </div>)
+            cardGroupComponents.push(<IonItemGroup key={key}>
+                <IonItemDivider color="tertiary">
+                    <IonLabel><h4>{cardTypeName}</h4></IonLabel>
+                </IonItemDivider>
+                {cardComponents}
+            </IonItemGroup>)
         }
     })
     return <><IonListHeader color="primary"><IonLabel>{header}</IonLabel></IonListHeader><IonList>{cardGroupComponents}</IonList></>;

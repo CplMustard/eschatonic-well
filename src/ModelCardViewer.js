@@ -77,19 +77,19 @@ function ModelCardViewer(props) {
         const { spd, str, mat, rat, def, arm, foc, base_size, squad_size, dc, boxes } = props.stats;
         return <IonGrid fixed="true">
             <IonRow class="ion-justify-content-start">
-                {spd && <IonCol><IonText><div>SPD</div><div>{spd}</div></IonText></IonCol>}
-                {str && <IonCol><IonText><div>STR</div><div>{str}</div></IonText></IonCol>}
-                {mat && <IonCol><IonText><div>MAT</div><div>{mat}</div></IonText></IonCol>}
-                {rat && <IonCol><IonText><div>RAT</div><div>{rat}</div></IonText></IonCol>}
-                {def && <IonCol><IonText><div>DEF</div><div>{def}</div></IonText></IonCol>}
-                {arm && <IonCol><IonText><div>ARM</div><div>{arm}</div></IonText></IonCol>}
-                {foc && <IonCol><IonText><div>FOC</div><div>{foc}</div></IonText></IonCol>}
-                {base_size && <IonCol><IonText><div>BASE SIZE</div><div>{base_size}</div></IonText></IonCol>}
-                {squad_size && <IonCol><IonText><div>SQUAD SIZE</div><div>{squad_size}</div></IonText></IonCol>}
-                {dc && <IonCol><IonText><div>DC</div><div>{dc}</div></IonText></IonCol>}
-                {boxes && <IonCol><IonText><div>BOXES</div><div>{boxes}</div></IonText></IonCol>}
+                {spd && <IonCol><IonText><h1>SPD</h1><h1>{spd}</h1></IonText></IonCol>}
+                {str && <IonCol><IonText><h1>STR</h1><h1>{str}</h1></IonText></IonCol>}
+                {mat && <IonCol><IonText><h1>MAT</h1><h1>{mat}</h1></IonText></IonCol>}
+                {rat && <IonCol><IonText><h1>RAT</h1><h1>{rat}</h1></IonText></IonCol>}
+                {def && <IonCol><IonText><h1>DEF</h1><h1>{def}</h1></IonText></IonCol>}
+                {arm && <IonCol><IonText><h1>ARM</h1><h1>{arm}</h1></IonText></IonCol>}
+                {foc && <IonCol><IonText><h1>FOC</h1><h1>{foc}</h1></IonText></IonCol>}
+                {base_size && <IonCol><IonText><h1>BASE SIZE</h1><h1>{base_size}</h1></IonText></IonCol>}
+                {squad_size && <IonCol><IonText><h1>SQUAD SIZE</h1><h1>{squad_size}</h1></IonText></IonCol>}
+                {dc && <IonCol><IonText><h1>DC</h1><h1>{dc}</h1></IonText></IonCol>}
+                {boxes && <IonCol><IonText><h1>BOXES</h1><h1>{boxes}</h1></IonText></IonCol>}
             </IonRow>
-        </IonGrid>
+        </IonGrid> 
     }
 
     if (error) {

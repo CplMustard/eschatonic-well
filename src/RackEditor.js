@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonText } from '@ionic/react';
+import { IonText, IonIcon } from '@ionic/react';
+import { add, remove } from 'ionicons/icons';
 
 import CardList from './CardList';
 import ForceCypherList from './ForceCypherList';
@@ -87,17 +88,11 @@ function RackEditor(props) {
                 cypherTypeMin={cypherTypeMin}
                 handleCardClicked={openCypherCard} 
                 cardActions={[
-                    {handleClicked: removeCypherCard, text: "REMOVE"},
+                    {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
                     {handleClicked: addSpecialIssue, text: "SWAP TO SPECIAL ISSUE", isHidden: canSpecialIssueSwap}
                 ]}
             ></ForceCypherList>
 
-            <CardList 
-                header={"Cyphers"} 
-                cards={remainingCypherCardList} 
-                handleCardClicked={openCypherCard} 
-                cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: "ADD"}]}
-            ></CardList>
             <ForceCypherList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueCyphersData} 
@@ -106,6 +101,13 @@ function RackEditor(props) {
                     {handleClicked: removeSpecialIssue, text: "SWAP TO RACK"}
                 ]}
             ></ForceCypherList>
+
+            <CardList 
+                header={"Cyphers"} 
+                cards={remainingCypherCardList} 
+                handleCardClicked={openCypherCard} 
+                cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
+            ></CardList>
         </div>
     );
 }

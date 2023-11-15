@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonText } from '@ionic/react';
+import { IonText, IonIcon } from '@ionic/react';
+import { add, remove } from 'ionicons/icons';
 
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
@@ -259,20 +260,12 @@ function ForceEditor(props) {
                 forceEntries={forceModelsData} 
                 handleCardClicked={openModelCard} 
                 cardActions={[
-                    {handleClicked: removeModelCard, text: "REMOVE", isHidden: isCardUnremovable}, 
+                    {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isHidden: isCardUnremovable}, 
                     {handleClicked: addSpecialIssue, text: "SWAP TO SPECIAL ISSUE", isHidden: canSpecialIssueSwap}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceModelList>
 
-            <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
-            <CardList 
-                header={"Models"} 
-                cards={models} 
-                hideHiddenTypes={true} 
-                handleCardClicked={openModelCard} 
-                cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: "ADD"}]}
-            ></CardList>
             <ForceModelList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueModelsData} 
@@ -282,6 +275,15 @@ function ForceEditor(props) {
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceModelList>
+
+            <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
+            <CardList 
+                header={"Models"} 
+                cards={models} 
+                hideHiddenTypes={true} 
+                handleCardClicked={openModelCard} 
+                cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
+            ></CardList>
         </div>
     );
 }
