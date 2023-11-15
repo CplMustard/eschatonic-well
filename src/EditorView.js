@@ -14,9 +14,7 @@ import { factionsData, forceSizesData } from './data'
 const forcesPath = "eschatonic-well/forces/"
 const forcesExtension = ".esch"
 
-
-
-function ForceEditorView() {
+function EditorView() {
     const [factionId, setFactionId] = useLocalStorage("factionId", "all");
     const [forceSize, setForceSize] = useLocalStorage("forceSize", {});
 
@@ -58,6 +56,8 @@ function ForceEditorView() {
     function clearForce() {
         setForceModelsData([]);
         setForceCyphersData([]);
+        setSpecialIssueModelsData([]);
+        setSpecialIssueCyphersData([]);
     }
 
     const createForcesDir = async () => {
@@ -204,4 +204,4 @@ function ForceEditorView() {
     );
 }
 
-export default ForceEditorView;
+export default EditorView;
