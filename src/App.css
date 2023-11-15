@@ -34,3 +34,7 @@
 	--ion-color-step-900: #b08694;
 	--ion-color-step-950: #b88b99;
 }
+
+body {
+	color: #bf909f;
+}

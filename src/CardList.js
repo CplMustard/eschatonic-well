@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonText, IonItem, IonButton, IonLabel, IonList, IonItemDivider, IonItemGroup, IonListHeader } from '@ionic/react';
+import { IonButton, IonLabel, IonList, IonItemDivider, IonItemGroup, IonListHeader, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { cypherTypesData, modelTypesData } from './data';
 
@@ -18,9 +18,22 @@ function CardList(props) {
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
                     cardActions && cardActions.forEach((action) => {
-                        action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(<IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>{action.text}</IonButton>)
+                        action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(
+                            <IonCol size="auto">
+                                <IonButton key={action.text} size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>
+                                    {action.text}
+                                </IonButton>
+                            </IonCol>
+                        )
                     });
-                    cardComponents.push(<IonItem key={index}><IonButton size="medium" expand="full" onClick={() => handleCardClicked(card.id)}>{card.name}</IonButton>{cardActionButtons}</IonItem>);
+                    cardComponents.push(<IonRow key={index}>
+                        <IonCol>
+                            <IonButton size="medium" expand="full" onClick={() => handleCardClicked(card.id)}>
+                                {card.name}
+                            </IonButton>
+                        </IonCol>
+                        {cardActionButtons}
+                    </IonRow>);
                 }
             })
             const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
@@ -28,7 +41,7 @@ function CardList(props) {
                 <IonItemDivider color="tertiary">
                     <IonLabel><h4>{cardTypeName}</h4></IonLabel>
                 </IonItemDivider>
-                {cardComponents}
+                <IonGrid>{cardComponents}</IonGrid>
             </IonItemGroup>)
         }
     })
