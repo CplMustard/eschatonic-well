@@ -38,10 +38,12 @@
 body {
 	color: #bf909f;
 }
-
-ion-button{
-	div{
-	  text-align:left;
-	  width:100%;
-	}
-  }
+.button-inner {
+	text-align: left;
+	width: 100%;
+}
+.button-text {
+	width: 12rem;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}

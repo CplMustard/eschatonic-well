@@ -26,7 +26,11 @@ function ForceCypherList(props) {
             });
             entryComponents.push(<IonRow key={index}>
                 <IonCol>
-                    <IonButton size="medium" expand="full" onClick={() => handleCardClicked(entry.cypherId)}><div>{entry.name}</div></IonButton>
+                    <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCardClicked(entry.cypherId)}>
+                        <div className="button-inner">
+                            <div className="button-text">{entry.name}</div>
+                        </div>
+                    </IonButton>
                 </IonCol>
                 {cardActionButtons}
             </IonRow>)

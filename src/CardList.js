@@ -7,14 +7,17 @@ function CardList(props) {
     const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
-        memo[current["type"]] = [...memo[current["type"]] || [], current];
+        const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
+        const type = current["type"] + (isHero ? "|hero" : "");
+        memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
     Object.entries(cardGroups).sort().forEach(([key, value]) => {
-        if (!hideHiddenTypes || (modelTypesData[key] && !modelTypesData[key].hidden)) {
+        const typeParts = key.split("|");
+        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && !modelTypesData[typeParts[0]].hidden)) {
             const cardComponents = []
             value.forEach((card, index) => {
-                const hasHiddenSubtype = hideHiddenTypes && card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false);
+                const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
                     cardActions && cardActions.forEach((action, index) => {
@@ -28,9 +31,9 @@ function CardList(props) {
                     });
                     cardComponents.push(<IonRow key={index}>
                         <IonCol>
-                            <IonButton size="medium" expand="full" onClick={() => handleCardClicked(card.id)}>
-                                <div>
-                                    {card.name}
+                            <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCardClicked(card.id)}>
+                                <div className="button-inner">
+                                    <div className="button-text">{card.name}</div>
                                 </div>
                             </IonButton>
                         </IonCol>
@@ -38,7 +41,8 @@ function CardList(props) {
                     </IonRow>);
                 }
             })
-            const cardTypeName = modelTypesData[key] ? modelTypesData[key].name : cypherTypesData[key].name;
+
+            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             cardGroupComponents.push(<IonItemGroup key={key}>
                 <IonItemDivider color="tertiary">
                     <IonLabel><h4>{cardTypeName}</h4></IonLabel>

@@ -10,7 +10,9 @@ function ForceModelList(props) {
 
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
-        memo[current["type"]] = [...memo[current["type"]] || [], current];
+        const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
+        const type = current["type"] + (isHero ? "|hero" : "");
+        memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
@@ -30,7 +32,11 @@ function ForceModelList(props) {
             entryComponents.push(<div key={index}>
                 <IonRow>
                     <IonCol>
-                        <IonButton size="medium" expand="full" onClick={() => handleCardClicked(entry.modelId, entry.id)}><div>{entry.name}</div></IonButton>
+                        <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCardClicked(entry.modelId, entry.id)}>
+                            <div className="button-inner">
+                                <div className="button-text">{entry.name}</div>
+                            </div>
+                        </IonButton>
                     </IonCol>
                     {cardActionButtons}
                 </IonRow>
@@ -43,7 +49,8 @@ function ForceModelList(props) {
             </div>
             );
         })
-        const cardTypeName = modelTypesData[key].name;
+        const typeParts = key.split("|");
+        const cardTypeName = (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name;
         forceGroupComponents.push(<IonItemGroup key={key}>
             <IonItemDivider color="tertiary">
                 <IonLabel><h4>{cardTypeName} ({entryComponents.length})</h4></IonLabel>

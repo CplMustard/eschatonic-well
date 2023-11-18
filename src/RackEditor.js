@@ -75,7 +75,7 @@ function RackEditor(props) {
         return specialIssueCyphersData.filter((forceCypher) => forceCypher.type === cypherType).length !== 0;
     }
 
-    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
+    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
 
     return (
         <div>

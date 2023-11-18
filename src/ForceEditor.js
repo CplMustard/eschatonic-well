@@ -219,6 +219,10 @@ function ForceEditor(props) {
         const modelData = modelsData[modelId];
         if(checkFA(newForceData, modelId)) {
             newForceData = newForceData.concat(specialIssueModelsData[index]);
+
+            if (modelData.attachments) {
+                newForceData = addAttachments(newForceData, modelData);
+            }
         }
 
         if(modelData.cadre) {
