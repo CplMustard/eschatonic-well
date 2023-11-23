@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonContent, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonContent, IonFooter, IonHeader, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
+import { useSessionStorage } from "./util/useSessionStorage";
 
+import CardListViewer from './CardListViewer';
 import ForceEditor from './ForceEditor';
 import RackEditor from './RackEditor';
 
@@ -15,6 +17,8 @@ const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
 
 function EditorView() {
+    const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", "force");
+    
     const [factionId, setFactionId] = useLocalStorage("factionId", "all");
     const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
 
@@ -174,36 +178,59 @@ function EditorView() {
     });
     return (
         <>
-            {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
-            <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
-            <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-            <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
-            <IonGrid>
-                <IonRow>
-                    <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                    <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
-                    <IonCol><IonButton expand="full" onClick={() => {
-                        clearForce();
-                        setForceName("New Force");
-                    }}><div>CLEAR</div></IonButton></IonCol>
-                </IonRow>
-            </IonGrid>
-            <ForceEditor 
-                factionId={factionId} 
-                forceSize={forceSize} 
-                forceName={forceName} 
-                forceModelsData={forceModelsData} 
-                setForceModelsData={setForceModelsData} 
-                specialIssueModelsData={specialIssueModelsData} 
-                setSpecialIssueModelsData={setSpecialIssueModelsData}
-            ></ForceEditor>
-            <RackEditor 
-                factionId={factionId}
-                forceCyphersData={forceCyphersData}
-                setForceCyphersData={setForceCyphersData}
-                specialIssueCyphersData={specialIssueCyphersData} 
-                setSpecialIssueCyphersData={setSpecialIssueCyphersData}
-            ></RackEditor>
+            <div>
+                {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
+                <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+                <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
+                <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
+                <IonGrid>
+                    <IonRow>
+                        <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
+                        <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                        <IonCol><IonButton expand="full" onClick={() => {
+                            clearForce();
+                            setForceName("New Force");
+                        }}><div>CLEAR</div></IonButton></IonCol>
+                    </IonRow>
+                </IonGrid>
+                {tabSelected === "force" && <ForceEditor 
+                    factionId={factionId} 
+                    forceSize={forceSize} 
+                    forceName={forceName} 
+                    forceModelsData={forceModelsData} 
+                    setForceModelsData={setForceModelsData} 
+                    specialIssueModelsData={specialIssueModelsData} 
+                    setSpecialIssueModelsData={setSpecialIssueModelsData}
+                ></ForceEditor>}
+                
+                {tabSelected === "rack" && <RackEditor 
+                    factionId={factionId}
+                    forceCyphersData={forceCyphersData}
+                    setForceCyphersData={setForceCyphersData}
+                    specialIssueCyphersData={specialIssueCyphersData} 
+                    setSpecialIssueCyphersData={setSpecialIssueCyphersData}
+                ></RackEditor>}
+
+                {tabSelected === "cards" && <CardListViewer 
+                    factionId={factionId}
+                ></CardListViewer>}
+            </div>
+            
+            <IonFooter style={{position: "fixed", bottom: 0, left: 0}}>
+                <IonToolbar>
+                    <IonSegment value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
+                        <IonSegmentButton value="force">
+                            <IonLabel>Force</IonLabel>
+                        </IonSegmentButton>
+                        <IonSegmentButton value="rack">
+                            <IonLabel>Rack</IonLabel>
+                        </IonSegmentButton>
+                        <IonSegmentButton value="cards">
+                            <IonLabel>Cards</IonLabel>
+                        </IonSegmentButton>
+                    </IonSegment>
+                </IonToolbar>
+            </IonFooter>
         </>
     );
 }

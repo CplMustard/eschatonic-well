@@ -43,6 +43,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+### `npm android:start`
+
+Runs the app in an android debugging environment, connect a virtual device or android device in debugging mode to view it.
+
+### `npm electron:start`
+
+Runs the app in a windows environment, a window will automatically open showing the app.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -79,6 +87,8 @@ Copyright (c) 2023 Jack Anderson
 
 All trademarks contained herein including Privateer Press (r), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds,
 The Hyperuranion, Arcanessence, and their logos are property of Privateer Press, Inc., 21220 87th Ave. S.E., Woodinville, WA 98072
+
+This program is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Privateer Press, Inc, or any of its subsidiaries or its affiliates.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
