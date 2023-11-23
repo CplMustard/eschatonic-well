@@ -10,15 +10,6 @@ import ForceCypherList from './ForceCypherList';
 import { cyphersData, factionsData } from './data';
 
 const cypherTypeMin = 3;
-const minCyphers = 12;
-const maxCyphers = 15;
-
-function CypherCountComponent(props) {
-    const { cyphers } = props;
-    return <>
-        <IonText color={cyphers.length > maxCyphers || cyphers.length < minCyphers ? "danger" : "primary"}><h3>Cyphers: {cyphers.length} / {maxCyphers}</h3></IonText>
-    </>
-}
 
 function RackEditor(props) {
     const navigate = useNavigate();
@@ -79,9 +70,6 @@ function RackEditor(props) {
 
     return (
         <div>
-            {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
-
-            <CypherCountComponent cyphers={forceCyphersData}/>
             <ForceCypherList 
                 header={"Rack"} 
                 forceEntries={forceCyphersData} 

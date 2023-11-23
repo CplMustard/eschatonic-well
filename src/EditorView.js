@@ -4,9 +4,10 @@ import sanitize from "sanitize-filename";
 import { IonContent, IonFooter, IonHeader, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
-import { useLocalStorage } from "./util/useLocalStorage";
-import { useSessionStorage } from "./util/useSessionStorage";
+import { useLocalStorage, useSessionStorage } from "./util/useStorage";
 
+import ModelCount from './ModelCount.js';
+import CypherCount from './CypherCount.js';
 import CardListViewer from './CardListViewer';
 import ForceEditor from './ForceEditor';
 import RackEditor from './RackEditor';
@@ -191,6 +192,14 @@ function EditorView() {
                             clearForce();
                             setForceName("New Force");
                         }}><div>CLEAR</div></IonButton></IonCol>
+                    </IonRow>
+                    <IonRow>
+                        <IonCol size={"auto"}>
+                            <ModelCount models={forceModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
+                        </IonCol>
+                        <IonCol size={"auto"}>
+                            <CypherCount cyphers={forceCyphersData}/>
+                        </IonCol>
                     </IonRow>
                 </IonGrid>
                 {tabSelected === "force" && <ForceEditor 

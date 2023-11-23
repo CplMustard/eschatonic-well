@@ -7,40 +7,11 @@ import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 import CardList from './CardList';
 import ForceModelList from './ForceModelList';
 
-import { cadresData, factionsData, modelTypesData, modelsData, weaponsData } from './data';
+import { cadresData, factionsData, modelsData, weaponsData } from './data';
+import isHidden from './util/isHidden.js';
 import CadreList from './CadreList';
 
 const voidGateId = "void_gate";
-
-function isHidden(modelId) {
-    const modelData = modelsData[modelId];
-    const hasHiddenType = modelTypesData[modelData.type].hidden;
-    const hasHiddenSubtype = modelData.subtypes ? modelData.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
-    return (hasHiddenType || hasHiddenSubtype || modelData.hidden)
-}
-
-function ModelCountComponent(props) {
-    const {models, maxUnits, freeHeroSolos} = props;
-
-    function countUnits(forceData) {
-        return forceData.filter((forceModel) => {        
-            return !isHidden(forceModel.modelId);
-        }).length - Math.min(countHeroSolos(forceData), freeHeroSolos ? freeHeroSolos : 0);
-    }
-
-    function countHeroSolos(forceData) {
-        return forceData.filter((forceModel) => {
-            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") : false;
-            return forceModel.type === "solo" && hasHeroSubtype;
-        }).length;
-    }
-
-    const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
-    return <>
-        <IonText color={countUnits(models) < maxUnits || countUnits(models) > maxUnits ? "danger" : "primary"}><h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3></IonText>
-        {showHeroSoloCount && (<IonText color={countHeroSolos(models) < freeHeroSolos ? "danger" : "primary"}><h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3></IonText>)}
-    </>
-}
 
 function ForceEditor(props) {
     const navigate = useNavigate();
@@ -256,9 +227,6 @@ function ForceEditor(props) {
 
     return (
         <div>
-            {<IonText color="primary"><h3>Faction: {factionId ? factionsData[factionId].name : "ALL"}</h3></IonText>}
-
-            <ModelCountComponent models={forceModelsData} maxUnits={maxUnits} freeHeroSolos={freeHeroSolos}/>
             <ForceModelList 
                 header={"Force"} 
                 forceEntries={forceModelsData} 
