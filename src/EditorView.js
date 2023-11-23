@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonText, IonLabel, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonContent, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage } from "./util/useLocalStorage";
@@ -173,7 +173,7 @@ function EditorView() {
         forceSizeOptions.push(<IonSelectOption key={key} value={value.id}>{`${value.name} ${value.id !== "custom" ? `(${value.units} / ${value.hero_solos})` : ""}`}</IonSelectOption>);
     });
     return (
-        <div className="container">
+        <>
             {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
             <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
             <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
@@ -204,7 +204,7 @@ function EditorView() {
                 specialIssueCyphersData={specialIssueCyphersData} 
                 setSpecialIssueCyphersData={setSpecialIssueCyphersData}
             ></RackEditor>
-        </div>
+        </>
     );
 }
 
