@@ -215,7 +215,7 @@ function EditorView() {
                     factionId={factionId}
                 ></CardListViewer>}
             </div>
-            
+            <div style={{height: "3rem"}}></div>
             <IonFooter style={{position: "fixed", bottom: 0, left: 0}}>
                 <IonToolbar>
                     <IonSegment value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
