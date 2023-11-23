@@ -1,5 +1,5 @@
 {
     "id": "low_flying",
-    "name": "Evasive Action",
+    "name": "Low Flying",
     "text": "This model loses Flight and Scything Run but gains +1 power dice on attack rolls against models without Flight. This Maneuver expires at the end of this activation." 
 }
