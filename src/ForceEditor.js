@@ -16,9 +16,7 @@ const voidGateId = "void_gate";
 function ForceEditor(props) {
     const navigate = useNavigate();
 
-    const { factionId, forceSize, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
-    const maxUnits = forceSize.units;
-    const freeHeroSolos = forceSize.hero_solos;
+    const { factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
 
     useEffect(() => {
         let newForceData = forceModelsData;
@@ -27,7 +25,7 @@ function ForceEditor(props) {
         }
 
         const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
-        const availableMantlets = factionId ? allMantlets.filter((modelData) => {
+        const availableMantlets = (factionId && factionId !== "all") ? allMantlets.filter((modelData) => {
             return modelData.factions.includes(factionId);
         }) : allMantlets;
         availableMantlets.forEach((modelData) => {
@@ -39,7 +37,7 @@ function ForceEditor(props) {
         setForceModelsData(newForceData);
     }, [forceModelsData, factionId]);
 
-    const models = factionId ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
+    const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
 
     function modelCount(forceData, modelId) {
         return forceData.filter((forceModel) => forceModel.modelId === modelId).length;

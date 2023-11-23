@@ -20,7 +20,7 @@ const forcesExtension = ".esch";
 function EditorView() {
     const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", "force");
     
-    const [factionId, setFactionId] = useLocalStorage("factionId", "all");
+    const [factionId, setFactionId] = useLocalStorage("factionId", factionsData["all"]);
     const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
 
     const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
@@ -171,7 +171,7 @@ function EditorView() {
             factionSelectOptions.push(<IonSelectOption key={key} value={value.id}>{value.name}</IonSelectOption>);
         }
     });
-    factionSelectOptions.push(<IonSelectOption key={"all"} value={""}>ALL</IonSelectOption>);
+    factionSelectOptions.push(<IonSelectOption key={"all"} value={"all"}>ALL</IonSelectOption>);
 
     const forceSizeOptions = [];
     Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
@@ -191,7 +191,7 @@ function EditorView() {
                         <IonCol><IonButton expand="full" onClick={() => {
                             clearForce();
                             setForceName("New Force");
-                        }}><div>CLEAR</div></IonButton></IonCol>
+                        }}><div>CLEAR ALL</div></IonButton></IonCol>
                     </IonRow>
                     <IonRow>
                         <IonCol size={"auto"}>
@@ -203,8 +203,7 @@ function EditorView() {
                     </IonRow>
                 </IonGrid>
                 {tabSelected === "force" && <ForceEditor 
-                    factionId={factionId} 
-                    forceSize={forceSize} 
+                    factionId={factionId}
                     forceName={forceName} 
                     forceModelsData={forceModelsData} 
                     setForceModelsData={setForceModelsData} 

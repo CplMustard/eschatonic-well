@@ -16,7 +16,7 @@ function RackEditor(props) {
 
     const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
-    const cyphers = factionId ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
+    const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
     function cypherCount(cyphersData, cypherId) {
         return cyphersData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
