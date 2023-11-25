@@ -14,7 +14,7 @@ function ModelCount(props) {
 
     function countHeroSolos(forceData) {
         return forceData.filter((forceModel) => {
-            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") : false;
+            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") && !isHidden(forceModel.modelId) : false;
             return forceModel.type === "solo" && hasHeroSubtype;
         }).length;
     }
