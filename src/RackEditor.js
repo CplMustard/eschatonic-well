@@ -73,7 +73,7 @@ function RackEditor(props) {
             <RackList 
                 header={"Rack"} 
                 forceEntries={forceCyphersData} 
-                cypherTypeMin={cypherTypeMin}
+                typeMin={cypherTypeMin}
                 handleCardClicked={openCypherCard} 
                 cardActions={[
                     {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},

@@ -3,8 +3,8 @@ import { IonButton, IonLabel, IonList, IonItemDivider, IonItemGroup, IonListHead
 
 import { cypherTypesData } from './data'
 
-function ForceCypherList(props) {
-    const { forceEntries, header, cypherTypeMin, handleCardClicked, cardActions } = props;
+function RackList(props) {
+    const { forceEntries, header, typeMin, handleCardClicked, cardActions } = props;
     
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
@@ -37,7 +37,7 @@ function ForceCypherList(props) {
         });
         const cardTypeName = cypherTypesData[key].name;
         forceGroupComponents.push(<IonItemGroup key={key}>
-            <IonItemDivider color={entryComponents.length < cypherTypeMin ? "danger" : "tertiary"}>
+            <IonItemDivider color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
                 <IonLabel><h4>{cardTypeName} ({entryComponents.length})</h4></IonLabel>
             </IonItemDivider>
             <IonGrid>
@@ -48,4 +48,4 @@ function ForceCypherList(props) {
     return <><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></>;
 }
 
-export default ForceCypherList;
+export default RackList;
