@@ -4,7 +4,7 @@ import sanitize from "sanitize-filename";
 import { IonContent, IonFooter, IonHeader, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
-import { useLocalStorage, useSessionStorage } from "./util/useStorage";
+import { useStorage } from "./util/useStorage";
 
 import ModelCount from './ModelCount.js';
 import CypherCount from './CypherCount.js';
@@ -18,16 +18,16 @@ const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
 
 function EditorView() {
-    const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", "force");
+    const [tabSelected, setTabSelected] = useStorage("tabSelected", "force", sessionStorage);
     
-    const [factionId, setFactionId] = useLocalStorage("factionId", factionsData["all"]);
-    const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
+    const [factionId, setFactionId] = useStorage("factionId", factionsData["all"], localStorage);
+    const [forceSize, setForceSize] = useStorage("forceSize", forceSizesData["custom"], localStorage);
 
-    const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
-    const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
-    const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
-    const [specialIssueModelsData, setSpecialIssueModelsData] = useLocalStorage("specialIssueModelsData", []);
-    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useLocalStorage("specialIssueCyphersData", []);
+    const [forceName, setForceName] = useStorage("forceName", "New Force", localStorage);
+    const [forceModelsData, setForceModelsData] = useStorage("forceModelsData", [], localStorage);
+    const [forceCyphersData, setForceCyphersData] = useStorage("forceCyphersData", [], localStorage);
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useStorage("specialIssueModelsData", [], localStorage);
+    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useStorage("specialIssueCyphersData", [], localStorage);
 
     const [forcesDirty, setForcesDirty] = useState(true);
     const [loadForceButtons, setLoadForceButtons] = useState([]);
