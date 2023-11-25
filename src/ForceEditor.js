@@ -147,7 +147,7 @@ function ForceEditor(props) {
     }
 
     function openModelCard(modelId, entryId) {
-        navigate(`/model/${modelId}`, {state: { entryId: entryId }});
+        navigate(`/model/${modelId}`, {state: { entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId) !== 0 }});
     }
 
     function addModelCards(modelIds) {

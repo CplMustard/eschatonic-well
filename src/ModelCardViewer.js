@@ -31,8 +31,7 @@ function ModelCardViewer(props) {
         setCardData(modelsData[modelId]);
 
         if(location.state && location.state.entryId) {
-            //TODO: make this work with special issue!
-            const saved = localStorage.getItem("forceModelsData");
+            const saved = localStorage.getItem(location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData");
             const forceModelsData = JSON.parse(saved);
             const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
             if(entry && entry.hardPointOptions) {
@@ -48,11 +47,10 @@ function ModelCardViewer(props) {
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
         if(location.state.entryId) {
-            //TODO: make this work with special issue!
-            const saved = localStorage.getItem("forceModelsData");
+            const saved = localStorage.getItem(location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData");
             let newForceModelsData = JSON.parse(saved);
             newForceModelsData.find((entry) => entry.id === location.state.entryId).hardPointOptions = newHardPointOptions;
-            localStorage.setItem("forceModelsData", JSON.stringify(newForceModelsData));
+            localStorage.setItem(location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData", JSON.stringify(newForceModelsData));
         }
         setHardPointOptions(newHardPointOptions);
     }
