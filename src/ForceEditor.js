@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonText, IonIcon } from '@ionic/react';
+import { IonIcon } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
-import ForceModelList from './ForceModelList';
+import ForceList from './ForceList';
 
-import { cadresData, factionsData, modelsData, weaponsData } from './data';
+import { cadresData,  modelsData, weaponsData } from './data';
 import isHidden from './util/isHidden.js';
 import CadreList from './CadreList';
 
@@ -225,7 +225,7 @@ function ForceEditor(props) {
 
     return (
         <div>
-            <ForceModelList 
+            <ForceList 
                 header={"Force"} 
                 forceEntries={forceModelsData} 
                 handleCardClicked={openModelCard} 
@@ -234,9 +234,9 @@ function ForceEditor(props) {
                     {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
-            ></ForceModelList>
+            ></ForceList>
 
-            <ForceModelList 
+            <ForceList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueModelsData} 
                 handleCardClicked={openModelCard} 
@@ -244,7 +244,7 @@ function ForceEditor(props) {
                     {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
-            ></ForceModelList>
+            ></ForceList>
 
             <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
             <CardList 

@@ -5,7 +5,7 @@ import HardPointList from './HardPointList';
 
 import { modelTypesData } from './data'
 
-function ForceModelList(props) {
+function ForceList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
@@ -61,4 +61,4 @@ function ForceModelList(props) {
     return <><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></>;
 }
 
-export default ForceModelList;
+export default ForceList;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonText, IonIcon } from '@ionic/react';
+import { IonIcon } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
-import ForceCypherList from './ForceCypherList';
+import RackList from './RackList';
 
-import { cyphersData, factionsData } from './data';
+import { cyphersData } from './data';
 
 const cypherTypeMin = 3;
 
@@ -70,7 +70,7 @@ function RackEditor(props) {
 
     return (
         <div>
-            <ForceCypherList 
+            <RackList 
                 header={"Rack"} 
                 forceEntries={forceCyphersData} 
                 cypherTypeMin={cypherTypeMin}
@@ -79,16 +79,16 @@ function RackEditor(props) {
                     {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
                     {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
                 ]}
-            ></ForceCypherList>
+            ></RackList>
 
-            <ForceCypherList 
+            <RackList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueCyphersData} 
                 handleCardClicked={openCypherCard} 
                 cardActions={[
                     {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]}
-            ></ForceCypherList>
+            ></RackList>
 
             <CardList 
                 header={"Cyphers"} 
