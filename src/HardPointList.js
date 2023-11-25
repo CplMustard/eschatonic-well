@@ -20,7 +20,7 @@ function HardPointList(props) {
     const hardPointOptionsText = hardPointOptions.map((hardPointOption) => hardPointOption.type === "cortex" ? cortexesData[hardPointOption.option].name : weaponsData[hardPointOption.option].name).join(", ")
 
     return <IonAccordionGroup>
-        <IonAccordion value="first">
+        <IonAccordion>
             <IonItem slot="header" color="dark" size="small">
                 <IonLabel color="primary">{`${weaponPoints && `Weapon Points: ${weaponPointCost}/${weaponPoints}, `} ${hardPointOptionsText}`}</IonLabel>
             </IonItem>
