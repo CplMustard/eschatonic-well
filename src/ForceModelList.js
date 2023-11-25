@@ -18,7 +18,6 @@ function ForceModelList(props) {
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
-            const weaponPointCost = entry.hard_points ? entry.hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
             const cardActionButtons = [];
             cardActions && cardActions.forEach((action, index) => {
                 action.handleClicked && action.text && !(action.isHidden && action.isHidden(entry.id)) && cardActionButtons.push(
@@ -42,8 +41,7 @@ function ForceModelList(props) {
                 </IonRow>
                 <IonRow>
                     {entry.hard_points && <IonCol>
-                        {entry.weapon_points && <IonText color="primary">Weapon Points: {weaponPointCost}/{entry.weapon_points}</IonText>}
-                        <HardPointList hard_points={entry.hard_points} hardPointOptions={entry.hardPointOptions} onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)}/>
+                        <HardPointList hard_points={entry.hard_points} hardPointOptions={entry.hardPointOptions} weaponPoints={entry.weapon_points} onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)}/>
                     </IonCol>}
                 </IonRow>
             </div>

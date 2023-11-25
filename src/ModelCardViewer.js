@@ -31,6 +31,7 @@ function ModelCardViewer(props) {
         setCardData(modelsData[modelId]);
 
         if(location.state && location.state.entryId) {
+            //TODO: make this work with special issue!
             const saved = localStorage.getItem("forceModelsData");
             const forceModelsData = JSON.parse(saved);
             const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
@@ -47,6 +48,7 @@ function ModelCardViewer(props) {
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
         if(location.state.entryId) {
+            //TODO: make this work with special issue!
             const saved = localStorage.getItem("forceModelsData");
             let newForceModelsData = JSON.parse(saved);
             newForceModelsData.find((entry) => entry.id === location.state.entryId).hardPointOptions = newHardPointOptions;
@@ -109,7 +111,6 @@ function ModelCardViewer(props) {
         const hardPointWeaponOptions = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option) : undefined;
         const hardPointCortexOption = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "cortex").map((hardPointOption) => hardPointOption.option) : undefined;
         const allWeapons = hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
-        const weaponPointCost = hard_points ? hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0) : undefined
         const attachmentCardData = attachments ? attachments.map((attachment) => modelsData[attachment]) : undefined;
         let all_special_rules = special_rules ? special_rules : [];
         if(cadre) {
@@ -127,8 +128,7 @@ function ModelCardViewer(props) {
                 <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
                 <IonCardContent>
                     <Statline stats={stats} />
-                    {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} onChangeHardPoint={updateHardPoint.bind(this)}/>}
-                    {weapon_points && <IonText color={weaponPointCost > weapon_points ? "danger" : "primary"}><h3>Weapon Points: {weaponPointCost}/{weapon_points}</h3></IonText>}
+                    {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)}/>}
                     {allWeapons && <WeaponList weapons={allWeapons} />}
                     {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
                     {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
