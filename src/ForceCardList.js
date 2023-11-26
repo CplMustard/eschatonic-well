@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonText, IonButton, IonLabel, IonList, IonItemDivider, IonListHeader, IonItemGroup, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
 import HardPointList from './HardPointList';
 
@@ -9,6 +9,7 @@ function ForceCardList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
+    const cardGroupKeys = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const type = current["type"] + (isHero ? "|hero" : "");
@@ -55,15 +56,20 @@ function ForceCardList(props) {
         const typeParts = key.split("|");
         const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
         forceGroupComponents.push(<IonItemGroup key={key}>
-            <IonItemDivider color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
-                <IonLabel><h4>{cardTypeName} ({entryComponents.length})</h4></IonLabel>
-            </IonItemDivider>
-            <IonGrid>
-                {entryComponents}
-            </IonGrid>
-        </IonItemGroup>)
+            <IonAccordion value={key}>
+                <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
+                    <IonLabel><h4>{cardTypeName} ({entryComponents.length})</h4></IonLabel>
+                </IonItem>
+                <div className="ion-padding" slot="content">
+                    <IonGrid>
+                        {entryComponents}
+                    </IonGrid>
+                </div>
+            </IonAccordion>
+        </IonItemGroup>);
+        cardGroupKeys.push(key);
     })
-    return <><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></>;
+    return <IonAccordionGroup multiple={true} value={cardGroupKeys}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>;
 }
 
 export default ForceCardList;
