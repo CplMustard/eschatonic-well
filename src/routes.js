@@ -1,4 +1,5 @@
 import App from './App';
+import CadreViewer from './CadreViewer';
 import CardListViewer from './CardListViewer';
 import ModelCardViewer from "./ModelCardViewer";
 import CypherCardViewer from "./CypherCardViewer";
@@ -48,6 +49,10 @@ const routes = [
     {
         path: "/cypher/:cypherId",
         element: <CypherCardViewer/>
+    },
+    {
+        path: "/cadre/:cadreId",
+        element: <CadreViewer/>
     },
 ];
 

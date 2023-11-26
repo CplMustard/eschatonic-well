@@ -1,18 +1,50 @@
 import React from 'react';
-import { IonItem, IonLabel, IonButton, IonList, IonListHeader } from '@ionic/react';
+import { useNavigate } from "react-router-dom";
+import { IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
+import { add } from 'ionicons/icons';
 
 function CadreList(props) {
+    const navigate  = useNavigate();
+    
     const { cadresData, addModelCards, factionId } = props
     const cadreButtonComponents = []
+
+    function handleCadreClicked(id) {
+        navigate(`/cadre/${id}`);
+    }
     Object.entries(cadresData).forEach(([key, value]) => {
-        if(value.faction === factionId) {
-            cadreButtonComponents.push(<IonItem key={key}><label><h2>{value.name}</h2> <IonButton size="medium" expand="full" onClick={() => addModelCards(value.models)}>ADD</IonButton></label></IonItem>);
+        if(factionId === 'all' || value.faction === factionId) {
+            cadreButtonComponents.push(<IonRow key={key}>
+                <IonCol>
+                    <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCadreClicked(value.id)}>
+                        <div className="button-inner">
+                            <div className="button-text">{value.name}</div>
+                        </div>
+                    </IonButton>
+                </IonCol>
+                <IonCol size="auto">
+                        <IonButton size="medium" expand="full" onClick={() => addModelCards(value.models)}>
+                            <IonIcon slot="icon-only" icon={add}></IonIcon>
+                        </IonButton>
+                    </IonCol>
+            </IonRow>);
         }
     })
 
     return (
         <div>
-            <IonListHeader color="primary"><IonLabel>Cadres</IonLabel></IonListHeader>{factionId && factionId !== "all" && <IonList>{cadreButtonComponents}</IonList>}
+            <IonAccordionGroup>
+                <IonAccordion>
+                    <IonItem slot="header" color="tertiary">
+                        <IonLabel>{`Cadres (${cadreButtonComponents.length})`}</IonLabel>
+                    </IonItem>
+                    {factionId && <div className="ion-padding" slot="content">
+                        <IonGrid>
+                            {cadreButtonComponents}
+                        </IonGrid>
+                    </div>}
+                </IonAccordion>
+            </IonAccordionGroup>
         </div>
     );
 }
