@@ -5,7 +5,7 @@ import { IonIcon } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
-import RackList from './RackList';
+import ForceCardList from './ForceCardList';
 
 import { cyphersData } from './data';
 
@@ -70,7 +70,7 @@ function RackEditor(props) {
 
     return (
         <div>
-            <RackList 
+            <ForceCardList 
                 header={"Rack"} 
                 forceEntries={forceCyphersData} 
                 typeMin={cypherTypeMin}
@@ -79,16 +79,16 @@ function RackEditor(props) {
                     {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
                     {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
                 ]}
-            ></RackList>
+            ></ForceCardList>
 
-            <RackList 
+            <ForceCardList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueCyphersData} 
                 handleCardClicked={openCypherCard} 
                 cardActions={[
                     {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]}
-            ></RackList>
+            ></ForceCardList>
 
             <CardList 
                 header={"Cyphers"} 

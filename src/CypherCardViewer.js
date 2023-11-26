@@ -12,7 +12,7 @@ function CypherCardViewer(props) {
     const [cypherData, setCypherData] = useState({});
 
     const cypherId = props.cypherId ? props.cypherId : params.cypherId;
-
+    console.log(cypherId)
     useEffect(() => {
         setIsLoaded(true);
         setCypherData(cyphersData[cypherId]);

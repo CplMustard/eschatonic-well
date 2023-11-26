@@ -5,7 +5,7 @@ import { IonIcon } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
-import ForceList from './ForceList';
+import ForceCardList from './ForceCardList.js';
 
 import { cadresData,  modelsData, weaponsData } from './data';
 import isHidden from './util/isHidden.js';
@@ -225,7 +225,7 @@ function ForceEditor(props) {
 
     return (
         <div>
-            <ForceList 
+            <ForceCardList 
                 header={"Force"} 
                 forceEntries={forceModelsData} 
                 handleCardClicked={openModelCard} 
@@ -234,9 +234,9 @@ function ForceEditor(props) {
                     {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
-            ></ForceList>
+            ></ForceCardList>
 
-            <ForceList 
+            <ForceCardList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueModelsData} 
                 handleCardClicked={openModelCard} 
@@ -244,7 +244,7 @@ function ForceEditor(props) {
                     {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
-            ></ForceList>
+            ></ForceCardList>
 
             <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
             <CardList 
