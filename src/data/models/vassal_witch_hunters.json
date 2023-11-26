@@ -1,6 +1,6 @@
 {
-    "id": "vassal_witch_hounds",
-    "name": "Vassal Witch Hounds",
+    "id": "vassal_witch_hunters",
+    "name": "Vassal Witch Hunters",
     "factions": ["ac"],
     "type": "squad",
     "stats": {

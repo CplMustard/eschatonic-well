@@ -83,7 +83,7 @@ import tracers from "./tracers.json";
 import vassal_boss from "./vassal_boss.json";
 import vassal_raiders from "./vassal_raiders.json";
 import vassal_reavers from "./vassal_reavers.json";
-import vassal_witch_hounds from "./vassal_witch_hounds.json";
+import vassal_witch_hunters from "./vassal_witch_hunters.json";
 import void_gate from "./void_gate.json";
 import voitek_sudal from "./voitek_sudal.json";
 import warder from "./warder.json";
@@ -176,7 +176,7 @@ const modelsData = {
 	vassal_boss: vassal_boss,
 	vassal_raiders: vassal_raiders,
 	vassal_reavers: vassal_reavers,
-	vassal_witch_hounds: vassal_witch_hounds,
+	vassal_witch_hunters: vassal_witch_hunters,
 	void_gate: void_gate,
 	voitek_sudal: voitek_sudal,
 	warder: warder,
