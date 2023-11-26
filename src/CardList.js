@@ -6,7 +6,6 @@ import { cypherTypesData, modelTypesData } from './data';
 function CardList(props) {
     const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
     const cardGroupComponents = [];
-    const cardGroupKeys = [];
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const type = current["type"] + (isHero ? "|hero" : "");
@@ -56,10 +55,9 @@ function CardList(props) {
                     </div>
                 </IonAccordion>
             </IonItemGroup>);
-            cardGroupKeys.push(key);
         }
     })
-    return <IonAccordionGroup multiple={true} value={cardGroupKeys}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{cardGroupComponents}</IonList></IonAccordionGroup>;
+    return <IonAccordionGroup multiple={true}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{cardGroupComponents}</IonList></IonAccordionGroup>;
 }
 
 export default CardList;

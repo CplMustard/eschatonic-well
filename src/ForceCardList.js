@@ -9,7 +9,6 @@ function ForceCardList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
-    const cardGroupKeys = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const type = current["type"] + (isHero ? "|hero" : "");
@@ -58,7 +57,7 @@ function ForceCardList(props) {
         forceGroupComponents.push(<IonItemGroup key={key}>
             <IonAccordion value={key}>
                 <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
-                    <IonLabel><h4>{cardTypeName} ({entryComponents.length})</h4></IonLabel>
+                    <IonLabel>{`${cardTypeName} (${entryComponents.length})`}</IonLabel>
                 </IonItem>
                 <div className="ion-padding" slot="content">
                     <IonGrid>
@@ -67,9 +66,8 @@ function ForceCardList(props) {
                 </div>
             </IonAccordion>
         </IonItemGroup>);
-        cardGroupKeys.push(key);
     })
-    return <IonAccordionGroup multiple={true} value={cardGroupKeys}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>;
+    return <IonAccordionGroup multiple={true}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>;
 }
 
 export default ForceCardList;
