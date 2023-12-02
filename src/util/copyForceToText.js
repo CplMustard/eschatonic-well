@@ -71,7 +71,7 @@ export function copyForceToText(forceName, factionId, forceSize, forceModelsData
         })
     }
 
-    if(specialIssueModelsData || specialIssueCyphersData) {
+    if((specialIssueModelsData && specialIssueModelsData.length !== 0) || (specialIssueCyphersData && specialIssueCyphersData.length !== 0)) {
         forceString += `\n\nSpecial Issue:`;
 
         if(specialIssueModelsData.length !== 0) {
