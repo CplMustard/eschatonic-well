@@ -46,7 +46,7 @@ function ModelCardViewer(props) {
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
-        if(location.state.entryId) {
+        if(location.state && location.state.entryId) {
             const saved = localStorage.getItem(location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData");
             let newModelsData = JSON.parse(saved);
             newModelsData.find((entry) => entry.id === location.state.entryId).hardPointOptions = newHardPointOptions;
