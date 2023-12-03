@@ -8,7 +8,8 @@ function CardList(props) {
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
-        const type = current["type"] + (isHero ? "|hero" : "");
+        const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
+        const type = isChampion ? "champion" : current["type"] + (isHero ? "|hero" : "");
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});

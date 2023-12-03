@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import CardList from './CardList';
 
-import { modelsData } from './data';
+import { cadresData, modelsData } from './data';
 
 function CardListViewer(props) {
     const params = useParams();
@@ -18,7 +18,7 @@ function CardListViewer(props) {
 
     return (
         <div className="container">
-            <CardList header={"Cadre"} cards={models} handleCardClicked={openModelCard}></CardList>
+            <CardList header={`Cadre: ${cadresData[cadreId].name}`} cards={models} handleCardClicked={openModelCard}></CardList>
         </div>
     );
 }
