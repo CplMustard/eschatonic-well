@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonContent, IonFooter, IonHeader, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useStorage } from "./util/useStorage";
@@ -17,8 +17,10 @@ import { factionsData, forceSizesData } from './data';
 const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
 
+const editorTabs = {force: 0, rack: 1, cards: 2}
+
 function EditorView() {
-    const [tabSelected, setTabSelected] = useStorage("tabSelected", "force", sessionStorage);
+    const [tabSelected, setTabSelected] = useStorage("tabSelected", editorTabs.force, sessionStorage);
     
     const [factionId, setFactionId] = useStorage("factionId", factionsData["all"], localStorage);
     const [forceSize, setForceSize] = useStorage("forceSize", forceSizesData["custom"], localStorage);
@@ -202,7 +204,7 @@ function EditorView() {
                         </IonCol>
                     </IonRow>
                 </IonGrid>
-                {tabSelected === "force" && <ForceEditor 
+                {tabSelected === editorTabs.force && <ForceEditor 
                     factionId={factionId}
                     forceName={forceName} 
                     forceModelsData={forceModelsData} 
@@ -211,7 +213,7 @@ function EditorView() {
                     setSpecialIssueModelsData={setSpecialIssueModelsData}
                 ></ForceEditor>}
                 
-                {tabSelected === "rack" && <RackEditor 
+                {tabSelected === editorTabs.rack && <RackEditor 
                     factionId={factionId}
                     forceCyphersData={forceCyphersData}
                     setForceCyphersData={setForceCyphersData}
@@ -219,7 +221,7 @@ function EditorView() {
                     setSpecialIssueCyphersData={setSpecialIssueCyphersData}
                 ></RackEditor>}
 
-                {tabSelected === "cards" && <CardListViewer 
+                {tabSelected === editorTabs.cards && <CardListViewer 
                     factionId={factionId}
                 ></CardListViewer>}
             </div>
@@ -227,13 +229,13 @@ function EditorView() {
             <IonFooter style={{position: "fixed", bottom: 0, left: 0}}>
                 <IonToolbar>
                     <IonSegment value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
-                        <IonSegmentButton value="force">
+                        <IonSegmentButton value={editorTabs.force}>
                             <IonLabel>Force</IonLabel>
                         </IonSegmentButton>
-                        <IonSegmentButton value="rack">
+                        <IonSegmentButton value={editorTabs.rack}>
                             <IonLabel>Rack</IonLabel>
                         </IonSegmentButton>
-                        <IonSegmentButton value="cards">
+                        <IonSegmentButton value={editorTabs.cards}>
                             <IonLabel>Cards</IonLabel>
                         </IonSegmentButton>
                     </IonSegment>
