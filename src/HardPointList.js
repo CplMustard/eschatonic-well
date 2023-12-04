@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem, IonLabel, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
+import { IonNote, IonItem, IonLabel, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
 import { cortexesData, weaponsData } from './data';
 
@@ -22,9 +22,10 @@ function HardPointList(props) {
     return <IonAccordionGroup>
         <IonAccordion>
             <IonItem slot="header" color="dark" size="small">
-                <IonLabel color="primary">{`${weaponPoints && `Weapon Points: ${weaponPointCost}/${weaponPoints}, `} ${hardPointOptionsText}`}</IonLabel>
+                <IonLabel color="primary">{hardPointOptionsText}</IonLabel>
             </IonItem>
             <div className="ion-padding" slot="content">
+                <IonNote color={weaponPointCost > weaponPoints ? "danger" : "primary"}><h3>{weaponPoints && `Weapon Points: ${weaponPointCost}/${weaponPoints}`}</h3></IonNote>
                 <IonGrid>
                     {hardPointComponents}
                 </IonGrid>
