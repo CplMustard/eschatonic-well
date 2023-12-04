@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
 import HardPointList from './HardPointList';
@@ -6,6 +6,8 @@ import HardPointList from './HardPointList';
 import { cypherTypesData, modelTypesData } from './data'
 
 function ForceCardList(props) {
+    const [ openedGroups, setOpenedGroups ] = useState([]);
+
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
@@ -16,6 +18,16 @@ function ForceCardList(props) {
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
+
+    const allGroups = [];
+    Object.entries(forceGroups).forEach(([key, value]) => {
+        allGroups.push(key);
+    });
+
+    useEffect(() => {
+        setOpenedGroups(allGroups);
+    }, []);
+    
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
@@ -68,7 +80,7 @@ function ForceCardList(props) {
             </IonAccordion>
         </IonItemGroup>);
     })
-    return <IonAccordionGroup multiple={true}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>;
+    return <IonAccordionGroup multiple={true} value={openedGroups}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>;
 }
 
 export default ForceCardList;

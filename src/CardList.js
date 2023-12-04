@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
 import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
+    const [ openedGroups, setOpenedGroups ] = useState([]);
+    
     const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
@@ -13,6 +15,16 @@ function CardList(props) {
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
+    
+    const allGroups = [];
+    Object.entries(cardGroups).forEach(([key, value]) => {
+        allGroups.push(key);
+    });
+
+    useEffect(() => {
+        setOpenedGroups(allGroups);
+    }, []);
+
     Object.entries(cardGroups).sort().forEach(([key, value]) => {
         const typeParts = key.split("|");
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && !modelTypesData[typeParts[0]].hidden)) {
@@ -58,7 +70,8 @@ function CardList(props) {
             </IonItemGroup>);
         }
     })
-    return <IonAccordionGroup multiple={true}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{cardGroupComponents}</IonList></IonAccordionGroup>;
+    console.log(openedGroups);
+    return <IonAccordionGroup multiple={true} value={openedGroups}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{cardGroupComponents}</IonList></IonAccordionGroup>;
 }
 
 export default CardList;
