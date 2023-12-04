@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
 import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
-    const [ openedGroups, setOpenedGroups ] = useState([]);
-
     const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
@@ -22,8 +20,27 @@ function CardList(props) {
     });
 
     useEffect(() => {
-        setOpenedGroups(allGroups);
+        expandAll();
     }, []);
+
+    const accordionGroup = useRef(null);
+    const collapseAll = () => {
+        if (!accordionGroup.current) {
+            return;
+        }
+        const nativeEl = accordionGroup.current;
+
+        nativeEl.value = undefined;
+    };
+
+    const expandAll = () => {
+        if (!accordionGroup.current) {
+            return;
+        }
+        const nativeEl = accordionGroup.current;
+
+        nativeEl.value = allGroups;
+    };
 
     Object.entries(cardGroups).sort().forEach(([key, value]) => {
         const typeParts = key.split("|");
@@ -72,9 +89,9 @@ function CardList(props) {
     })
     return <>
         {cards.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
-        <IonButton fill="outline" onClick={() => {setOpenedGroups([])}}><div>COLLAPSE ALL</div></IonButton>
-        <IonButton fill="outline" onClick={() => {setOpenedGroups(allGroups)}}><div>EXPAND ALL</div></IonButton>
-        <IonAccordionGroup multiple={true} value={openedGroups}>
+        <IonButton fill="outline" onClick={() => {collapseAll()}}><div>COLLAPSE ALL</div></IonButton>
+        <IonButton fill="outline" onClick={() => {expandAll()}}><div>EXPAND ALL</div></IonButton>
+        <IonAccordionGroup ref={accordionGroup} multiple={true}>
             <IonList>{cardGroupComponents}</IonList>
         </IonAccordionGroup></>}
     </>

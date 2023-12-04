@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react';
+import React, { useEffect, useRef }  from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
 import HardPointList from './HardPointList';
@@ -6,8 +6,6 @@ import HardPointList from './HardPointList';
 import { cypherTypesData, modelTypesData } from './data'
 
 function ForceCardList(props) {
-    const [ openedGroups, setOpenedGroups ] = useState([]);
-
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
@@ -25,8 +23,28 @@ function ForceCardList(props) {
     });
 
     useEffect(() => {
-        setOpenedGroups(allGroups);
+        expandAll();
     }, []);
+
+    const accordionGroup = useRef(null);
+    const collapseAll = () => {
+        if (!accordionGroup.current) {
+            return;
+        }
+        const nativeEl = accordionGroup.current;
+
+        nativeEl.value = undefined;
+    };
+
+    const expandAll = () => {
+        if (!accordionGroup.current) {
+            return;
+        }
+        const nativeEl = accordionGroup.current;
+
+        nativeEl.value = allGroups;
+    };
+
     
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
@@ -82,9 +100,9 @@ function ForceCardList(props) {
     })
     return <>
         {forceEntries.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
-        <IonButton fill="outline" onClick={() => {setOpenedGroups([])}}><div>COLLAPSE ALL</div></IonButton>
-        <IonButton fill="outline" onClick={() => {setOpenedGroups(allGroups)}}><div>EXPAND ALL</div></IonButton>
-        <IonAccordionGroup multiple={true} value={openedGroups}>
+        <IonButton fill="outline" onClick={() => {collapseAll()}}><div>COLLAPSE ALL</div></IonButton>
+        <IonButton fill="outline" onClick={() => {expandAll()}}><div>EXPAND ALL</div></IonButton>
+        <IonAccordionGroup ref={accordionGroup} multiple={true}>
             <IonList>{forceGroupComponents}</IonList>
         </IonAccordionGroup></>}
     </>
