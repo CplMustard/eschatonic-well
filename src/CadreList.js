@@ -33,8 +33,8 @@ function CadreList(props) {
 
     return (
         <div>
-            <IonAccordionGroup>
-                <IonAccordion>
+            <IonAccordionGroup value="cadres">
+                <IonAccordion value="cadres">
                     <IonItem slot="header" color="tertiary">
                         <IonLabel>{`Cadres (${cadreButtonComponents.length})`}</IonLabel>
                     </IonItem>
