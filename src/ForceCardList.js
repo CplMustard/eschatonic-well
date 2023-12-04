@@ -80,7 +80,16 @@ function ForceCardList(props) {
             </IonAccordion>
         </IonItemGroup>);
     })
-    return <IonAccordionGroup multiple={true} value={openedGroups}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>;
+    return <>
+        <IonLabel color="primary"><h1>{header}</h1></IonLabel>
+        <IonGrid>
+            <IonRow>
+                <IonCol><IonButton expand="full" onClick={() => {setOpenedGroups([])}}><div>COLLAPSE ALL</div></IonButton></IonCol>
+                <IonCol><IonButton expand="full" onClick={() => {setOpenedGroups(allGroups)}}><div>EXPAND ALL</div></IonButton></IonCol>
+            </IonRow>
+        </IonGrid>
+        <IonAccordionGroup multiple={true} value={openedGroups}><IonList>{forceGroupComponents}</IonList></IonAccordionGroup>
+    </>
 }
 
 export default ForceCardList;

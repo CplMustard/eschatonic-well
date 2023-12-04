@@ -181,50 +181,49 @@ function EditorView() {
     });
     return (
         <>
-            <div>
-                {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
-                <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
-                <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-                <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
-                <IonGrid>
-                    <IonRow>
-                        <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                        <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
-                        <IonCol><IonButton expand="full" onClick={() => {
-                            clearForce();
-                            setForceName("New Force");
-                        }}><div>CLEAR ALL</div></IonButton></IonCol>
-                    </IonRow>
-                    <IonRow>
-                        <IonCol size={"auto"}>
-                            <ModelCount models={forceModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
-                        </IonCol>
-                        <IonCol size={"auto"}>
-                            <CypherCount cyphers={forceCyphersData}/>
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
-                {tabSelected === editorTabs.force && <ForceEditor 
-                    factionId={factionId}
-                    forceName={forceName} 
-                    forceModelsData={forceModelsData} 
-                    setForceModelsData={setForceModelsData} 
-                    specialIssueModelsData={specialIssueModelsData} 
-                    setSpecialIssueModelsData={setSpecialIssueModelsData}
-                ></ForceEditor>}
-                
-                {tabSelected === editorTabs.rack && <RackEditor 
-                    factionId={factionId}
-                    forceCyphersData={forceCyphersData}
-                    setForceCyphersData={setForceCyphersData}
-                    specialIssueCyphersData={specialIssueCyphersData} 
-                    setSpecialIssueCyphersData={setSpecialIssueCyphersData}
-                ></RackEditor>}
+            {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
+            <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+            <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
+            <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
+            <IonGrid>
+                <IonRow>
+                    <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
+                    <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                    <IonCol><IonButton expand="full" onClick={() => {
+                        clearForce();
+                        setForceName("New Force");
+                    }}><div>CLEAR ALL</div></IonButton></IonCol>
+                </IonRow>
+                <IonRow>
+                    <IonCol size={"auto"}>
+                        <ModelCount models={forceModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
+                    </IonCol>
+                    <IonCol size={"auto"}>
+                        <CypherCount cyphers={forceCyphersData}/>
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
+            {tabSelected === editorTabs.force && <ForceEditor 
+                factionId={factionId}
+                forceName={forceName} 
+                forceModelsData={forceModelsData} 
+                setForceModelsData={setForceModelsData} 
+                specialIssueModelsData={specialIssueModelsData} 
+                setSpecialIssueModelsData={setSpecialIssueModelsData}
+            ></ForceEditor>}
+            
+            {tabSelected === editorTabs.rack && <RackEditor 
+                factionId={factionId}
+                forceCyphersData={forceCyphersData}
+                setForceCyphersData={setForceCyphersData}
+                specialIssueCyphersData={specialIssueCyphersData} 
+                setSpecialIssueCyphersData={setSpecialIssueCyphersData}
+            ></RackEditor>}
 
-                {tabSelected === editorTabs.cards && <CardListViewer 
-                    factionId={factionId}
-                ></CardListViewer>}
-            </div>
+            {tabSelected === editorTabs.cards && <CardListViewer 
+                factionId={factionId}
+            ></CardListViewer>}
+
             <div style={{height: "3rem"}}></div>
             <IonFooter style={{position: "fixed", bottom: 0, left: 0}}>
                 <IonToolbar>

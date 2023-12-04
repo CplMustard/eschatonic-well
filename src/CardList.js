@@ -5,7 +5,7 @@ import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
     const [ openedGroups, setOpenedGroups ] = useState([]);
-    
+
     const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
@@ -70,8 +70,18 @@ function CardList(props) {
             </IonItemGroup>);
         }
     })
-    console.log(openedGroups);
-    return <IonAccordionGroup multiple={true} value={openedGroups}><IonLabel color="primary"><h1>{header}</h1></IonLabel><IonList>{cardGroupComponents}</IonList></IonAccordionGroup>;
+    return <>
+        <IonLabel color="primary"><h1>{header}</h1></IonLabel>
+        <IonGrid>
+            <IonRow>
+                <IonCol><IonButton expand="full" onClick={() => {setOpenedGroups([])}}><div>COLLAPSE ALL</div></IonButton></IonCol>
+                <IonCol><IonButton expand="full" onClick={() => {setOpenedGroups(allGroups)}}><div>EXPAND ALL</div></IonButton></IonCol>
+            </IonRow>
+        </IonGrid>
+        <IonAccordionGroup multiple={true} value={openedGroups}>
+            <IonList>{cardGroupComponents}</IonList>
+        </IonAccordionGroup>
+    </>
 }
 
 export default CardList;
