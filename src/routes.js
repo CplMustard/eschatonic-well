@@ -1,4 +1,3 @@
-import App from './App';
 import CadreViewer from './CadreViewer';
 import CardListViewer from './CardListViewer';
 import ModelCardViewer from "./ModelCardViewer";
