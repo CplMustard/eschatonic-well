@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonModal, IonButtons, IonTitle, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useStorage } from "./util/useStorage";
@@ -9,6 +9,7 @@ import { useStorage } from "./util/useStorage";
 import ModelCount from './ModelCount.js';
 import CypherCount from './CypherCount.js';
 import CardListViewer from './CardListViewer';
+import LoadForceModal from './LoadForceModal';
 import ForceEditor from './ForceEditor';
 import RackEditor from './RackEditor';
 
@@ -20,7 +21,6 @@ const forcesExtension = ".esch";
 const editorTabs = {force: 0, rack: 1, cards: 2}
 
 function EditorView() {
-    const modal = useRef(null);
 
     const [tabSelected, setTabSelected] = useStorage("tabSelected", editorTabs.force, sessionStorage);
     
@@ -135,7 +135,7 @@ function EditorView() {
             });
             
             const json = JSON.parse(result.data);
-            modal.current?.dismiss("", 'confirm');
+            //modal.current?.dismiss("", 'confirm');
             setForceName(json.forceName);
             setFactionId(json.factionId);
             setForceSize(json.forceSize);
@@ -180,20 +180,7 @@ function EditorView() {
     return (
         <IonPage>
             <IonContent>
-                <IonModal ref={modal} trigger="open-modal">
-                    <IonHeader>
-                        <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonButton onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
-                        </IonButtons>
-                        <IonTitle>Load Forcelist</IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
-                    <IonContent className="ion-padding">
-                        {loadForceButtons.length !== 0 && <IonGrid>{loadForceButtons}</IonGrid>}
-                    </IonContent>
-                </IonModal>
-
+                <LoadForceModal trigger={"open-modal"} loadForceButtons={loadForceButtons}></LoadForceModal>
                 <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
