@@ -49,7 +49,3 @@ body {
 	overflow-wrap: break-word;
 	word-wrap: break-word;
 }
-
-.page-scroll {
-	overflow-y: scroll;
-}

@@ -41,7 +41,7 @@ function CypherCardViewer(props) {
         return <div>Loading Card Data...</div>
     } else {
         return (
-            <IonPage className="page-scroll">            
+            <IonPage>            
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start">

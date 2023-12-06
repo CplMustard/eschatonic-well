@@ -122,7 +122,7 @@ function ModelCardViewer(props) {
         }
 
         return (
-            <IonPage className="page-scroll">
+            <IonPage>
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start">
