@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 import { IonIcon } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
@@ -12,7 +12,7 @@ import { cyphersData } from './data';
 const cypherTypeMin = 3;
 
 function RackEditor(props) {
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
@@ -23,7 +23,7 @@ function RackEditor(props) {
     }
 
     function openCypherCard(id) {
-        navigate(`/cypher/${id}`);
+        history.push(`/cypher/${id}`);
     }
 
     function addCypherCards(cypherIds) {

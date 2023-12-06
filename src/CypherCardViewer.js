@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom";
-import { IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
 
 import { cyphersData, cypherTypesData, factionsData } from './data'
 
@@ -41,9 +41,19 @@ function CypherCardViewer(props) {
         return <div>Loading Card Data...</div>
     } else {
         return (
-            <div>
-                <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
-            </div>
+            <IonPage className="page-scroll">            
+                <IonHeader>
+                    <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonBackButton></IonBackButton>
+                        </IonButtons>
+                        <IonTitle>Back Button</IonTitle>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent>
+                    <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
+                </IonContent>
+            </IonPage>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
 import { IonIcon } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
@@ -14,7 +14,7 @@ import CadreList from './CadreList';
 const voidGateId = "void_gate";
 
 function ForceEditor(props) {
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const { factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
 
@@ -147,7 +147,7 @@ function ForceEditor(props) {
     }
 
     function openModelCard(modelId, entryId) {
-        navigate(`/model/${modelId}`, {state: { entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 }});
+        history.push(`/model/${modelId}`, {state: { entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 }});
     }
 
     function addModelCards(modelIds) {
@@ -224,7 +224,7 @@ function ForceEditor(props) {
     }
 
     return (
-        <div>
+        <>
             <ForceCardList 
                 header={"Force"} 
                 forceEntries={forceModelsData} 
@@ -254,7 +254,7 @@ function ForceEditor(props) {
                 handleCardClicked={openModelCard} 
                 cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
             ></CardList>
-        </div>
+        </>
     );
 }
 

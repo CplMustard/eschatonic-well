@@ -1,16 +1,16 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 import { add } from 'ionicons/icons';
 
 function CadreList(props) {
-    const navigate  = useNavigate();
+    const history = useHistory();
     
     const { cadresData, addModelCards, factionId } = props
     const cadreButtonComponents = []
 
     function handleCadreClicked(id) {
-        navigate(`/cadre/${id}`);
+        history.push(`/cadre/${id}`);
     }
     Object.entries(cadresData).forEach(([key, value]) => {
         if(factionId === 'all' || value.faction === factionId) {

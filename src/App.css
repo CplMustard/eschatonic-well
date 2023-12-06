@@ -38,12 +38,18 @@
 body {
 	color: #bf909f;
 }
+
 .button-inner {
 	text-align: left;
 	width: 100%;
 }
+
 .button-text {
 	width: 10rem;
 	overflow-wrap: break-word;
 	word-wrap: break-word;
+}
+
+.page-scroll {
+	overflow-y: scroll;
 }

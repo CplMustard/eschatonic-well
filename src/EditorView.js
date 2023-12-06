@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonPage, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, IonContent } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useStorage } from "./util/useStorage";
@@ -180,52 +180,52 @@ function EditorView() {
         forceSizeOptions.push(<IonSelectOption key={key} value={value.id}>{`${value.name} ${value.id !== "custom" ? `(${value.units} / ${value.hero_solos})` : ""}`}</IonSelectOption>);
     });
     return (
-        <>
-            {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
-            <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
-            <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-            <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
-            <IonGrid>
-                <IonRow>
-                    <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                    <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
-                    <IonCol><IonButton expand="full" onClick={() => {
-                        clearForce();
-                        setForceName("New Force");
-                    }}><div>CLEAR ALL</div></IonButton></IonCol>
-                </IonRow>
-                <IonRow>
-                    <IonCol size={"auto"}>
-                        <ModelCount models={forceModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
-                    </IonCol>
-                    <IonCol size={"auto"}>
-                        <CypherCount cyphers={forceCyphersData}/>
-                    </IonCol>
-                </IonRow>
-            </IonGrid>
-            {tabSelected === editorTabs.force && <ForceEditor 
-                factionId={factionId}
-                forceName={forceName} 
-                forceModelsData={forceModelsData} 
-                setForceModelsData={setForceModelsData} 
-                specialIssueModelsData={specialIssueModelsData} 
-                setSpecialIssueModelsData={setSpecialIssueModelsData}
-            ></ForceEditor>}
-            
-            {tabSelected === editorTabs.rack && <RackEditor 
-                factionId={factionId}
-                forceCyphersData={forceCyphersData}
-                setForceCyphersData={setForceCyphersData}
-                specialIssueCyphersData={specialIssueCyphersData} 
-                setSpecialIssueCyphersData={setSpecialIssueCyphersData}
-            ></RackEditor>}
+        <IonPage className="page-scroll">
+            <IonContent>
+                {loadForceButtons.length !== 0 && <><IonText color="primary"><h3>Load Force:</h3></IonText><IonGrid>{loadForceButtons}</IonGrid><br/></>}
+                <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+                <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
+                <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
+                <IonGrid>
+                    <IonRow>
+                        <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
+                        <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                        <IonCol><IonButton expand="full" onClick={() => {
+                            clearForce();
+                            setForceName("New Force");
+                        }}><div>CLEAR ALL</div></IonButton></IonCol>
+                    </IonRow>
+                    <IonRow>
+                        <IonCol size={"auto"}>
+                            <ModelCount models={forceModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
+                        </IonCol>
+                        <IonCol size={"auto"}>
+                            <CypherCount cyphers={forceCyphersData}/>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+                {tabSelected === editorTabs.force && <ForceEditor 
+                    factionId={factionId}
+                    forceName={forceName} 
+                    forceModelsData={forceModelsData} 
+                    setForceModelsData={setForceModelsData} 
+                    specialIssueModelsData={specialIssueModelsData} 
+                    setSpecialIssueModelsData={setSpecialIssueModelsData}
+                ></ForceEditor>}
+                
+                {tabSelected === editorTabs.rack && <RackEditor 
+                    factionId={factionId}
+                    forceCyphersData={forceCyphersData}
+                    setForceCyphersData={setForceCyphersData}
+                    specialIssueCyphersData={specialIssueCyphersData} 
+                    setSpecialIssueCyphersData={setSpecialIssueCyphersData}
+                ></RackEditor>}
 
-            {tabSelected === editorTabs.cards && <CardListViewer 
-                factionId={factionId}
-            ></CardListViewer>}
-
-            <div style={{height: "3rem"}}></div>
-            <IonFooter style={{position: "fixed", bottom: 0, left: 0}}>
+                {tabSelected === editorTabs.cards && <CardListViewer 
+                    factionId={factionId}
+                ></CardListViewer>}
+            </IonContent>
+            <IonFooter>
                 <IonToolbar>
                     <IonSegment value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
                         <IonSegmentButton value={editorTabs.force}>
@@ -240,7 +240,7 @@ function EditorView() {
                     </IonSegment>
                 </IonToolbar>
             </IonFooter>
-        </>
+        </IonPage>
     );
 }
 

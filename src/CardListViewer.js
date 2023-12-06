@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import CardList from './CardList';
 
@@ -7,18 +7,18 @@ import { cyphersData, modelsData } from './data';
 
 function CardListViewer(props) {
     const params = useParams();
-    const navigate  = useNavigate();
+    const history = useHistory();
 
     const factionId = props.factionId ? props.factionId : params.factionId;
     const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
     const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
     function openModelCard(id) {
-        navigate(`/model/${id}`);
+        history.push(`/model/${id}`);
     }
 
     function openCypherCard(id) {
-        navigate(`/cypher/${id}`);
+        history.push(`/cypher/${id}`);
     }
 
     return (

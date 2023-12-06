@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
+import { useLocation, useHistory, useParams } from "react-router-dom";
+import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from '@ionic/react';
 
 import './App.css';
 
@@ -15,7 +15,7 @@ import { modelsData, modelTypesData, weaponsData, factionsData, cadresData } fro
 
 function ModelCardViewer(props) {
     const params = useParams();
-    const navigate = useNavigate();
+    const history = useHistory();
     const location = useLocation();
 
     const [error, setError] = useState(null);
@@ -41,7 +41,7 @@ function ModelCardViewer(props) {
     }, [modelId]);
 
     function openModelCard(id) {
-        navigate(`/model/${id}`);
+        history.push(`/model/${id}`);
     }
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
@@ -122,19 +122,31 @@ function ModelCardViewer(props) {
         }
 
         return (
-            <IonCard>
-                <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
-                <IonCardContent>
-                    <Statline stats={stats} />
-                    {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)}/>}
-                    {allWeapons && <WeaponList weapons={allWeapons} />}
-                    {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
-                    {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
-                    {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
-                    {maneuvers && <ManeuverList maneuvers={maneuvers} header={'Maneuvers'}/>}
-                    {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
-                </IonCardContent>
-            </IonCard>
+            <IonPage className="page-scroll">
+                <IonHeader>
+                    <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonBackButton></IonBackButton>
+                        </IonButtons>
+                        <IonTitle>Back Button</IonTitle>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent>
+                    <IonCard>
+                        <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
+                        <IonCardContent>
+                            <Statline stats={stats} />
+                            {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)}/>}
+                            {allWeapons && <WeaponList weapons={allWeapons} />}
+                            {advantages && <SpecialRuleList special_rules={advantages} header={'Advantages'} />}
+                            {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
+                            {all_special_rules && <SpecialRuleList special_rules={all_special_rules} header={'Special Rules'}/>}
+                            {maneuvers && <ManeuverList maneuvers={maneuvers} header={'Maneuvers'}/>}
+                            {attachmentCardData && <CardList cards={attachmentCardData} header={"Attachments"} handleCardClicked={openModelCard}/>}
+                        </IonCardContent>
+                    </IonCard>
+                </IonContent>
+            </IonPage>
         );
     }
 }
