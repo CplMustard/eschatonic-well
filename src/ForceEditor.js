@@ -21,8 +21,9 @@ function ForceEditor(props) {
 
     useEffect(() => {
         let newForceData = forceModelsData;
+        let addedModelNames = []
         if(newForceData.findIndex((forceModel) => forceModel.modelId === voidGateId) === -1) {
-            newForceData = insertModelCard(newForceData, voidGateId);
+            newForceData = insertModelCard(newForceData, voidGateId, addedModelNames);
         }
 
         const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
@@ -31,7 +32,7 @@ function ForceEditor(props) {
         }) : allMantlets;
         availableMantlets.forEach((modelData) => {
             if(newForceData.findIndex((forceModel) => forceModel.modelId === modelData.id) === -1) {
-                newForceData = insertModelCard(newForceData, modelData.id);
+                newForceData = insertModelCard(newForceData, modelData.id, addedModelNames);
             }
         });
         
@@ -60,25 +61,25 @@ function ForceEditor(props) {
         return modelCount(forceData, modelId) < fa;
     }
 
-    function addAttachments(forceData, modelData) {
+    function addAttachments(forceData, modelData, addedModelNames) {
         let newForceData = forceData;
         modelData.attachments.forEach((attachment) => {
             if(newForceData.findIndex((forceModel) => forceModel.modelId === attachment) === -1) {
-                newForceData = insertModelCard(newForceData, attachment);
+                newForceData = insertModelCard(newForceData, attachment, addedModelNames);
             }
         });
         
         return newForceData;
     }
 
-    function deleteAttachments(forceData, modelData) {
+    function deleteAttachments(forceData, modelData, deletedModelNames) {
         let newForceData = forceData;
         modelData.attachments.forEach((attachment) => {
             //only delete if we're the last eligible unit for this attachment
             const attachmentIndex = newForceData.findIndex((forceModel) => forceModel.modelId === attachment);
             const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length
             if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
-                newForceData = deleteModelCard(newForceData, attachmentIndex);
+                newForceData = deleteModelCard(newForceData, attachmentIndex, deletedModelNames);
             }
         });
         return newForceData;
@@ -94,28 +95,28 @@ function ForceEditor(props) {
         return 0;
     }
 
-    function addCadreChampion(forceData, cadreId) {
+    function addCadreChampion(forceData, cadreId, addedModelNames) {
         let newForceData = forceData;
         const cadre = cadresData[cadreId];
         //add a champion for this cadre if the count doesn't match
         if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
-            newForceData = insertModelCard(newForceData, cadre.champion);
+            newForceData = insertModelCard(newForceData, cadre.champion, addedModelNames);
         }
         return newForceData;
     }
 
-    function deleteCadreChampion(forceData, cadreId) {
+    function deleteCadreChampion(forceData, cadreId, deletedModelNames) {
         let newForceData = forceData;
         const cadre = cadresData[cadreId];
         //remove a champion for this cadre if the count doesn't match
         if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
             const championIndex = newForceData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
-            newForceData = deleteModelCard(newForceData, championIndex);
+            newForceData = deleteModelCard(newForceData, championIndex, deletedModelNames);
         }
         return newForceData;
     }
 
-    function insertModelCard(forceData, modelId) {
+    function insertModelCard(forceData, modelId, addedModelNames) {
         let newForceData = forceData;
         const newId = uuidv1();
         const modelData = modelsData[modelId];
@@ -126,31 +127,33 @@ function ForceEditor(props) {
             }, [weaponsData]);
         }
         if (modelData.attachments) {
-            newForceData = addAttachments(newForceData, modelData);
+            newForceData = addAttachments(newForceData, modelData, addedModelNames);
         }
         
         const canRemove = !isHidden(modelId);
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+        addedModelNames.push(modelData.name);
         newForceData = newForceData.concat(forceEntry);
 
         if (modelData.cadre) {
-            newForceData = addCadreChampion(newForceData, modelData.cadre);
+            newForceData = addCadreChampion(newForceData, modelData.cadre, addedModelNames);
         }
 
         return newForceData;
     }
 
-    function deleteModelCard(forceData, index) {
+    function deleteModelCard(forceData, index, deletedModelNames) {
         let newForceData = forceData;
         const modelId = newForceData[index].modelId;
         const modelData = modelsData[modelId];
         newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)]
+        deletedModelNames.push(modelData.name);
         if (modelData.attachments) {
-            newForceData = deleteAttachments(newForceData, modelData);
+            newForceData = deleteAttachments(newForceData, modelData, deletedModelNames);
         }
 
         if(modelData.cadre) {
-            newForceData = deleteCadreChampion(newForceData, modelData.cadre);
+            newForceData = deleteCadreChampion(newForceData, modelData.cadre, deletedModelNames);
         }
 
         return newForceData;
@@ -166,22 +169,23 @@ function ForceEditor(props) {
         modelIds.forEach((modelId) => {
             // Make sure to check the special issue list for FA as well
             if(checkFA([...newForceData, ...specialIssueModelsData], modelId)) {
-                newForceData = insertModelCard(newForceData, modelId);
-                addedModelNames.push(modelsData[modelId].name);
+                newForceData = insertModelCard(newForceData, modelId, addedModelNames);
             }
-        })
-
-        presentToast(`Added: ${addedModelNames.join(", ")} to forcelist`);
+        });
         
+        presentToast(`Added ${addedModelNames.join(", ")} to forcelist`);
+
         setForceModelsData(newForceData);
     }
 
     function removeModelCard(id) {
-        
+        let deletedModelNames = [];
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
             let newForceData = forceModelsData;
-            newForceData = deleteModelCard(newForceData, index);
+            newForceData = deleteModelCard(newForceData, index, deletedModelNames);
+
+            presentToast(`Deleted ${deletedModelNames.join(", ")} from forcelist`);
 
             setForceModelsData(newForceData);
         }
@@ -190,14 +194,27 @@ function ForceEditor(props) {
     function addSpecialIssue(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         let newSpecialIssueModelsData = specialIssueModelsData;
-        newSpecialIssueModelsData.push(forceModelsData[index]);
-        removeModelCard(id);
+        let deletedModelNames = [];
+        if(index !== -1) {
+            newSpecialIssueModelsData.push(forceModelsData[index]);
+            let newForceData = forceModelsData;
+            newForceData = deleteModelCard(newForceData, index, deletedModelNames);
+            
+            //Don't list the special issue model as deleted from forcelist
+            deletedModelNames.splice(deletedModelNames.indexOf(forceModelsData[index].name), 1);
+
+            presentToast(`Swapped ${forceModelsData[index].name} to special issue${deletedModelNames.length !== 0 ? `, ${deletedModelNames.join(", ")} deleted from forcelist` : ""}`);
+
+            setForceModelsData(newForceData);
+        }
+
         setSpecialIssueModelsData(newSpecialIssueModelsData);
     }
 
     function removeSpecialIssue(id) {
         const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === id);
         let newForceData = forceModelsData;
+        let addedModelNames = [];
 
         const modelId = specialIssueModelsData[index].modelId;
         const modelData = modelsData[modelId];
@@ -205,16 +222,19 @@ function ForceEditor(props) {
             newForceData = newForceData.concat(specialIssueModelsData[index]);
 
             if (modelData.attachments) {
-                newForceData = addAttachments(newForceData, modelData);
+                newForceData = addAttachments(newForceData, modelData, addedModelNames);
             }
         }
 
         if(modelData.cadre) {
-            newForceData = addCadreChampion(newForceData, modelData.cadre);
+            newForceData = addCadreChampion(newForceData, modelData.cadre, addedModelNames);
         }
     
         let newSpecialIssueModelsData = specialIssueModelsData;
-        newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, index), ...newSpecialIssueModelsData.slice(index + 1)]
+        newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, index), ...newSpecialIssueModelsData.slice(index + 1)];
+        
+        presentToast(`Swapped ${modelData.name} to forcelist${addedModelNames.length !== 0 ? `, ${addedModelNames.join(", ")} added to forcelist` : ""}`);
+
         setSpecialIssueModelsData(newSpecialIssueModelsData);
         setForceModelsData(newForceData);
     }
