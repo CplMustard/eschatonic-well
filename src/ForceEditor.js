@@ -199,7 +199,7 @@ function ForceEditor(props) {
             newSpecialIssueModelsData.push(forceModelsData[index]);
             let newForceData = forceModelsData;
             newForceData = deleteModelCard(newForceData, index, deletedModelNames);
-            
+
             //Don't list the special issue model as deleted from forcelist
             deletedModelNames.splice(deletedModelNames.indexOf(forceModelsData[index].name), 1);
 
@@ -265,8 +265,8 @@ function ForceEditor(props) {
                 forceEntries={forceModelsData} 
                 handleCardClicked={openModelCard} 
                 cardActions={[
-                    {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isHidden: isCardUnremovable}, 
-                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
+                    {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: isCardUnremovable}, 
+                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isDisabled: canSpecialIssueSwap}
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceCardList>

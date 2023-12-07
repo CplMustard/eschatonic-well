@@ -51,9 +51,9 @@ function CardList(props) {
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
                     cardActions && cardActions.forEach((action, index) => {
-                        action.handleClicked && action.text && !(action.isHidden && action.isHidden(card.id)) && cardActionButtons.push(
+                        action.handleClicked && action.text && cardActionButtons.push(
                             <IonCol key={index} size="auto">
-                                <IonButton size="medium" expand="full" onClick={() => action.handleClicked(card.id)}>
+                                <IonButton size="medium" expand="full" disabled={(action.isDisabled && action.isDisabled(card.id))} onClick={() => action.handleClicked(card.id)}>
                                     {action.text}
                                 </IonButton>
                             </IonCol>

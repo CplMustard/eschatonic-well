@@ -50,9 +50,9 @@ function ForceCardList(props) {
         value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
             const cardActionButtons = [];
             cardActions && cardActions.forEach((action, index) => {
-                action.handleClicked && action.text && !(action.isHidden && action.isHidden(entry.id)) && cardActionButtons.push(
+                action.handleClicked && action.text && cardActionButtons.push(
                     <IonCol key={index} size="auto">
-                        <IonButton size="medium" expand="full" onClick={() => action.handleClicked(entry.id)}>
+                        <IonButton size="medium" expand="full" disabled={(action.isDisabled && action.isDisabled(entry.id))} onClick={() => action.handleClicked(entry.id)}>
                             {action.text}
                         </IonButton>
                     </IonCol>
