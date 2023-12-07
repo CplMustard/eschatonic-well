@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonIcon } from '@ionic/react';
+import { IonIcon, useIonToast } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
@@ -15,6 +15,7 @@ const voidGateId = "void_gate";
 
 function ForceEditor(props) {
     const history = useHistory();
+    const [present] = useIonToast();
 
     const { factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
 
@@ -36,6 +37,14 @@ function ForceEditor(props) {
         
         setForceModelsData(newForceData);
     }, [forceModelsData, factionId]);
+    
+    const presentToast = (message) => {
+        present({
+            message: message,
+            duration: 1500,
+            position: 'bottom',
+        });
+    };
 
     const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
 
@@ -58,6 +67,7 @@ function ForceEditor(props) {
                 newForceData = insertModelCard(newForceData, attachment);
             }
         });
+        
         return newForceData;
     }
 
@@ -152,17 +162,22 @@ function ForceEditor(props) {
 
     function addModelCards(modelIds) {
         let newForceData = forceModelsData;
+        let addedModelNames = [];
         modelIds.forEach((modelId) => {
             // Make sure to check the special issue list for FA as well
             if(checkFA([...newForceData, ...specialIssueModelsData], modelId)) {
                 newForceData = insertModelCard(newForceData, modelId);
+                addedModelNames.push(modelsData[modelId].name);
             }
         })
+
+        presentToast(`Added: ${addedModelNames.join(", ")} to forcelist`);
         
         setForceModelsData(newForceData);
     }
 
     function removeModelCard(id) {
+        
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         if(index !== -1) {
             let newForceData = forceModelsData;

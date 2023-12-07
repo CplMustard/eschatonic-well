@@ -22,10 +22,6 @@ function ForceCardList(props) {
         allGroups.push(key);
     });
 
-    useEffect(() => {
-        expandAll();
-    }, []);
-
     const accordionGroup = useRef(null);
     const collapseAll = () => {
         if (!accordionGroup.current) {
@@ -45,6 +41,9 @@ function ForceCardList(props) {
         nativeEl.value = allGroups;
     };
 
+    useEffect(() => {
+        expandAll();
+    }, [expandAll]);
     
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
