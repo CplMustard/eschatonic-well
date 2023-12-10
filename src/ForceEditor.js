@@ -246,16 +246,23 @@ function ForceEditor(props) {
 
     function canSpecialIssueSwap(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
-        const modelType = forceModelsData[index].type
+        const modelType = forceModelsData[index].type;
         return isCardUnremovable(id) || specialIssueModelsData.filter((forceModel) => forceModel.type === modelType).length !== 0;
     }
 
-    function updateModelHardPoint(modelsData, setModelsData, option, type, point_cost, hardPointIndex, id) {
-        const index = modelsData.findIndex((forceModel) => forceModel.id === id);
-        const entry = modelsData[index]
+    function updateModelHardPoint(forceData, setModelsData, option, type, point_cost, hardPointIndex, id) {
+        const index = forceData.findIndex((forceModel) => forceModel.id === id);
+        const entry = forceData[index];
         const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
         const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, subtypes: entry.subtypes, canRemove: entry.canRemove, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
-        setModelsData([...modelsData.slice(0, index), forceEntry, ...modelsData.slice(index + 1)]);
+        setModelsData([...forceData.slice(0, index), forceEntry, ...forceData.slice(index + 1)]);
+    }
+
+    function getFAText(forceData, modelId) {
+        const modelData = modelsData[modelId];
+        const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
+        const fa = modelData.fa ? modelData.fa : defaultFA;
+        return `(${modelCount(forceData, modelId)}/${fa})`
     }
 
     return (
@@ -287,7 +294,8 @@ function ForceEditor(props) {
                 cards={models} 
                 hideHiddenTypes={true} 
                 handleCardClicked={openModelCard} 
-                cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
+                faText={(id) => getFAText(forceModelsData, id)}
+                cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA(forceModelsData, id)}]}
             ></CardList>
         </>
     );

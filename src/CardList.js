@@ -4,7 +4,7 @@ import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, I
 import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
-    const { cards, header, hideHiddenTypes, handleCardClicked, cardActions } = props;
+    const { cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
@@ -66,6 +66,7 @@ function CardList(props) {
                                     <div className="button-inner">
                                         <div className="button-text">{card.name}</div>
                                     </div>
+                                    <span className="button-fa">{faText(card.id)}</span>
                                 </IonButton>
                             </IonCol>
                             {cardActionButtons}

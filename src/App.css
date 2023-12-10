@@ -46,6 +46,13 @@ body {
 
 .button-text {
 	width: 10rem;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
+	text-overflow: ellipsis;
+}
+
+.button-fa {
+	padding: 1rem 0.5rem;
+	margin-top: -1rem;
+	margin-right: -1rem;
+	margin-bottom: -1rem;
+	background-color: rgba(45, 48, 47, 0.7);
 }
