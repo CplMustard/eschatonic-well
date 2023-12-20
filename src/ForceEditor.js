@@ -160,7 +160,7 @@ function ForceEditor(props) {
     }
 
     function openModelCard(modelId, entryId) {
-        history.push(`/model/${modelId}`, {state: { entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 }});
+        history.push(`/model/${modelId}`, { entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function addModelCards(modelIds) {
