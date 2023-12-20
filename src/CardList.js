@@ -66,7 +66,7 @@ function CardList(props) {
                                     <div className="button-inner">
                                         <div className="button-text">{card.name}</div>
                                     </div>
-                                    <span className="button-fa">{faText(card.id)}</span>
+                                    {faText && <span className="button-fa">{faText(card.id)}</span>}
                                 </IonButton>
                             </IonCol>
                             {cardActionButtons}
