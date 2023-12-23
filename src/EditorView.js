@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
+import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useStorage } from "./util/useStorage";
@@ -21,6 +21,8 @@ const forcesExtension = ".esch";
 const editorTabs = {force: 0, rack: 1, cards: 2}
 
 function EditorView() {
+    
+    const [presentAlert] = useIonAlert();
 
     const [tabSelected, setTabSelected] = useStorage("tabSelected", editorTabs.force, sessionStorage);
     
@@ -58,6 +60,28 @@ function EditorView() {
     function changeFaction(id) {
         setFactionId(id);
         clearForce();
+    }
+
+    function changeFactionConfirm(id) {
+        if(factionId !== id) {
+            presentAlert({
+                header: 'Change Faction?',
+                message: 'Changing faction will clear your force',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {},
+                    },
+                    {
+                        text: 'OK',
+                        role: 'confirm',
+                        handler: () => changeFaction(id),
+                    },
+                ],
+                onDidDismiss: () => {}
+            })
+        }
     }
 
     function changeForceSize(forceSizeId) {
@@ -180,14 +204,14 @@ function EditorView() {
     return (
         <IonPage>
             <IonContent>
-                <LoadForceModal trigger={"open-modal"} loadForceButtons={loadForceButtons}></LoadForceModal>
-                <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+                <LoadForceModal trigger={"open-load-modal"} loadForceButtons={loadForceButtons}></LoadForceModal>
+                <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
                 <IonGrid>
                     <IonRow>
                         <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                        <IonCol><IonButton expand="full" disabled={loadForceButtons.length === 0} id="open-modal">LOAD</IonButton></IonCol>
+                        <IonCol><IonButton expand="full" disabled={loadForceButtons.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {
                             clearForce();
