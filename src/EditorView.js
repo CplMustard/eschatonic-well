@@ -57,12 +57,12 @@ function EditorView() {
         );
     }, [forcesDirty])
     
-    function changeFaction(id) {
+    const changeFaction = (id) => {
         setFactionId(id);
         clearForce();
     }
 
-    function changeFactionConfirm(id) {
+    const changeFactionConfirm = (id) => {
         if(factionId !== id) {
             presentAlert({
                 header: 'Change Faction?',
@@ -80,22 +80,22 @@ function EditorView() {
                     },
                 ],
                 onDidDismiss: () => {}
-            })
+            });
         }
     }
 
-    function changeForceSize(forceSizeId) {
+    const changeForceSize = (forceSizeId) => {
         setForceSize(forceSizesData[forceSizeId]);
     }
 
-    function clearForce() {
+    const clearForce = () => {
         setForceModelsData([]);
         setForceCyphersData([]);
         setSpecialIssueModelsData([]);
         setSpecialIssueCyphersData([]);
     }
 
-    function clearForceConfirm() {
+    const clearForceConfirm = () => {
         presentAlert({
             header: 'Clear Force?',
             message: 'This action will clear your force',
@@ -115,7 +115,7 @@ function EditorView() {
                 },
             ],
             onDidDismiss: () => {}
-        })
+        });
     }
 
     const createForcesDir = async () => {
@@ -171,6 +171,33 @@ function EditorView() {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    const saveForceConfirm = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
+        let overwriteWarning = false;
+        const sanitizedForceName = sanitize(forceName);
+        await listForces().then((result) => {
+            if(result && result.files) {
+                overwriteWarning = result.files.find((file) => file.name.replace(forcesExtension, "") === sanitizedForceName);
+            }
+        });
+        presentAlert({
+            header: 'Save Force?',
+            message: overwriteWarning ? `Overwrite the force saved as ${sanitizedForceName}?` : `Save current force as ${sanitizedForceName}?`,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {},
+                },
+                {
+                    text: 'OK',
+                    role: 'confirm',
+                    handler: () => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);},
+                },
+            ],
+            onDidDismiss: () => {}
+        });
     }
 
     const loadForce = async (filename) => {
@@ -230,10 +257,10 @@ function EditorView() {
                 <LoadForceModal trigger={"open-load-modal"} loadForceButtons={loadForceButtons}></LoadForceModal>
                 <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-                <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(e.target.value)}/></h2></IonText>
+                <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                 <IonGrid>
                     <IonRow>
-                        <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
+                        <IonCol><IonButton expand="full" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
                         <IonCol><IonButton expand="full" disabled={loadForceButtons.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
