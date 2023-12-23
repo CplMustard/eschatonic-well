@@ -95,6 +95,29 @@ function EditorView() {
         setSpecialIssueCyphersData([]);
     }
 
+    function clearForceConfirm() {
+        presentAlert({
+            header: 'Clear Force?',
+            message: 'This action will clear your force',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {},
+                },
+                {
+                    text: 'OK',
+                    role: 'confirm',
+                    handler: () => {
+                        setForceName("New Force");
+                        clearForce();
+                    },
+                },
+            ],
+            onDidDismiss: () => {}
+        })
+    }
+
     const createForcesDir = async () => {
         try {
             listForces();
@@ -213,10 +236,7 @@ function EditorView() {
                         <IonCol><IonButton expand="full" onClick={() => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
                         <IonCol><IonButton expand="full" disabled={loadForceButtons.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
-                        <IonCol><IonButton expand="full" onClick={() => {
-                            clearForce();
-                            setForceName("New Force");
-                        }}><div>CLEAR ALL</div></IonButton></IonCol>
+                        <IonCol><IonButton expand="full" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
                     </IonRow>
                     <IonRow>
                         <IonCol size={"auto"}>
