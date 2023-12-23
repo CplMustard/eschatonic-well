@@ -17,10 +17,7 @@ function ForceCardList(props) {
         return memo;
     }, {});
 
-    const allGroups = [];
-    Object.entries(forceGroups).forEach(([key, value]) => {
-        allGroups.push(key);
-    });
+    const allGroups = Object.keys(forceGroups);
 
     const accordionGroup = useRef(null);
     const collapseAll = () => {

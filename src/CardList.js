@@ -14,10 +14,7 @@ function CardList(props) {
         return memo;
     }, {});
     
-    const allGroups = [];
-    Object.entries(cardGroups).forEach(([key, value]) => {
-        allGroups.push(key);
-    });
+    const allGroups = Object.keys(cardGroups);
 
     const accordionGroup = useRef(null);
     const collapseAll = () => {
@@ -46,7 +43,7 @@ function CardList(props) {
         const typeParts = key.split("|");
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && !modelTypesData[typeParts[0]].hidden)) {
             const cardComponents = []
-            value.forEach((card, index) => {
+            value.sort((a, b) => a.name > b.name).forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
