@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from '@ionic/react';
 
-import './App.css';
-
 import CardList from './CardList';
 import Cortex from './Cortex';
 import HardPointList from './HardPointList';
