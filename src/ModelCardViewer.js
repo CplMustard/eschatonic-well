@@ -32,8 +32,8 @@ function ModelCardViewer(props) {
 
         if(location.state && location.state.entryId) {
             const saved = localStorage.getItem(location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData");
-            const modelsData = JSON.parse(saved);
-            const entry = modelsData.find((entry) => entry.id === location.state.entryId);
+            const forceModelsData = JSON.parse(saved);
+            const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
             if(entry && entry.hardPointOptions) {
                 setHardPointOptions(entry.hardPointOptions);
             }
