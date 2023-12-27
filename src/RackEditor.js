@@ -77,10 +77,10 @@ function RackEditor(props) {
                 handleCardClicked={openCypherCard} 
                 cardActions={[
                     {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
-                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isHidden: canSpecialIssueSwap}
+                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isDisabled: canSpecialIssueSwap}
                 ]}
             ></ForceCardList>
-
+            {forceCyphersData.length !== 0 && <><hr/><br/></>}
             <ForceCardList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueCyphersData} 
@@ -89,7 +89,7 @@ function RackEditor(props) {
                     {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
                 ]}
             ></ForceCardList>
-
+            {specialIssueCyphersData.length !== 0 && <><hr/><br/></>}
             <CardList 
                 header={"Cyphers"} 
                 cards={remainingCypherCardList} 

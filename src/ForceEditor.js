@@ -277,7 +277,7 @@ function ForceEditor(props) {
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceCardList>
-
+            {forceModelsData.length !== 0 && <><hr/><br/></>}
             <ForceCardList 
                 header={"Special Issue"} 
                 forceEntries={specialIssueModelsData} 
@@ -287,8 +287,9 @@ function ForceEditor(props) {
                 ]} 
                 updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
             ></ForceCardList>
-
+            {specialIssueModelsData.length !== 0 && <><hr/><br/></>}
             <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
+            <br/>
             <CardList 
                 header={"Models"} 
                 cards={models} 

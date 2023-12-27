@@ -95,12 +95,14 @@ function ForceCardList(props) {
         </IonItemGroup>);
     })
     return <>
-        {forceEntries.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
-        <IonButton fill="outline" onClick={() => {collapseAll()}}><div>COLLAPSE ALL</div></IonButton>
-        <IonButton fill="outline" onClick={() => {expandAll()}}><div>EXPAND ALL</div></IonButton>
-        <IonAccordionGroup ref={accordionGroup} multiple={true}>
-            <IonList>{forceGroupComponents}</IonList>
-        </IonAccordionGroup></>}
+        {forceEntries.length !== 0 && <>
+            <IonLabel color="primary"><h1>{header}</h1></IonLabel>
+            <IonButton fill="outline" onClick={() => {collapseAll()}}><div>COLLAPSE ALL</div></IonButton>
+            <IonButton fill="outline" onClick={() => {expandAll()}}><div>EXPAND ALL</div></IonButton>
+            <IonAccordionGroup ref={accordionGroup} multiple={true}>
+                <IonList>{forceGroupComponents}</IonList>
+            </IonAccordionGroup>
+        </>}
     </>
 }
 

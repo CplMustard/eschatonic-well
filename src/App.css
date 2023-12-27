@@ -39,6 +39,11 @@ body {
 	color: #bf909f;
 }
 
+hr {
+	width: 80%;
+	color: #bf909f;
+}
+
 .button-inner {
 	text-align: left;
 	width: 100%;
