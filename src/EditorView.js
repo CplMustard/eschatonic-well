@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from '@ionic/react';
+import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonViewWillEnter } from '@ionic/react';
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useStorage } from "./util/useStorage";
@@ -38,6 +38,14 @@ function EditorView() {
     const [forcesDirty, setForcesDirty] = useState(true);
     const [loadForceButtons, setLoadForceButtons] = useState([]);
 
+    //Ensure that model loadouts are kept updated even if they're changed from other pages
+    useIonViewWillEnter(() => {
+        setForceModelsData(JSON.parse(localStorage.getItem("forceModelsData")));
+        setForceCyphersData(JSON.parse(localStorage.getItem("forceCyphersData")));
+        setSpecialIssueModelsData(JSON.parse(localStorage.getItem("specialIssueModelsData")));
+        setSpecialIssueCyphersData(JSON.parse(localStorage.getItem("specialIssueCyphersData")));
+    });
+
     useEffect(() => {
         createForcesDir().then(() => 
             listForces().then((result) => {
@@ -55,7 +63,7 @@ function EditorView() {
                 }
             })
         );
-    }, [forcesDirty])
+    }, [forcesDirty]);
     
     const changeFaction = (id) => {
         setFactionId(id);
