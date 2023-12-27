@@ -36,7 +36,7 @@ function EditorView() {
     const [specialIssueCyphersData, setSpecialIssueCyphersData] = useStorage("specialIssueCyphersData", [], localStorage);
 
     const [forcesDirty, setForcesDirty] = useState(true);
-    const [loadForceButtons, setLoadForceButtons] = useState([]);
+    const [forceFiles, setForceFiles] = useState([]);
 
     //Ensure that model loadouts are kept updated even if they're changed from other pages
     useIonViewWillEnter(() => {
@@ -50,15 +50,7 @@ function EditorView() {
         createForcesDir().then(() => 
             listForces().then((result) => {
                 if(forcesDirty && result) {
-                    const newLoadForceButtons = [];
-                    result.files.forEach((file, index) => {
-                        const forceName = file.name.replace(forcesExtension, "");
-                        newLoadForceButtons.push(<IonRow key={index}>
-                            <IonCol><IonButton expand="full" onClick={() => loadForce(file.name)}><div>{forceName}</div></IonButton></IonCol>
-                            <IonCol size="auto"><IonButton expand="full" onClick={() => deleteForce(file.name)}>DELETE</IonButton></IonCol>
-                        </IonRow>);
-                        setLoadForceButtons(newLoadForceButtons);
-                    });
+                    setForceFiles(result.files);
                     setForcesDirty(false);
                 }
             })
@@ -217,7 +209,6 @@ function EditorView() {
             });
             
             const json = JSON.parse(result.data);
-            //modal.current?.dismiss("", 'confirm');
             setForceName(json.forceName);
             setFactionId(json.factionId);
             setForceSize(json.forceSize);
@@ -237,10 +228,6 @@ function EditorView() {
                 directory: Directory.Data,
             });
             setForcesDirty(true);
-            // For some reason we need to clear out the buttons if it's the last force being deleted
-            if((await listForces()).files.length === 0) {
-                setLoadForceButtons([]);
-            }
             return result;
         } catch (e) {
             console.log(e);
@@ -262,14 +249,14 @@ function EditorView() {
     return (
         <IonPage>
             <IonContent>
-                <LoadForceModal trigger={"open-load-modal"} loadForceButtons={loadForceButtons}></LoadForceModal>
+                <LoadForceModal trigger={"open-load-modal"} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                 <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
                 <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                 <IonGrid>
                     <IonRow>
                         <IonCol><IonButton expand="full" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                        <IonCol><IonButton expand="full" disabled={loadForceButtons.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
+                        <IonCol><IonButton expand="full" disabled={forceFiles.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
                         <IonCol><IonButton expand="full" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
                     </IonRow>
