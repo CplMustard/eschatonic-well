@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonIcon } from '@ionic/react';
+import { IonIcon, useIonToast } from '@ionic/react';
 import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
@@ -13,8 +13,17 @@ const cypherTypeMin = 3;
 
 function RackEditor(props) {
     const history = useHistory();
+    const [present] = useIonToast();
 
     const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
+
+    const presentToast = (message) => {
+        present({
+            message: message,
+            duration: 1500,
+            position: 'bottom',
+        });
+    };
 
     const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
 
@@ -28,19 +37,27 @@ function RackEditor(props) {
 
     function addCypherCards(cypherIds) {
         let newForceCyphersData = forceCyphersData;
+        const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount(newForceCyphersData, cypherId) === 0) {
                 const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name};
                 newForceCyphersData = newForceCyphersData.concat(cypherEntry);
+                addedCypherNames.push(cyphersData[cypherId].name);
             }
         });
+
+        presentToast(`Added ${addedCypherNames.join(", ")} to rack`);
+
         setForceCyphersData(newForceCyphersData);
     }
 
     function removeCypherCard(id) {
         const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         if(index !== -1) {
+            const removedCypherName = forceCyphersData[index].name;
             setForceCyphersData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
+            
+            presentToast(`Removed ${removedCypherName} from rack`);
         }
     }
 
