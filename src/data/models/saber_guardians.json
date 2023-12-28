@@ -4,7 +4,7 @@
     "factions": ["emp"],
     "type": "squad",
     "stats": {
-        "dc": 3,
+        "dc": 2,
         "base_size": 30,
         "spd": 4,
         "mat": 3,

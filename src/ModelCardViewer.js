@@ -54,7 +54,7 @@ function ModelCardViewer(props) {
     }
 
     function CardHeader(props) {
-        const { name, type, subtypes, factions } = props;
+        const { name, type, subtypes, factions, dc, boxes, base_size, squad_size } = props;
         const factionNames = [];
         const subtypeNames = [];
         factions.forEach((faction) => factionNames.push(factionsData[faction].name))
@@ -67,25 +67,25 @@ function ModelCardViewer(props) {
                 <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
+                {dc && <IonText color="tertiary"><h2>Deployment Cost: {dc}</h2></IonText>}
+                {base_size && <IonText><IonText><h3>Base Size: {base_size}</h3></IonText></IonText>}
+                {squad_size && <IonText><IonText><h3>Squad Size: {squad_size}</h3></IonText></IonText>}
+                {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
             </IonCardSubtitle>
         </IonCardHeader>
     }
 
     function HitBoxes(props) {
         const { boxes, squad_size } = props
-        return <IonCol>
-            <IonText>
-                <h1>BOXES</h1>
-                <h1>
-                    {!isNaN(boxes)
-                        ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
-                            ? [...Array(squad_size)].map((e, i) => <><h4 key={i}>Model {i+1}</h4>{[...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)}</>)
-                            : [...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)
-                        : boxes
-                    }
-                </h1>
-            </IonText>
-        </IonCol>;
+        return <IonText>
+            <h3>Boxes:</h3>
+            {!isNaN(boxes)
+                ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
+                    ? [...Array(squad_size)].map((e, i) => <h3 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)}</h3>)
+                    : [...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)
+                : <h3>{boxes}</h3>
+            }
+        </IonText>;
     }
 
     function Statline(props) {
@@ -93,17 +93,13 @@ function ModelCardViewer(props) {
         console.log(!isNaN(boxes))
         return <IonGrid fixed="true">
             <IonRow class="ion-justify-content-start">
-                {spd && <IonCol><IonText><h1>SPD</h1><h1>{spd}</h1></IonText></IonCol>}
-                {str && <IonCol><IonText><h1>STR</h1><h1>{str}</h1></IonText></IonCol>}
-                {mat && <IonCol><IonText><h1>MAT</h1><h1>{mat}</h1></IonText></IonCol>}
-                {rat && <IonCol><IonText><h1>RAT</h1><h1>{rat}</h1></IonText></IonCol>}
-                {def && <IonCol><IonText><h1>DEF</h1><h1>{def}</h1></IonText></IonCol>}
-                {arm && <IonCol><IonText><h1>ARM</h1><h1>{arm}</h1></IonText></IonCol>}
-                {foc && <IonCol><IonText><h1>FOC</h1><h1>{foc}</h1></IonText></IonCol>}
-                {base_size && <IonCol><IonText><h1>BASE SIZE</h1><h1>{base_size}</h1></IonText></IonCol>}
-                {squad_size && <IonCol><IonText><h1>SQUAD SIZE</h1><h1>{squad_size}</h1></IonText></IonCol>}
-                {dc && <IonCol><IonText><h1>DC</h1><h1>{dc}</h1></IonText></IonCol>}
-                {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
+                {spd && <IonCol size="auto"><IonText><h1>SPD</h1><h1>{spd}</h1></IonText></IonCol>}
+                {str && <IonCol size="auto"><IonText><h1>STR</h1><h1>{str}</h1></IonText></IonCol>}
+                {mat && <IonCol size="auto"><IonText><h1>MAT</h1><h1>{mat}</h1></IonText></IonCol>}
+                {rat && <IonCol size="auto"><IonText><h1>RAT</h1><h1>{rat}</h1></IonText></IonCol>}
+                {def && <IonCol size="auto"><IonText><h1>DEF</h1><h1>{def}</h1></IonText></IonCol>}
+                {arm && <IonCol size="auto"><IonText><h1>ARM</h1><h1>{arm}</h1></IonText></IonCol>}
+                {foc && <IonCol size="auto"><IonText><h1>FOC</h1><h1>{foc}</h1></IonText></IonCol>}
             </IonRow>
         </IonGrid> 
     }
@@ -149,7 +145,7 @@ function ModelCardViewer(props) {
                 </IonHeader>
                 <IonContent>
                     <IonCard>
-                        <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} />
+                        <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} dc={stats.dc} boxes={stats.boxes} base_size={stats.base_size} squad_size={stats.squad_size} />
                         <IonCardContent>
                             <Statline stats={stats} />
                             {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)}/>}

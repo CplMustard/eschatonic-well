@@ -5,7 +5,7 @@
     "type": "warjack",
     "weapon_points": 8,
     "stats": {
-        "dc": 2,
+        "dc": 4,
         "base_size": 50,
         "spd": 6,
         "str": 5,
