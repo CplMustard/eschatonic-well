@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonText, IonItem, IonLabel, IonList } from '@ionic/react';
+import { IonText, IonItem, IonList } from '@ionic/react';
 
 import { specialRulesData } from './data';
 

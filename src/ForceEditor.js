@@ -7,8 +7,9 @@ import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
 import CardList from './CardList';
 import ForceCardList from './ForceCardList.js';
 
+import { isHidden } from './util/isHidden.js';
+
 import { cadresData,  modelsData, weaponsData } from './data';
-import isHidden from './util/isHidden.js';
 import CadreList from './CadreList';
 
 const voidGateId = "void_gate";

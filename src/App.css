@@ -61,3 +61,7 @@ hr {
 	margin-bottom: -1rem;
 	background-color: rgba(45, 48, 47, 0.7);
 }
+
+ion-text {
+	white-space: pre-wrap !important;
+}

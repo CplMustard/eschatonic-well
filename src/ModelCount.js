@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonText} from '@ionic/react';
 
-import isHidden from './util/isHidden.js';
+import { isHidden } from './util/isHidden.js';
 
 function ModelCount(props) {
     const {models, maxUnits, freeHeroSolos} = props;
