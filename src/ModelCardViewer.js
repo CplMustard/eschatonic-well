@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory, useParams } from "react-router-dom";
-import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from '@ionic/react';
+import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader, IonCheckbox, IonLabel } from '@ionic/react';
 
 import CardList from './CardList';
 import Cortex from './Cortex';
@@ -71,8 +71,26 @@ function ModelCardViewer(props) {
         </IonCardHeader>
     }
 
+    function HitBoxes(props) {
+        const { boxes, squad_size } = props
+        return <IonCol>
+            <IonText>
+                <h1>BOXES</h1>
+                <h1>
+                    {!isNaN(boxes)
+                        ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
+                            ? [...Array(squad_size)].map((e, i) => <><h4 key={i}>Model {i+1}</h4>{[...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)}</>)
+                            : [...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)
+                        : boxes
+                    }
+                </h1>
+            </IonText>
+        </IonCol>;
+    }
+
     function Statline(props) {
         const { spd, str, mat, rat, def, arm, foc, base_size, squad_size, dc, boxes } = props.stats;
+        console.log(!isNaN(boxes))
         return <IonGrid fixed="true">
             <IonRow class="ion-justify-content-start">
                 {spd && <IonCol><IonText><h1>SPD</h1><h1>{spd}</h1></IonText></IonCol>}
@@ -85,7 +103,7 @@ function ModelCardViewer(props) {
                 {base_size && <IonCol><IonText><h1>BASE SIZE</h1><h1>{base_size}</h1></IonText></IonCol>}
                 {squad_size && <IonCol><IonText><h1>SQUAD SIZE</h1><h1>{squad_size}</h1></IonText></IonCol>}
                 {dc && <IonCol><IonText><h1>DC</h1><h1>{dc}</h1></IonText></IonCol>}
-                {boxes && <IonCol><IonText><h1>BOXES</h1><h1>{boxes}</h1></IonText></IonCol>}
+                {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
             </IonRow>
         </IonGrid> 
     }
