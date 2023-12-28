@@ -33,7 +33,7 @@ function SpecialRule(props) {
         return (
             <div>
                 <div>
-                    <IonText style={{fontWeight: "bold"}}>{ruleTitleString}</IonText><IonText><div>{ruleString}</div></IonText>
+                    <IonText style={{fontWeight: "bold"}}>{ruleTitleString}</IonText><IonText><div className="rules-text">{ruleString}</div></IonText>
                 </div>
                 {subrules && <div><IonList>{subruleEntries}</IonList></div>}
             </div>

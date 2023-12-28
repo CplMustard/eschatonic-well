@@ -20,7 +20,7 @@ function Maneuver(props) {
     } else {
         return (
             <div>
-                <IonText><IonLabel>{maneuverData.name}:</IonLabel>{maneuverData.text}</IonText>
+                <IonText style={{fontWeight: "bold"}}>{maneuverData.name}:</IonText><IonText><div className="rules-text">{maneuverData.text}</div></IonText>
             </div>
         );
     }
