@@ -66,6 +66,10 @@ hr {
 	margin-left: 1rem;
 }
 
+.statline-value {
+	text-align: center;
+}
+
 ion-text {
 	white-space: pre-wrap !important;
 }

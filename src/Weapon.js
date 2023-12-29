@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonText, IonList, IonGrid, IonCol, IonRow, IonHeader } from '@ionic/react';
+import { IonText, IonList, IonGrid, IonCol, IonRow, IonItem } from '@ionic/react';
 
 import SpecialRuleList from './SpecialRuleList';
 
@@ -22,22 +22,22 @@ function Weapon(props) {
         
         const damageTypeNames = [];
         damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name))
-        return <>
-            <IonHeader color="primary">
-                <h1>{weaponTypeNames[type]}</h1>
-                <h1>{name}</h1>
-            </IonHeader>
-            <IonGrid>
-                {rng && pow && <IonRow class="ion-justify-content-start">
-                    {damageTypeNames && <IonCol size="auto"><IonText><h1>DAMAGE TYPES</h1><h1>{damageTypeNames.join(", ")}</h1></IonText></IonCol>}
-                    {rng && <IonCol size="auto"><IonText><h1>RNG</h1><h1>{rng}</h1></IonText></IonCol>}
-                    {pow && <IonCol size="auto"><IonText><h1>POW</h1><h1>{pow}</h1></IonText></IonCol>}
-                </IonRow>}
-                {special_rules && <IonRow>
-                    <SpecialRuleList special_rules={special_rules}/>
-                </IonRow>}
-            </IonGrid>
-        </>
+        return <IonItem>
+            <div>
+                <IonText color="primary"><h2>{weaponTypeNames[type]}</h2></IonText>
+                <IonText color="primary"><h1>{name}</h1></IonText>
+                {damageTypeNames && <IonText color="tertiary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
+                <IonGrid>
+                    {(rng || pow) && <IonRow>
+                        {rng && <IonCol size="auto"><IonText color="secondary"><h1>RNG</h1><h1 className="statline-value">{rng}</h1></IonText></IonCol>}
+                        {pow && <IonCol size="auto"><IonText color="secondary"><h1>POW</h1><h1 className="statline-value">{pow}</h1></IonText></IonCol>}
+                    </IonRow>}
+                    {special_rules && <IonRow>
+                        <SpecialRuleList special_rules={special_rules}/>
+                    </IonRow>}
+                </IonGrid>
+            </div>
+        </IonItem>
     }
 
     if (error) {
@@ -63,11 +63,7 @@ function Weapon(props) {
                 }
             }, [weaponData.name])
         } 
-        return (
-            <div>
-                <IonList>{weaponStatlineComponents}</IonList>
-            </div>
-        );
+        return <IonList>{weaponStatlineComponents}</IonList>;
     }
 }
 

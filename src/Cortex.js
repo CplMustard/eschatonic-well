@@ -23,8 +23,8 @@ function Cortex(props) {
         const { special_rules, name } = cortexData;
         return (
             <div>
-                <IonText color="primary"><h3>Cortex:</h3></IonText>
-                <IonText color="primary"><h3>{name}</h3></IonText>
+                <IonText color="primary"><h2>Cortex:</h2></IonText>
+                <IonText color="primary"><h2>{name}</h2></IonText>
                 {special_rules && <SpecialRuleList special_rules={special_rules}/>}
             </div>
         );

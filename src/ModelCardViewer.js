@@ -93,13 +93,13 @@ function ModelCardViewer(props) {
         console.log(!isNaN(boxes))
         return <IonGrid>
             <IonRow class="ion-justify-content-start">
-                {spd && <IonCol size="auto"><IonText><h1>SPD</h1><h1>{spd}</h1></IonText></IonCol>}
-                {str && <IonCol size="auto"><IonText><h1>STR</h1><h1>{str}</h1></IonText></IonCol>}
-                {mat && <IonCol size="auto"><IonText><h1>MAT</h1><h1>{mat}</h1></IonText></IonCol>}
-                {rat && <IonCol size="auto"><IonText><h1>RAT</h1><h1>{rat}</h1></IonText></IonCol>}
-                {def && <IonCol size="auto"><IonText><h1>DEF</h1><h1>{def}</h1></IonText></IonCol>}
-                {arm && <IonCol size="auto"><IonText><h1>ARM</h1><h1>{arm}</h1></IonText></IonCol>}
-                {foc && <IonCol size="auto"><IonText><h1>FOC</h1><h1>{foc}</h1></IonText></IonCol>}
+                {spd && <IonCol size="auto"><IonText color="secondary"><h1>SPD</h1><h1 className="statline-value">{spd}</h1></IonText></IonCol>}
+                {str && <IonCol size="auto"><IonText color="secondary"><h1>STR</h1><h1 className="statline-value">{str}</h1></IonText></IonCol>}
+                {mat && <IonCol size="auto"><IonText color="secondary"><h1>MAT</h1><h1 className="statline-value">{mat}</h1></IonText></IonCol>}
+                {rat && <IonCol size="auto"><IonText color="secondary"><h1>RAT</h1><h1 className="statline-value">{rat}</h1></IonText></IonCol>}
+                {def && <IonCol size="auto"><IonText color="secondary"><h1>DEF</h1><h1 className="statline-value">{def}</h1></IonText></IonCol>}
+                {arm && <IonCol size="auto"><IonText color="secondary"><h1>ARM</h1><h1 className="statline-value">{arm}</h1></IonText></IonCol>}
+                {foc && <IonCol size="auto"><IonText color="secondary"><h1>FOC</h1><h1 className="statline-value">{foc}</h1></IonText></IonCol>}
             </IonRow>
         </IonGrid> 
     }

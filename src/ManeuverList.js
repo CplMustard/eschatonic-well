@@ -8,7 +8,7 @@ function ManeuverList(props) {
     props.maneuvers.forEach((maneuverId, index) =>
         maneuverComponents.push(<IonItem key={index}><Maneuver maneuverId={maneuverId} /></IonItem>)
     )
-    return <><IonText color="primary"><h3>{props.header}</h3></IonText><IonList>{maneuverComponents}</IonList></>;
+    return <><IonText color="primary"><h2>{props.header}</h2></IonText><IonList>{maneuverComponents}</IonList></>;
 }
 
 export default ManeuverList;
