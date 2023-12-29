@@ -69,7 +69,7 @@ function ModelCardViewer(props) {
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
                 {dc && <IonText color="tertiary"><h2>Deployment Cost: {dc}</h2></IonText>}
-                {base_size && <IonText color="tertiary"><h3>Base Size: {base_size}mm</h3></IonText>}
+                {base_size && <IonText color="tertiary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
                 {squad_size && <IonText color="tertiary"><h3>Squad Size: {squad_size}</h3></IonText>}
                 {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
             </IonCardSubtitle>
