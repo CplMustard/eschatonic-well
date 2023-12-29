@@ -1,5 +1,5 @@
 {
     "id": "vortex_capacitor",
     "name": "Vortex Capacitor",
-    "text": " When this model destroys an enemy model that was charged with a melee attack, you can immediately charge this model after the attack is resolved if this model was not already charged." 
+    "text": "When this model destroys an enemy model that was charged with a melee attack, you can immediately charge this model after the attack is resolved if this model was not already charged." 
 }
