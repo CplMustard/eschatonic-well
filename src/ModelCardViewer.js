@@ -89,9 +89,9 @@ function ModelCardViewer(props) {
     }
 
     function Statline(props) {
-        const { spd, str, mat, rat, def, arm, foc, base_size, squad_size, dc, boxes } = props.stats;
+        const { spd, str, mat, rat, def, arm, foc, boxes } = props.stats;
         console.log(!isNaN(boxes))
-        return <IonGrid fixed="true">
+        return <IonGrid>
             <IonRow class="ion-justify-content-start">
                 {spd && <IonCol size="auto"><IonText><h1>SPD</h1><h1>{spd}</h1></IonText></IonCol>}
                 {str && <IonCol size="auto"><IonText><h1>STR</h1><h1>{str}</h1></IonText></IonCol>}

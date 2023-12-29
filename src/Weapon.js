@@ -27,7 +27,7 @@ function Weapon(props) {
                 <h1>{weaponTypeNames[type]}</h1>
                 <h1>{name}</h1>
             </IonHeader>
-            <IonGrid fixed="true">
+            <IonGrid>
                 {rng && pow && <IonRow class="ion-justify-content-start">
                     {damageTypeNames && <IonCol size="auto"><IonText><h1>DAMAGE TYPES</h1><h1>{damageTypeNames.join(", ")}</h1></IonText></IonCol>}
                     {rng && <IonCol size="auto"><IonText><h1>RNG</h1><h1>{rng}</h1></IonText></IonCol>}
