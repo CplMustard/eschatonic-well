@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory, useParams } from "react-router-dom";
-import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader, IonCheckbox, IonLabel } from '@ionic/react';
+import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader, IonCheckbox, IonIcon } from '@ionic/react';
+import { skull, skullOutline } from 'ionicons/icons';
 
 import CardList from './CardList';
 import Cortex from './Cortex';
@@ -62,14 +63,14 @@ function ModelCardViewer(props) {
             subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name))
         }
         return <IonCardHeader>
-            <IonCardTitle color="primary"><h1>{name}</h1></IonCardTitle>
+            <IonCardTitle color="primary"><h1 style={{margin: 0}}>{name}</h1></IonCardTitle>
             <IonCardSubtitle>
                 <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
                 {dc && <IonText color="tertiary"><h2>Deployment Cost: {dc}</h2></IonText>}
-                {base_size && <IonText><IonText><h3>Base Size: {base_size}</h3></IonText></IonText>}
-                {squad_size && <IonText><IonText><h3>Squad Size: {squad_size}</h3></IonText></IonText>}
+                {base_size && <IonText color="tertiary"><h3>Base Size: {base_size}mm</h3></IonText>}
+                {squad_size && <IonText color="tertiary"><h3>Squad Size: {squad_size}</h3></IonText>}
                 {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
             </IonCardSubtitle>
         </IonCardHeader>
@@ -77,20 +78,19 @@ function ModelCardViewer(props) {
 
     function HitBoxes(props) {
         const { boxes, squad_size } = props
-        return <IonText>
-            <h3>Boxes:</h3>
+        return <IonText color="secondary">
+            <h2>Boxes:</h2>
             {!isNaN(boxes)
                 ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
-                    ? [...Array(squad_size)].map((e, i) => <h3 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)}</h3>)
-                    : [...Array(boxes)].map((e, i) => <IonCheckbox key={i} alignment="start" disabled={true}></IonCheckbox>)
+                    ? [...Array(squad_size)].map((e, i) => <h2 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)}</h2>)
+                    : [...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)
                 : <h3>{boxes}</h3>
             }
         </IonText>;
     }
 
     function Statline(props) {
-        const { spd, str, mat, rat, def, arm, foc, boxes } = props.stats;
-        console.log(!isNaN(boxes))
+        const { spd, str, mat, rat, def, arm, foc } = props.stats;
         return <IonGrid>
             <IonRow class="ion-justify-content-start">
                 {spd && <IonCol size="auto"><IonText color="secondary"><h1>SPD</h1><h1 className="statline-value">{spd}</h1></IonText></IonCol>}
@@ -145,7 +145,7 @@ function ModelCardViewer(props) {
                 </IonHeader>
                 <IonContent>
                     <IonCard>
-                        <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} dc={stats.dc} boxes={stats.boxes} base_size={stats.base_size} squad_size={stats.squad_size} />
+                        <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} dc={stats.dc} boxes={stats.boxes} base_size={stats.base_size} squad_size={stats.squad_size} /><hr/>
                         <IonCardContent>
                             <Statline stats={stats} />
                             {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)}/>}

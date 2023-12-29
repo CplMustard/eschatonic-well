@@ -37,10 +37,11 @@
 
 body {
 	color: #bf909f;
+	margin: 0;
 }
 
 hr {
-	width: 80%;
+	margin: 0 1rem;
 	color: #bf909f;
 }
 
