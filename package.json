@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.4",
     "electron": "^25.5.0",
     "electron-builder": "^24.6.3"
   }
