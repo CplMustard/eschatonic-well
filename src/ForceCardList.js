@@ -1,9 +1,11 @@
 import React, { useEffect, useRef }  from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
+import { cardSorting, groupSorting } from './util/sortingUtil';
+
 import HardPointList from './HardPointList';
 
-import { cypherTypesData, modelTypesData } from './data'
+import { cypherTypesData, modelTypesData } from './data';
 
 function ForceCardList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
@@ -42,9 +44,10 @@ function ForceCardList(props) {
         expandAll();
     }, [expandAll]);
     
-    Object.entries(forceGroups).sort().forEach(([key, value]) => {
+    Object.entries(forceGroups).sort(groupSorting).forEach(([key, value]) => {
         const entryComponents = [];
-        value.sort((a, b) => a.factions.length < b.factions.length || a.factions > b.factions || a.name > b.name).forEach((entry, index) => {
+        console.log(value)
+        value.sort(cardSorting).forEach((entry, index) => {
             const cardActionButtons = [];
             cardActions && cardActions.forEach((action, index) => {
                 action.handleClicked && action.text && cardActionButtons.push(

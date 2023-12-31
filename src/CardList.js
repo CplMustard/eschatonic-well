@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
-import { cypherTypesData, modelTypesData, cyphersData, modelsData } from './data';
+import { cardSorting, groupSorting } from './util/sortingUtil';
+
+import { cypherTypesData, modelTypesData } from './data';
 
 function CardList(props) {
     const { cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
@@ -39,11 +41,11 @@ function CardList(props) {
         expandAll();
     }, [expandAll]);
 
-    Object.entries(cardGroups).sort().forEach(([key, value]) => {
+    Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && !modelTypesData[typeParts[0]].hidden)) {
             const cardComponents = []
-            value.sort((a, b) => a.factions.length < b.factions.length || a.factions > b.factions || a.name > b.name).forEach((card, index) => {
+            value.sort(cardSorting).forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
