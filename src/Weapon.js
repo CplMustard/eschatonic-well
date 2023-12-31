@@ -17,6 +17,8 @@ function Weapon(props) {
         setWeaponData(weaponsData[props.weaponId]);
     }, [props.weaponId]);
 
+    const { count } = props;
+
     function WeaponStatline(props) {
         const { name, type, damage_types, rng, pow, special_rules } = props;
         
@@ -53,7 +55,7 @@ function Weapon(props) {
                         <WeaponStatline 
                             key={index} 
                             type={profile.type} 
-                            name={profile.name ? profile.name : weaponData.name} 
+                            name={`${count > 1 ? `${count}x ` : ""}${profile.name ? profile.name : weaponData.name}`} 
                             damage_types={profile.damage_types} 
                             rng={profile.rng} 
                             pow={profile.pow} 
