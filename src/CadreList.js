@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 import { add } from 'ionicons/icons';
 
+import { cadreSorting } from './util/sortingUtil'
+
 function CadreList(props) {
     const history = useHistory();
     
@@ -12,7 +14,7 @@ function CadreList(props) {
     function handleCadreClicked(id) {
         history.push(`/cadre/${id}`);
     }
-    Object.entries(cadresData).sort((a, b) => a.faction > b.faction).forEach(([key, value]) => {
+    Object.entries(cadresData).sort(cadreSorting).forEach(([key, value]) => {
         if(factionId === 'all' || value.faction === factionId) {
             const cadreFactionId = cadresData[key].faction;
             cadreButtonComponents.push(<IonRow key={key}>

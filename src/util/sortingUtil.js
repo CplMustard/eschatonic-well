@@ -26,3 +26,11 @@ export const groupSorting = (a, b) => {
     // sort groups by alphabetical order
     return a[0].localeCompare(b[0]);
 };
+
+export const cadreSorting = (a, b) => {
+    if (a[1].faction !== b[1].faction) {
+        return a[1].faction.localeCompare(b[1].faction);
+    } else {
+        return a[1].name.localeCompare(b[1].name);
+    }
+}
