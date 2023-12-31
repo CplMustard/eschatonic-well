@@ -76,6 +76,7 @@ hr {
 }
 
 .all {
+	--background: var(--ion-color-primary);
 }
 
 .emp {
