@@ -44,7 +44,6 @@ function ForceCardList(props) {
     
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
-        console.log(value)
         value.sort((a, b) => a.factions.length < b.factions.length || a.factions > b.factions || a.name > b.name).forEach((entry, index) => {
             const cardActionButtons = [];
             cardActions && cardActions.forEach((action, index) => {

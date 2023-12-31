@@ -38,6 +38,7 @@ function EditorView() {
 
     const [forcesDirty, setForcesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
+    const [isLoadForceModalOpen, setIsLoadForceModalOpen] = useState(false);
 
     //Ensure that model loadouts are kept updated even if they're changed from other pages
     useIonViewWillEnter(() => {
@@ -254,16 +255,16 @@ function EditorView() {
     return (
         <IonPage>
             <IonContent>
+                <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) 
                 ? <>
-                    <LoadForceModal trigger={"open-load-modal"} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                     <IonGrid>
                         <IonRow>
                             <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true)}}>LOAD</IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
                         </IonRow>

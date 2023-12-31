@@ -8,7 +8,7 @@ function LoadForceModal (props) {
     
     const [presentAlert] = useIonAlert();
 
-    const { forceFiles, loadForce, deleteForce, trigger } = props;
+    const { isOpen, setIsOpen, forceFiles, loadForce, deleteForce, trigger } = props;
 
     const loadForceConfirm = (forceName, filename) => {
         presentAlert({
@@ -25,7 +25,7 @@ function LoadForceModal (props) {
                     role: 'confirm',
                     handler: () => {
                         loadForce(filename);
-                        modal.current?.dismiss("", 'confirm');
+                        setIsOpen(false);
                     },
                 },
             ],
@@ -50,7 +50,7 @@ function LoadForceModal (props) {
                         deleteForce(filename);
                         //Close modal if this force is the last one
                         if(forceFiles.length === 1) {
-                            modal.current?.dismiss("", 'confirm');
+                            setIsOpen(false);
                         }
                     },
                 },
@@ -78,11 +78,11 @@ function LoadForceModal (props) {
 
 
     return (
-        <IonModal ref={modal} trigger={trigger}>
+        <IonModal isOpen={isOpen}>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonButton onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+                        <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
                     </IonButtons>
                     <IonTitle>Load Forcelist</IonTitle>
                 </IonToolbar>
