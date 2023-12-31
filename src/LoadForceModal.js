@@ -8,7 +8,7 @@ function LoadForceModal (props) {
     
     const [presentAlert] = useIonAlert();
 
-    const { isOpen, setIsOpen, forceFiles, loadForce, deleteForce, trigger } = props;
+    const { isOpen, setIsOpen, forceFiles, loadForce, deleteForce } = props;
 
     const loadForceConfirm = (forceName, filename) => {
         presentAlert({
