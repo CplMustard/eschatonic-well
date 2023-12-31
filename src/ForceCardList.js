@@ -50,7 +50,7 @@ function ForceCardList(props) {
             cardActions && cardActions.forEach((action, index) => {
                 action.handleClicked && action.text && cardActionButtons.push(
                     <IonCol key={index} size="auto">
-                        <IonButton size="medium" expand="full" disabled={(action.isDisabled && action.isDisabled(entry.id))} onClick={() => action.handleClicked(entry.id)}>
+                        <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(entry.id))} onClick={() => action.handleClicked(entry.id)}>
                             {action.text}
                         </IonButton>
                     </IonCol>
@@ -61,7 +61,7 @@ function ForceCardList(props) {
             entryComponents.push(<div key={index}>
                 <IonRow>
                     <IonCol>
-                        <IonButton size="medium" className={factionId} expand="full" onClick={() => handleCardClicked(entry.modelId ? entry.modelId : entry.cypherId, entry.id)}>
+                        <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(entry.modelId ? entry.modelId : entry.cypherId, entry.id)}>
                             <div className="button-inner">
                                 <div className="button-text">{entry.name}</div>
                             </div>

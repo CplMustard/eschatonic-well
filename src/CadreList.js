@@ -17,14 +17,14 @@ function CadreList(props) {
             const cadreFactionId = cadresData[key].faction;
             cadreButtonComponents.push(<IonRow key={key}>
                 <IonCol>
-                    <IonButton size="medium" className={cadreFactionId} expand="full" onClick={() => handleCadreClicked(value.id)}>
+                    <IonButton size="medium" className={cadreFactionId} expand="block" onClick={() => handleCadreClicked(value.id)}>
                         <div className="button-inner">
                             <div className="button-text">{value.name}</div>
                         </div>
                     </IonButton>
                 </IonCol>
                 <IonCol size="auto">
-                        <IonButton size="medium" expand="full" onClick={() => addModelCards(value.models)}>
+                        <IonButton size="medium" expand="block" onClick={() => addModelCards(value.models)}>
                             <IonIcon slot="icon-only" icon={add}></IonIcon>
                         </IonButton>
                     </IonCol>

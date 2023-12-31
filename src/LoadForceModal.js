@@ -64,12 +64,12 @@ function LoadForceModal (props) {
         const forceName = file.name.replace(forcesExtension, "");
         loadForceButtons.push(<IonRow key={index}>
             <IonCol>
-                <IonButton expand="full" onClick={() => loadForceConfirm(forceName, file.name)}>
+                <IonButton expand="block" onClick={() => loadForceConfirm(forceName, file.name)}>
                     <div>{forceName}</div>
                 </IonButton>
             </IonCol>
             <IonCol size="auto">
-                <IonButton expand="full" onClick={() => deleteForceConfirm(forceName, file.name)}>
+                <IonButton expand="block" onClick={() => deleteForceConfirm(forceName, file.name)}>
                     DELETE
                 </IonButton>
             </IonCol>

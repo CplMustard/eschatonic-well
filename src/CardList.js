@@ -50,7 +50,7 @@ function CardList(props) {
                     cardActions && cardActions.forEach((action, index) => {
                         action.handleClicked && action.text && cardActionButtons.push(
                             <IonCol key={index} size="auto">
-                                <IonButton size="medium" expand="full" disabled={(action.isDisabled && action.isDisabled(card.id))} onClick={() => action.handleClicked(card.id)}>
+                                <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(card.id))} onClick={() => action.handleClicked(card.id)}>
                                     {action.text}
                                 </IonButton>
                             </IonCol>
@@ -60,7 +60,7 @@ function CardList(props) {
                     cardComponents.push(
                         <IonRow key={index}>
                             <IonCol>
-                                <IonButton size="medium" className={factionId} expand="full" onClick={() => handleCardClicked(card.id)}>
+                                <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card.id)}>
                                     <div className="button-inner">
                                         <div className="button-text">{card.name}</div>
                                     </div>

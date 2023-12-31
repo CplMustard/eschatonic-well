@@ -262,10 +262,10 @@ function EditorView() {
                     <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="full" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="full" disabled={forceFiles.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
-                            <IonCol><IonButton expand="full" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="full" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} id="open-load-modal">LOAD</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
                         </IonRow>
                         <IonRow>
                             <IonCol size={"auto"}>
