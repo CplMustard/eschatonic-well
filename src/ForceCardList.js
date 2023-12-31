@@ -3,7 +3,7 @@ import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, I
 
 import HardPointList from './HardPointList';
 
-import { cypherTypesData, modelTypesData, cyphersData, modelsData } from './data'
+import { cypherTypesData, modelTypesData } from './data'
 
 function ForceCardList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
@@ -56,8 +56,7 @@ function ForceCardList(props) {
                     </IonCol>
                 )
             });
-            const factions = modelsData[entry.modelId] ? modelsData[entry.modelId].factions : cyphersData[entry.cypherId].factions;
-            const factionId = factions.length === 1 ? factions[0] : "wc";
+            const factionId = entry.factions.length === 1 ? entry.factions[0] : "wc";
             entryComponents.push(<div key={index}>
                 <IonRow>
                     <IonCol>
