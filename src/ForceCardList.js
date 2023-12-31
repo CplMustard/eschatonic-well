@@ -3,7 +3,7 @@ import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, I
 
 import HardPointList from './HardPointList';
 
-import { cypherTypesData, modelTypesData } from './data'
+import { cypherTypesData, modelTypesData, cyphersData, modelsData } from './data'
 
 function ForceCardList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
@@ -44,7 +44,8 @@ function ForceCardList(props) {
     
     Object.entries(forceGroups).sort().forEach(([key, value]) => {
         const entryComponents = [];
-        value.sort((a, b) => a.name > b.name).forEach((entry, index) => {
+        console.log(value)
+        value.sort((a, b) => a.factions.length < b.factions.length || a.factions > b.factions || a.name > b.name).forEach((entry, index) => {
             const cardActionButtons = [];
             cardActions && cardActions.forEach((action, index) => {
                 action.handleClicked && action.text && cardActionButtons.push(
@@ -55,10 +56,12 @@ function ForceCardList(props) {
                     </IonCol>
                 )
             });
+            const factions = modelsData[entry.modelId] ? modelsData[entry.modelId].factions : cyphersData[entry.cypherId].factions;
+            const factionId = factions.length === 1 ? factions[0] : "wc";
             entryComponents.push(<div key={index}>
                 <IonRow>
                     <IonCol>
-                        <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCardClicked(entry.modelId ? entry.modelId : entry.cypherId, entry.id)}>
+                        <IonButton size="medium" className={factionId} expand="full" onClick={() => handleCardClicked(entry.modelId ? entry.modelId : entry.cypherId, entry.id)}>
                             <div className="button-inner">
                                 <div className="button-text">{entry.name}</div>
                             </div>

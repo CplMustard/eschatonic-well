@@ -40,7 +40,7 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount(newForceCyphersData, cypherId) === 0) {
-                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name};
+                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newForceCyphersData = newForceCyphersData.concat(cypherEntry);
                 addedCypherNames.push(cyphersData[cypherId].name);
             }

@@ -12,11 +12,12 @@ function CadreList(props) {
     function handleCadreClicked(id) {
         history.push(`/cadre/${id}`);
     }
-    Object.entries(cadresData).forEach(([key, value]) => {
+    Object.entries(cadresData).sort((a, b) => a.faction > b.faction).forEach(([key, value]) => {
         if(factionId === 'all' || value.faction === factionId) {
+            const cadreFactionId = cadresData[key].faction;
             cadreButtonComponents.push(<IonRow key={key}>
                 <IonCol>
-                    <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCadreClicked(value.id)}>
+                    <IonButton size="medium" className={cadreFactionId} expand="full" onClick={() => handleCadreClicked(value.id)}>
                         <div className="button-inner">
                             <div className="button-text">{value.name}</div>
                         </div>

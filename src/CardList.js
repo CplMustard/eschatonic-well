@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
 
-import { cypherTypesData, modelTypesData } from './data';
+import { cypherTypesData, modelTypesData, cyphersData, modelsData } from './data';
 
 function CardList(props) {
     const { cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
@@ -43,7 +43,7 @@ function CardList(props) {
         const typeParts = key.split("|");
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && !modelTypesData[typeParts[0]].hidden)) {
             const cardComponents = []
-            value.sort((a, b) => a.name > b.name).forEach((card, index) => {
+            value.sort((a, b) => a.factions.length < b.factions.length || a.factions > b.factions || a.name > b.name).forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
@@ -56,10 +56,11 @@ function CardList(props) {
                             </IonCol>
                         )
                     });
+                    const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
                     cardComponents.push(
                         <IonRow key={index}>
                             <IonCol>
-                                <IonButton size="medium" className="ion-text-wrap" expand="full" onClick={() => handleCardClicked(card.id)}>
+                                <IonButton size="medium" className={factionId} expand="full" onClick={() => handleCardClicked(card.id)}>
                                     <div className="button-inner">
                                         <div className="button-text">{card.name}</div>
                                     </div>

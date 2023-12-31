@@ -132,7 +132,7 @@ function ForceEditor(props) {
         }
         
         const canRemove = !isHidden(modelId);
-        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         addedModelNames.push(modelData.name);
         newForceData = newForceData.concat(forceEntry);
 
@@ -253,10 +253,10 @@ function ForceEditor(props) {
 
     function updateModelHardPoint(forceData, setModelsData, option, type, point_cost, hardPointIndex, id) {
         const index = forceData.findIndex((forceModel) => forceModel.id === id);
-        const entry = forceData[index];
+        let entry = forceData[index];
         const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
-        const forceEntry = {id: entry.id, modelId: entry.modelId, name: entry.name, type: entry.type, subtypes: entry.subtypes, canRemove: entry.canRemove, weapon_points: entry.weapon_points, hard_points: entry.hard_points, hardPointOptions: newHardPointOptions};
-        setModelsData([...forceData.slice(0, index), forceEntry, ...forceData.slice(index + 1)]);
+        entry.hardPointOptions = newHardPointOptions;
+        setModelsData([...forceData.slice(0, index), entry, ...forceData.slice(index + 1)]);
     }
 
     function getFAText(forceData, modelId) {

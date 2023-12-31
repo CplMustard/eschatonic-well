@@ -71,6 +71,33 @@ hr {
 	text-align: center;
 }
 
+.ac {
+	--background: maroon;
+}
+
+.all {
+}
+
+.emp {
+	--background: purple;
+}
+
+.isa {
+	--background: DarkGoldenRod;
+}
+
+.ll {
+	--background: MidnightBlue;
+}
+
+.mw {
+	--background: DarkOliveGreen;
+}
+
+.wc {
+	--background: DarkSlateGray;
+}
+
 ion-text {
 	white-space: pre-wrap !important;
 }
