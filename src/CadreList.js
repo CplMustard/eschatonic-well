@@ -26,10 +26,10 @@ function CadreList(props) {
                     </IonButton>
                 </IonCol>
                 <IonCol size="auto">
-                        <IonButton size="medium" expand="block" onClick={() => addModelCards(value.models)}>
-                            <IonIcon slot="icon-only" icon={add}></IonIcon>
-                        </IonButton>
-                    </IonCol>
+                    <IonButton size="medium" expand="block" onClick={() => addModelCards(value.models)}>
+                        <IonIcon slot="icon-only" icon={add}></IonIcon>
+                    </IonButton>
+                </IonCol>
             </IonRow>);
         }
     })
