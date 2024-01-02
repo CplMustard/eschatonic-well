@@ -68,9 +68,9 @@ function ModelCardViewer(props) {
                 <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
-                {dc && <IonText color="tertiary"><h2>Deployment Cost: {dc}</h2></IonText>}
-                {base_size && <IonText color="tertiary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
-                {squad_size && <IonText color="tertiary"><h3>Squad Size: {squad_size}</h3></IonText>}
+                {dc && <IonText color="secondary"><h2>Deployment Cost: {dc}</h2></IonText>}
+                {base_size && <IonText color="secondary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
+                {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
                 {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
             </IonCardSubtitle>
         </IonCardHeader>
@@ -82,8 +82,8 @@ function ModelCardViewer(props) {
             <h2>Boxes:</h2>
             {!isNaN(boxes)
                 ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
-                    ? [...Array(squad_size)].map((e, i) => <h2 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)}</h2>)
-                    : [...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)
+                    ? [...Array(squad_size)].map((e, i) => <h2 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonIcon key={i} color="primary" icon={skullOutline} size="large"></IonIcon>)}</h2>)
+                    : [...Array(boxes)].map((e, i) => <IonIcon key={i} color="primary" icon={skullOutline} size="large"></IonIcon>)
                 : <h3>{boxes}</h3>
             }
         </IonText>;
@@ -93,13 +93,13 @@ function ModelCardViewer(props) {
         const { spd, str, mat, rat, def, arm, foc } = props.stats;
         return <IonGrid>
             <IonRow class="ion-justify-content-start">
-                {spd && <IonCol size="auto"><IonText color="secondary"><h1>SPD</h1><h1 className="statline-value">{spd}</h1></IonText></IonCol>}
-                {str && <IonCol size="auto"><IonText color="secondary"><h1>STR</h1><h1 className="statline-value">{str}</h1></IonText></IonCol>}
-                {mat && <IonCol size="auto"><IonText color="secondary"><h1>MAT</h1><h1 className="statline-value">{mat}</h1></IonText></IonCol>}
-                {rat && <IonCol size="auto"><IonText color="secondary"><h1>RAT</h1><h1 className="statline-value">{rat}</h1></IonText></IonCol>}
-                {def && <IonCol size="auto"><IonText color="secondary"><h1>DEF</h1><h1 className="statline-value">{def}</h1></IonText></IonCol>}
-                {arm && <IonCol size="auto"><IonText color="secondary"><h1>ARM</h1><h1 className="statline-value">{arm}</h1></IonText></IonCol>}
-                {foc && <IonCol size="auto"><IonText color="secondary"><h1>FOC</h1><h1 className="statline-value">{foc}</h1></IonText></IonCol>}
+                {spd && <IonCol size="auto"><IonText color="primary"><h1>SPD</h1></IonText><IonText color="secondary"><h1 className="statline-value">{spd}</h1></IonText></IonCol>}
+                {str && <IonCol size="auto"><IonText color="primary"><h1>STR</h1></IonText><IonText color="secondary"><h1 className="statline-value">{str}</h1></IonText></IonCol>}
+                {mat && <IonCol size="auto"><IonText color="primary"><h1>MAT</h1></IonText><IonText color="secondary"><h1 className="statline-value">{mat}</h1></IonText></IonCol>}
+                {rat && <IonCol size="auto"><IonText color="primary"><h1>RAT</h1></IonText><IonText color="secondary"><h1 className="statline-value">{rat}</h1></IonText></IonCol>}
+                {def && <IonCol size="auto"><IonText color="primary"><h1>DEF</h1></IonText><IonText color="secondary"><h1 className="statline-value">{def}</h1></IonText></IonCol>}
+                {arm && <IonCol size="auto"><IonText color="primary"><h1>ARM</h1></IonText><IonText color="secondary"><h1 className="statline-value">{arm}</h1></IonText></IonCol>}
+                {foc && <IonCol size="auto"><IonText color="primary"><h1>FOC</h1></IonText><IonText color="secondary"><h1 className="statline-value">{foc}</h1></IonText></IonCol>}
             </IonRow>
         </IonGrid> 
     }
@@ -134,7 +134,7 @@ function ModelCardViewer(props) {
         }
 
         return (
-            <IonPage>
+            <IonPage className={factions.length === 1 ? factions[0] : ""}>
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start">

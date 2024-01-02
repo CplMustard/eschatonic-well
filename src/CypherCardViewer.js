@@ -41,7 +41,7 @@ function CypherCardViewer(props) {
         return <div>Loading Card Data...</div>
     } else {
         return (
-            <IonPage>            
+            <IonPage className={cypherData.factions.length === 1 ? cypherData.factions[0] : ""}>            
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start">

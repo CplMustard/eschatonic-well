@@ -28,11 +28,11 @@ function Weapon(props) {
             <div>
                 <IonText color="primary"><h2>{weaponTypeNames[type]}</h2></IonText>
                 <IonText color="primary"><h1>{name}</h1></IonText>
-                {damageTypeNames && <IonText color="tertiary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
-                <IonGrid>
+                {damageTypeNames && <IonText color="secondary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
+                <IonGrid  style={{"--background": "red"}}>
                     {(rng || pow) && <IonRow>
-                        {rng && <IonCol size="auto"><IonText color="secondary"><h1>RNG</h1><h1 className="statline-value">{rng}</h1></IonText></IonCol>}
-                        {pow && <IonCol size="auto"><IonText color="secondary"><h1>POW</h1><h1 className="statline-value">{pow}</h1></IonText></IonCol>}
+                        {rng && <IonCol size="auto"><IonText color="primary"><h1>RNG</h1></IonText><IonText color="secondary"><h1 className="statline-value">{rng}</h1></IonText></IonCol>}
+                        {pow && <IonCol size="auto"><IonText color="primary"><h1>POW</h1></IonText><IonText color="secondary"><h1 className="statline-value">{pow}</h1></IonText></IonCol>}
                     </IonRow>}
                     {special_rules && <IonRow>
                         <SpecialRuleList special_rules={special_rules}/>

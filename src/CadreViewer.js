@@ -19,7 +19,7 @@ function CadreViewer(props) {
     }
 
     return (
-        <IonPage>
+        <IonPage className={cadresData[cadreId].faction}>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">

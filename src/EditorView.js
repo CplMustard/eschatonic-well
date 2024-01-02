@@ -253,7 +253,7 @@ function EditorView() {
         forceSizeOptions.push(<IonSelectOption key={key} value={value.id}>{`${value.name} ${value.id !== "custom" ? `(${value.units} / ${value.hero_solos})` : ""}`}</IonSelectOption>);
     });
     return (
-        <IonPage>
+        <IonPage className={tabSelected === editorTabs.cards ? cardViewFactionId : factionId}>
             <IonContent>
                 <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) 
