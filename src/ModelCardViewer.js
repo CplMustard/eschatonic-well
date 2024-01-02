@@ -78,13 +78,13 @@ function ModelCardViewer(props) {
 
     function HitBoxes(props) {
         const { boxes, squad_size } = props
-        return <IonText color="secondary">
+        return <IonText color="primary">
             <h2>Boxes:</h2>
             {!isNaN(boxes)
                 ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
-                    ? [...Array(squad_size)].map((e, i) => <h2 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonIcon key={i} color="primary" icon={skullOutline} size="large"></IonIcon>)}</h2>)
-                    : [...Array(boxes)].map((e, i) => <IonIcon key={i} color="primary" icon={skullOutline} size="large"></IonIcon>)
-                : <h3>{boxes}</h3>
+                    ? [...Array(squad_size)].map((e, i) => <h2 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)}</h2>)
+                    : [...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)
+                : <IonText color="secondary"><h3>{boxes}</h3></IonText>
             }
         </IonText>;
     }
