@@ -106,3 +106,8 @@ ion-text {
 ion-card {
 	--color: #bf909f;
 }
+
+ion-content {
+	bottom: 0;
+	padding-bottom: calc(var(--padding-bottom) + var(--keyboard-offset) + var(--tab-bar-height));
+}

@@ -46,7 +46,6 @@ function ForceCardList(props) {
     
     Object.entries(forceGroups).sort(groupSorting).forEach(([key, value]) => {
         const entryComponents = [];
-        console.log(value)
         value.sort(cardSorting).forEach((entry, index) => {
             const cardActionButtons = [];
             cardActions && cardActions.forEach((action, index) => {
@@ -86,7 +85,7 @@ function ForceCardList(props) {
         const typeParts = key.split("|");
         const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
         forceGroupComponents.push(<IonItemGroup key={key}>
-            <IonAccordion value={key}>
+            <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
                 <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
                     <IonLabel>{`${cardTypeName} (${entryComponents.length})`}</IonLabel>
                 </IonItem>

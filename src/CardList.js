@@ -77,7 +77,7 @@ function CardList(props) {
 
             const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             cardGroupComponents.push(<IonItemGroup key={key}>
-                <IonAccordion value={key}>
+                <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
                     <IonItem slot="header" color="tertiary">
                         <IonLabel>{`${cardTypeName} (${cardComponents.length})`}</IonLabel>
                     </IonItem>
