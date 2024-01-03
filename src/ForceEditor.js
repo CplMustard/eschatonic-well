@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonIcon, useIonToast } from '@ionic/react';
-import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
+import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
+import { add, remove, logOut, logIn } from 'ionicons/icons';
 
 import CardList from './CardList';
 import ForceCardList from './ForceCardList.js';
@@ -13,10 +13,14 @@ import { cadresData,  modelsData, weaponsData } from './data';
 import CadreList from './CadreList';
 
 const voidGateId = "void_gate";
+const forceTabs = {force: 0, special_issue: 1, units: 2 }
 
 function ForceEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
+
+    const [tabSelected, setTabSelected] = useState(forceTabs.force);
+    const [forceEmpty, setForceEmpty] = useState(true);
 
     const { factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
 
@@ -36,6 +40,9 @@ function ForceEditor(props) {
                 newForceData = insertModelCard(newForceData, modelData.id, addedModelNames);
             }
         });
+
+        //Show empty force prompt if we only have mantlets or void_gates
+        setForceEmpty(newForceData.length === availableMantlets.length + 1);
         
         setForceModelsData(newForceData);
     }, [forceModelsData, factionId]);
@@ -268,37 +275,58 @@ function ForceEditor(props) {
 
     return (
         <>
-            <ForceCardList 
-                header={"Force"} 
-                forceEntries={forceModelsData} 
-                handleCardClicked={openModelCard} 
-                cardActions={[
-                    {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: isCardUnremovable}, 
-                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isDisabled: canSpecialIssueSwap}
-                ]} 
-                updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
-            ></ForceCardList>
-            {forceModelsData.length !== 0 && <><hr/><br/></>}
-            <ForceCardList 
-                header={"Special Issue"} 
-                forceEntries={specialIssueModelsData} 
-                handleCardClicked={openModelCard} 
-                cardActions={[
-                    {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
-                ]} 
-                updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
-            ></ForceCardList>
-            {specialIssueModelsData.length !== 0 && <><hr/><br/></>}
-            <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
-            <br/>
-            <CardList 
-                header={"Models"} 
-                cards={models} 
-                hideHiddenTypes={true} 
-                handleCardClicked={openModelCard} 
-                faText={(id) => getFAText(forceModelsData, id)}
-                cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA(forceModelsData, id)}]}
-            ></CardList>
+            <IonToolbar>
+                <IonSegment mode="ios" value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
+                    <IonSegmentButton value={forceTabs.force} fill="outline">
+                        <IonLabel>Forcelist</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton value={forceTabs.special_issue}>
+                        <IonLabel>Special Issue</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton value={forceTabs.units}>
+                        <IonLabel>Units</IonLabel>
+                    </IonSegmentButton>
+                </IonSegment>
+            </IonToolbar>
+            {tabSelected === forceTabs.force && <>
+                {forceEmpty && <IonText color="primary"><h2>Add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
+
+                <ForceCardList 
+                    header={"Force"} 
+                    forceEntries={forceModelsData} 
+                    handleCardClicked={openModelCard} 
+                    cardActions={[
+                        {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: isCardUnremovable}, 
+                        {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: canSpecialIssueSwap}
+                    ]} 
+                    updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
+                ></ForceCardList>
+            </>}
+            {tabSelected === forceTabs.special_issue && <>
+                {specialIssueModelsData.length === 0 && <IonText color="primary"><h2>Add a unit to your Special Issue with <IonIcon slot="icon-only" icon={logOut}></IonIcon> to view them here.</h2></IonText>}
+
+                <ForceCardList 
+                    header={"Special Issue"} 
+                    forceEntries={specialIssueModelsData} 
+                    handleCardClicked={openModelCard} 
+                    cardActions={[
+                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                    ]} 
+                    updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
+                ></ForceCardList>
+            </>}
+            {tabSelected === forceTabs.units && <>
+                <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
+                <br/>
+                <CardList 
+                    header={"Models"} 
+                    cards={models} 
+                    hideHiddenTypes={true} 
+                    handleCardClicked={openModelCard} 
+                    faText={(id) => getFAText(forceModelsData, id)}
+                    cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA(forceModelsData, id)}]}
+                ></CardList>
+            </>}
         </>
     );
 }

@@ -304,7 +304,7 @@ function EditorView() {
             </IonContent>
             <IonFooter>
                 <IonToolbar>
-                    <IonSegment value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
+                    <IonSegment mode="md" value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
                         <IonSegmentButton value={editorTabs.force}>
                             <IonLabel>Force</IonLabel>
                         </IonSegmentButton>

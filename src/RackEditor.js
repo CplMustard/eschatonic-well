@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from 'uuid';
-import { IonIcon, useIonToast } from '@ionic/react';
-import { add, remove, caretDownOutline, caretUpOutline } from 'ionicons/icons';
+import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
+import { add, remove, logOut, logIn } from 'ionicons/icons';
 
 import CardList from './CardList';
 import ForceCardList from './ForceCardList';
@@ -10,10 +10,13 @@ import ForceCardList from './ForceCardList';
 import { cyphersData } from './data';
 
 const cypherTypeMin = 3;
+const rackTabs = {rack: 0, special_issue: 1, cyphers: 2}
 
 function RackEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
+
+    const [tabSelected, setTabSelected] = useState(rackTabs.rack);
 
     const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
@@ -87,32 +90,53 @@ function RackEditor(props) {
 
     return (
         <div>
-            <ForceCardList 
-                header={"Rack"} 
-                forceEntries={forceCyphersData} 
-                typeMin={cypherTypeMin}
-                handleCardClicked={openCypherCard} 
-                cardActions={[
-                    {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
-                    {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={caretDownOutline}></IonIcon>, isDisabled: canSpecialIssueSwap}
-                ]}
-            ></ForceCardList>
-            {forceCyphersData.length !== 0 && <><hr/><br/></>}
-            <ForceCardList 
-                header={"Special Issue"} 
-                forceEntries={specialIssueCyphersData} 
-                handleCardClicked={openCypherCard} 
-                cardActions={[
-                    {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={caretUpOutline}></IonIcon>}
-                ]}
-            ></ForceCardList>
-            {specialIssueCyphersData.length !== 0 && <><hr/><br/></>}
-            <CardList 
-                header={"Cyphers"} 
-                cards={remainingCypherCardList} 
-                handleCardClicked={openCypherCard} 
-                cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
-            ></CardList>
+            <IonToolbar>
+                <IonSegment mode="ios" value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
+                    <IonSegmentButton value={rackTabs.rack} fill="outline">
+                        <IonLabel>Rack</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton value={rackTabs.special_issue}>
+                        <IonLabel>Special Issue</IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton value={rackTabs.cyphers}>
+                        <IonLabel>Cyphers</IonLabel>
+                    </IonSegmentButton>
+                </IonSegment>
+            </IonToolbar>
+            {tabSelected === rackTabs.rack && <>
+                <ForceCardList 
+                    header={"Rack"} 
+                    forceEntries={forceCyphersData} 
+                    typeMin={cypherTypeMin}
+                    handleCardClicked={openCypherCard} 
+                    cardActions={[
+                        {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
+                        {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: canSpecialIssueSwap}
+                    ]}
+                ></ForceCardList>
+
+                {forceCyphersData.length === 0 && <IonText color="primary"><h2>Add a cypher to your Rack with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
+            </>}
+            {tabSelected === rackTabs.special_issue && <>
+                <ForceCardList 
+                    header={"Special Issue"} 
+                    forceEntries={specialIssueCyphersData} 
+                    handleCardClicked={openCypherCard} 
+                    cardActions={[
+                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                    ]}
+                ></ForceCardList>
+                
+                {specialIssueCyphersData.length === 0 && <IonText color="primary"><h2>Add a cypher to your Special Issue with <IonIcon slot="icon-only" icon={logOut}></IonIcon> to view them here.</h2></IonText>}
+            </>}
+            {tabSelected === rackTabs.cyphers && <>
+                <CardList 
+                    header={"Cyphers"} 
+                    cards={remainingCypherCardList} 
+                    handleCardClicked={openCypherCard} 
+                    cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
+                ></CardList>
+            </>}
         </div>
     );
 }
