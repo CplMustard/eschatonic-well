@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from "uuid";
 import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
@@ -15,6 +15,8 @@ const cypherTypeMin = 3;
 const rackTabs = {rack: 0, special_issue: 1, cyphers: 2};
 
 function RackEditor(props) {
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
     const history = useHistory();
     const [present] = useIonToast();
 
@@ -44,7 +46,7 @@ function RackEditor(props) {
         let newForceCyphersData = forceCyphersData;
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
-            if(cypherCount(newForceCyphersData, cypherId) === 0) {
+            if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
                 const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newForceCyphersData = newForceCyphersData.concat(cypherEntry);
                 addedCypherNames.push(cyphersData[cypherId].name);
@@ -53,39 +55,88 @@ function RackEditor(props) {
 
         presentToast(`Added ${addedCypherNames.join(", ")} to rack`);
 
-        setForceCyphersData(newForceCyphersData);
+        updateForceData(newForceCyphersData);
     }
 
     function removeCypherCard(id) {
         const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         if(index !== -1) {
             const removedCypherName = forceCyphersData[index].name;
-            setForceCyphersData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
+            updateForceData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
             
             presentToast(`Removed ${removedCypherName} from rack`);
         }
     }
 
-    function addSpecialIssue(id) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+    function addSpecialIssue(cypherIds) {
         let newSpecialIssueCyphersData = specialIssueCyphersData;
-        newSpecialIssueCyphersData.push(forceCyphersData[index]);
-        removeCypherCard(id);
-        setSpecialIssueCyphersData(newSpecialIssueCyphersData);
+        const addedCypherNames = [];
+        cypherIds.forEach((cypherId) => {
+            if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
+                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
+                newSpecialIssueCyphersData = newSpecialIssueCyphersData.concat(cypherEntry);
+                addedCypherNames.push(cyphersData[cypherId].name);
+            }
+        });
+
+        presentToast(`Added ${addedCypherNames.join(", ")} to special issue`);
+
+        updateSpecialIssueData(newSpecialIssueCyphersData);
     }
 
     function removeSpecialIssue(id) {
         const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+        if(index !== -1) {
+            const removedCypherName = specialIssueCyphersData[index].name;
+            updateSpecialIssueData([...specialIssueCyphersData.slice(0, index), ...specialIssueCyphersData.slice(index + 1)]);
+            
+            presentToast(`Removed ${removedCypherName} from special issue`);
+        }
+    }
+
+    function swapToSpecialIssue(id) {
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+        let newSpecialIssueCyphersData = specialIssueCyphersData;
+        newSpecialIssueCyphersData.push(forceCyphersData[index]);
+
+        presentToast(`Swapped ${forceCyphersData[index].name} to special issue`);
+
+        removeCypherCard(id);
+        updateSpecialIssueData(newSpecialIssueCyphersData);
+    }
+
+    function swapFromSpecialIssue(id) {
+        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         addCypherCards([specialIssueCyphersData[index].cypherId]);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
         newSpecialIssueCyphersData = [...newSpecialIssueCyphersData.slice(0, index), ...newSpecialIssueCyphersData.slice(index + 1)];
+
+        presentToast(`Swapped ${specialIssueCyphersData[index].name} to rack`);
+
+        updateSpecialIssueData(newSpecialIssueCyphersData);
+    }
+
+    function updateForceData(newForceData) {
+        setForceCyphersData(newForceData);
+        localStorage.setItem("forceCyphersData", JSON.stringify(newForceData));
+        forceUpdate();
+    }
+
+    function updateSpecialIssueData(newSpecialIssueCyphersData) {
         setSpecialIssueCyphersData(newSpecialIssueCyphersData);
+        localStorage.setItem("specialIssueCyphersData", JSON.stringify(newSpecialIssueCyphersData));
+        forceUpdate();
     }
 
     function canSpecialIssueSwap(id) {
         const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         const cypherType = forceCyphersData[index].type;
-        return specialIssueCyphersData.filter((forceCypher) => forceCypher.type === cypherType).length !== 0;
+        return specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
+    }
+
+    function canAddToSpecialIssue(cypherId) {
+        const cypherType = cyphersData[cypherId].type;
+        return !specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
     }
 
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
@@ -113,7 +164,7 @@ function RackEditor(props) {
                     handleCardClicked={openCypherCard} 
                     cardActions={[
                         {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
-                        {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: canSpecialIssueSwap}
+                        {handleClicked: swapToSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: canSpecialIssueSwap}
                     ]}
                 ></ForceCardList>
 
@@ -125,7 +176,8 @@ function RackEditor(props) {
                     forceEntries={specialIssueCyphersData} 
                     handleCardClicked={openCypherCard} 
                     cardActions={[
-                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
+                        {handleClicked: swapFromSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
                     ]}
                 ></ForceCardList>
                 
@@ -136,7 +188,10 @@ function RackEditor(props) {
                     header={"Cyphers"} 
                     cards={remainingCypherCardList} 
                     handleCardClicked={openCypherCard} 
-                    cardActions={[{handleClicked: (cypherId) => addCypherCards([cypherId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>}]}
+                    cardActions={[
+                        {handleClicked: (cypherId) => addCypherCards([cypherId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>},
+                        {handleClicked: (cypherId) => addSpecialIssue([cypherId]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canAddToSpecialIssue(id) || cypherCount([...forceCyphersData, ...specialIssueCyphersData], id) !== 0}
+                    ]}
                 ></CardList>
             </>}
         </div>
