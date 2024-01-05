@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
+import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
@@ -66,7 +66,7 @@ function CardList(props) {
                                     <div className="button-inner">
                                         <div className="button-text">{card.name}</div>
                                     </div>
-                                    {faText && <span className="button-fa">{faText(card.id)}</span>}
+                                    {faText && <IonBadge className="button-fa">{faText(card.id)}</IonBadge>}
                                 </IonButton>
                             </IonCol>
                             {cardActionButtons}
