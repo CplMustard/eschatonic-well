@@ -9,7 +9,7 @@ function CypherCount(props) {
     const { cyphers, specialIssue } = props;
     return <>
         <IonText color={cyphers.length > maxCyphers || cyphers.length < minCyphers ? "danger" : "primary"}><h3>Cyphers: {cyphers.length} / {maxCyphers}</h3></IonText>
-        <IonText color="primary"><h3>Special Issue Cyphers: {specialIssue.length}<span> / {maxSpecialIssue}</span></h3></IonText>
+        {specialIssue.length !== 0 && <IonText color="primary"><h3>Special Issue Cyphers: {specialIssue.length}<span> / {maxSpecialIssue}</span></h3></IonText>}
     </>;
 }
 
