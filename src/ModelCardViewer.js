@@ -88,15 +88,15 @@ function ModelCardViewer(props) {
 
     function Statline(props) {
         const { spd, str, mat, rat, def, arm, foc } = props.stats;
-        return <IonGrid>
-            <IonRow class="ion-justify-content-start">
-                {spd && <IonCol size="auto"><IonText color="primary"><h1>SPD</h1></IonText><IonText color="secondary"><h1 className="statline-value">{spd}</h1></IonText></IonCol>}
-                {str && <IonCol size="auto"><IonText color="primary"><h1>STR</h1></IonText><IonText color="secondary"><h1 className="statline-value">{str}</h1></IonText></IonCol>}
-                {mat && <IonCol size="auto"><IonText color="primary"><h1>MAT</h1></IonText><IonText color="secondary"><h1 className="statline-value">{mat}</h1></IonText></IonCol>}
-                {rat && <IonCol size="auto"><IonText color="primary"><h1>RAT</h1></IonText><IonText color="secondary"><h1 className="statline-value">{rat}</h1></IonText></IonCol>}
-                {def && <IonCol size="auto"><IonText color="primary"><h1>DEF</h1></IonText><IonText color="secondary"><h1 className="statline-value">{def}</h1></IonText></IonCol>}
-                {arm && <IonCol size="auto"><IonText color="primary"><h1>ARM</h1></IonText><IonText color="secondary"><h1 className="statline-value">{arm}</h1></IonText></IonCol>}
-                {foc && <IonCol size="auto"><IonText color="primary"><h1>FOC</h1></IonText><IonText color="secondary"><h1 className="statline-value">{foc}</h1></IonText></IonCol>}
+        return <IonGrid class="statline">
+            <IonRow>
+                {spd && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>SPD</h2></IonText><IonText color="secondary"><h1>{spd}</h1></IonText></IonCol>}
+                {str && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>STR</h2></IonText><IonText color="secondary"><h1>{str}</h1></IonText></IonCol>}
+                {mat && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>MAT</h2></IonText><IonText color="secondary"><h1>{mat}</h1></IonText></IonCol>}
+                {rat && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>RAT</h2></IonText><IonText color="secondary"><h1>{rat}</h1></IonText></IonCol>}
+                {def && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>DEF</h2></IonText><IonText color="secondary"><h1>{def}</h1></IonText></IonCol>}
+                {arm && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>ARM</h2></IonText><IonText color="secondary"><h1>{arm}</h1></IonText></IonCol>}
+                {foc && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>FOC</h2></IonText><IonText color="secondary"><h1>{foc}</h1></IonText></IonCol>}
             </IonRow>
         </IonGrid>; 
     }

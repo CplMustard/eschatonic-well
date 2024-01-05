@@ -85,7 +85,12 @@ hr {
 	margin-left: 1rem;
 }
 
-.statline-value {
+.statline {
+	padding: 0;
+	margin: auto;
+}
+
+.statline-entry {
 	text-align: center;
 }
 
