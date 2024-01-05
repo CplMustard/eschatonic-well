@@ -1,6 +1,6 @@
 {
   "name": "eschatonic-well",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "main": "electron/main.js",
   "proxy": "http://127.0.0.1:5000",
