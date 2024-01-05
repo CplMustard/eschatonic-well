@@ -120,5 +120,5 @@ const cyphersData = {
 	velocity_projector: velocity_projector,
 	vengeance_sequencer: vengeance_sequencer,
 	volition_anchor: volition_anchor
-}
+};
 export default cyphersData;

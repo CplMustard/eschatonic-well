@@ -182,5 +182,5 @@ const modelsData = {
 	warder: warder,
 	witch_hounds: witch_hounds,
 	zenith: zenith
-}
+};
 export default modelsData;

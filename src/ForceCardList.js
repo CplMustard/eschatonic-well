@@ -1,11 +1,11 @@
-import React, { useEffect, useRef }  from 'react';
-import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
+import React, { useEffect, useRef }  from "react";
+import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
-import { cardSorting, groupSorting } from './util/sortingUtil';
+import { cardSorting, groupSorting } from "./util/sortingUtil";
 
-import HardPointList from './HardPointList';
+import HardPointList from "./HardPointList";
 
-import { cypherTypesData, modelTypesData } from './data';
+import { cypherTypesData, modelTypesData } from "./data";
 
 function ForceCardList(props) {
     const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
@@ -55,7 +55,7 @@ function ForceCardList(props) {
                             {action.text}
                         </IonButton>
                     </IonCol>
-                )
+                );
             });
             const factionId = entry.factions.length === 1 ? entry.factions[0] : "wc";
             entryComponents.push(<div key={index}>
@@ -81,7 +81,7 @@ function ForceCardList(props) {
                 </IonRow>}
             </div>
             );
-        })
+        });
         const typeParts = key.split("|");
         const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
         forceGroupComponents.push(<IonItemGroup key={key}>
@@ -96,17 +96,17 @@ function ForceCardList(props) {
                 </div>
             </IonAccordion>
         </IonItemGroup>);
-    })
+    });
     return <>
         {forceEntries.length !== 0 && <>
             <IonLabel color="primary"><h1>{header}</h1></IonLabel>
-            <IonButton fill="outline" onClick={() => {collapseAll()}}><div>COLLAPSE ALL</div></IonButton>
-            <IonButton fill="outline" onClick={() => {expandAll()}}><div>EXPAND ALL</div></IonButton>
+            <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
+            <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
             <IonAccordionGroup ref={accordionGroup} multiple={true}>
                 <IonList>{forceGroupComponents}</IonList>
             </IonAccordionGroup>
         </>}
-    </>
+    </>;
 }
 
 export default ForceCardList;

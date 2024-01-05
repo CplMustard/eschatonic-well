@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
 
-import CardList from './CardList';
+import CardList from "./CardList";
 
-import { cadresData, modelsData } from './data';
+import { cadresData, modelsData } from "./data";
 
 function CadreViewer(props) {
     const params = useParams();

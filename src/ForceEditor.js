@@ -1,32 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from "react";
 import { useHistory } from "react-router-dom";
-import { v1 as uuidv1 } from 'uuid';
-import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
-import { add, remove, logOut, logIn } from 'ionicons/icons';
+import { v1 as uuidv1 } from "uuid";
+import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { add, remove, logOut, logIn } from "ionicons/icons";
 
-import CardList from './CardList';
-import ForceCardList from './ForceCardList.js';
+import CardList from "./CardList";
+import ForceCardList from "./ForceCardList.js";
 
-import { isHidden } from './util/isHidden.js';
+import { isHidden } from "./util/isHidden.js";
+import { useSessionStorage } from "./util/useStorage.js";
 
-import { cadresData,  modelsData, weaponsData } from './data';
-import CadreList from './CadreList';
+import { cadresData,  modelsData, weaponsData } from "./data";
+import CadreList from "./CadreList";
 
 const voidGateId = "void_gate";
-const forceTabs = {force: 0, special_issue: 1, units: 2 }
+const forceTabs = {force: 0, special_issue: 1, units: 2 };
 
 function ForceEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
 
-    const [tabSelected, setTabSelected] = useState(forceTabs.force);
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
+    const [tabSelected, setTabSelected] = useSessionStorage("forceTabs", forceTabs.force);
     const [forceEmpty, setForceEmpty] = useState(true);
 
     const { factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
 
     useEffect(() => {
+        setForceModelsData(forceModelsData);
+        setSpecialIssueModelsData(specialIssueModelsData);
+    });
+
+    useEffect(() => {
         let newForceData = forceModelsData;
-        let addedModelNames = []
+        let addedModelNames = [];
         if(newForceData.findIndex((forceModel) => forceModel.modelId === voidGateId) === -1) {
             newForceData = insertModelCard(newForceData, voidGateId, addedModelNames);
         }
@@ -45,17 +53,17 @@ function ForceEditor(props) {
         setForceEmpty(newForceData.length === availableMantlets.length + 1);
         
         setForceModelsData(newForceData);
-    }, [forceModelsData, factionId]);
+    }, [forceModelsData, specialIssueModelsData, factionId]);
     
     const presentToast = (message) => {
         present({
             message: message,
             duration: 1500,
-            position: 'bottom',
+            position: "bottom",
         });
     };
 
-    const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes('all'))) : Object.values(modelsData);
+    const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(modelsData);
 
     function modelCount(forceData, modelId) {
         return forceData.filter((forceModel) => forceModel.modelId === modelId).length;
@@ -85,7 +93,7 @@ function ForceEditor(props) {
         modelData.attachments.forEach((attachment) => {
             //only delete if we're the last eligible unit for this attachment
             const attachmentIndex = newForceData.findIndex((forceModel) => forceModel.modelId === attachment);
-            const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length
+            const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length;
             if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
                 newForceData = deleteModelCard(newForceData, attachmentIndex, deletedModelNames);
             }
@@ -131,7 +139,7 @@ function ForceEditor(props) {
         const defaultHardPoints = [];
         if(modelData.hard_points) {
             modelData.hard_points.forEach((hard_point) => {
-                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0})
+                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
             }, [weaponsData]);
         }
         if (modelData.attachments) {
@@ -154,7 +162,7 @@ function ForceEditor(props) {
         let newForceData = forceData;
         const modelId = newForceData[index].modelId;
         const modelData = modelsData[modelId];
-        newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)]
+        newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)];
         deletedModelNames.push(modelData.name);
         if (modelData.attachments) {
             newForceData = deleteAttachments(newForceData, modelData, deletedModelNames);
@@ -184,6 +192,7 @@ function ForceEditor(props) {
         presentToast(`Added ${addedModelNames.join(", ")} to forcelist`);
 
         setForceModelsData(newForceData);
+        forceUpdate();
     }
 
     function removeModelCard(id) {
@@ -196,10 +205,56 @@ function ForceEditor(props) {
             presentToast(`Deleted ${deletedModelNames.join(", ")} from forcelist`);
 
             setForceModelsData(newForceData);
+            forceUpdate();
         }
     }
 
-    function addSpecialIssue(id) {
+    function addSpecialIssue(modelIds) {
+        let newSpecialIssueModelsData = specialIssueModelsData;
+        let addedModelNames = [];
+        modelIds.forEach((modelId) => {
+            // Make sure to check the special issue list for FA as well
+            if(checkFA([...forceModelsData, ...newSpecialIssueModelsData], modelId)) {
+                const newId = uuidv1();
+                const modelData = modelsData[modelId];
+
+                const defaultHardPoints = [];
+                if(modelData.hard_points) {
+                    modelData.hard_points.forEach((hard_point) => {
+                        defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
+                    }, [weaponsData]);
+                }
+
+                const canRemove = !isHidden(modelId);
+                const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+                addedModelNames.push(modelData.name);
+                newSpecialIssueModelsData.push(forceEntry);
+            }
+        });
+
+        presentToast(`Added ${addedModelNames.join(", ")} to special issue`);
+
+        setSpecialIssueModelsData(newSpecialIssueModelsData);
+        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
+        forceUpdate();
+    }
+
+    function removeSpecialIssue(id) {
+        const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === id);
+        const modelId = specialIssueModelsData[index].modelId;
+        const modelData = modelsData[modelId];
+    
+        let newSpecialIssueModelsData = specialIssueModelsData;
+        newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, index), ...newSpecialIssueModelsData.slice(index + 1)];
+        
+        presentToast(`Removed ${modelData.name} from special issue`);
+
+        setSpecialIssueModelsData(newSpecialIssueModelsData);
+        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
+        forceUpdate();
+    }
+
+    function swapToSpecialIssue(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         let newSpecialIssueModelsData = specialIssueModelsData;
         let deletedModelNames = [];
@@ -213,13 +268,14 @@ function ForceEditor(props) {
 
             presentToast(`Swapped ${forceModelsData[index].name} to special issue${deletedModelNames.length !== 0 ? `, ${deletedModelNames.join(", ")} deleted from forcelist` : ""}`);
 
+            setSpecialIssueModelsData(newSpecialIssueModelsData);
+            localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
             setForceModelsData(newForceData);
+            forceUpdate();
         }
-
-        setSpecialIssueModelsData(newSpecialIssueModelsData);
     }
 
-    function removeSpecialIssue(id) {
+    function swapFromSpecialIssue(id) {
         const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === id);
         let newForceData = forceModelsData;
         let addedModelNames = [];
@@ -244,7 +300,9 @@ function ForceEditor(props) {
         presentToast(`Swapped ${modelData.name} to forcelist${addedModelNames.length !== 0 ? `, ${addedModelNames.join(", ")} added to forcelist` : ""}`);
 
         setSpecialIssueModelsData(newSpecialIssueModelsData);
+        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
         setForceModelsData(newForceData);
+        forceUpdate();
     }
 
     function isCardUnremovable(id) {
@@ -255,7 +313,12 @@ function ForceEditor(props) {
     function canSpecialIssueSwap(id) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === id);
         const modelType = forceModelsData[index].type;
-        return isCardUnremovable(id) || specialIssueModelsData.filter((forceModel) => forceModel.type === modelType).length !== 0;
+        return !isCardUnremovable(id) && !specialIssueModelsData.some((forceModel) => forceModel.type === modelType);
+    }
+
+    function canAddToSpecialIssue(modelId) {
+        const modelType = modelsData[modelId].type;
+        return !specialIssueModelsData.some((forceModel) => forceModel.type === modelType);
     }
 
     function updateModelHardPoint(forceData, setModelsData, option, type, point_cost, hardPointIndex, id) {
@@ -270,7 +333,7 @@ function ForceEditor(props) {
         const modelData = modelsData[modelId];
         const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
         const fa = modelData.fa ? modelData.fa : defaultFA;
-        return `(${modelCount(forceData, modelId)}/${fa})`
+        return `(${modelCount(forceData, modelId)}/${fa})`;
     }
 
     return (
@@ -297,9 +360,9 @@ function ForceEditor(props) {
                     handleCardClicked={openModelCard} 
                     cardActions={[
                         {handleClicked: removeModelCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: isCardUnremovable}, 
-                        {handleClicked: addSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: canSpecialIssueSwap}
+                        {handleClicked: swapToSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canSpecialIssueSwap(id)}
                     ]} 
-                    updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id)}}
+                    updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, id);}}
                 ></ForceCardList>
             </>}
             {tabSelected === forceTabs.special_issue && <>
@@ -310,9 +373,10 @@ function ForceEditor(props) {
                     forceEntries={specialIssueModelsData} 
                     handleCardClicked={openModelCard} 
                     cardActions={[
-                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
+                        {handleClicked: swapFromSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
                     ]} 
-                    updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id)}}
+                    updateModelHardPoint={(option, type, point_cost, hardPointIndex, id) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, id);}}
                 ></ForceCardList>
             </>}
             {tabSelected === forceTabs.units && <>
@@ -323,8 +387,11 @@ function ForceEditor(props) {
                     cards={models} 
                     hideHiddenTypes={true} 
                     handleCardClicked={openModelCard} 
-                    faText={(id) => getFAText(forceModelsData, id)}
-                    cardActions={[{handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA(forceModelsData, id)}]}
+                    faText={(id) => getFAText([...forceModelsData, ...specialIssueModelsData], id)}
+                    cardActions={[
+                        {handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA([...forceModelsData, ...specialIssueModelsData], id) }, 
+                        {handleClicked: (modelId) => addSpecialIssue([modelId]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canAddToSpecialIssue(id)}
+                    ]}
                 ></CardList>
             </>}
         </>

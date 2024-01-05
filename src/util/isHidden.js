@@ -1,5 +1,5 @@
 
-import { modelsData, modelTypesData } from './../data';
+import { modelsData, modelTypesData } from "./../data";
 
 export function isHidden(modelId) {
     const modelData = modelsData[modelId];

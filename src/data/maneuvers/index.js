@@ -44,5 +44,5 @@ const maneuversData = {
 	wide_range_scan: wide_range_scan,
 	wing_roll: wing_roll,
 	with_both_feet: with_both_feet
-}
+};
 export default maneuversData;

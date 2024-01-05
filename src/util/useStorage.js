@@ -1,20 +1,34 @@
-import { useState, useEffect} from "react";
+//React Custom Hooks @ 2023, S. Leschev. Google Engineering Level: L6+
+//https://github.com/sergeyleschev/react-custom-hooks
 
-export const getStorageValue = (key, defaultValue, store) => {
-  // getting stored value
-  const saved = store.getItem(key);
-  const initial = JSON.parse(saved);
-  return initial || defaultValue;
+import { useCallback, useState, useEffect } from "react";
+
+export function useLocalStorage(key, defaultValue) {
+    return useStorage(key, defaultValue, window.localStorage);
 }
 
-export const useStorage = (key, defaultValue, store) => {
-  const [value, setValue] = useState(() => {
-    return getStorageValue(key, defaultValue, store);
-  });
+export function useSessionStorage(key, defaultValue) {
+    return useStorage(key, defaultValue, window.sessionStorage);
+}
 
-  useEffect(() => {
-    store.setItem(key, JSON.stringify(value));
-  }, [key, value]);
+function useStorage(key, defaultValue, storageObject) {
+    const [value, setValue] = useState(() => {
+        const jsonValue = storageObject.getItem(key);
+        if (jsonValue != null) return JSON.parse(jsonValue);
+        if (typeof defaultValue === "function") {
+            return defaultValue();
+        } else {
+            return defaultValue;
+        }
+    });
 
-  return [value, setValue];
-};
+    useEffect(() => {
+        if (value === undefined) return storageObject.removeItem(key);
+        storageObject.setItem(key, JSON.stringify(value));
+    }, [key, value, storageObject]);
+
+    const remove = useCallback(() => {
+        setValue(undefined);
+    }, []);
+    return [value, setValue, remove];
+}

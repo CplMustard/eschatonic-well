@@ -1,4 +1,4 @@
-import { cypherTypesData, modelTypesData } from '../data';
+import { cypherTypesData, modelTypesData } from "../data";
 
 export const cardSorting = (a, b) => {
     // wildcards should be sorted at the bottom in alphabetical order
@@ -33,4 +33,4 @@ export const cadreSorting = (a, b) => {
     } else {
         return a[1].name.localeCompare(b[1].name);
     }
-}
+};

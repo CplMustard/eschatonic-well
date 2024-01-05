@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 import {useParams} from "react-router-dom";
-import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
 
-import { cyphersData, cypherTypesData, factionsData } from './data'
+import { cyphersData, cypherTypesData, factionsData } from "./data";
 
 function CypherCardViewer(props) {
     const params = useParams();
 
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [cypherData, setCypherData] = useState({});
-
     const cypherId = props.cypherId ? props.cypherId : params.cypherId;
-    console.log(cypherId)
-    useEffect(() => {
-        setIsLoaded(true);
-        setCypherData(cyphersData[cypherId]);
-    }, [cypherId]);
+    const cypherData = cyphersData[cypherId];
 
     function Cypher(props) {
         const { name, factions, type, pow, text } = props;
-        return <IonCard>
+        return (<IonCard>
             <IonCardHeader>
                 <IonCardTitle color="primary"><h1>{name}</h1></IonCardTitle>
                 <IonCardSubtitle>
@@ -32,30 +24,24 @@ function CypherCardViewer(props) {
             <IonCardContent>
                 <IonText>{text}</IonText>
             </IonCardContent>
-        </IonCard>
+        </IonCard>);
     }
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-        return <div>Loading Card Data...</div>
-    } else {
-        return (
-            <IonPage className={cypherData.factions.length === 1 ? cypherData.factions[0] : ""}>            
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonBackButton></IonBackButton>
-                        </IonButtons>
-                        <IonTitle>Back Button</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent>
-                    <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
-                </IonContent>
-            </IonPage>
-        );
-    }
+    return (
+        <IonPage className={cypherData.factions.length === 1 ? cypherData.factions[0] : ""}>            
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonBackButton></IonBackButton>
+                    </IonButtons>
+                    <IonTitle>Back Button</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent>
+                <Cypher name={cypherData.name} factions={cypherData.factions} type={cypherData.type} pow={cypherData.pow} text={cypherData.text}/>
+            </IonContent>
+        </IonPage>
+    );
 }
 
 export default CypherCardViewer;

@@ -20,5 +20,5 @@ const damage_typesData = {
 	fire: fire,
 	force: force,
 	kinetic: kinetic
-}
+};
 export default damage_typesData;

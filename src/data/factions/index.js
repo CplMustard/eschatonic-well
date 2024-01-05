@@ -12,5 +12,5 @@ const factionsData = {
 	isa: isa,
 	ll: ll,
 	mw: mw
-}
+};
 export default factionsData;

@@ -1,7 +1,7 @@
-import React from 'react';
-import { IonItem, IonLabel, IonList } from '@ionic/react';
+import React from "react";
+import { IonItem, IonLabel, IonList } from "@ionic/react";
 
-import Weapon from './Weapon';
+import Weapon from "./Weapon";
 
 function WeaponList(props) {
     const weaponComponents = [];

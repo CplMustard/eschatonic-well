@@ -14,5 +14,5 @@ const force_sizesData = {
 	force_5_1: force_5_1,
 	force_6_0: force_6_0,
 	force_8_1: force_8_1
-}
+};
 export default force_sizesData;

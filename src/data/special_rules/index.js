@@ -370,5 +370,5 @@ const special_rulesData = {
 	weapon_expert: weapon_expert,
 	wide_spectrum_scanners: wide_spectrum_scanners,
 	winch: winch
-}
+};
 export default special_rulesData;

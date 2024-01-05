@@ -1,34 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { IonText } from '@ionic/react';
+import React from "react";
+import { IonText } from "@ionic/react";
 
-import SpecialRuleList from './SpecialRuleList';
+import SpecialRuleList from "./SpecialRuleList";
 
-import { cortexesData } from './data'
+import { cortexesData } from "./data";
 
 function Cortex(props) {
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [cortexData, setCortexData] = useState({});
+    const cortexData = cortexesData[props.cortexId];
 
-    useEffect(() => {
-        setIsLoaded(true);
-        setCortexData(cortexesData[props.cortexId]);
-    }, [props.cortexId]);
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-        return <div>Loading Cortex Data...</div>
-    } else {
-        const { special_rules, name } = cortexData;
-        return (
-            <div>
-                <IonText color="primary"><h2>Cortex:</h2></IonText>
-                <IonText color="primary"><h2>{name}</h2></IonText>
-                {special_rules && <SpecialRuleList special_rules={special_rules}/>}
-            </div>
-        );
-    }
+    const { special_rules, name } = cortexData;
+    return (
+        <div>
+            <IonText color="primary"><h2>Cortex:</h2></IonText>
+            <IonText color="primary"><h2>{name}</h2></IonText>
+            {special_rules && <SpecialRuleList special_rules={special_rules}/>}
+        </div>
+    );
 }
 
 export default Cortex;

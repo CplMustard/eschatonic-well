@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
-import { add } from 'ionicons/icons';
+import { IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
+import { add } from "ionicons/icons";
 
-import { cadreSorting } from './util/sortingUtil'
+import { cadreSorting } from "./util/sortingUtil";
 
 function CadreList(props) {
     const history = useHistory();
     
-    const { cadresData, addModelCards, factionId } = props
-    const cadreButtonComponents = []
+    const { cadresData, addModelCards, factionId } = props;
+    const cadreButtonComponents = [];
 
     function handleCadreClicked(id) {
         history.push(`/cadre/${id}`);
     }
     Object.entries(cadresData).sort(cadreSorting).forEach(([key, value]) => {
-        if(factionId === 'all' || value.faction === factionId) {
+        if(factionId === "all" || value.faction === factionId) {
             const cadreFactionId = cadresData[key].faction;
             cadreButtonComponents.push(<IonRow key={key}>
                 <IonCol>
@@ -32,7 +32,7 @@ function CadreList(props) {
                 </IonCol>
             </IonRow>);
         }
-    })
+    });
 
     return (
         <div>

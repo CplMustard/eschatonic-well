@@ -1,19 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { App as CapacitorApp } from '@capacitor/app';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { App as CapacitorApp } from "@capacitor/app";
 
-import { setupIonicReact } from '@ionic/react';
+import { setupIonicReact } from "@ionic/react";
 
-import '@ionic/react/css/core.css';
-import './index.css';
+import "@ionic/react/css/core.css";
+import "./index.css";
 
-import App from './App';
+import App from "./App";
 
 setupIonicReact();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-CapacitorApp.addListener('backButton', ({canGoBack}) => {
+CapacitorApp.addListener("backButton", ({canGoBack}) => {
     if(!canGoBack){
         CapacitorApp.exitApp();
     } else {

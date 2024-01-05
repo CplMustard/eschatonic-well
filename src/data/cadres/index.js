@@ -8,5 +8,5 @@ const cadresData = {
 	dragoon_air_cavalry: dragoon_air_cavalry,
 	harbingers_of_cyriss: harbingers_of_cyriss,
 	terminus_cabal: terminus_cabal
-}
+};
 export default cadresData;

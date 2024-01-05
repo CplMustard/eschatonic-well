@@ -20,5 +20,5 @@ const model_typesData = {
 	vehicle: vehicle,
 	void_gate: void_gate,
 	warjack: warjack
-}
+};
 export default model_typesData;

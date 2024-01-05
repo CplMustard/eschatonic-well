@@ -1,10 +1,12 @@
-import React from 'react';
-import { IonText} from '@ionic/react';
+import React from "react";
+import { IonText} from "@ionic/react";
 
-import { isHidden } from './util/isHidden.js';
+import { isHidden } from "./util/isHidden.js";
+
+const maxSpecialIssue = 4;
 
 function ModelCount(props) {
-    const {models, maxUnits, freeHeroSolos} = props;
+    const {models, specialIssue, maxUnits, freeHeroSolos} = props;
 
     function countUnits(forceData) {
         return forceData.filter((forceModel) => {        
@@ -19,11 +21,12 @@ function ModelCount(props) {
         }).length;
     }
 
-    const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false
+    const showHeroSoloCount = freeHeroSolos ? (freeHeroSolos !== 0) : false;
     return <>
         <IonText color={countUnits(models) < maxUnits || countUnits(models) > maxUnits ? "danger" : "primary"}><h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3></IonText>
         {showHeroSoloCount && (<IonText color={countHeroSolos(models) < freeHeroSolos ? "danger" : "primary"}><h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3></IonText>)}
-    </>
+        <IonText color="primary"><h3>Special Issue Units: {countUnits(specialIssue)}<span> / {maxSpecialIssue}</span></h3></IonText>
+    </>;
 }
 
 export default ModelCount;

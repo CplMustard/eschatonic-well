@@ -80,5 +80,5 @@ const cortexesData = {
 	vanquisher: vanquisher,
 	void_gazer: void_gazer,
 	wraith: wraith
-}
+};
 export default cortexesData;

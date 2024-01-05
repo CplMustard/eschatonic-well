@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { v1 as uuidv1 } from 'uuid';
-import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
-import { add, remove, logOut, logIn } from 'ionicons/icons';
+import { v1 as uuidv1 } from "uuid";
+import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { add, remove, logOut, logIn } from "ionicons/icons";
 
-import CardList from './CardList';
-import ForceCardList from './ForceCardList';
+import { useSessionStorage } from "./util/useStorage.js";
 
-import { cyphersData } from './data';
+import CardList from "./CardList";
+import ForceCardList from "./ForceCardList";
+
+import { cyphersData } from "./data";
 
 const cypherTypeMin = 3;
-const rackTabs = {rack: 0, special_issue: 1, cyphers: 2}
+const rackTabs = {rack: 0, special_issue: 1, cyphers: 2};
 
 function RackEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
 
-    const [tabSelected, setTabSelected] = useState(rackTabs.rack);
+    const [tabSelected, setTabSelected] = useSessionStorage("rackTabs", rackTabs.rack);
 
     const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
@@ -24,11 +26,11 @@ function RackEditor(props) {
         present({
             message: message,
             duration: 1500,
-            position: 'bottom',
+            position: "bottom",
         });
     };
 
-    const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes('all'))) : Object.values(cyphersData);
+    const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(cyphersData);
 
     function cypherCount(cyphersData, cypherId) {
         return cyphersData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
@@ -76,13 +78,13 @@ function RackEditor(props) {
         const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === id);
         addCypherCards([specialIssueCyphersData[index].cypherId]);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
-        newSpecialIssueCyphersData = [...newSpecialIssueCyphersData.slice(0, index), ...newSpecialIssueCyphersData.slice(index + 1)]
+        newSpecialIssueCyphersData = [...newSpecialIssueCyphersData.slice(0, index), ...newSpecialIssueCyphersData.slice(index + 1)];
         setSpecialIssueCyphersData(newSpecialIssueCyphersData);
     }
 
     function canSpecialIssueSwap(id) {
         const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
-        const cypherType = forceCyphersData[index].type
+        const cypherType = forceCyphersData[index].type;
         return specialIssueCyphersData.filter((forceCypher) => forceCypher.type === cypherType).length !== 0;
     }
 

@@ -346,5 +346,5 @@ const weaponsData = {
 	witherbane: witherbane,
 	wrecking_claw: wrecking_claw,
 	wrench: wrench
-}
+};
 export default weaponsData;

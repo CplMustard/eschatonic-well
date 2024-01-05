@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from '@ionic/react';
+import React, { useEffect, useRef } from "react";
+import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
-import { cardSorting, groupSorting } from './util/sortingUtil';
+import { cardSorting, groupSorting } from "./util/sortingUtil";
 
-import { cypherTypesData, modelTypesData } from './data';
+import { cypherTypesData, modelTypesData } from "./data";
 
 function CardList(props) {
     const { cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
@@ -44,7 +44,7 @@ function CardList(props) {
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && !modelTypesData[typeParts[0]].hidden)) {
-            const cardComponents = []
+            const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
                 const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
                 if(!hasHiddenSubtype) {
@@ -56,7 +56,7 @@ function CardList(props) {
                                     {action.text}
                                 </IonButton>
                             </IonCol>
-                        )
+                        );
                     });
                     const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
                     cardComponents.push(
@@ -73,7 +73,7 @@ function CardList(props) {
                         </IonRow>
                     );
                 }
-            })
+            });
 
             const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             cardGroupComponents.push(<IonItemGroup key={key}>
@@ -87,15 +87,15 @@ function CardList(props) {
                 </IonAccordion>
             </IonItemGroup>);
         }
-    })
+    });
     return <>
         {cards.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
-        <IonButton fill="outline" onClick={() => {collapseAll()}}><div>COLLAPSE ALL</div></IonButton>
-        <IonButton fill="outline" onClick={() => {expandAll()}}><div>EXPAND ALL</div></IonButton>
+        <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
+        <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
         <IonAccordionGroup ref={accordionGroup} multiple={true}>
             <IonList>{cardGroupComponents}</IonList>
         </IonAccordionGroup></>}
-    </>
+    </>;
 }
 
 export default CardList;

@@ -1,11 +1,9 @@
-import React, { useRef } from 'react';
-import { IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from '@ionic/react';
+import React from "react";
+import { IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
 
 const forcesExtension = ".esch";
 
-function LoadForceModal (props) {
-    const modal = useRef(null);
-    
+function LoadForceModal (props) {    
     const [presentAlert] = useIonAlert();
 
     const { isOpen, setIsOpen, forceFiles, loadForce, deleteForce } = props;
@@ -13,16 +11,16 @@ function LoadForceModal (props) {
     const loadForceConfirm = (forceName, filename) => {
         presentAlert({
             header: `Load Force ${forceName}?`,
-            message: 'This action will clear your force',
+            message: "This action will clear your force",
             buttons: [
                 {
-                    text: 'Cancel',
-                    role: 'cancel',
+                    text: "Cancel",
+                    role: "cancel",
                     handler: () => {},
                 },
                 {
-                    text: 'OK',
-                    role: 'confirm',
+                    text: "OK",
+                    role: "confirm",
                     handler: () => {
                         loadForce(filename);
                         setIsOpen(false);
@@ -31,21 +29,21 @@ function LoadForceModal (props) {
             ],
             onDidDismiss: () => {}
         });
-    }
+    };
 
     const deleteForceConfirm = (forceName, filename) => {
         presentAlert({
             header: `Delete Force ${forceName}?`,
-            message: 'This action will delete this force permanently',
+            message: "This action will delete this force permanently",
             buttons: [
                 {
-                    text: 'Cancel',
-                    role: 'cancel',
+                    text: "Cancel",
+                    role: "cancel",
                     handler: () => {},
                 },
                 {
-                    text: 'OK',
-                    role: 'confirm',
+                    text: "OK",
+                    role: "confirm",
                     handler: () => {
                         deleteForce(filename);
                         //Close modal if this force is the last one
@@ -57,7 +55,7 @@ function LoadForceModal (props) {
             ],
             onDidDismiss: () => {}
         });
-    }
+    };
 
     const loadForceButtons = [];
     forceFiles.forEach((file, index) => {

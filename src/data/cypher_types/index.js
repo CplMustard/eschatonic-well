@@ -8,5 +8,5 @@ const cypher_typesData = {
 	geometric: geometric,
 	harmonic: harmonic,
 	overdrive: overdrive
-}
+};
 export default cypher_typesData;

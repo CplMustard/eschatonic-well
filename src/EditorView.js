@@ -1,40 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import React, { useEffect, useState } from "react";
+import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonViewWillEnter } from '@ionic/react';
+import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonViewWillEnter } from "@ionic/react";
 
 import { copyForceToText } from "./util/copyForceToText";
-import { useStorage } from "./util/useStorage";
+import { useLocalStorage, useSessionStorage } from "./util/useStorage";
 
-import ModelCount from './ModelCount.js';
-import CypherCount from './CypherCount.js';
-import CardListViewer from './CardListViewer';
-import LoadForceModal from './LoadForceModal';
-import ForceEditor from './ForceEditor';
-import RackEditor from './RackEditor';
+import ModelCount from "./ModelCount.js";
+import CypherCount from "./CypherCount.js";
+import CardListViewer from "./CardListViewer";
+import LoadForceModal from "./LoadForceModal";
+import ForceEditor from "./ForceEditor";
+import RackEditor from "./RackEditor";
 
-import { factionsData, forceSizesData } from './data';
+import { factionsData, forceSizesData } from "./data";
 
 const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
 
-const editorTabs = {force: 0, rack: 1, cards: 2}
+const editorTabs = {force: 0, rack: 1, cards: 2};
 
 function EditorView() {
     
     const [presentAlert] = useIonAlert();
 
-    const [tabSelected, setTabSelected] = useStorage("tabSelected", editorTabs.force, sessionStorage);
+    const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", editorTabs.force);
     
-    const [cardViewFactionId, setCardViewFactionId] = useStorage("cardViewFactionId", factionsData["all"], localStorage);
-    const [factionId, setFactionId] = useStorage("factionId", factionsData["all"], localStorage);
-    const [forceSize, setForceSize] = useStorage("forceSize", forceSizesData["custom"], localStorage);
+    const [cardViewFactionId, setCardViewFactionId] = useLocalStorage("cardViewFactionId", factionsData["all"]);
+    const [factionId, setFactionId] = useLocalStorage("factionId", factionsData["all"]);
+    const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
 
-    const [forceName, setForceName] = useStorage("forceName", "New Force", localStorage);
-    const [forceModelsData, setForceModelsData] = useStorage("forceModelsData", [], localStorage);
-    const [forceCyphersData, setForceCyphersData] = useStorage("forceCyphersData", [], localStorage);
-    const [specialIssueModelsData, setSpecialIssueModelsData] = useStorage("specialIssueModelsData", [], localStorage);
-    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useStorage("specialIssueCyphersData", [], localStorage);
+    const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
+    const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
+    const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useLocalStorage("specialIssueModelsData", []);
+    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useLocalStorage("specialIssueCyphersData", []);
 
     const [forcesDirty, setForcesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
@@ -61,59 +61,59 @@ function EditorView() {
 
     const changeCardViewFaction = (id) => {
         setCardViewFactionId(id);
-    }
+    };
     
     const changeFaction = (id) => {
         setFactionId(id);
         clearForce();
-    }
+    };
 
     const changeFactionConfirm = (id) => {
         if(factionId !== id) {
             presentAlert({
-                header: 'Change Faction?',
-                message: 'Changing faction will clear your force',
+                header: "Change Faction?",
+                message: "Changing faction will clear your force",
                 buttons: [
                     {
-                        text: 'Cancel',
-                        role: 'cancel',
+                        text: "Cancel",
+                        role: "cancel",
                         handler: () => {},
                     },
                     {
-                        text: 'OK',
-                        role: 'confirm',
+                        text: "OK",
+                        role: "confirm",
                         handler: () => changeFaction(id),
                     },
                 ],
                 onDidDismiss: () => {}
             });
         }
-    }
+    };
 
     const changeForceSize = (forceSizeId) => {
         setForceSize(forceSizesData[forceSizeId]);
-    }
+    };
 
     const clearForce = () => {
         setForceModelsData([]);
         setForceCyphersData([]);
         setSpecialIssueModelsData([]);
         setSpecialIssueCyphersData([]);
-    }
+    };
 
     const clearForceConfirm = () => {
         presentAlert({
-            header: 'Clear Force?',
-            message: 'This action will clear your force',
+            header: "Clear Force?",
+            message: "This action will clear your force",
             buttons: [
                 {
-                    text: 'Cancel',
-                    role: 'cancel',
+                    text: "Cancel",
+                    role: "cancel",
                     handler: () => {},
                 },
                 {
-                    text: 'OK',
-                    role: 'confirm',
+                    text: "OK",
+                    role: "confirm",
                     handler: () => {
                         setForceName("New Force");
                         clearForce();
@@ -122,7 +122,7 @@ function EditorView() {
             ],
             onDidDismiss: () => {}
         });
-    }
+    };
 
     const createForcesDir = async () => {
         try {
@@ -137,7 +137,7 @@ function EditorView() {
             
             return result;
         }
-    }
+    };
 
     const listForces = async () => {
         try {
@@ -150,7 +150,7 @@ function EditorView() {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         const json = {
@@ -177,7 +177,7 @@ function EditorView() {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     const saveForceConfirm = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         let overwriteWarning = false;
@@ -188,23 +188,23 @@ function EditorView() {
             }
         });
         presentAlert({
-            header: 'Save Force?',
+            header: "Save Force?",
             message: overwriteWarning ? `Overwrite the force saved as ${sanitizedForceName}?` : `Save current force as ${sanitizedForceName}?`,
             buttons: [
                 {
-                    text: 'Cancel',
-                    role: 'cancel',
+                    text: "Cancel",
+                    role: "cancel",
                     handler: () => {},
                 },
                 {
-                    text: 'OK',
-                    role: 'confirm',
+                    text: "OK",
+                    role: "confirm",
                     handler: () => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);},
                 },
             ],
             onDidDismiss: () => {}
         });
-    }
+    };
 
     const loadForce = async (filename) => {
         try {
@@ -225,7 +225,7 @@ function EditorView() {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     const deleteForce = async (filename) => {
         try {
@@ -238,7 +238,7 @@ function EditorView() {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     const factionSelectOptions = [];
     Object.entries(factionsData).forEach(([key, value]) => {
@@ -263,17 +263,17 @@ function EditorView() {
                     <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>SAVE</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true)}}>LOAD</IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData)}}><div>COPY TO TEXT</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm()}}><div>CLEAR ALL</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm();}}><div>CLEAR ALL</div></IonButton></IonCol>
                         </IonRow>
                         <IonRow>
                             <IonCol size={"auto"}>
-                                <ModelCount models={forceModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
+                                <ModelCount models={forceModelsData} specialIssue={specialIssueModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
                             </IonCol>
                             <IonCol size={"auto"}>
-                                <CypherCount cyphers={forceCyphersData}/>
+                                <CypherCount cyphers={forceCyphersData} specialIssue={specialIssueCyphersData} />
                             </IonCol>
                         </IonRow>
                     </IonGrid>
