@@ -6,6 +6,7 @@
   "proxy": "http://127.0.0.1:5000",
   "homepage": ".",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@capacitor-community/electron": "^5.0.1",
     "@capacitor/android": "^5.2.2",
     "@capacitor/app": "^5.0.6",
