@@ -17,10 +17,10 @@ const voidGateId = "void_gate";
 const forceTabs = {force: 0, special_issue: 1, units: 2 };
 
 function ForceEditor(props) {
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
     const history = useHistory();
     const [present] = useIonToast();
-
-    const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const [tabSelected, setTabSelected] = useSessionStorage("forceTabs", forceTabs.force);
     const [forceEmpty, setForceEmpty] = useState(true);
@@ -209,6 +209,18 @@ function ForceEditor(props) {
         }
     }
 
+    function updateForceData(newForceData) {
+        setForceModelsData(newForceData);
+        localStorage.setItem("forceModelsData", JSON.stringify(newForceData));
+        forceUpdate();
+    }
+
+    function updateSpecialIssueData(newSpecialIssueModelsData) {
+        setSpecialIssueModelsData(newSpecialIssueModelsData);
+        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
+        forceUpdate();
+    }
+
     function addSpecialIssue(modelIds) {
         let newSpecialIssueModelsData = specialIssueModelsData;
         let addedModelNames = [];
@@ -234,9 +246,7 @@ function ForceEditor(props) {
 
         presentToast(`Added ${addedModelNames.join(", ")} to special issue`);
 
-        setSpecialIssueModelsData(newSpecialIssueModelsData);
-        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
-        forceUpdate();
+        updateSpecialIssueData(newSpecialIssueModelsData);
     }
 
     function removeSpecialIssue(id) {
@@ -249,9 +259,7 @@ function ForceEditor(props) {
         
         presentToast(`Removed ${modelData.name} from special issue`);
 
-        setSpecialIssueModelsData(newSpecialIssueModelsData);
-        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
-        forceUpdate();
+        updateSpecialIssueData(newSpecialIssueModelsData);
     }
 
     function swapToSpecialIssue(id) {
@@ -268,10 +276,8 @@ function ForceEditor(props) {
 
             presentToast(`Swapped ${forceModelsData[index].name} to special issue${deletedModelNames.length !== 0 ? `, ${deletedModelNames.join(", ")} deleted from forcelist` : ""}`);
 
-            setSpecialIssueModelsData(newSpecialIssueModelsData);
-            localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
-            setForceModelsData(newForceData);
-            forceUpdate();
+            updateSpecialIssueData(newSpecialIssueModelsData);
+            updateForceData(newForceData);
         }
     }
 
@@ -299,10 +305,8 @@ function ForceEditor(props) {
         
         presentToast(`Swapped ${modelData.name} to forcelist${addedModelNames.length !== 0 ? `, ${addedModelNames.join(", ")} added to forcelist` : ""}`);
 
-        setSpecialIssueModelsData(newSpecialIssueModelsData);
-        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
-        setForceModelsData(newForceData);
-        forceUpdate();
+        updateSpecialIssueData(newSpecialIssueModelsData);
+        updateForceData(newForceData);
     }
 
     function isCardUnremovable(id) {
@@ -390,7 +394,7 @@ function ForceEditor(props) {
                     faText={(id) => getFAText([...forceModelsData, ...specialIssueModelsData], id)}
                     cardActions={[
                         {handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA([...forceModelsData, ...specialIssueModelsData], id) }, 
-                        {handleClicked: (modelId) => addSpecialIssue([modelId]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canAddToSpecialIssue(id)}
+                        {handleClicked: (modelId) => addSpecialIssue([modelId]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canAddToSpecialIssue(id) || !checkFA([...forceModelsData, ...specialIssueModelsData], id)}
                     ]}
                 ></CardList>
             </>}
