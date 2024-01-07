@@ -18,20 +18,18 @@ function Weapon(props) {
         const damageTypeNames = [];
         damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name));
         return <IonItem>
-            <div>
-                <IonText color="primary"><h2>{weaponTypeNames[type]}</h2></IonText>
-                <IonText color="primary"><h1>{name}</h1></IonText>
-                {damageTypeNames && <IonText color="secondary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
-                <IonGrid className="statline" style={{"--background": "red"}}>
-                    {(rng || pow) && <IonRow>
-                        {rng && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>RNG</h2></IonText><IonText color="secondary"><h1>{rng}</h1></IonText></IonCol>}
-                        {pow && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>POW</h2></IonText><IonText color="secondary"><h1>{pow}</h1></IonText></IonCol>}
-                    </IonRow>}
-                    {special_rules && <IonRow>
-                        <SpecialRuleList special_rules={special_rules}/>
-                    </IonRow>}
-                </IonGrid>
-            </div>
+            <IonText color="primary"><h2>{weaponTypeNames[type]}</h2></IonText>
+            <IonText color="primary"><h1>{name}</h1></IonText>
+            {damageTypeNames && <IonText color="secondary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
+            <IonGrid className="statline" style={{"--background": "red"}}>
+                {(rng || pow) && <IonRow>
+                    {rng && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>RNG</h2></IonText><IonText color="secondary"><h1>{rng}</h1></IonText></IonCol>}
+                    {pow && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>POW</h2></IonText><IonText color="secondary"><h1>{pow}</h1></IonText></IonCol>}
+                </IonRow>}
+                {special_rules && <IonRow>
+                    <SpecialRuleList special_rules={special_rules}/>
+                </IonRow>}
+            </IonGrid>
         </IonItem>;
     }
 

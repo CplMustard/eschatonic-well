@@ -20,9 +20,7 @@ function SpecialRule(props) {
     const subruleEntries = subrules ? subrules.map((subrule) => <IonItem key={subrule}><SpecialRule ruleId={subrule}/></IonItem>) : undefined;
     return (
         <div>
-            <div>
-                <IonText style={{fontWeight: "bold"}}>{ruleTitleString}</IonText><IonText><div className="rules-text">{ruleString}</div></IonText>
-            </div>
+            <IonText style={{fontWeight: "bold"}}>{ruleTitleString}</IonText><IonText><div className="rules-text">{ruleString}</div></IonText>
             {subrules && <div><IonList>{subruleEntries}</IonList></div>}
         </div>
     );
