@@ -59,15 +59,16 @@ function LoadForceModal (props) {
 
     const loadForceButtons = [];
     forceFiles.forEach((file, index) => {
-        const forceName = file.name.replace(forcesExtension, "");
+        const forceName = file.fileInfo.name.replace(forcesExtension, "");
+        const factionId = file.factionId;
         loadForceButtons.push(<IonRow key={index}>
             <IonCol>
-                <IonButton expand="block" onClick={() => loadForceConfirm(forceName, file.name)}>
+                <IonButton className={factionId} expand="block" onClick={() => loadForceConfirm(forceName, file.fileInfo.name)}>
                     <div>{forceName}</div>
                 </IonButton>
             </IonCol>
             <IonCol size="auto">
-                <IonButton expand="block" onClick={() => deleteForceConfirm(forceName, file.name)}>
+                <IonButton expand="block" onClick={() => deleteForceConfirm(forceName, file.fileInfo.name)}>
                     DELETE
                 </IonButton>
             </IonCol>

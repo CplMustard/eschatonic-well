@@ -49,14 +49,19 @@ function EditorView() {
     });
 
     useEffect(() => {
-        createForcesDir().then(() => 
-            listForces().then((result) => {
-                if(forcesDirty && result) {
-                    setForceFiles(result.files);
-                    setForcesDirty(false);
+        (async function () {
+            await createForcesDir();
+            const result = await listForces();
+            if(forcesDirty && result) {
+                const forces = [];
+                for await (const file of result.files) {
+                    const factionId = await getFactionIdFromForce(file.name);
+                    forces.push({fileInfo: file, factionId: factionId});
                 }
-            })
-        );
+                setForceFiles(forces);
+                setForcesDirty(false);
+            }
+        })();
     }, [forcesDirty]);
 
     const changeCardViewFaction = (id) => {
@@ -152,6 +157,21 @@ function EditorView() {
         }
     };
 
+    const getFactionIdFromForce = async (filename) => {
+        try {
+            const result = await Filesystem.readFile({
+                path: `${forcesPath}${filename}`,
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+            });
+            
+            const json = JSON.parse(result.data);
+            return json.factionId;
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         const json = {
             "forceName": forceName,
@@ -180,16 +200,15 @@ function EditorView() {
     };
 
     const saveForceConfirm = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
-        let overwriteWarning = false;
+        let showOverwriteWarning = false;
         const sanitizedForceName = sanitize(forceName);
-        await listForces().then((result) => {
-            if(result && result.files) {
-                overwriteWarning = result.files.find((file) => file.name.replace(forcesExtension, "") === sanitizedForceName);
-            }
-        });
+        const result = await listForces();
+        if(result && result.files) {
+            showOverwriteWarning = result.files.find((file) => file.name.replace(forcesExtension, "") === sanitizedForceName);
+        }
         presentAlert({
             header: "Save Force?",
-            message: overwriteWarning ? `Overwrite the force saved as ${sanitizedForceName}?` : `Save current force as ${sanitizedForceName}?`,
+            message: showOverwriteWarning ? `Overwrite the force saved as ${sanitizedForceName}?` : `Save current force as ${sanitizedForceName}?`,
             buttons: [
                 {
                     text: "Cancel",
