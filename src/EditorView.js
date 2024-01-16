@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
 import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonViewWillEnter } from "@ionic/react";
@@ -63,6 +63,12 @@ function EditorView() {
             }
         })();
     }, [forcesDirty]);
+
+    const contentRef = createRef();
+  
+    function scrollToTop() {
+      contentRef.current?.scrollToTop();
+    }
 
     const changeCardViewFaction = (id) => {
         setCardViewFactionId(id);
@@ -273,7 +279,7 @@ function EditorView() {
     });
     return (
         <IonPage className={tabSelected === editorTabs.cards ? cardViewFactionId : factionId}>
-            <IonContent>
+            <IonContent ref={contentRef}>
                 <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) 
                 ? <>
@@ -323,7 +329,10 @@ function EditorView() {
             </IonContent>
             <IonFooter>
                 <IonToolbar>
-                    <IonSegment mode="md" value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
+                    <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
+                        scrollToTop();
+                        setTabSelected(e.detail.value);
+                    }}>
                         <IonSegmentButton value={editorTabs.force}>
                             <IonLabel>Force</IonLabel>
                         </IonSegmentButton>
