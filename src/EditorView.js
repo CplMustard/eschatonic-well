@@ -26,8 +26,8 @@ function EditorView() {
 
     const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", editorTabs.force);
     
-    const [cardViewFactionId, setCardViewFactionId] = useLocalStorage("cardViewFactionId", factionsData["all"]);
-    const [factionId, setFactionId] = useLocalStorage("factionId", factionsData["all"]);
+    const [cardViewFactionId, setCardViewFactionId] = useLocalStorage("cardViewFactionId", "all");
+    const [factionId, setFactionId] = useLocalStorage("factionId", "all");
     const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
 
     const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
