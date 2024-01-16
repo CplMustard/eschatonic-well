@@ -25,7 +25,7 @@ function ModelCount(props) {
     return <>
         <IonText color={countUnits(models) < maxUnits || countUnits(models) > maxUnits ? "danger" : "primary"}><h3>Units: {countUnits(models)}{maxUnits && <span> / {maxUnits}</span>}</h3></IonText>
         {showHeroSoloCount && (<IonText color={countHeroSolos(models) < freeHeroSolos ? "danger" : "primary"}><h3>Free Hero Solos: {`${Math.min(countHeroSolos(models), freeHeroSolos)} / ${freeHeroSolos}`}</h3></IonText>)}
-        {specialIssue.length !== 0 && <IonText color="primary"><h3>Special Issue Units: {countUnits(specialIssue)}<span> / {maxSpecialIssue}</span></h3></IonText>}
+        {specialIssue.length !== 0 && <IonText color="primary"><h3>Special Issue Units: {specialIssue.length}<span> / {maxSpecialIssue}</span></h3></IonText>}
     </>;
 }
 
