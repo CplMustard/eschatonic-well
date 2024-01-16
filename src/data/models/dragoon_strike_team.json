@@ -19,6 +19,9 @@
         "compact_battle_rifle",
         "fusion_axe"
     ],
+    "advantages": [
+        "flight"
+    ],
     "special_rules": [
         "reflex_accelerator",
         "sequence_dominator"

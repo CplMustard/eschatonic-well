@@ -18,6 +18,9 @@
     "weapons": [
         "battle_rifle_dragoon",
         "battle_rifle_dragoon"
+    ],    
+    "advantages": [
+        "flight"
     ],
     "special_rules": [
         "reflex_accelerator",
