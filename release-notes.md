@@ -21,8 +21,8 @@
  - Fix issue where new UI layout would not appear
  - Add missing "flight" advantage to Dragoon Squads
  - Special issue hero models are now counted correctly in the UI
+ - Fix issue where changing force/rack submenus sometimes causes the screen to briefly scroll up
 
-# Known Issues (0.2.0):
+# Known Issues (0.2.1):
  - On initial install, when saving a list for the first time you may have to close and reopen the app to enable the "Load" button
- - Changing force/rack submenus sometimes causes the screen to briefly scroll up
  - Special issue count will sometimes not be updated in the UI
