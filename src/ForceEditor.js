@@ -356,7 +356,7 @@ function ForceEditor(props) {
                 </IonSegment>
             </IonToolbar>
             {tabSelected === forceTabs.force && <>
-                {forceEmpty && <IonText color="primary"><h2>Add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
+                {forceEmpty && <IonText color="primary"><h2>Tap <i>Units</i> and add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
 
                 <ForceCardList 
                     header={"Force"} 

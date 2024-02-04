@@ -168,7 +168,7 @@ function RackEditor(props) {
                     ]}
                 ></ForceCardList>
 
-                {forceCyphersData.length === 0 && <IonText color="primary"><h2>Add a cypher to your Rack with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
+                {forceCyphersData.length === 0 && <IonText color="primary"><h2>Tap <i>Cyphers</i> and add a cypher to your Rack with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
             </>}
             {tabSelected === rackTabs.special_issue && <>
                 <ForceCardList 
