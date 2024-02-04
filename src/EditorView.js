@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonViewWillEnter } from "@ionic/react";
+import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast, useIonViewWillEnter } from "@ionic/react";
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage, useSessionStorage } from "./util/useStorage";
@@ -23,6 +23,7 @@ const editorTabs = {force: 0, rack: 1, cards: 2};
 function EditorView() {
     
     const [presentAlert] = useIonAlert();
+    const [present] = useIonToast();
 
     const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", editorTabs.force);
     
@@ -64,6 +65,14 @@ function EditorView() {
         })();
     }, [forcesDirty]);
 
+    const presentToast = (message) => {
+        present({
+            message: message,
+            duration: 1500,
+            position: "top",
+        });
+    };
+
     const contentRef = createRef();
   
     function scrollToTop() {
@@ -75,6 +84,7 @@ function EditorView() {
     };
     
     const changeFaction = (id) => {
+        presentToast(`Faction changed to ${factionsData[id].name}, force cleared`);
         setFactionId(id);
         clearForce();
     };
@@ -102,10 +112,12 @@ function EditorView() {
     };
 
     const changeForceSize = (forceSizeId) => {
+        presentToast(`Force size changed to ${forceSizesData[forceSizeId].name}`);
         setForceSize(forceSizesData[forceSizeId]);
     };
 
     const clearForce = () => {
+        presentToast("Force cleared");
         setForceModelsData([]);
         setForceCyphersData([]);
         setSpecialIssueModelsData([]);
@@ -198,6 +210,7 @@ function EditorView() {
                 recursive: true
             });
             
+            presentToast(`Force saved as ${forceName} successfully`);
             setForcesDirty(true);
             return result;
         } catch (e) {
@@ -247,6 +260,8 @@ function EditorView() {
             setForceCyphersData(json.forceCyphersData);
             setSpecialIssueModelsData(json.specialIssueModelsData);
             setSpecialIssueCyphersData(json.specialIssueCyphersData);
+            
+            presentToast(`Force ${json.forceName} loaded successfully`);
         } catch (e) {
             console.log(e);
         }
@@ -290,7 +305,10 @@ function EditorView() {
                         <IonRow>
                             <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD</IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>COPY TO TEXT</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {
+                                copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
+                                presentToast("Force copied to clipboard");
+                            }}><div>COPY TO TEXT</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm();}}><div>CLEAR ALL</div></IonButton></IonCol>
                         </IonRow>
                         <IonRow>
