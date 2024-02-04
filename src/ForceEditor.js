@@ -59,7 +59,7 @@ function ForceEditor(props) {
         present({
             message: message,
             duration: 1500,
-            position: "bottom",
+            position: "top",
         });
     };
 

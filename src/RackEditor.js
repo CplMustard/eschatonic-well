@@ -28,7 +28,7 @@ function RackEditor(props) {
         present({
             message: message,
             duration: 1500,
-            position: "bottom",
+            position: "top",
         });
     };
 
