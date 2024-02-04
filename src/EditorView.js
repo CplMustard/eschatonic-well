@@ -210,8 +210,8 @@ function EditorView() {
                 recursive: true
             });
             
-            presentToast(`Force saved as ${forceName} successfully`);
             setForcesDirty(true);
+            presentToast(`Force saved as ${forceName} successfully`);
             return result;
         } catch (e) {
             console.log(e);
@@ -274,6 +274,8 @@ function EditorView() {
                 directory: Directory.Data,
             });
             setForcesDirty(true);
+            
+            presentToast(`Force ${filename.replace(forcesExtension, "")} deleted successfully`);
             return result;
         } catch (e) {
             console.log(e);
