@@ -23,6 +23,15 @@
  - Special issue hero models are now counted correctly in the UI
  - Fix issue where changing force/rack submenus sometimes causes the screen to briefly scroll up
 
-# Known Issues (0.2.1):
+ # 0.2.2:
+ ## New Features
+ - Added toast notifications to more actions like save/load/copy to text
+ ## Bugfixes
+ - Fix various formatting and typos
+ - Harlan Sek now is using the correct statline for his fusion blade
+
+# Known Issues (0.2.2):
  - On initial install, when saving a list for the first time you may have to close and reopen the app to enable the "Load" button
  - Special issue count will sometimes not be updated in the UI
+ - Sometimes when clicking one of the sub-tab buttons another button can be clicked as well when the screen scrolls up
+ - Changing sub-tabs will open all groups
