@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
+import { useSessionStorage } from "./util/useStorage.js";
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
 import { cypherTypesData, modelTypesData } from "./data";
 
 function CardList(props) {
-    const { cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
+    const { id, cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
@@ -19,27 +20,36 @@ function CardList(props) {
     const allGroups = Object.keys(cardGroups);
 
     const accordionGroup = useRef(null);
-    const collapseAll = () => {
+
+    const [expandedGroups, setExpandedGroups] = id ? useSessionStorage(`expandedCardGroups_${id}`, allGroups) : useState(allGroups);
+
+    const expandGroups = (groups) => {
         if (!accordionGroup.current) {
             return;
         }
         const nativeEl = accordionGroup.current;
 
-        nativeEl.value = undefined;
+        nativeEl.value = groups;
+        setExpandedGroups(groups);
+    };
+
+    const accordionGroupChange = (e) => {
+        const selectedValue = e.detail.value;
+    
+        setExpandedGroups(selectedValue);
+      };
+
+    const collapseAll = () => {
+        expandGroups(undefined);
     };
 
     const expandAll = () => {
-        if (!accordionGroup.current) {
-            return;
-        }
-        const nativeEl = accordionGroup.current;
-
-        nativeEl.value = allGroups;
+        expandGroups(allGroups);
     };
 
     useEffect(() => {
-        expandAll();
-    }, [expandAll]);
+        expandGroups(expandedGroups);
+    }, [expandedGroups]);
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
@@ -92,7 +102,7 @@ function CardList(props) {
         {cards.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
         <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
         <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
-        <IonAccordionGroup ref={accordionGroup} multiple={true}>
+        <IonAccordionGroup ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
             <IonList>{cardGroupComponents}</IonList>
         </IonAccordionGroup></>}
     </>;

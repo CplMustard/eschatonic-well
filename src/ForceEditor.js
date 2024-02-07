@@ -359,6 +359,7 @@ function ForceEditor(props) {
                 {forceEmpty && <IonText color="primary"><h2>Tap <i>Units</i> and add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
 
                 <ForceCardList 
+                    id={"Force"}
                     header={"Force"} 
                     forceEntries={forceModelsData} 
                     handleCardClicked={openModelCard} 
@@ -373,6 +374,7 @@ function ForceEditor(props) {
                 {specialIssueModelsData.length === 0 && <IonText color="primary"><h2>Add a unit to your Special Issue with <IonIcon slot="icon-only" icon={logOut}></IonIcon> to view them here.</h2></IonText>}
 
                 <ForceCardList 
+                    id={"ForceSpecialIssue"}
                     header={"Special Issue"} 
                     forceEntries={specialIssueModelsData} 
                     handleCardClicked={openModelCard} 
@@ -387,6 +389,7 @@ function ForceEditor(props) {
                 <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
                 <br/>
                 <CardList 
+                    id={"ForceEditor"}
                     header={"Models"} 
                     cards={models} 
                     hideHiddenTypes={true} 

@@ -158,6 +158,7 @@ function RackEditor(props) {
             </IonToolbar>
             {tabSelected === rackTabs.rack && <>
                 <ForceCardList 
+                    id={"Rack"}
                     header={"Rack"} 
                     forceEntries={forceCyphersData} 
                     typeMin={cypherTypeMin}
@@ -172,6 +173,7 @@ function RackEditor(props) {
             </>}
             {tabSelected === rackTabs.special_issue && <>
                 <ForceCardList 
+                    id={"RackSpecialIssue"}
                     header={"Special Issue"} 
                     forceEntries={specialIssueCyphersData} 
                     handleCardClicked={openCypherCard} 
@@ -185,6 +187,7 @@ function RackEditor(props) {
             </>}
             {tabSelected === rackTabs.cyphers && <>
                 <CardList 
+                    id={"CypherEditor"}
                     header={"Cyphers"} 
                     cards={remainingCypherCardList} 
                     handleCardClicked={openCypherCard} 

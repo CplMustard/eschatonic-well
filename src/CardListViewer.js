@@ -23,8 +23,8 @@ function CardListViewer(props) {
 
     return (
         <div className="container">
-            <CardList header={"Models"} cards={models} handleCardClicked={openModelCard}></CardList>
-            <CardList header={"Cyphers"} cards={cyphers} handleCardClicked={openCypherCard}></CardList>
+            <CardList id={"ViewerModels"} header={"Models"} cards={models} handleCardClicked={openModelCard}></CardList>
+            <CardList id={"ViewerCyphers"} header={"Cyphers"} cards={cyphers} handleCardClicked={openCypherCard}></CardList>
         </div>
     );
 }

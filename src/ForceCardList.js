@@ -1,6 +1,7 @@
-import React, { useEffect, useRef }  from "react";
+import React, { useEffect, useState, useRef }  from "react";
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
+import { useSessionStorage } from "./util/useStorage.js";
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
 import HardPointList from "./HardPointList";
@@ -8,7 +9,7 @@ import HardPointList from "./HardPointList";
 import { cypherTypesData, modelTypesData } from "./data";
 
 function ForceCardList(props) {
-    const { forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
+    const { id, forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
 
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
@@ -22,27 +23,36 @@ function ForceCardList(props) {
     const allGroups = Object.keys(forceGroups);
 
     const accordionGroup = useRef(null);
-    const collapseAll = () => {
+
+    const [expandedGroups, setExpandedGroups] = id ? useSessionStorage(`expandedForceGroups_${id}`, allGroups) : useState(allGroups);
+
+    const expandGroups = (groups) => {
         if (!accordionGroup.current) {
             return;
         }
         const nativeEl = accordionGroup.current;
 
-        nativeEl.value = undefined;
+        nativeEl.value = groups;
+        setExpandedGroups(groups);
+    };
+
+    const accordionGroupChange = (e) => {
+        const selectedValue = e.detail.value;
+    
+        setExpandedGroups(selectedValue);
+      };
+
+    const collapseAll = () => {
+        expandGroups(undefined);
     };
 
     const expandAll = () => {
-        if (!accordionGroup.current) {
-            return;
-        }
-        const nativeEl = accordionGroup.current;
-
-        nativeEl.value = allGroups;
+        expandGroups(allGroups);
     };
 
     useEffect(() => {
-        expandAll();
-    }, [expandAll]);
+        expandGroups(expandedGroups);
+    }, [expandedGroups]);
     
     Object.entries(forceGroups).sort(groupSorting).forEach(([key, value]) => {
         const entryComponents = [];
@@ -102,7 +112,7 @@ function ForceCardList(props) {
             <IonLabel color="primary"><h1>{header}</h1></IonLabel>
             <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
             <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
-            <IonAccordionGroup ref={accordionGroup} multiple={true}>
+            <IonAccordionGroup ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
                 <IonList>{forceGroupComponents}</IonList>
             </IonAccordionGroup>
         </>}
