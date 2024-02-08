@@ -26,7 +26,7 @@ function ModelCardViewer(props) {
     useEffect(() => {
         if(location.state && location.state.entryId) {
             const key = location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData";
-            const saved = localStorage.getItem(key);
+            const saved = sessionStorage.getItem(key);
             const forceModelsData = JSON.parse(saved);
             const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
             if(entry && entry.hardPointOptions) {
@@ -43,10 +43,10 @@ function ModelCardViewer(props) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
         if(location.state && location.state.entryId) {
             const key = location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData";
-            const saved = localStorage.getItem(key);
+            const saved = sessionStorage.getItem(key);
             let newModelsData = JSON.parse(saved);
             newModelsData.find((entry) => entry.id === location.state.entryId).hardPointOptions = newHardPointOptions;
-            localStorage.setItem(key, JSON.stringify(newModelsData));
+            sessionStorage.setItem(key, JSON.stringify(newModelsData));
         }
         setHardPointOptions(newHardPointOptions);
     }

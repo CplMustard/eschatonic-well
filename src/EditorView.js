@@ -31,11 +31,11 @@ function EditorView() {
     const [factionId, setFactionId] = useLocalStorage("factionId", "all");
     const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
 
-    const [forceName, setForceName] = useLocalStorage("forceName", "New Force");
-    const [forceModelsData, setForceModelsData] = useLocalStorage("forceModelsData", []);
-    const [forceCyphersData, setForceCyphersData] = useLocalStorage("forceCyphersData", []);
-    const [specialIssueModelsData, setSpecialIssueModelsData] = useLocalStorage("specialIssueModelsData", []);
-    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useLocalStorage("specialIssueCyphersData", []);
+    const [forceName, setForceName] = useSessionStorage("forceName", "New Force");
+    const [forceModelsData, setForceModelsData] = useSessionStorage("forceModelsData", []);
+    const [forceCyphersData, setForceCyphersData] = useSessionStorage("forceCyphersData", []);
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorage("specialIssueModelsData", []);
+    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorage("specialIssueCyphersData", []);
 
     const [forcesDirty, setForcesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
@@ -43,10 +43,10 @@ function EditorView() {
 
     //Ensure that model loadouts are kept updated even if they're changed from other pages
     useIonViewWillEnter(() => {
-        setForceModelsData(JSON.parse(localStorage.getItem("forceModelsData")));
-        setForceCyphersData(JSON.parse(localStorage.getItem("forceCyphersData")));
-        setSpecialIssueModelsData(JSON.parse(localStorage.getItem("specialIssueModelsData")));
-        setSpecialIssueCyphersData(JSON.parse(localStorage.getItem("specialIssueCyphersData")));
+        setForceModelsData(JSON.parse(sessionStorage.getItem("forceModelsData")));
+        setForceCyphersData(JSON.parse(sessionStorage.getItem("forceCyphersData")));
+        setSpecialIssueModelsData(JSON.parse(sessionStorage.getItem("specialIssueModelsData")));
+        setSpecialIssueCyphersData(JSON.parse(sessionStorage.getItem("specialIssueCyphersData")));
     });
 
     useEffect(() => {
