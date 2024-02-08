@@ -8,6 +8,8 @@ import HardPointList from "./HardPointList";
 
 import { cypherTypesData, modelTypesData } from "./data";
 
+const accordionId = "force-card-list-accordion-group";
+
 function ForceCardList(props) {
     const { id, forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
 
@@ -37,6 +39,10 @@ function ForceCardList(props) {
     };
 
     const accordionGroupChange = (e) => {
+        if(e.originalTarget.id !== id) {
+            //prevent change events from bubbling up from children
+            return; 
+        }
         const selectedValue = e.detail.value;
     
         setExpandedGroups(selectedValue);
@@ -112,7 +118,7 @@ function ForceCardList(props) {
             <IonLabel color="primary"><h1>{header}</h1></IonLabel>
             <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
             <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
-            <IonAccordionGroup ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
+            <IonAccordionGroup id={accordionId} ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
                 <IonList>{forceGroupComponents}</IonList>
             </IonAccordionGroup>
         </>}

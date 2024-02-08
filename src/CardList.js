@@ -34,6 +34,10 @@ function CardList(props) {
     };
 
     const accordionGroupChange = (e) => {
+        if(e.originalTarget.id !== id) {
+            //prevent change events from bubbling up from children
+            return; 
+        }
         const selectedValue = e.detail.value;
     
         setExpandedGroups(selectedValue);
@@ -102,7 +106,7 @@ function CardList(props) {
         {cards.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
         <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
         <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
-        <IonAccordionGroup ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
+        <IonAccordionGroup id={id} ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
             <IonList>{cardGroupComponents}</IonList>
         </IonAccordionGroup></>}
     </>;
