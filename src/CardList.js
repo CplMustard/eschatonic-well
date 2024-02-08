@@ -44,7 +44,7 @@ function CardList(props) {
       };
 
     const collapseAll = () => {
-        expandGroups(undefined);
+        expandGroups([]);
     };
 
     const expandAll = () => {
