@@ -38,7 +38,8 @@ function ForceCardList(props) {
     };
 
     const accordionGroupChange = (e) => {
-        if(e.originalTarget.id !== id) {
+        console.log(e);
+        if(e.target.id !== id) {
             //prevent change events from bubbling up from children
             return; 
         }

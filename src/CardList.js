@@ -35,7 +35,7 @@ function CardList(props) {
     };
 
     const accordionGroupChange = (e) => {
-        if(e.originalTarget.id !== id) {
+        if(e.target.id !== id) {
             //prevent change events from bubbling up from children
             return; 
         }
