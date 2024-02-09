@@ -30,8 +30,13 @@
  - Fix various formatting and typos
  - Harlan Sek now is using the correct statline for his fusion blade
 
-# Known Issues (0.2.2):
+ # 0.2.3:
+ ## New Features
+ - Unit groups will now be saved when switching between tabs
+ - Sub-tabs have been moved to the footer
+ ## Bugfixes
+ - Fix various bugs related to collapsing/expanding groups
+
+# Known Issues (0.2.3):
  - On initial install, when saving a list for the first time you may have to close and reopen the app to enable the "Load" button
  - Special issue count will sometimes not be updated in the UI
- - Sometimes when clicking one of the sub-tab buttons another button can be clicked as well when the screen scrolls up
- - Changing sub-tabs will open all groups
