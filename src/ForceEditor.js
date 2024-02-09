@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from "uuid";
-import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { add, remove, logOut, logIn } from "ionicons/icons";
 
 import CardList from "./CardList";
 import ForceCardList from "./ForceCardList.js";
+import { forceTabs } from "./EditorView.js";
 
 import { isHidden } from "./util/isHidden.js";
-import { useSessionStorage } from "./util/useStorage.js";
 
 import { cadresData,  modelsData, weaponsData } from "./data";
 import CadreList from "./CadreList";
 
 const voidGateId = "void_gate";
-const forceTabs = {force: 0, special_issue: 1, units: 2 };
 
 function ForceEditor(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -22,10 +21,9 @@ function ForceEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
 
-    const [tabSelected, setTabSelected] = useSessionStorage("forceTabs", forceTabs.force);
     const [forceEmpty, setForceEmpty] = useState(true);
 
-    const { factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
+    const { tabSelected, factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
 
     useEffect(() => {
         setForceModelsData(forceModelsData);
@@ -342,19 +340,6 @@ function ForceEditor(props) {
 
     return (
         <>
-            <IonToolbar>
-                <IonSegment mode="ios" value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
-                    <IonSegmentButton value={forceTabs.force} fill="outline">
-                        <IonLabel>Forcelist</IonLabel>
-                    </IonSegmentButton>
-                    <IonSegmentButton value={forceTabs.special_issue}>
-                        <IonLabel>Special Issue</IonLabel>
-                    </IonSegmentButton>
-                    <IonSegmentButton value={forceTabs.units}>
-                        <IonLabel>Units</IonLabel>
-                    </IonSegmentButton>
-                </IonSegment>
-            </IonToolbar>
             {tabSelected === forceTabs.force && <>
                 {forceEmpty && <IonText color="primary"><h2>Tap <i>Units</i> and add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
 

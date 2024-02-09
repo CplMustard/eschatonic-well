@@ -1,18 +1,16 @@
 import React, { useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from "uuid";
-import { IonText, IonIcon, useIonToast, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { add, remove, logOut, logIn } from "ionicons/icons";
-
-import { useSessionStorage } from "./util/useStorage.js";
 
 import CardList from "./CardList";
 import ForceCardList from "./ForceCardList";
+import { rackTabs } from "./EditorView.js";
 
 import { cyphersData } from "./data";
 
 const cypherTypeMin = 3;
-const rackTabs = {rack: 0, special_issue: 1, cyphers: 2};
 
 function RackEditor(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -20,9 +18,7 @@ function RackEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
 
-    const [tabSelected, setTabSelected] = useSessionStorage("rackTabs", rackTabs.rack);
-
-    const { factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
+    const { tabSelected, factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
     const presentToast = (message) => {
         present({
@@ -143,19 +139,6 @@ function RackEditor(props) {
 
     return (
         <div>
-            <IonToolbar>
-                <IonSegment mode="ios" value={tabSelected} onIonChange={(e) => setTabSelected(e.detail.value)}>
-                    <IonSegmentButton value={rackTabs.rack} fill="outline">
-                        <IonLabel>Rack</IonLabel>
-                    </IonSegmentButton>
-                    <IonSegmentButton value={rackTabs.special_issue}>
-                        <IonLabel>Special Issue</IonLabel>
-                    </IonSegmentButton>
-                    <IonSegmentButton value={rackTabs.cyphers}>
-                        <IonLabel>Cyphers</IonLabel>
-                    </IonSegmentButton>
-                </IonSegment>
-            </IonToolbar>
             {tabSelected === rackTabs.rack && <>
                 <ForceCardList 
                     id={"Rack"}

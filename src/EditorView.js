@@ -19,6 +19,8 @@ const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
 
 const editorTabs = {force: 0, rack: 1, cards: 2};
+export const forceTabs = {force: 0, special_issue: 1, units: 2 };
+export const rackTabs = {rack: 0, special_issue: 1, cyphers: 2 };
 
 function EditorView() {
     
@@ -26,6 +28,8 @@ function EditorView() {
     const [present] = useIonToast();
 
     const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", editorTabs.force);
+    const [forceTabSelected, setForceTabSelected] = useSessionStorage("forceTabSelected", forceTabs.force);
+    const [rackTabSelected, setRackTabSelected] = useSessionStorage("rackTabSelected", rackTabs.rack);
     
     const [cardViewFactionId, setCardViewFactionId] = useLocalStorage("cardViewFactionId", "all");
     const [factionId, setFactionId] = useLocalStorage("factionId", "all");
@@ -327,6 +331,7 @@ function EditorView() {
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 </>}
                 {tabSelected === editorTabs.force && <ForceEditor 
+                    tabSelected={forceTabSelected}
                     factionId={factionId}
                     forceName={forceName} 
                     forceModelsData={forceModelsData} 
@@ -336,6 +341,7 @@ function EditorView() {
                 ></ForceEditor>}
                 
                 {tabSelected === editorTabs.rack && <RackEditor 
+                    tabSelected={rackTabSelected}
                     factionId={factionId}
                     forceCyphersData={forceCyphersData}
                     setForceCyphersData={setForceCyphersData}
@@ -349,6 +355,32 @@ function EditorView() {
             </IonContent>
             <IonFooter>
                 <IonToolbar>
+                    {tabSelected === editorTabs.force && 
+                        <IonSegment mode="ios" value={forceTabSelected} onIonChange={(e) => setForceTabSelected(e.detail.value)}>
+                            <IonSegmentButton value={forceTabs.force} fill="outline">
+                                <IonLabel>Forcelist</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value={forceTabs.special_issue}>
+                                <IonLabel>Special Issue</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value={forceTabs.units}>
+                                <IonLabel>Units</IonLabel>
+                            </IonSegmentButton>
+                        </IonSegment>
+                    }
+                    {tabSelected === editorTabs.rack && 
+                        <IonSegment mode="ios" value={rackTabSelected} onIonChange={(e) => setRackTabSelected(e.detail.value)}>
+                            <IonSegmentButton value={rackTabs.rack} fill="outline">
+                                <IonLabel>Rack</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value={rackTabs.special_issue}>
+                                <IonLabel>Special Issue</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value={rackTabs.cyphers}>
+                                <IonLabel>Cyphers</IonLabel>
+                            </IonSegmentButton>
+                        </IonSegment>
+                    }
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
                         scrollToTop();
                         setTabSelected(e.detail.value);
