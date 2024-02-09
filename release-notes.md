@@ -37,7 +37,10 @@
  ## Bugfixes
  - Fix various bugs related to collapsing/expanding groups
 
-# Known Issues (0.2.3):
+ # 0.2.4:
+ ## Bugfixes
+ - Fix bug where collapsed/expanded groups would not save correctly on mobile
+
+# Known Issues (0.2.4):
  - On initial install, when saving a list for the first time you may have to close and reopen the app to enable the "Load" button
  - Special issue count will sometimes not be updated in the UI
- - Adding cyphers to the rack will open all groups on that page
