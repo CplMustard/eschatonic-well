@@ -21,16 +21,17 @@ function CardList(props) {
 
     const accordionGroup = useRef(null);
 
-    const [expandedGroups, setExpandedGroups] = id ? useSessionStorage(`expandedCardGroups_${id}`, allGroups) : useState(allGroups);
+    const [collapsedGroups, setCollapsedGroups] = id ? useSessionStorage(`collapsedCardGroups_${id}`, []) : useState([]);
 
-    const expandGroups = (groups) => {
+    const collapseGroups = (groups) => {
         if (!accordionGroup.current) {
             return;
         }
         const nativeEl = accordionGroup.current;
 
-        nativeEl.value = groups;
-        setExpandedGroups(groups);
+        const expandedGroups = allGroups.filter((group) => !groups.includes(group));
+        nativeEl.value = expandedGroups;
+        setCollapsedGroups(groups);
     };
 
     const accordionGroupChange = (e) => {
@@ -39,21 +40,22 @@ function CardList(props) {
             return; 
         }
         const selectedValue = e.detail.value;
-    
-        setExpandedGroups(selectedValue);
+        
+        const collapsedGroups = allGroups.filter((group) => !selectedValue.includes(group));
+        setCollapsedGroups(collapsedGroups);
       };
 
     const collapseAll = () => {
-        expandGroups([]);
+        collapseGroups(allGroups);
     };
 
     const expandAll = () => {
-        expandGroups(allGroups);
+        collapseGroups([]);
     };
 
     useEffect(() => {
-        expandGroups(expandedGroups);
-    }, [expandedGroups]);
+        collapseGroups(collapsedGroups);
+    }, [collapsedGroups, cards]);
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
