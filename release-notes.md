@@ -46,6 +46,6 @@
  - Fix typos on Ranger Heavy Support, Coalition Weaver
  - Fix issue where "Damage Types" text would appear regardless of if weapon had damage types or not
 
-# Known Issues (0.2.4):
+# Known Issues (0.2.5):
  - On initial install, when saving a list for the first time you may have to close and reopen the app to enable the "Load" button
  - Special issue count will sometimes not be updated in the UI
