@@ -21,7 +21,7 @@ function Weapon(props) {
             <div>
                 <IonText color="primary"><h2>{weaponTypeNames[type]}</h2></IonText>
                 <IonText color="primary"><h1>{name}</h1></IonText>
-                {damageTypeNames && <IonText color="secondary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
+                {damage_types && damageTypeNames && <IonText color="secondary"><h4>Damage Types: {damageTypeNames.join(", ")}</h4></IonText>}
                 <IonGrid className="statline" style={{"--background": "red"}}>
                     {(rng || pow) && <IonRow>
                         {rng && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>RNG</h2></IonText><IonText color="secondary"><h1>{rng}</h1></IonText></IonCol>}
