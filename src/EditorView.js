@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast, useIonViewWillEnter } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast, useIonViewWillEnter } from "@ionic/react";
 
 import { copyForceToText } from "./util/copyForceToText";
 import { useLocalStorage, useSessionStorage } from "./util/useStorage";
@@ -300,6 +300,24 @@ function EditorView() {
     });
     return (
         <IonPage className={tabSelected === editorTabs.cards ? cardViewFactionId : factionId}>
+            <IonHeader>
+                <IonToolbar>
+                    <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
+                        scrollToTop();
+                        setTabSelected(e.detail.value);
+                    }}>
+                        <IonSegmentButton value={editorTabs.force}>
+                            <IonLabel>Force</IonLabel>
+                        </IonSegmentButton>
+                        <IonSegmentButton value={editorTabs.rack}>
+                            <IonLabel>Rack</IonLabel>
+                        </IonSegmentButton>
+                        <IonSegmentButton value={editorTabs.cards}>
+                            <IonLabel>Cards</IonLabel>
+                        </IonSegmentButton>
+                    </IonSegment>
+                </IonToolbar>
+            </IonHeader>
             <IonContent ref={contentRef}>
                 <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) 
@@ -381,20 +399,6 @@ function EditorView() {
                             </IonSegmentButton>
                         </IonSegment>
                     }
-                    <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
-                        scrollToTop();
-                        setTabSelected(e.detail.value);
-                    }}>
-                        <IonSegmentButton value={editorTabs.force}>
-                            <IonLabel>Force</IonLabel>
-                        </IonSegmentButton>
-                        <IonSegmentButton value={editorTabs.rack}>
-                            <IonLabel>Rack</IonLabel>
-                        </IonSegmentButton>
-                        <IonSegmentButton value={editorTabs.cards}>
-                            <IonLabel>Cards</IonLabel>
-                        </IonSegmentButton>
-                    </IonSegment>
                 </IonToolbar>
             </IonFooter>
         </IonPage>
