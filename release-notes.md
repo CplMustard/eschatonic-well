@@ -46,7 +46,7 @@
  - Fix typos on Ranger Heavy Support, Coalition Weaver
  - Fix issue where "Damage Types" text would appear regardless of if weapon had damage types or not
 
-# 0.2.5:
+# 0.2.6:
  ## New Features
  - Moved major tabs to the top of the screen to make navigation easier
  ## Bugfixes
