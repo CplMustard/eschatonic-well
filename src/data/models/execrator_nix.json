@@ -3,7 +3,7 @@
     "name": "Execrator Nix",
     "factions": ["emp"],
     "type": "vehicle",
-    "subtypes": ["hero"],
+    "subtypes": ["aeon", "hero"],
     "weapon_points": 3,
     "stats": {
         "dc": 3,

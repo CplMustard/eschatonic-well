@@ -15,8 +15,8 @@
         "boxes": 3
     },
     "weapons": [
-        "thumper_cannon",
-        "light_flamethrower"
+        "light_flamethrower",
+        "thumper_cannon"
     ],
     "advantages": [
         "pathfinder",

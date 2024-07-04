@@ -67,7 +67,7 @@ import fusion_spear from "./fusion_spear.json";
 import fusion_sword from "./fusion_sword.json";
 import fusion_torch from "./fusion_torch.json";
 import gate_crasher from "./gate_crasher.json";
-import gravitonic_lash from "./gravitonic_lash.json";
+import gravitronic_lash from "./gravitronic_lash.json";
 import grenade_launcher from "./grenade_launcher.json";
 import handgun from "./handgun.json";
 import harbinger_cannon from "./harbinger_cannon.json";

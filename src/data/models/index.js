@@ -6,7 +6,7 @@ import astreus from "./astreus.json";
 import aurelion from "./aurelion.json";
 import automech from "./automech.json";
 import axel_for_hire from "./axel_for_hire.json";
-import aysa_drace from "./aysa_drace.json";
+import aysa_drayce from "./aysa_drayce.json";
 import baron_mooregrave from "./baron_mooregrave.json";
 import blast_shield from "./blast_shield.json";
 import carapax from "./carapax.json";
