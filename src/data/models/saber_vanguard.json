@@ -22,7 +22,8 @@
     "special_rules": [
         "arcanum_module",
         "eclipse_drive",
-        "havoc_engine"
+        "havoc_engine",
+        "sidestep"
     ],
     "attachments": [
         "aerolith",
