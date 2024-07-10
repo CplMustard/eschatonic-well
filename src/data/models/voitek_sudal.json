@@ -15,9 +15,9 @@
         "boxes": 3
     },
     "weapons": [
-        "combat_blade",
         "force_constrictor",
-        "null_detonator"
+        "null_detonator",
+        "combat_blade"
     ],
     "advantages": [
         "pathfinder",
