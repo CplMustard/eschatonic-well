@@ -99,7 +99,7 @@ const modelsData = {
 	aurelion: aurelion,
 	automech: automech,
 	axel_for_hire: axel_for_hire,
-	aysa_drace: aysa_drace,
+	aysa_drayce: aysa_drayce,
 	baron_mooregrave: baron_mooregrave,
 	blast_shield: blast_shield,
 	carapax: carapax,
