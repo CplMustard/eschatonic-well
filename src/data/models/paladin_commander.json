@@ -14,8 +14,8 @@
         "boxes": 2
     },
     "weapons": [
-        "fusion_sword",
-        "pulse_cannon"
+        "pulse_cannon",
+        "fusion_sword"
     ],
     "advantages": [
         "compound_armor"
