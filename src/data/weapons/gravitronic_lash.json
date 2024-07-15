@@ -1,6 +1,6 @@
 {
-    "id": "gravitonic_lash",
-    "name": "Gravitonic Lash",
+    "id": "gravitronic_lash",
+    "name": "Gravitronic Lash",
     "point_cost": 1,
     "profiles": [{
         "type": "range", 

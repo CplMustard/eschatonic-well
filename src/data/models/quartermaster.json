@@ -17,8 +17,8 @@
     },
     "weapons": [
         "assault_rifle_quartermaster",
-        "spiker",
-        "null_detonator"
+        "null_detonator",
+        "spiker"
     ],
     "special_rules": [
         "aegis_field",

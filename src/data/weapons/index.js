@@ -242,7 +242,7 @@ const weaponsData = {
 	fusion_sword: fusion_sword,
 	fusion_torch: fusion_torch,
 	gate_crasher: gate_crasher,
-	gravitonic_lash: gravitonic_lash,
+	gravitronic_lash: gravitronic_lash,
 	grenade_launcher: grenade_launcher,
 	handgun: handgun,
 	harbinger_cannon: harbinger_cannon,

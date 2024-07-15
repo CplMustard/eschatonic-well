@@ -15,8 +15,8 @@
         "boxes": 3
     },
     "weapons": [
-        "oblivion",
-        "magnum"
+        "magnum",
+        "oblivion"
     ],
     "advantages": [
         "weapon_expert"
