@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
-import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader, IonIcon } from "@ionic/react";
-import { skullOutline } from "ionicons/icons";
+import { useSessionStorageState } from "ahooks";
+import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
 
 import CardList from "./CardList";
 import Cortex from "./Cortex";
@@ -9,6 +9,7 @@ import HardPointList from "./HardPointList";
 import SpecialRuleList from "./SpecialRuleList";
 import WeaponList from "./WeaponList";
 import ManeuverList from "./ManeuverList";
+import UnitStatus from "./UnitStatus";
 
 import { modelsData, modelTypesData, weaponsData, factionsData, cadresData } from "./data";
 
@@ -19,21 +20,39 @@ function ModelCardViewer(props) {
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
+    const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
+    const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
+
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: []});
+    const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: []});
+
+    const [unitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: []});
+
+    const isPlayMode = location.state && location.state.isPlayMode;
+    const modelsDataState = location.state ? (isPlayMode? (location.state.isSpecialIssue ? playSpecialIssueModelsData : playForceModelsData) : (location.state.isSpecialIssue ? specialIssueModelsData : forceModelsData)) : [];
+    const setModelsData = location.state ? (isPlayMode? (location.state.isSpecialIssue ? setPlaySpecialIssueModelsData : setPlayForceModelsData) : (location.state.isSpecialIssue ? setSpecialIssueModelsData : setForceModelsData)) : () => {};
+    const entryId = location.state ? location.state.entryId : undefined;
+
     const modelId = props.modelId ? props.modelId : params.modelId;
     
     const cardData = modelsData[modelId];
 
     useEffect(() => {
-        if(location.state && location.state.entryId) {
-            const key = location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData";
-            const saved = sessionStorage.getItem(key);
-            const forceModelsData = JSON.parse(saved);
-            const entry = forceModelsData.find((entry) => entry.id === location.state.entryId);
+        if(entryId) {
+            const entry = modelsDataState.find((entry) => entry.id === entryId);
             if(entry && entry.hardPointOptions) {
                 setHardPointOptions(entry.hardPointOptions);
             }
         }
     }, [modelId, location.state]);
+
+    const getUnitStatusEntry = (entryId) => {
+        if (entryId && isPlayMode) {
+            if (unitsStatus) {
+                return unitsStatus.find((entry) => entry.id === entryId);
+            }
+        }
+    };
 
     function openModelCard(id) {
         history.push(`/model/${id}`);
@@ -41,12 +60,10 @@ function ModelCardViewer(props) {
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
-        if(location.state && location.state.entryId) {
-            const key = location.state.isSpecialIssue ? "specialIssueModelsData" : "forceModelsData";
-            const saved = sessionStorage.getItem(key);
-            let newModelsData = JSON.parse(saved);
-            newModelsData.find((entry) => entry.id === location.state.entryId).hardPointOptions = newHardPointOptions;
-            sessionStorage.setItem(key, JSON.stringify(newModelsData));
+        if(entryId && !isPlayMode) {
+            let newModelsData = modelsDataState;
+            newModelsData.find((entry) => entry.id === entryId).hardPointOptions = newHardPointOptions;
+            setModelsData(newModelsData);
         }
         setHardPointOptions(newHardPointOptions);
     }
@@ -55,6 +72,7 @@ function ModelCardViewer(props) {
         const { name, type, subtypes, factions, dc, boxes, base_size, squad_size } = props;
         const factionNames = [];
         const subtypeNames = [];
+        const unitStatusEntry = getUnitStatusEntry(entryId);
         factions.forEach((faction) => factionNames.push(factionsData[faction].name));
         if(subtypes) {
             subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name));
@@ -68,22 +86,9 @@ function ModelCardViewer(props) {
                 {dc && <IonText color="secondary"><h2>Deployment Cost: {dc}</h2></IonText>}
                 {base_size && <IonText color="secondary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
                 {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
-                {boxes && <HitBoxes boxes={boxes} squad_size={squad_size}></HitBoxes>}
+                {unitStatusEntry && <UnitStatus id={entryId} entry={unitStatusEntry} boxes={boxes} isPlayMode={isPlayMode}></UnitStatus>}
             </IonCardSubtitle>
         </IonCardHeader>;
-    }
-
-    function HitBoxes(props) {
-        const { boxes, squad_size } = props;
-        return <IonText color="primary">
-            <h2>Boxes:</h2>
-            {!isNaN(boxes)
-                ? squad_size && !isNaN(squad_size) && Number(squad_size) > 1
-                    ? [...Array(squad_size)].map((e, i) => <h2 key={i}>Model {i+1}: {[...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)}</h2>)
-                    : [...Array(boxes)].map((e, i) => <IonIcon key={i} color="secondary" icon={skullOutline} size="large"></IonIcon>)
-                : <IonText color="secondary"><h3>{boxes}</h3></IonText>
-            }
-        </IonText>;
     }
 
     function Statline(props) {
@@ -140,7 +145,7 @@ function ModelCardViewer(props) {
                     <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} dc={stats.dc} boxes={stats.boxes} base_size={stats.base_size} squad_size={stats.squad_size} /><hr/>
                     <IonCardContent>
                         <Statline stats={stats} />
-                        {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)}/>}
+                        {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)} isPlayMode={isPlayMode}/>}
                         {allWeapons && <WeaponList weapons={allWeapons} />}
                         {advantages && <SpecialRuleList special_rules={advantages} header={"Advantages"} />}
                         {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}

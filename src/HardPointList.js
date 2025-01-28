@@ -6,12 +6,12 @@ import { cortexesData, weaponsData } from "./data";
 import HardPoint from "./HardPoint";
 
 function HardPointList(props) {
-    const { hard_points, hardPointOptions, weaponPoints } = props;
+    const { hard_points, hardPointOptions, weaponPoints, onChangeHardPoint, isPlayMode } = props;
     const hardPointComponents = [];
     hard_points.forEach((hard_point, index) =>
         hardPointComponents.push(<IonRow key={index}>
             <IonCol>
-                <HardPoint hard_point={hard_point} index={index} selectedOption={hardPointOptions[index]} onChangeHardPoint={props.onChangeHardPoint.bind(this)}/>
+                <HardPoint hard_point={hard_point} index={index} selectedOption={hardPointOptions[index]} onChangeHardPoint={onChangeHardPoint ? onChangeHardPoint.bind(this) : null}/>
             </IonCol>
         </IonRow>)
     );
@@ -20,7 +20,7 @@ function HardPointList(props) {
     const hardPointOptionsText = hardPointOptions.map((hardPointOption) => hardPointOption.type === "cortex" ? cortexesData[hardPointOption.option].name : weaponsData[hardPointOption.option].name).join(", ");
 
     return <IonAccordionGroup>
-        <IonAccordion>
+        <IonAccordion readonly={isPlayMode}>
             <IonItem slot="header" color="dark" size="small">
                 <IonLabel color="primary">{hardPointOptionsText}</IonLabel>
             </IonItem>

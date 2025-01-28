@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useRef }  from "react";
+import { useSessionStorageState } from "ahooks";
 import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
-import { useSessionStorage } from "./util/useStorage.js";
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
 import HardPointList from "./HardPointList";
+import UnitStatus from "./UnitStatus.js";
 
 import { cypherTypesData, modelTypesData } from "./data";
 
 function ForceCardList(props) {
-    const { id, forceEntries, header, handleCardClicked, cardActions, typeMin, updateModelHardPoint } = props;
+    const { id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
@@ -24,7 +25,7 @@ function ForceCardList(props) {
 
     const accordionGroup = useRef(null);
 
-    const [collapsedGroups, setCollapsedGroups] = id ? useSessionStorage(`collapsedForceGroups_${id}`, []) : useState([]);
+    const [collapsedGroups, setCollapsedGroups] = id ? useSessionStorageState(`collapsedForceGroups_${id}`, {defaultValue: []}) : useState([]);
 
     const collapseGroups = (groups) => {
         if (!accordionGroup.current) {
@@ -38,7 +39,6 @@ function ForceCardList(props) {
     };
 
     const accordionGroupChange = (e) => {
-        console.log(e);
         if(e.target.id !== id) {
             //prevent change events from bubbling up from children
             return; 
@@ -62,57 +62,76 @@ function ForceCardList(props) {
     }, [collapsedGroups, forceEntries]);
     
     Object.entries(forceGroups).sort(groupSorting).forEach(([key, value]) => {
-        const entryComponents = [];
-        value.sort(cardSorting).forEach((entry, index) => {
-            const cardActionButtons = [];
-            cardActions && cardActions.forEach((action, index) => {
-                action.handleClicked && action.text && cardActionButtons.push(
-                    <IonCol key={index} size="auto">
-                        <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(entry.id))} onClick={() => action.handleClicked(entry.id)}>
-                            {action.text}
-                        </IonButton>
-                    </IonCol>
+        const typeParts = key.split("|");
+        // Don't hide champions, mantlets or void gates in reserves
+        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && ((isPlayMode && (typeParts[0] === "champion" || typeParts[0] === "mantlet" || typeParts[0] === "void_gate")) || !modelTypesData[typeParts[0]].hidden))) {
+            const entryComponents = [];
+            value.sort(cardSorting).forEach((entry, index) => {
+                const cardActionButtons = [];
+                cardActions && cardActions.forEach((action, index) => {
+                    action.handleClicked && action.text && cardActionButtons.push(
+                        <IonCol key={index} size="auto">
+                            <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(entry.id))} onClick={() => action.handleClicked(entry.id)}>
+                                {action.text}
+                            </IonButton>
+                        </IonCol>
+                    );
+                });
+                const factionId = entry.factions.length === 1 ? entry.factions[0] : "wc";
+                const statusEntry = isPlayMode && unitsStatus && unitsStatus.find((deployed) => deployed.id === entry.id);
+                entryComponents.push(<div key={index}>
+                    <IonRow>
+                        <IonCol>
+                            <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(entry.modelId ? entry.modelId : entry.cypherId, entry.id)}>
+                                <div className="button-inner">
+                                    <div className="button-text">{entry.name}</div>
+                                </div>
+                            </IonButton>
+                        </IonCol>
+                        {cardActionButtons}
+                    </IonRow>
+                    {entry.hard_points && <IonRow>
+                        <IonCol>
+                            <HardPointList 
+                                hard_points={entry.hard_points} 
+                                hardPointOptions={entry.hardPointOptions} 
+                                weaponPoints={entry.weapon_points} 
+                                onChangeHardPoint={updateModelHardPoint ? ((option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)) : null}
+                                isPlayMode={isPlayMode}
+                            />
+                        </IonCol>
+                    </IonRow>}
+                    {statusEntry && <IonRow>
+                        <IonCol>
+                            <UnitStatus 
+                                id={entry.id} 
+                                setArc={setArc} 
+                                toggleActivation={toggleActivation} 
+                                toggleContinuousEffect={toggleContinuousEffect} 
+                                toggleDamageBox={toggleDamageBox} 
+                                entry={statusEntry} 
+                                isPlayMode={isPlayMode}
+                            ></UnitStatus>
+                        </IonCol>
+                    </IonRow>}
+                </div>
                 );
             });
-            const factionId = entry.factions.length === 1 ? entry.factions[0] : "wc";
-            entryComponents.push(<div key={index}>
-                <IonRow>
-                    <IonCol>
-                        <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(entry.modelId ? entry.modelId : entry.cypherId, entry.id)}>
-                            <div className="button-inner">
-                                <div className="button-text">{entry.name}</div>
-                            </div>
-                        </IonButton>
-                    </IonCol>
-                    {cardActionButtons}
-                </IonRow>
-                {entry.hard_points && <IonRow>
-                    <IonCol>
-                        <HardPointList 
-                            hard_points={entry.hard_points} 
-                            hardPointOptions={entry.hardPointOptions} 
-                            weaponPoints={entry.weapon_points} 
-                            onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, entry.id)}
-                        />
-                    </IonCol>
-                </IonRow>}
-            </div>
-            );
-        });
-        const typeParts = key.split("|");
-        const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
-        forceGroupComponents.push(<IonItemGroup key={key}>
-            <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
-                <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
-                    <IonLabel>{`${cardTypeName} (${entryComponents.length})`}</IonLabel>
-                </IonItem>
-                <div className="ion-padding" slot="content">
-                    <IonGrid>
-                        {entryComponents}
-                    </IonGrid>
-                </div>
-            </IonAccordion>
-        </IonItemGroup>);
+            const typeParts = key.split("|");
+            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
+            forceGroupComponents.push(<IonItemGroup key={key}>
+                <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
+                    <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
+                        <IonLabel>{`${cardTypeName} (${entryComponents.length})`}</IonLabel>
+                    </IonItem>
+                    <div className="ion-padding" slot="content">
+                        <IonGrid>
+                            {entryComponents}
+                        </IonGrid>
+                    </div>
+                </IonAccordion>
+            </IonItemGroup>);
+        }
     });
     return <>
         {forceEntries.length !== 0 && <>

@@ -1,10 +1,10 @@
 import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast, useIonViewWillEnter } from "@ionic/react";
+import { useSessionStorageState, useLocalStorageState } from "ahooks";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
 
 import { copyForceToText } from "./util/copyForceToText";
-import { useLocalStorage, useSessionStorage } from "./util/useStorage";
 
 import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
@@ -12,46 +12,50 @@ import CardListViewer from "./CardListViewer";
 import LoadForceModal from "./LoadForceModal";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
+import PlayModeViewer from "./PlayModeViewer";
 
 import { factionsData, forceSizesData } from "./data";
 
 const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
 
-const editorTabs = {force: 0, rack: 1, cards: 2};
+const editorTabs = {force: 0, rack: 1, cards: 2, play: 3};
 export const forceTabs = {force: 0, special_issue: 1, units: 2 };
 export const rackTabs = {rack: 0, special_issue: 1, cyphers: 2 };
+export const playTabs = {deployed: 0, reserves: 1, rack: 2 };
 
 function EditorView() {
     
     const [presentAlert] = useIonAlert();
     const [present] = useIonToast();
 
-    const [tabSelected, setTabSelected] = useSessionStorage("tabSelected", editorTabs.force);
-    const [forceTabSelected, setForceTabSelected] = useSessionStorage("forceTabSelected", forceTabs.force);
-    const [rackTabSelected, setRackTabSelected] = useSessionStorage("rackTabSelected", rackTabs.rack);
+    const [tabSelected, setTabSelected] = useSessionStorageState("tabSelected", {defaultValue: editorTabs.force});
+    const [forceTabSelected, setForceTabSelected] = useSessionStorageState("forceTabSelected", {defaultValue: forceTabs.force});
+    const [rackTabSelected, setRackTabSelected] = useSessionStorageState("rackTabSelected", {defaultValue: rackTabs.rack});
+    const [playTabSelected, setPlayTabSelected] = useSessionStorageState("playTabSelected", {defaultValue: playTabs.deployed});
     
-    const [cardViewFactionId, setCardViewFactionId] = useLocalStorage("cardViewFactionId", "all");
-    const [factionId, setFactionId] = useLocalStorage("factionId", "all");
-    const [forceSize, setForceSize] = useLocalStorage("forceSize", forceSizesData["custom"]);
+    const [cardViewFactionId, setCardViewFactionId] = useLocalStorageState("cardViewFactionId", {defaultValue: "all"});
+    const [factionId, setFactionId] = useLocalStorageState("factionId", {defaultValue: "all"});
+    const [forceSize, setForceSize] = useLocalStorageState("forceSize", {defaultValue: forceSizesData["custom"]});
 
-    const [forceName, setForceName] = useSessionStorage("forceName", "New Force");
-    const [forceModelsData, setForceModelsData] = useSessionStorage("forceModelsData", []);
-    const [forceCyphersData, setForceCyphersData] = useSessionStorage("forceCyphersData", []);
-    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorage("specialIssueModelsData", []);
-    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorage("specialIssueCyphersData", []);
+    const [forceName, setForceName] = useSessionStorageState("forceName", {defaultValue: "New Force"});
+    const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: []});
+    const [forceCyphersData, setForceCyphersData] = useSessionStorageState("forceCyphersData", {defaultValue: []});
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: []});
+    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorageState("specialIssueCyphersData", {defaultValue: []});
+
+    const [playForceName, setPlayForceName] = useSessionStorageState("playForceName", {defaultValue: undefined});
+    const [playFactionId, setPlayFactionId] = useLocalStorageState("playFactionId", {defaultValue: undefined});
+    const [playForceSize, setPlayForceSize] = useLocalStorageState("playForceSize", {defaultValue: undefined});
+    const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
+    const [playForceCyphersData, setPlayForceCyphersData] = useSessionStorageState("playForceCyphersData", {defaultValue: []});
+    const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
+    const [playSpecialIssueCyphersData, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
     const [forcesDirty, setForcesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [isLoadForceModalOpen, setIsLoadForceModalOpen] = useState(false);
-
-    //Ensure that model loadouts are kept updated even if they're changed from other pages
-    useIonViewWillEnter(() => {
-        setForceModelsData(JSON.parse(sessionStorage.getItem("forceModelsData")));
-        setForceCyphersData(JSON.parse(sessionStorage.getItem("forceCyphersData")));
-        setSpecialIssueModelsData(JSON.parse(sessionStorage.getItem("specialIssueModelsData")));
-        setSpecialIssueCyphersData(JSON.parse(sessionStorage.getItem("specialIssueCyphersData")));
-    });
+    const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -271,6 +275,29 @@ function EditorView() {
         }
     };
 
+    const loadPlayForce = async (filename) => {
+        try {
+            const result = await Filesystem.readFile({
+                path: `${forcesPath}${filename}`,
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+            });
+            
+            const json = JSON.parse(result.data);
+            setPlayForceName(json.forceName);
+            setPlayFactionId(json.factionId);
+            setPlayForceSize(json.forceSize);
+            setPlayForceModelsData(json.forceModelsData);
+            setPlayForceCyphersData(json.forceCyphersData);
+            setPlaySpecialIssueModelsData(json.specialIssueModelsData);
+            setPlaySpecialIssueCyphersData(json.specialIssueCyphersData);
+            
+            presentToast(`Force ${json.forceName} loaded successfully`);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     const deleteForce = async (filename) => {
         try {
             const result = await Filesystem.deleteFile({
@@ -299,7 +326,7 @@ function EditorView() {
         forceSizeOptions.push(<IonSelectOption key={key} value={value.id}>{`${value.name} ${value.id !== "custom" ? `(${value.units} / ${value.hero_solos})` : ""}`}</IonSelectOption>);
     });
     return (
-        <IonPage className={tabSelected === editorTabs.cards ? cardViewFactionId : factionId}>
+        <IonPage className={(tabSelected === editorTabs.cards ? cardViewFactionId : tabSelected === editorTabs.play ? playFactionId : factionId)}>
             <IonHeader>
                 <IonToolbar>
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
@@ -315,16 +342,19 @@ function EditorView() {
                         <IonSegmentButton value={editorTabs.cards}>
                             <IonLabel>Cards</IonLabel>
                         </IonSegmentButton>
+                        <IonSegmentButton value={editorTabs.play}>
+                            <IonLabel>Play</IonLabel>
+                        </IonSegmentButton>
                     </IonSegment>
                 </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
                 <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
-                {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) 
-                ? <>
+                <LoadForceModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} forceFiles={forceFiles} loadForce={loadPlayForce}></LoadForceModal>
+                {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h2>Force Name: <IonInput type="text" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
+                    <IonText color="primary"><h2>Force Name: <IonInput type="text" fill="solid" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                     <IonGrid>
                         <IonRow>
                             <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE</div></IonButton></IonCol>
@@ -344,10 +374,21 @@ function EditorView() {
                             </IonCol>
                         </IonRow>
                     </IonGrid>
-                </>
-                : <>
+                </>}
+                {(tabSelected === editorTabs.cards) && <>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 </>}
+                {(tabSelected === editorTabs.play) && <>
+                    {playFactionId && <IonText color="primary"><h3>Faction: {factionsData[playFactionId].name}</h3></IonText>}
+                    {playForceSize && <IonText color="primary"><h3>Force Size: {playForceSize.name}</h3></IonText>}
+                    {playForceName && <IonText color="primary"><h2>Force Name: {playForceName}</h2></IonText>}
+                    <IonGrid>
+                        <IonRow>
+                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadPlayForceModalOpen(true);}}>LOAD</IonButton></IonCol>
+                        </IonRow>
+                    </IonGrid>
+                </>}
+
                 {tabSelected === editorTabs.force && <ForceEditor 
                     tabSelected={forceTabSelected}
                     factionId={factionId}
@@ -370,6 +411,18 @@ function EditorView() {
                 {tabSelected === editorTabs.cards && <CardListViewer 
                     factionId={cardViewFactionId}
                 ></CardListViewer>}
+
+                {tabSelected === editorTabs.play && <PlayModeViewer
+                    tabSelected={playTabSelected}
+                    forceModelsData={playForceModelsData} 
+                    setForceModelsData={setPlayForceModelsData} 
+                    specialIssueModelsData={playSpecialIssueModelsData} 
+                    setSpecialIssueModelsData={setPlaySpecialIssueModelsData}
+                    forceCyphersData={playForceCyphersData}
+                    setForceCyphersData={setPlayForceCyphersData}
+                    specialIssueCyphersData={playSpecialIssueCyphersData} 
+                    setSpecialIssueCyphersData={setPlaySpecialIssueCyphersData}
+                ></PlayModeViewer>}
             </IonContent>
             <IonFooter>
                 <IonToolbar>
@@ -396,6 +449,19 @@ function EditorView() {
                             </IonSegmentButton>
                             <IonSegmentButton value={rackTabs.cyphers}>
                                 <IonLabel>Cyphers</IonLabel>
+                            </IonSegmentButton>
+                        </IonSegment>
+                    }
+                    {tabSelected === editorTabs.play && 
+                        <IonSegment mode="ios" value={playTabSelected} onIonChange={(e) => setPlayTabSelected(e.detail.value)}>
+                            <IonSegmentButton value={playTabs.deployed} fill="outline">
+                                <IonLabel>Deployed</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value={playTabs.reserves}>
+                                <IonLabel>Reserves</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value={playTabs.rack}>
+                                <IonLabel>Rack</IonLabel>
                             </IonSegmentButton>
                         </IonSegment>
                     }

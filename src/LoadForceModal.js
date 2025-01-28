@@ -67,11 +67,11 @@ function LoadForceModal (props) {
                     <div>{forceName}</div>
                 </IonButton>
             </IonCol>
-            <IonCol size="auto">
+            {deleteForce && <IonCol size="auto">
                 <IonButton expand="block" onClick={() => deleteForceConfirm(forceName, file.fileInfo.name)}>
                     DELETE
                 </IonButton>
-            </IonCol>
+            </IonCol>}
         </IonRow>);
     });
 
