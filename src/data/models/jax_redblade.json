@@ -15,8 +15,8 @@
         "boxes": 3
     },
     "weapons": [
-        "fusion_sword",
-        "magnum"
+        "magnum",
+        "fusion_sword"
     ],
     "advantages": [
         "weapon_expert"
