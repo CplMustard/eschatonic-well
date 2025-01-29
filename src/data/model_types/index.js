@@ -2,6 +2,7 @@ import aeon from "./aeon.json";
 import attachment from "./attachment.json";
 import champion from "./champion.json";
 import hero from "./hero.json";
+import keeper from "./keeper.json";
 import mantlet from "./mantlet.json";
 import solo from "./solo.json";
 import squad from "./squad.json";
@@ -14,6 +15,7 @@ const model_typesData = {
 	attachment: attachment,
 	champion: champion,
 	hero: hero,
+	keeper: keeper,
 	mantlet: mantlet,
 	solo: solo,
 	squad: squad,

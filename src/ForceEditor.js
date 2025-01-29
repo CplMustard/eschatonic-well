@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from "uuid";
 import { IonText, IonIcon, useIonToast } from "@ionic/react";
@@ -16,7 +16,6 @@ import CadreList from "./CadreList";
 const voidGateId = "void_gate";
 
 function ForceEditor(props) {
-    const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const history = useHistory();
     const [present] = useIonToast();
@@ -24,11 +23,6 @@ function ForceEditor(props) {
     const [forceEmpty, setForceEmpty] = useState(true);
 
     const { tabSelected, factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
-
-    useEffect(() => {
-        setForceModelsData(forceModelsData);
-        setSpecialIssueModelsData(specialIssueModelsData);
-    });
 
     useEffect(() => {
         let newForceData = forceModelsData;
@@ -190,7 +184,6 @@ function ForceEditor(props) {
         presentToast(`Added ${addedModelNames.join(", ")} to forcelist`);
 
         setForceModelsData(newForceData);
-        forceUpdate();
     }
 
     function removeModelCard(id) {
@@ -203,20 +196,7 @@ function ForceEditor(props) {
             presentToast(`Deleted ${deletedModelNames.join(", ")} from forcelist`);
 
             setForceModelsData(newForceData);
-            forceUpdate();
         }
-    }
-
-    function updateForceData(newForceData) {
-        setForceModelsData(newForceData);
-        localStorage.setItem("forceModelsData", JSON.stringify(newForceData));
-        forceUpdate();
-    }
-
-    function updateSpecialIssueData(newSpecialIssueModelsData) {
-        setSpecialIssueModelsData(newSpecialIssueModelsData);
-        localStorage.setItem("specialIssueModelsData", JSON.stringify(newSpecialIssueModelsData));
-        forceUpdate();
     }
 
     function addSpecialIssue(modelIds) {
@@ -244,7 +224,7 @@ function ForceEditor(props) {
 
         presentToast(`Added ${addedModelNames.join(", ")} to special issue`);
 
-        updateSpecialIssueData(newSpecialIssueModelsData);
+        setSpecialIssueModelsData(newSpecialIssueModelsData);
     }
 
     function removeSpecialIssue(id) {
@@ -257,7 +237,7 @@ function ForceEditor(props) {
         
         presentToast(`Removed ${modelData.name} from special issue`);
 
-        updateSpecialIssueData(newSpecialIssueModelsData);
+        setSpecialIssueModelsData(newSpecialIssueModelsData);
     }
 
     function swapToSpecialIssue(id) {
@@ -274,8 +254,8 @@ function ForceEditor(props) {
 
             presentToast(`Swapped ${forceModelsData[index].name} to special issue${deletedModelNames.length !== 0 ? `, ${deletedModelNames.join(", ")} deleted from forcelist` : ""}`);
 
-            updateSpecialIssueData(newSpecialIssueModelsData);
-            updateForceData(newForceData);
+            setSpecialIssueModelsData(newSpecialIssueModelsData);
+            setForceModelsData(newForceData);
         }
     }
 
@@ -303,8 +283,8 @@ function ForceEditor(props) {
         
         presentToast(`Swapped ${modelData.name} to forcelist${addedModelNames.length !== 0 ? `, ${addedModelNames.join(", ")} added to forcelist` : ""}`);
 
-        updateSpecialIssueData(newSpecialIssueModelsData);
-        updateForceData(newForceData);
+        setSpecialIssueModelsData(newSpecialIssueModelsData);
+        setForceModelsData(newForceData);
     }
 
     function isCardUnremovable(id) {
