@@ -41,10 +41,12 @@ function ForceEditor(props) {
             }
         });
 
-        //Show empty force prompt if we only have mantlets or void_gates
-        setForceEmpty(newForceData.length === availableMantlets.length + 1);
-        
-        setForceModelsData(newForceData);
+        if(newForceData != forceModelsData) {
+            //Show empty force prompt if we only have mantlets or void_gates
+            setForceEmpty(newForceData.length === availableMantlets.length + 1);
+            
+            setForceModelsData(newForceData);
+        }
     }, [forceModelsData, specialIssueModelsData, factionId]);
     
     const presentToast = (message) => {
