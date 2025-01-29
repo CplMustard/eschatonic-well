@@ -39,10 +39,10 @@ function EditorView() {
     const [forceSize, setForceSize] = useLocalStorageState("forceSize", {defaultValue: forceSizesData["custom"]});
 
     const [forceName, setForceName] = useSessionStorageState("forceName", {defaultValue: "New Force"});
-    const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: []});
-    const [forceCyphersData, setForceCyphersData] = useSessionStorageState("forceCyphersData", {defaultValue: []});
-    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: []});
-    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorageState("specialIssueCyphersData", {defaultValue: []});
+    const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: [], listenStorageChange: true});
+    const [forceCyphersData, setForceCyphersData] = useSessionStorageState("forceCyphersData", {defaultValue: [], listenStorageChange: true});
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: [], listenStorageChange: true});
+    const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorageState("specialIssueCyphersData", {defaultValue: [], listenStorageChange: true});
 
     const [playForceName, setPlayForceName] = useSessionStorageState("playForceName", {defaultValue: undefined});
     const [playFactionId, setPlayFactionId] = useLocalStorageState("playFactionId", {defaultValue: undefined});

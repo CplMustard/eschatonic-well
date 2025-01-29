@@ -15,7 +15,7 @@ function PlayModeViewer(props) {
     const history = useHistory();
     const [present] = useIonToast();
 
-    const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: []});
+    const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
     
     const presentToast = (message) => {
         present({
@@ -85,7 +85,6 @@ function PlayModeViewer(props) {
         if(arc <= unitsStatus[index].arcLimit) {
             unitsStatus[index].arc = arc;
             setUnitsStatus(newUnitsStatus);
-            forceUpdate();
         }
     }
 
@@ -95,7 +94,6 @@ function PlayModeViewer(props) {
         const index = newUnitsStatus.findIndex((entry) => entry.id === id);
         unitsStatus[index].activated = !unitsStatus[index].activated;
         setUnitsStatus(newUnitsStatus);
-        forceUpdate();
     }
 
     function toggleContinuousEffect(id, modelIndex, effectId) {
@@ -112,7 +110,6 @@ function PlayModeViewer(props) {
                 continuousEffects.push(effectId);
             }
             setUnitsStatus(newUnitsStatus);
-            forceUpdate();
         }
     }
 
@@ -123,7 +120,6 @@ function PlayModeViewer(props) {
         const boxes = unitsStatus[index].unitModels[modelIndex].boxes;
         boxes[boxIndex] = !boxes[boxIndex];
         setUnitsStatus(newUnitsStatus);
-        forceUpdate();
     }
 
     const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.id === model.id));

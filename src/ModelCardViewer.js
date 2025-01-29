@@ -20,13 +20,13 @@ function ModelCardViewer(props) {
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
-    const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
-    const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
+    const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
+    const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: [], listenStorageChange: true});
 
-    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: []});
-    const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: []});
+    const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: [], listenStorageChange: true});
+    const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: [], listenStorageChange: true});
 
-    const [unitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: []});
+    const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
 
     const isPlayMode = location.state && location.state.isPlayMode;
     const modelsDataState = location.state ? (isPlayMode? (location.state.isSpecialIssue ? playSpecialIssueModelsData : playForceModelsData) : (location.state.isSpecialIssue ? specialIssueModelsData : forceModelsData)) : [];
@@ -68,6 +68,50 @@ function ModelCardViewer(props) {
         setHardPointOptions(newHardPointOptions);
     }
 
+    function setArc(id, arc) {
+        let newUnitsStatus = unitsStatus;
+
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        if(arc <= unitsStatus[index].arcLimit) {
+            unitsStatus[index].arc = arc;
+            setUnitsStatus(newUnitsStatus);
+        }
+    }
+
+    function toggleActivation(id) {
+        let newUnitsStatus = unitsStatus;
+
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        unitsStatus[index].activated = !unitsStatus[index].activated;
+        setUnitsStatus(newUnitsStatus);
+    }
+
+    function toggleContinuousEffect(id, modelIndex, effectId) {
+        let newUnitsStatus = unitsStatus;
+
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const unitModel = unitsStatus[index].unitModels[modelIndex];
+        const continuousEffects = unitModel.continuousEffects;
+        if(continuousEffects) {
+            if(continuousEffects.includes(effectId)) {
+                const effectIndex = continuousEffects.findIndex((id) => id === effectId);
+                unitModel.continuousEffects = [...continuousEffects.slice(0, effectIndex), ...continuousEffects.slice(effectIndex + 1)];
+            } else {
+                continuousEffects.push(effectId);
+            }
+            setUnitsStatus(newUnitsStatus);
+        }
+    }
+
+    function toggleDamageBox(id, modelIndex, boxIndex) {
+        let newUnitsStatus = unitsStatus;
+
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const boxes = unitsStatus[index].unitModels[modelIndex].boxes;
+        boxes[boxIndex] = !boxes[boxIndex];
+        setUnitsStatus(newUnitsStatus);
+    }
+
     function CardHeader(props) {
         const { name, type, subtypes, factions, dc, boxes, base_size, squad_size } = props;
         const factionNames = [];
@@ -86,7 +130,7 @@ function ModelCardViewer(props) {
                 {dc && <IonText color="secondary"><h2>Deployment Cost: {dc}</h2></IonText>}
                 {base_size && <IonText color="secondary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
                 {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
-                {unitStatusEntry && <UnitStatus id={entryId} entry={unitStatusEntry} boxes={boxes} isPlayMode={isPlayMode}></UnitStatus>}
+                {unitStatusEntry && <UnitStatus id={entryId} entry={unitStatusEntry} boxes={boxes} isPlayMode={isPlayMode} setArc={setArc} toggleActivation={toggleActivation} toggleContinuousEffect={toggleContinuousEffect} toggleDamageBox={toggleDamageBox}></UnitStatus>}
             </IonCardSubtitle>
         </IonCardHeader>;
     }
