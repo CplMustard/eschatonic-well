@@ -47,10 +47,10 @@ function PlayModeViewer(props) {
 
         if (modelData.stats.squad_size) {
             for (let i=0; i < modelData.stats.squad_size; i++) {
-                unitModels.push({boxes: Array(modelData.stats.boxes).fill(false), continuousEffects: new Set()});
+                unitModels.push({boxes: Array(modelData.stats.boxes).fill(false), continuousEffects: []});
             }
         } else {
-            unitModels.push({boxes: Array(modelData.stats.boxes).fill(false), continuousEffects: new Set()});
+            unitModels.push({boxes: Array(modelData.stats.boxes).fill(false), continuousEffects: []});
         }
 
         const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") ? 0 : 1;
@@ -102,14 +102,18 @@ function PlayModeViewer(props) {
         let newUnitsStatus = unitsStatus;
 
         const index = newUnitsStatus.findIndex((entry) => entry.id === id);
-        const continuousEffects = unitsStatus[index].unitModels[modelIndex].continuousEffects;
-        if(continuousEffects.has(effectId)) {
-            continuousEffects.delete(effectId);
-        } else {
-            continuousEffects.add(effectId);
+        const unitModel = unitsStatus[index].unitModels[modelIndex];
+        const continuousEffects = unitModel.continuousEffects;
+        if(continuousEffects) {
+            if(continuousEffects.includes(effectId)) {
+                const effectIndex = continuousEffects.findIndex((id) => id === effectId);
+                unitModel.continuousEffects = [...continuousEffects.slice(0, effectIndex), ...continuousEffects.slice(effectIndex + 1)];
+            } else {
+                continuousEffects.push(effectId);
+            }
+            setUnitsStatus(newUnitsStatus);
+            forceUpdate();
         }
-        setUnitsStatus(newUnitsStatus);
-        forceUpdate();
     }
 
     function toggleDamageBox(id, modelIndex, boxIndex) {

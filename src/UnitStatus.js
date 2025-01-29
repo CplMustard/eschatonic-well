@@ -100,7 +100,7 @@ function UnitStatus(props) {
         </IonText>;
     }
 
-    const continuousEffectApplied = (continuousEffects, effectId) => continuousEffects && continuousEffects instanceof Set && continuousEffects.has(effectId);
+    const continuousEffectApplied = (continuousEffects, effectId) => continuousEffects && (continuousEffects.find((id) => id === effectId));
 
     const onClickContinuousEffect = (e, modelIndex, effectId) => {
         e.preventDefault();
@@ -112,6 +112,7 @@ function UnitStatus(props) {
     function ContinuousEffects(props) {
         const { modelIndex } = props;
         const { continuousEffects } = props.model;
+        console.log(continuousEffects);
         return <IonText color="primary">
             <IonLabel>Continuous Effects:</IonLabel>
             <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "fire") ? flame : flameOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, "fire")} size="large"></IonIcon>
