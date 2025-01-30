@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useSessionStorageState } from "ahooks";
-import { IonPage, IonContent, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
+import { IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
+import { skullOutline } from "ionicons/icons";
 
 import CardList from "./CardList";
 import Cortex from "./Cortex";
@@ -112,6 +113,39 @@ function ModelCardViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
+    function DummyUnitStatus(props) {
+        const { squad_size, boxes } = props;
+        const modelComponents = [];
+
+        if( squad_size) {
+            for (let i=0; i<squad_size; i++) {
+                modelComponents.push(<div key={i}>
+                    <IonLabel>{squad_size > 1 && `Model ${i+1}: `}</IonLabel>
+                    <DummyHitBoxes boxes={boxes}></DummyHitBoxes>
+                </div>);
+            }
+        } else {
+            modelComponents.push(<DummyHitBoxes boxes={boxes}></DummyHitBoxes>);
+        }
+
+        return modelComponents;
+    }
+
+    function DummyHitBoxes(props) {
+        const { boxes } = props;
+        return <IonText color="primary">
+            <IonLabel>Boxes:</IonLabel>
+            {[...Array(boxes)].map((e, i) => 
+                <IonIcon 
+                    key={i} 
+                    color="secondary" 
+                    icon={skullOutline} 
+                    size="large"
+                ></IonIcon>
+            )}
+        </IonText>;
+    }
+
     function CardHeader(props) {
         const { name, type, subtypes, factions, dc, boxes, base_size, squad_size } = props;
         const factionNames = [];
@@ -131,6 +165,7 @@ function ModelCardViewer(props) {
                 {base_size && <IonText color="secondary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
                 {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
                 {unitStatusEntry && <UnitStatus id={entryId} entry={unitStatusEntry} boxes={boxes} isPlayMode={isPlayMode} setArc={setArc} toggleActivation={toggleActivation} toggleContinuousEffect={toggleContinuousEffect} toggleDamageBox={toggleDamageBox}></UnitStatus>}
+                {!unitStatusEntry && boxes && <DummyUnitStatus squad_size={squad_size} boxes={boxes}></DummyUnitStatus>}
             </IonCardSubtitle>
         </IonCardHeader>;
     }
