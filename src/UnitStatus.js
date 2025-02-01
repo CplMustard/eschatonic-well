@@ -4,7 +4,7 @@ import { arrowDown, arrowUp, checkmarkCircle, checkmarkCircleOutline, skull, sku
 
 function UnitStatus(props) {
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode } = props;
-    const { activated, arc, arcLimit, unitModels } = props.entry;
+    const { activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
     function ArcTracker(props) {
         const { arc, arcLimit } = props;
@@ -122,13 +122,19 @@ function UnitStatus(props) {
         </IonText>;
     }
 
+    const attachmentComponents = [];
+    attachments && attachments.forEach((attachment, index) => {
+        attachmentComponents.push(<UnitModels key={index} unitModels={attachment.unitModels}></UnitModels>);
+    });
+
     return (
         <>
             {isPlayMode && <>
                 <Activation activated={activated}></Activation>
                 {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
             </>}
-            {<UnitModels unitModels={unitModels}></UnitModels>}
+            <UnitModels unitModels={unitModels}></UnitModels>
+            {isPlayMode && attachmentComponents}
         </>
     );
 }

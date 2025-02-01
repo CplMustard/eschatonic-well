@@ -1,10 +1,11 @@
-import React, { useReducer } from "react";
+import React, { useState, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { useSessionStorageState } from "ahooks";
 import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { download, push } from "ionicons/icons";
 
 import ForceCardList from "./ForceCardList";
+import DeployUnitModal from "./DeployUnitModal";
 import { playTabs } from "./EditorView.js";
 
 import { modelsData } from "./data";
@@ -16,6 +17,10 @@ function PlayModeViewer(props) {
     const [present] = useIonToast();
 
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
+
+    const [isDeployUnitModalOpen, setIsDeployUnitModalOpen] = useState(false);
+    const [currentUnitAttachments, setCurrentUnitAttachments] = useState([]);
+    const [currentUnitStatus, setCurrentUnitStatus] = useState({});
     
     const presentToast = (message) => {
         present({
@@ -39,8 +44,7 @@ function PlayModeViewer(props) {
         history.push(`/cypher/${cypherId}`);
     }
 
-    function deployModel(entryId) {
-        let newUnitsStatus = unitsStatus;
+    function createUnitStatus(entryId) {
         const modelId = models.find((entry) => entry.id === entryId).modelId;
         const modelData = modelsData[modelId];
         const unitModels = [];
@@ -55,14 +59,59 @@ function PlayModeViewer(props) {
 
         const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") ? 0 : 1;
 
-        newUnitsStatus.push({id: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels});
+        const unitStatus = {id: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels, attachments: []};
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : modelData.name;
+        return unitStatus;
+    }
 
+    function addAttachmentsToUnit(unitStatus, attachmentIds) {
+        let newUnitsStatus = unitsStatus;
+
+        const attachments = [];
+        attachmentIds.forEach((attachmentId) => {
+            const attachmentModelData = modelsData[attachmentId];
+            const attachmentUnitModels = [];
+            if (attachmentModelData.stats.squad_size) {
+                for (let i=0; i < attachmentModelData.stats.squad_size; i++) {
+                    attachmentUnitModels.push({boxes: Array(attachmentModelData.stats.boxes).fill(false), continuousEffects: []});
+                }
+            } else {
+                attachmentUnitModels.push({boxes: Array(attachmentModelData.stats.boxes).fill(false), continuousEffects: []});
+            }
+            attachments.push({modelId: attachmentId, unitModels: attachmentUnitModels});
+        });
+
+        console.log(attachments);
+
+        unitStatus.attachments = attachments;
+
+        const modelData = modelsData[unitStatus.modelId];
+
+        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === unitStatus.id).length !== 0;
+        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === unitStatus.id).name : modelData.name;
         presentToast(`Deployed ${modelName} to the table.`);
         setUnitsStatus(newUnitsStatus);
-        forceUpdate();
+    }
+
+    function deployModel(entryId) {
+        let newUnitsStatus = unitsStatus;
+        const unitStatus = createUnitStatus(entryId);
+        newUnitsStatus.push(unitStatus);
+
+        const modelId = models.find((entry) => entry.id === entryId).modelId;
+        const modelData = modelsData[modelId];
+
+        if(modelData.attachments) {
+            setCurrentUnitAttachments(modelData.attachments);
+            setCurrentUnitStatus(unitStatus);
+            setIsDeployUnitModalOpen(true);
+        } else {   
+            const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
+            const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : modelData.name;
+
+            presentToast(`Deployed ${modelName} to the table.`);
+            setUnitsStatus(newUnitsStatus);
+        }
     }
 
     function recallModel(entryId) {
@@ -126,6 +175,7 @@ function PlayModeViewer(props) {
 
     return (
         <div className="container">
+            <DeployUnitModal isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
             {(tabSelected === playTabs.deployed) && <>
                 <IonText><h3>Tap Reserves and deploy a unit with <IonIcon slot="icon-only" icon={download}></IonIcon> to track their status here. Recall units with <IonIcon slot="icon-only" icon={push}></IonIcon></h3></IonText>
                 <ForceCardList
