@@ -124,11 +124,10 @@ function ModelCardViewer(props) {
                     <DummyHitBoxes boxes={boxes}></DummyHitBoxes>
                 </div>);
             }
+            return modelComponents;
         } else {
-            modelComponents.push(<DummyHitBoxes boxes={boxes}></DummyHitBoxes>);
+            return <DummyHitBoxes key={0} boxes={boxes}></DummyHitBoxes>;
         }
-
-        return modelComponents;
     }
 
     function DummyHitBoxes(props) {
