@@ -93,6 +93,14 @@ function PlayModeViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
+    function cancelDeploy(entryId) {
+        const index = unitsStatus.findIndex((entry) => entry.id === entryId);
+        let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
+        setUnitsStatus(newUnitsStatus);
+
+        forceUpdate();
+    }
+
     function deployModel(entryId) {
         let newUnitsStatus = unitsStatus;
         const unitStatus = createUnitStatus(entryId);
@@ -175,7 +183,7 @@ function PlayModeViewer(props) {
 
     return (
         <div className="container">
-            <DeployUnitModal isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
+            <DeployUnitModal isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} cancelDeploy={cancelDeploy} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
             {(tabSelected === playTabs.deployed) && <>
                 <IonText><h3>Tap Reserves and deploy a unit with <IonIcon slot="icon-only" icon={download}></IonIcon> to track their status here. Recall units with <IonIcon slot="icon-only" icon={push}></IonIcon></h3></IonText>
                 <ForceCardList

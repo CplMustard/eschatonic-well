@@ -8,10 +8,16 @@ function DeployUnitModal (props) {
 
     const [attachmentsToAdd, setAttachmentsToAdd] = useState([]);
 
-    const { isOpen, setIsOpen, attachments, unitStatus, addAttachmentsToUnit } = props;
+    const { isOpen, setIsOpen, attachments, unitStatus, cancelDeploy, addAttachmentsToUnit } = props;
 
     const modelId = unitStatus ? unitStatus.modelId : undefined;
     const unitName = modelId ? modelsData[modelId].name : "";
+
+    function cancel() {
+        setAttachmentsToAdd([]); 
+        cancelDeploy(unitStatus.id);
+        setIsOpen(false);
+    }
 
     function toggleAttachment(attachmentId) {
         if (attachmentsToAdd.find((id) => id === attachmentId)) {
@@ -59,10 +65,7 @@ function DeployUnitModal (props) {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonButton onClick={() => {
-                            setAttachmentsToAdd([]); 
-                            setIsOpen(false);
-                        }}>Cancel</IonButton>
+                        <IonButton onClick={() => cancel()}>Cancel</IonButton>
                     </IonButtons>
                     <IonTitle>Add Attachments</IonTitle>
                 </IonToolbar>
