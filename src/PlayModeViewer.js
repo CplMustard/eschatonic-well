@@ -151,11 +151,12 @@ function PlayModeViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
-    function toggleContinuousEffect(id, modelIndex, effectId) {
+    function toggleContinuousEffect(id, modelIndex, attachmentId, effectId) {
         let newUnitsStatus = unitsStatus;
 
         const index = newUnitsStatus.findIndex((entry) => entry.id === id);
-        const unitModel = unitsStatus[index].unitModels[modelIndex];
+        const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
+        const unitModel = unitModels[modelIndex];
         const continuousEffects = unitModel.continuousEffects;
         if(continuousEffects) {
             if(continuousEffects.includes(effectId)) {
@@ -168,11 +169,13 @@ function PlayModeViewer(props) {
         }
     }
 
-    function toggleDamageBox(id, modelIndex, boxIndex) {
+    function toggleDamageBox(id, modelIndex, attachmentId, boxIndex) {
         let newUnitsStatus = unitsStatus;
 
         const index = newUnitsStatus.findIndex((entry) => entry.id === id);
-        const boxes = unitsStatus[index].unitModels[modelIndex].boxes;
+        const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
+        const unitModel = unitModels[modelIndex];
+        const boxes = unitModel.boxes;
         boxes[boxIndex] = !boxes[boxIndex];
         setUnitsStatus(newUnitsStatus);
     }

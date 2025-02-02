@@ -64,14 +64,14 @@ function UnitStatus(props) {
     }
 
     function UnitModels(props) {
-        const { unitModels } = props;
+        const { unitModels, attachmentId } = props;
         const modelComponents = [];
 
         for (let i=0; i<unitModels.length; i++) {
             modelComponents.push(<div key={i}>
                 <IonLabel>{unitModels.length > 1 && `Model ${i+1}: `}</IonLabel>
-                <HitBoxes modelIndex={i} model={unitModels[i]}></HitBoxes>
-                {isPlayMode && <ContinuousEffects modelIndex={i} model={unitModels[i]}></ContinuousEffects>}
+                <HitBoxes modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined}></HitBoxes>
+                {isPlayMode && <ContinuousEffects modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined}></ContinuousEffects>}
             </div>);
         }
 
@@ -79,7 +79,7 @@ function UnitStatus(props) {
     }
 
     function HitBoxes(props) {
-        const { modelIndex } = props;
+        const { modelIndex, attachmentId } = props;
         const { boxes } = props.model;
         return <IonText color="primary">
             <IonLabel>Boxes:</IonLabel>
@@ -91,7 +91,7 @@ function UnitStatus(props) {
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
-                            toggleDamageBox(id, modelIndex, i);
+                            toggleDamageBox(id, modelIndex, attachmentId, i);
                         }
                     }} 
                     size="large"
@@ -102,29 +102,29 @@ function UnitStatus(props) {
 
     const continuousEffectApplied = (continuousEffects, effectId) => continuousEffects && (continuousEffects.find((id) => id === effectId));
 
-    const onClickContinuousEffect = (e, modelIndex, effectId) => {
+    const onClickContinuousEffect = (e, modelIndex, attachmentId, effectId) => {
         e.preventDefault();
         if (isPlayMode) {
-            toggleContinuousEffect(id, modelIndex, effectId);
+            toggleContinuousEffect(id, modelIndex, attachmentId, effectId);
         }
     };
 
     function ContinuousEffects(props) {
-        const { modelIndex } = props;
+        const { modelIndex, attachmentId } = props;
         const { continuousEffects } = props.model;
         return <IonText color="primary">
             <IonLabel>Continuous Effects:</IonLabel>
-            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "fire") ? flame : flameOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, "fire")} size="large"></IonIcon>
-            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "corrosion") ? flask : flaskOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, "corrosion")} size="large"></IonIcon>
-            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "lockdown") ? lockClosed : lockClosedOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, "lockdown")} size="large"></IonIcon>
-            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "systemfailure") ? flashOff : flashOffOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, "systemfailure")} size="large"></IonIcon>
-            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "tuneup") ? build : buildOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, "tuneup")} size="large"></IonIcon>
+            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "fire") ? flame : flameOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "fire")} size="large"></IonIcon>
+            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "corrosion") ? flask : flaskOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "corrosion")} size="large"></IonIcon>
+            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "lockdown") ? lockClosed : lockClosedOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "lockdown")} size="large"></IonIcon>
+            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "systemfailure") ? flashOff : flashOffOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "systemfailure")} size="large"></IonIcon>
+            <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "tuneup") ? build : buildOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "tuneup")} size="large"></IonIcon>
         </IonText>;
     }
 
     const attachmentComponents = [];
     attachments && attachments.forEach((attachment, index) => {
-        attachmentComponents.push(<UnitModels key={index} unitModels={attachment.unitModels}></UnitModels>);
+        attachmentComponents.push(<UnitModels key={index} unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>);
     });
 
     return (
