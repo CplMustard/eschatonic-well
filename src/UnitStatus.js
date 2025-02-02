@@ -1,8 +1,13 @@
 import React from "react";
-import { IonText, IonIcon, IonLabel } from "@ionic/react";
-import { arrowDown, arrowUp, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
+import { useHistory } from "react-router-dom";
+import { IonText, IonButton, IonIcon, IonLabel } from "@ionic/react";
+import { add, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
+
+import { modelsData } from "./data";
 
 function UnitStatus(props) {
+    const history = useHistory();
+
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode } = props;
     const { activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
@@ -12,11 +17,11 @@ function UnitStatus(props) {
         return <IonText color="primary">
             <IonLabel>Arc:</IonLabel>
             <h1>
+                <IonText>{arc}</IonText> 
                 <IonIcon 
                     color={arc-1 >= 0 ? "secondary" : "tertiary"}
-                    icon={arrowDown} 
+                    icon={remove} 
                     onClick={(e) => {
-                        console.log("whomst");
                         e.preventDefault();
                         if (isPlayMode) {
                             if(arc-1 >= 0) {
@@ -26,10 +31,9 @@ function UnitStatus(props) {
                     }} 
                     size="large"
                 ></IonIcon>
-                <IonText>{arc}</IonText> 
                 <IonIcon 
                     color={arc+1 <= arcLimit ? "secondary" : "tertiary"}
-                    icon={arrowUp} 
+                    icon={add} 
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
@@ -122,9 +126,22 @@ function UnitStatus(props) {
         </IonText>;
     }
 
+    function openModelCard(id) {
+        history.push(`/model/${id}`);
+    }
+
     const attachmentComponents = [];
     attachments && attachments.forEach((attachment, index) => {
-        attachmentComponents.push(<UnitModels key={index} unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>);
+        const modelData = modelsData[attachment.modelId];
+        const factionId = modelData.factions.length === 1 ? modelData.factions[0] : "wc";
+        attachmentComponents.push(<>
+            <IonButton size="medium" className={factionId} expand="block" onClick={() => openModelCard(modelData.id)}>                             
+                <div className="button-inner">
+                    <div className="button-text">{modelData.name}</div>
+                </div></IonButton>
+            <UnitModels key={index} unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>
+        </>
+        );
     });
 
     return (
