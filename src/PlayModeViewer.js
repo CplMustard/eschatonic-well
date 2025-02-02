@@ -81,8 +81,6 @@ function PlayModeViewer(props) {
             attachments.push({modelId: attachmentId, unitModels: attachmentUnitModels});
         });
 
-        console.log(attachments);
-
         unitStatus.attachments = attachments;
 
         const modelData = modelsData[unitStatus.modelId];

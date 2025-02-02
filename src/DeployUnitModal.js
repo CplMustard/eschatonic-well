@@ -61,7 +61,7 @@ function DeployUnitModal (props) {
     const attachmentNames = attachmentsToAdd.map((id) => modelsData[id].name);
 
     return (
-        <IonModal isOpen={isOpen}>
+        <IonModal isOpen={isOpen} backdropDismiss={false}>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
