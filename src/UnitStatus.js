@@ -1,15 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { IonText, IonButton, IonIcon, IonLabel } from "@ionic/react";
+import { IonText, IonIcon, IonLabel } from "@ionic/react";
 import { add, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
 
 import { modelsData } from "./data";
 
 function UnitStatus(props) {
-    const history = useHistory();
-
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode } = props;
-    const { activated, arc, arcLimit, unitModels, attachments } = props.entry;
+    const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
     function ArcTracker(props) {
         const { arc, arcLimit } = props;
@@ -126,23 +123,17 @@ function UnitStatus(props) {
         </IonText>;
     }
 
-    function openModelCard(id) {
-        history.push(`/model/${id}`);
-    }
-
     const attachmentComponents = [];
     attachments && attachments.forEach((attachment, index) => {
-        const modelData = modelsData[attachment.modelId];
-        const factionId = modelData.factions.length === 1 ? modelData.factions[0] : "wc";
-        attachmentComponents.push(<>
-            <IonButton size="medium" className={factionId} expand="block" onClick={() => openModelCard(modelData.id)}>                             
-                <div className="button-inner">
-                    <div className="button-text">{modelData.name}</div>
-                </div></IonButton>
-            <UnitModels key={index} unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>
-        </>
+        const attachmentModelData = modelsData[attachment.modelId];
+        attachmentComponents.push(<div key={index}>
+            <IonText color="primary"><h2>{attachmentModelData.name}</h2></IonText>
+            <UnitModels unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>
+        </div>
         );
     });
+
+    const modelData = modelsData[modelId];
 
     return (
         <>
@@ -150,6 +141,7 @@ function UnitStatus(props) {
                 <Activation activated={activated}></Activation>
                 {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
             </>}
+            {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
             <UnitModels unitModels={unitModels}></UnitModels>
             {isPlayMode && attachmentComponents}
         </>

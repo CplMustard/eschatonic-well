@@ -109,7 +109,8 @@ function ForceCardList(props) {
                                 toggleActivation={toggleActivation} 
                                 toggleContinuousEffect={toggleContinuousEffect} 
                                 toggleDamageBox={toggleDamageBox} 
-                                entry={statusEntry} 
+                                entry={statusEntry}
+                                handleCardClicked={handleCardClicked}
                                 isPlayMode={isPlayMode}
                             ></UnitStatus>
                         </IonCol>
