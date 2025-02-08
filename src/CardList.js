@@ -43,7 +43,7 @@ function CardList(props) {
         
         const collapsedGroups = allGroups.filter((group) => !selectedValue.includes(group));
         setCollapsedGroups(collapsedGroups);
-      };
+    };
 
     const collapseAll = () => {
         collapseGroups(allGroups);

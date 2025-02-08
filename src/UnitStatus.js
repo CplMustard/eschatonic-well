@@ -1,6 +1,6 @@
 import React from "react";
-import { IonText, IonIcon, IonLabel } from "@ionic/react";
-import { add, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
+import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion } from "@ionic/react";
+import { add, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
 
 import { modelsData } from "./data";
 
@@ -8,13 +8,16 @@ function UnitStatus(props) {
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode } = props;
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
+    const getSummary = () => {
+        return <><IonIcon color={"secondary"} icon={create} size="large"/><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></>;
+    };
+
     function ArcTracker(props) {
         const { arc, arcLimit } = props;
 
         return <IonText color="primary">
             <IonLabel>Arc:</IonLabel>
-            <h1>
-                <IonText>{arc}</IonText> 
+            <h1 style={{margin: 0}}>                
                 <IonIcon 
                     color={arc-1 >= 0 ? "secondary" : "tertiary"}
                     icon={remove} 
@@ -28,6 +31,7 @@ function UnitStatus(props) {
                     }} 
                     size="large"
                 ></IonIcon>
+                <IonText>{arc}</IonText> 
                 <IonIcon 
                     color={arc+1 <= arcLimit ? "secondary" : "tertiary"}
                     icon={add} 
@@ -71,7 +75,7 @@ function UnitStatus(props) {
         for (let i=0; i<unitModels.length; i++) {
             modelComponents.push(<div key={i}>
                 <IonLabel>{unitModels.length > 1 && `Model ${i+1}: `}</IonLabel>
-                <HitBoxes modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined}></HitBoxes>
+                <HitBoxes modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined} showLabel={true}></HitBoxes>
                 {isPlayMode && <ContinuousEffects modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined}></ContinuousEffects>}
             </div>);
         }
@@ -80,10 +84,10 @@ function UnitStatus(props) {
     }
 
     function HitBoxes(props) {
-        const { modelIndex, attachmentId } = props;
+        const { modelIndex, attachmentId, showLabel, disabled } = props;
         const { boxes } = props.model;
         return <IonText color="primary">
-            <IonLabel>Boxes:</IonLabel>
+            {showLabel && <IonLabel>Boxes:</IonLabel>}
             {[...Array(boxes.length)].map((e, i) => 
                 <IonIcon 
                     key={i} 
@@ -91,7 +95,7 @@ function UnitStatus(props) {
                     icon={boxes[i] ? skull : skullOutline} 
                     onClick={(e) => {
                         e.preventDefault();
-                        if (isPlayMode) {
+                        if (isPlayMode && !disabled) {
                             toggleDamageBox(id, modelIndex, attachmentId, i);
                         }
                     }} 
@@ -136,15 +140,22 @@ function UnitStatus(props) {
     const modelData = modelsData[modelId];
 
     return (
-        <>
-            {isPlayMode && <>
-                <Activation activated={activated}></Activation>
-                {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
-            </>}
-            {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
-            <UnitModels unitModels={unitModels}></UnitModels>
-            {isPlayMode && attachmentComponents}
-        </>
+        <IonAccordionGroup>
+            <IonAccordion value={id}>
+                <IonItem color={"dark"} slot="header">
+                    <IonLabel>{getSummary()}</IonLabel>
+                </IonItem>
+                <div className="status-entry" slot="content">
+                    {isPlayMode && <>
+                        <Activation activated={activated}></Activation>
+                        {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
+                    </>}
+                    {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
+                    <UnitModels unitModels={unitModels}></UnitModels>
+                    {isPlayMode && attachmentComponents}
+                </div>
+            </IonAccordion>
+        </IonAccordionGroup>
     );
 }
 

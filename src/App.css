@@ -94,6 +94,12 @@ hr {
 	text-align: center;
 }
 
+.status-entry {
+	padding: 0;
+	margin: 1rem;
+	text-overflow: ellipsis;
+}
+
 .ac {
 	--ion-background-color: #312020;
 	--ion-background-color-rgb: 49,32,32;
