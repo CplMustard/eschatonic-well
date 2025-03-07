@@ -54,3 +54,8 @@
  ## Bugfixes
  - Fix typos on Factotum, Ranger Outrider, Cadre, Master Tulcan, Paladin Enforcers, Saber Vanguard, Gravitronic Lash, weapon orders
  - Fix various issues where changes in one screen would not reflect on other screens
+
+  # 0.3.1:
+ ## New Features 
+ - Updated look of play mode
+ - Unit status views can now be collapsed for compact force viewing
