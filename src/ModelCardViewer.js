@@ -173,6 +173,7 @@ function ModelCardViewer(props) {
                         entry={unitStatusEntry} 
                         boxes={boxes} 
                         isPlayMode={isPlayMode} 
+                        collapsible={false}
                         setArc={setArc} 
                         toggleActivation={toggleActivation} 
                         toggleContinuousEffect={toggleContinuousEffect} 

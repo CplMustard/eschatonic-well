@@ -105,13 +105,14 @@ function ForceCardList(props) {
                         <IonCol>
                             <UnitStatus 
                                 id={entry.id} 
+                                entry={statusEntry}
+                                handleCardClicked={handleCardClicked}
+                                isPlayMode={isPlayMode}
+                                collapsible={true}                        
                                 setArc={setArc} 
                                 toggleActivation={toggleActivation} 
                                 toggleContinuousEffect={toggleContinuousEffect} 
                                 toggleDamageBox={toggleDamageBox} 
-                                entry={statusEntry}
-                                handleCardClicked={handleCardClicked}
-                                isPlayMode={isPlayMode}
                             ></UnitStatus>
                         </IonCol>
                     </IonRow>}

@@ -5,7 +5,7 @@ import { add, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, sk
 import { modelsData } from "./data";
 
 function UnitStatus(props) {
-    const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode } = props;
+    const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode, collapsible } = props;
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
     const getSummary = () => {
@@ -17,6 +17,8 @@ function UnitStatus(props) {
 
         return <IonText color="primary">
             <IonLabel>Arc:</IonLabel>
+            {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+            {!collapsible && <br/>}
             <h1 style={{margin: 0}}>                
                 <IonIcon 
                     color={arc-1 >= 0 ? "secondary" : "tertiary"}
@@ -54,6 +56,8 @@ function UnitStatus(props) {
 
         return <IonText color="primary">
             <IonLabel>Activated:</IonLabel>
+            {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+            {!collapsible && <br/>}
             <IonIcon 
                 color="secondary" 
                 icon={activated ? checkmarkCircle : checkmarkCircleOutline} 
@@ -75,7 +79,11 @@ function UnitStatus(props) {
         for (let i=0; i<unitModels.length; i++) {
             modelComponents.push(<div key={i}>
                 <IonLabel>{unitModels.length > 1 && `Model ${i+1}: `}</IonLabel>
+                {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+                {!collapsible && unitModels.length > 1 && <br/>}
                 <HitBoxes modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined} showLabel={true}></HitBoxes>
+                {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+                {!collapsible && <br/>}
                 {isPlayMode && <ContinuousEffects modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined}></ContinuousEffects>}
             </div>);
         }
@@ -88,6 +96,8 @@ function UnitStatus(props) {
         const { boxes } = props.model;
         return <IonText color="primary">
             {showLabel && <IonLabel>Boxes:</IonLabel>}
+            {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+            {!collapsible && <br/>}
             {[...Array(boxes.length)].map((e, i) => 
                 <IonIcon 
                     key={i} 
@@ -119,6 +129,8 @@ function UnitStatus(props) {
         const { continuousEffects } = props.model;
         return <IonText color="primary">
             <IonLabel>Continuous Effects:</IonLabel>
+            {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+            {!collapsible && <br/>}
             <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "fire") ? flame : flameOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "fire")} size="large"></IonIcon>
             <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "corrosion") ? flask : flaskOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "corrosion")} size="large"></IonIcon>
             <IonIcon color="secondary" icon={continuousEffectApplied(continuousEffects, "lockdown") ? lockClosed : lockClosedOutline} onClick={(e) => onClickContinuousEffect(e, modelIndex, attachmentId, "lockdown")} size="large"></IonIcon>
@@ -139,23 +151,34 @@ function UnitStatus(props) {
 
     const modelData = modelsData[modelId];
 
-    return (
-        <IonAccordionGroup>
-            <IonAccordion value={id}>
-                <IonItem color={"dark"} slot="header">
-                    <IonLabel>{getSummary()}</IonLabel>
-                </IonItem>
-                <div className="status-entry" slot="content">
-                    {isPlayMode && <>
-                        <Activation activated={activated}></Activation>
-                        {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
-                    </>}
-                    {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
-                    <UnitModels unitModels={unitModels}></UnitModels>
-                    {isPlayMode && attachmentComponents}
-                </div>
-            </IonAccordion>
-        </IonAccordionGroup>
+    const statusEntryComponent = 
+        <div className="status-entry" slot="content">
+            {isPlayMode && <>
+                <Activation activated={activated}></Activation>
+                {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+                {!collapsible && <br/>}
+                {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
+            </>}
+            {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
+            <UnitModels unitModels={unitModels}></UnitModels>
+            {isPlayMode && attachmentComponents}
+        </div>;
+
+    return (<div>
+        {collapsible ? 
+            <IonAccordionGroup>
+                <IonAccordion value={id}>
+                    <IonItem color={"dark"} slot="header">
+                        <IonLabel>{getSummary()}</IonLabel>
+                    </IonItem>
+                    {statusEntryComponent}
+                </IonAccordion>
+            </IonAccordionGroup>
+            : <>
+                {statusEntryComponent}
+            </>
+        }
+    </div>
     );
 }
 
