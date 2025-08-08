@@ -11,7 +11,7 @@ function UnitStatus(props) {
     const getSummary = () => {
         return unitModels.length > 1 
             ? <><IonIcon color={"secondary"} icon={create} size="large"/><AliveSquadMembers unitModels={unitModels} attachments={attachments}/></>
-            : <><IonIcon color={"secondary"} icon={create} size="large"/><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></>;
+            : <><IonIcon color={"secondary"} icon={create} size="large"/><IonText style={{display: "inline-block"}}><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></IonText></>;
     };
 
     function ArcTracker(props) {
@@ -99,7 +99,8 @@ function UnitStatus(props) {
         return <IonText color="primary">
             {showLabel && <IonLabel>Boxes:</IonLabel>}
             {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
-            {!collapsible && <br/>}
+            {!collapsible && <br/>}            
+            <h3 style={{margin: 0}}>
             {[...Array(boxes.length)].map((e, i) => 
                 <IonIcon 
                     key={i} 
@@ -114,6 +115,7 @@ function UnitStatus(props) {
                     size="large"
                 ></IonIcon>
             )}
+            </h3>
         </IonText>;
     }
 

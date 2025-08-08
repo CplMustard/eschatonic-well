@@ -125,12 +125,12 @@ function ModelCardViewer(props) {
             for (let i=0; i<squad_size; i++) {
                 modelComponents.push(<div key={i}>
                     <IonLabel>{squad_size > 1 && `Model ${i+1}: `}</IonLabel>
-                    <DummyHitBoxes boxes={boxes}></DummyHitBoxes>
+                    {Number(boxes) ? <DummyHitBoxes boxes={boxes}></DummyHitBoxes> : <><IonText color="primary"><IonLabel>Boxes: </IonLabel><h3>{boxes}</h3></IonText></>}
                 </div>);
             }
             return modelComponents;
         } else {
-            return <DummyHitBoxes key={0} boxes={boxes}></DummyHitBoxes>;
+            return Number(boxes) ? <DummyHitBoxes key={0} boxes={boxes}></DummyHitBoxes> : <IonText color="primary"><IonLabel>Boxes: </IonLabel><h3>{boxes}</h3></IonText>;
         }
     }
 
@@ -138,6 +138,7 @@ function ModelCardViewer(props) {
         const { boxes } = props;
         return <IonText color="primary">
             <IonLabel>Boxes:</IonLabel>
+            <h3 style={{margin: 0}}>
             {[...Array(boxes)].map((e, i) => 
                 <IonIcon 
                     key={i} 
@@ -146,6 +147,7 @@ function ModelCardViewer(props) {
                     size="large"
                 ></IonIcon>
             )}
+            </h3>
         </IonText>;
     }
 
