@@ -9,26 +9,32 @@ function UnitStatus(props) {
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
     const getSummary = () => {
-        return unitModels.length > 1 
-            ? <><IonIcon color={"secondary"} icon={create} size="large"/><AliveSquadMembers unitModels={unitModels} attachments={attachments}/></>
-            : <><IonIcon color={"secondary"} icon={create} size="large"/><IonText style={{display: "inline-block"}}><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></IonText></>;
+        return <>
+            <IonIcon color={"secondary"} icon={create} size="large"/><IonText style={{display: "inline-block"}}>{unitModels.length > 1 
+                ? <><AliveSquadMembers unitModels={unitModels} attachments={attachments}/></>
+                : unitModels[0].boxes.length !== 0 
+                    ? <><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></>
+                    : <>{arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit} disabled={true}></ArcTracker>}</>
+                }
+            </IonText>
+        </>;
     };
 
     function ArcTracker(props) {
-        const { arc, arcLimit } = props;
+        const { arc, arcLimit, disabled } = props;
 
         return <IonText color="primary">
             <IonLabel>Arc:</IonLabel>
             {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
             {!collapsible && <br/>}
-            <h1 style={{margin: 0}}>                
+            <h1 style={{margin: 0}}>
                 <IonIcon 
-                    color={arc-1 >= 0 ? "secondary" : "tertiary"}
+                    color={!disabled && arc-1 >= 0 ? "secondary" : "tertiary"}
                     icon={remove} 
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
-                            if(arc-1 >= 0) {
+                            if(!disabled && arc-1 >= 0) {
                                 setArc(id, arc-1);
                             }
                         }
@@ -37,12 +43,12 @@ function UnitStatus(props) {
                 ></IonIcon>
                 <IonText>{arc}</IonText> 
                 <IonIcon 
-                    color={arc+1 <= arcLimit ? "secondary" : "tertiary"}
+                    color={!disabled && arc+1 <= arcLimit ? "secondary" : "tertiary"}
                     icon={add} 
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
-                            if(arc+1 <= arcLimit) {
+                            if(!disabled && arc+1 <= arcLimit) {
                                 setArc(id, arc+1);
                             }
                         }
