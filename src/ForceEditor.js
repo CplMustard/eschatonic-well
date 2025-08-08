@@ -27,7 +27,7 @@ function ForceEditor(props) {
     useEffect(() => {
         let newForceData = forceModelsData;
         let addedModelNames = [];
-        if(newForceData.findIndex((forceModel) => forceModel.modelId === voidGateId) === -1) {
+        while (checkFA(newForceData, voidGateId)) {
             newForceData = insertModelCard(newForceData, voidGateId, addedModelNames);
         }
 
@@ -36,7 +36,7 @@ function ForceEditor(props) {
             return modelData.factions.includes(factionId);
         }) : allMantlets;
         availableMantlets.forEach((modelData) => {
-            if(newForceData.findIndex((forceModel) => forceModel.modelId === modelData.id) === -1) {
+            while (checkFA(newForceData, modelData.id)) {
                 newForceData = insertModelCard(newForceData, modelData.id, addedModelNames);
             }
         });
