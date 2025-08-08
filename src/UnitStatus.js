@@ -1,6 +1,6 @@
 import React from "react";
 import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion } from "@ionic/react";
-import { add, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
+import { add, bodyOutline, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
 
 import { modelsData } from "./data";
 
@@ -9,7 +9,9 @@ function UnitStatus(props) {
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
     const getSummary = () => {
-        return <><IonIcon color={"secondary"} icon={create} size="large"/><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></>;
+        return unitModels.length > 1 
+            ? <><IonIcon color={"secondary"} icon={create} size="large"/><AliveSquadMembers unitModels={unitModels} attachments={attachments}/></>
+            : <><IonIcon color={"secondary"} icon={create} size="large"/><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></>;
     };
 
     function ArcTracker(props) {
@@ -115,6 +117,27 @@ function UnitStatus(props) {
         </IonText>;
     }
 
+    function AliveSquadMembers(props) {
+        const { unitModels, attachments } = props;
+        let AliveModelCount = 0;
+        for (let i=0; i<unitModels.length; i++) {
+            if (unitModels[i].boxes.some(box => box === false)) {
+                AliveModelCount++;
+            }
+        }
+        attachments.forEach((attachment) => {
+            const unitModels = attachment.unitModels;
+            for (let i=0; i<unitModels.length; i++) {
+                if (unitModels[i].boxes.some(box => box === false)) {
+                    AliveModelCount++;
+                }
+            }
+        });
+        return <IonText color="primary">
+            <h1 style={{margin: 0, display: "inline"}}><IonIcon color={"secondary"} icon={bodyOutline} size="large"></IonIcon><IonText>{AliveModelCount}</IonText></h1>
+        </IonText>;
+    }
+
     const continuousEffectApplied = (continuousEffects, effectId) => continuousEffects && (continuousEffects.find((id) => id === effectId));
 
     const onClickContinuousEffect = (e, modelIndex, attachmentId, effectId) => {
@@ -158,6 +181,7 @@ function UnitStatus(props) {
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && <br/>}
                 {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
+                {unitModels.length > 1 && <><AliveSquadMembers unitModels={unitModels} attachments={attachments}/><br/></>}
             </>}
             {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
             <UnitModels unitModels={unitModels}></UnitModels>
