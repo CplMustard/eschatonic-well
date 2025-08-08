@@ -83,7 +83,7 @@ function UnitStatus(props) {
                 <IonLabel>{unitModels.length > 1 && `Model ${i+1}: `}</IonLabel>
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && unitModels.length > 1 && <br/>}
-                <HitBoxes modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined} showLabel={true}></HitBoxes>
+                {unitModels[i].boxes.length !== 0 && <HitBoxes modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined} showLabel={true}></HitBoxes>}
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && <br/>}
                 {isPlayMode && <ContinuousEffects modelIndex={i} model={unitModels[i]} attachmentId={attachmentId ? attachmentId : undefined}></ContinuousEffects>}

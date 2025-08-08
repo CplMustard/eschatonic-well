@@ -51,10 +51,10 @@ function PlayModeViewer(props) {
 
         if (modelData.stats.squad_size) {
             for (let i=0; i < modelData.stats.squad_size; i++) {
-                unitModels.push({boxes: Array(modelData.stats.boxes).fill(false), continuousEffects: []});
+                unitModels.push({boxes: Number(modelData.stats.boxes) ? Array(modelData.stats.boxes).fill(false) : [], continuousEffects: []});
             }
         } else {
-            unitModels.push({boxes: Array(modelData.stats.boxes).fill(false), continuousEffects: []});
+            unitModels.push({boxes: Number(modelData.stats.boxes) ? Array(modelData.stats.boxes).fill(false) : [], continuousEffects: []});
         }
 
         const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") ? 0 : 1;
