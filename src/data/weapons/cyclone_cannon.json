@@ -7,6 +7,6 @@
         "damage_types": ["ballistic"], 
         "rng": 12, 
         "pow": 4,
-        "special_rules": ["strafe", "defense_matrix"]
+        "special_rules": ["strafe", "anti_air", "defense_matrix"]
     }]
 }
