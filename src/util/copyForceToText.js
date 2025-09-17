@@ -39,7 +39,6 @@ export function copyForceToText(forceName, rulesetId, factionId, forceSize, forc
     newForceModelsData = newForceModelsData.filter(((forceModel) => !(getModelsData()[forceModel.modelId].hidden || getModelTypesData()[forceModel.type].hidden || (forceModel.subtypes && forceModel.subtypes.every((subtype) => getModelTypesData()[subtype].hidden)))));
 
     forceString += `\nForce: ${forceName}`;
-    console.log(rulesetId);
     forceString += `\nRuleset: ${rulesetId ? rulesets[rulesetId].name : "Privateer Press"}`;
     forceString += `\nFaction: ${factionId ? getFactionsData()[factionId].name : "All"}`;
     forceString += `\nSize: ${forceSize.name}`;

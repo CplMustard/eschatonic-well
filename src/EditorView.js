@@ -77,10 +77,8 @@ function EditorView() {
 
     useEffect(() => {
         if(tabSelected === editorTabs.play) {
-            console.log("loading play ruleset " + playRulesetId);
             setRuleset(playRulesetId);
         } else {
-            console.log("loading normal ruleset " + rulesetId);
             setRuleset(rulesetId);
         }
     });
@@ -327,7 +325,6 @@ function EditorView() {
             });
             
             const json = JSON.parse(result.data);
-            console.log(json);
             setPlayForceName(json.forceName);
             //Forces saved in earlier versions won't have a ruleset, so assume pp
             setPlayRulesetId(json.rulesetId ? json.rulesetId : "pp");
