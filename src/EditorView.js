@@ -46,7 +46,7 @@ function EditorView() {
     const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorageState("specialIssueCyphersData", {defaultValue: [], listenStorageChange: true});
 
     const [playForceName, setPlayForceName] = useSessionStorageState("playForceName", {defaultValue: undefined});
-    const [playRulesetId, setPlayRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: undefined});
+    const [playRulesetId, setPlayRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: "pp"});
     const [playFactionId, setPlayFactionId] = useLocalStorageState("playFactionId", {defaultValue: undefined});
     const [playForceSize, setPlayForceSize] = useLocalStorageState("playForceSize", {defaultValue: undefined});
     const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});

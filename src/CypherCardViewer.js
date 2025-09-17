@@ -10,8 +10,8 @@ import { getCyphersData, getCypherTypesData, getFactionsData, setRuleset } from 
 function CypherCardViewer(props) {
     const params = useParams();
 
-    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: undefined, listenStorageChange: true});
-    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: undefined, listenStorageChange: true});
+    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: "pp", listenStorageChange: true});
+    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: "pp", listenStorageChange: true});
 
     const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
 

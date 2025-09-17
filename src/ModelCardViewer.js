@@ -19,8 +19,8 @@ function ModelCardViewer(props) {
     const history = useHistory();
     const location = useLocation();
     
-    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: undefined, listenStorageChange: true});
-    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: undefined, listenStorageChange: true});
+    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: "pp", listenStorageChange: true});
+    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: "pp", listenStorageChange: true});
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
