@@ -1,0 +1,8 @@
+{
+    "id": "dauntless",
+    "name": "Dauntless",
+    "special_rules": ["relentless", "defensive_strike"],
+    "changes": [
+        "Added Defensive Strike."
+    ]
+}

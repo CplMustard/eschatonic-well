@@ -1,0 +1,33 @@
+{
+    "id": "saber_vanguard",
+    "name": "Saber Vanguard",
+    "factions": ["emp"],
+    "type": "squad",
+    "expansion": "cc",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "fusion_scythe",
+        "fusion_scythe",
+        "tentacle_strike"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "eclipse_drive",
+        "havoc_engine",
+        "sidestep"
+    ],
+    "attachments": [
+        "aerolith",
+        "quartermaster"
+    ]
+}

@@ -1,7 +1,0 @@
-{
-    "id": "volition_anchor",
-    "name": "Volition Anchor",
-    "type": "fury",
-    "factions": ["isa"],
-    "text": "Target an enemy unit model in range.\n\nMake a Fury attack roll against the target model. If this attack hits, it does no damage. Instead, the hit unit suffers –1 ARM. Additionally, friendly models can reroll attack rolls against affected models. An attack roll can be rerolled once as a result of Volition Anchor.\n\nVolition Anchor expires at the end of the Pulse round."
-}

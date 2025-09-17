@@ -1,0 +1,56 @@
+{
+    "id": "storm_vulture",
+    "name": "Storm Vulture",
+    "factions": ["mw"],
+    "type": "vehicle",
+    "expansion": "tw",
+    "subtypes": ["champion"],
+    "cadre": "dragoon_air_cavalry",
+    "weapon_points": 2,
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 6,
+        "str": 5,
+        "mat": 4,
+        "rat": 5,
+        "def": 3,
+        "arm": 4,
+        "boxes": 3
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "flamethrower",
+                "heavy_machine_gun",
+                "vortex_missile"
+            ]
+        }
+    ],
+    "weapons": [
+        "howitzer",
+        "ripper"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "arcantrik_turbine",
+        "impulse_reciprocator",
+        "sow_the_field"
+    ],
+    "maneuvers": [
+        "wide_range_scan",
+        "with_both_feet",
+        "fire_and_displace"
+    ],
+    "changes": [
+        "Decreased DC to 2.",
+        "Increased RAT to 5.",
+        "Increased DEF to 3.",
+        "Replace Sow The Field maneuver with Sow The Field special rule",
+        "Add Fire & Displace maneuver."
+    ]
+}

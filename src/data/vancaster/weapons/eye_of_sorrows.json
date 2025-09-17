@@ -1,0 +1,14 @@
+{
+    "id": "eye_of_sorrows",
+    "name": "Eye of Sorrows",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["spray", "strafe", "arc_booster"]
+    }],
+    "changes": [
+        "Decreased POW to 4."
+    ]
+}

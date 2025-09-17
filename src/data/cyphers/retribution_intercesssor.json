@@ -1,7 +1,0 @@
-{
-    "id": "retribution_intercesssor",
-    "name": "Retribution Intercessor",
-    "type": "overdrive",
-    "factions": ["isa"],
-    "text": "Target a friendly warjack.\n\nWhen one or more friendly warrior models are destroyed by an enemy attack while within 5\" of the affected warjack, immediately after the attack is resolved, the warjack can move up to 3\" and make one attack. If the warjack moves and/or attacks as a result of Retribution Intercession, this card expires.\n\nRetribution Intercessor expires at the end of the Pulse round."
-}

@@ -1,7 +1,0 @@
-{
-    "id": "annihilation_vector",
-    "name": "Annihilation Vector",
-    "type": "overdrive",
-    "factions": ["all"],
-    "text": "Target a friendly warjack.\n\nThe warjack can immediately make one melee attack against an enemy model within 1\". If the attack hits, the model hit suffers a damage roll with a POW equal to the attacking warjack's STR. This attack causes kinetic damage.\n\nAdditionally if the model hit was a warjack, it suffers the System Failure continuous effect."
-}

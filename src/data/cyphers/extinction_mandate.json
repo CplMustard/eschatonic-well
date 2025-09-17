@@ -1,7 +1,0 @@
-{
-    "id": "extinction_mandate",
-    "name": "Extinction Mandate",
-    "type": "overdrive",
-    "factions": ["emp"],
-    "text": "Target a friendly warjack.\n\nThe warjack gains Relentless. When a model with Relentless destroys one or more enemy models with a melee attack, immediately after the attack is resolved, the model with Relentless can move up to 2\".\n\nExtinction Mandate expires at the end of the Pulse round."
-}

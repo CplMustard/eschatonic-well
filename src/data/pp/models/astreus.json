@@ -1,0 +1,30 @@
+{
+    "id": "astreus",
+    "name": "Astreus, Aeon of the First Magnitude",
+    "factions": ["emp"],
+    "type": "solo",
+    "expansion": "cc",
+    "subtypes": ["aeon", "hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 6,
+        "mat": 5,
+        "rat": 5,
+        "def": 4,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "starfire_array_astreus",
+        "plasma_spear"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "defense_matrix",
+        "realignment_codex"
+    ]
+}

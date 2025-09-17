@@ -1,7 +1,0 @@
-{
-    "id": "kinetic_accelerator",
-    "name": "Kinetic Accelerator",
-    "type": "overdrive",
-    "factions": ["all"],
-    "text": "Target a friendly warjack.\n\nWhen this warjack makes a melee attack during its activation, make a melee attack roll against each enemy model within the weapon's RNG. Models hit suffer the full effects and damage of the attack they were hit with.\n\nKinetic Accelerator expires at the end of this turn."
-}

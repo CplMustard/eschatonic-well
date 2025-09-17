@@ -1,0 +1,29 @@
+{
+    "id": "dragoon_gunner",
+    "name": "Dragoon Gunner",
+    "factions": ["mw"],
+    "type": "attachment",
+    "expansion": "tw",
+    "cadre": "dragoon_air_cavalry",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": "*",
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "particle_blaster_dragoon",
+        "fusion_blade"
+    ],
+    "advantages": [
+        "flight",
+        "weapon_expert"
+    ],
+    "changes": [
+        "Replace Reflex Accelerator with Weapon Expert."
+    ]
+}

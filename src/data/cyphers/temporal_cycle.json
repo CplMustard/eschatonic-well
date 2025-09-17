@@ -1,7 +1,0 @@
-{
-    "id": "temporal_cycle",
-    "name": "Temporal Cycle",
-    "type": "geometric",
-    "factions": ["all"],
-    "text": "Target a friendly squad.\n\nRemove the activation token from this squad, then place this card in the discard pile."
-}

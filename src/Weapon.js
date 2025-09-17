@@ -3,20 +3,20 @@ import { IonText, IonList, IonGrid, IonCol, IonRow, IonItem } from "@ionic/react
 
 import SpecialRuleList from "./SpecialRuleList";
 
-import { weaponsData, damageTypesData } from "./data";
+import { getWeaponsData, getDamageTypesData } from "./data";
 
 const weaponTypeNames = {"melee": "Melee", "range": "Ranged"};
 
 function Weapon(props) {
     const { weaponId, count } = props;
     
-    const weaponData = weaponsData[weaponId];
+    const weaponData = getWeaponsData()[weaponId];
 
     function WeaponStatline(props) {
         const { name, type, damage_types, rng, pow, special_rules } = props;
         
         const damageTypeNames = [];
-        damage_types && damage_types.forEach((faction) => damageTypeNames.push(damageTypesData[faction].name));
+        damage_types && damage_types.forEach((faction) => damageTypeNames.push(getDamageTypesData()[faction].name));
         return <IonItem>
             <div>
                 <IonText color="primary"><h2>{weaponTypeNames[type]}</h2></IonText>

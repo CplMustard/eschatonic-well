@@ -1,0 +1,9 @@
+{
+    "id": "psychonomic_lash",
+    "name": "Psychonomic Lash",
+    "type": "fury",
+    "factions": ["all"],
+    "expansion": "cc",
+    "pow": 4,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, your opponent must show you their hand of Cypher cards.\n\nThis Fury causes force damage."
+}

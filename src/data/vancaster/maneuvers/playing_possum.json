@@ -1,0 +1,8 @@
+{
+    "id": "playing_possum",
+    "name": "Playing Possum",
+    "text": "This model gains Stealth. A model with Stealth cannot be targeted by attacks made by models more than 8\" away. This Maneuver expires at the beginning of this model’s next activation.",
+    "changes": [
+        "Remove \"while within rough or obscuring terrain\" clause."
+    ]
+}

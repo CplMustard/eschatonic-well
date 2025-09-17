@@ -1,0 +1,14 @@
+{
+    "id": "particle_blaster_dragoon",
+    "name": "Particle Blaster",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 8, 
+        "pow": 5,
+        "special_rules": ["reserve_power_cells", "singularity_collapse", "mechanikal_optics"]
+    }],
+    "changes": [
+        "Added Mechanikal Optics."
+    ]
+}

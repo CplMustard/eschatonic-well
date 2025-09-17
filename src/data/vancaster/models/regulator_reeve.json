@@ -1,0 +1,36 @@
+{
+    "id": "regulator_reeve",
+    "name": "Regulator Reeve",
+    "factions": ["isa"],
+    "type": "solo",
+    "expansion": "tw",
+    "cadre": "alliance_regulators",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 4,
+        "rat": 3,
+        "def": 2,
+        "arm": 4,
+        "foc": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "purifier",
+        "plasma_sword"
+    ],
+    "advantages": [
+        "compound_armor",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "arc_relay|8",
+        "thrusters",
+        "void_disruptor"
+    ],
+    "changes": [
+        "Reduced Arc Relay range to 8.",
+        "Decreased MAT to 4."
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "id": "mantlet",
+    "name": "Mantlet",
+    "text": "A mantlet is a deployable barrier.\n\nMantlets are not units or warrior models and cannot be charged. They cannot move or attack, do not activate, and are not on bases.\n\nMantlets have a Deployment Cost and are deployed like unit models. When a mantlet is deployed, place it within 1\" of the void gate as normal. A player can have up to four mantlets in play at any time.\n\nMantlets provide cover like obstacle terrain features. Mantlets never gain cover.\n\nA friendly model can move through a mantlet if it has enough SPD to completely move through it.\n\nBecause they grant cover and do not have a fixed base size defining their volume, mantlet models cannot be customized or modified in any way aside from their paint job. \n\nMantlets count as obstacle terrain for the purpose of Slam attacks.",
+    "changes": [
+        "Mantlets are treated as terrain features for the purposes of slam attacks."
+    ]
+}

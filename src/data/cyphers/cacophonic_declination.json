@@ -1,8 +1,0 @@
-{
-    "id": "cacophonic_declination",
-    "name": "Cacophonic Declination",
-    "type": "fury",
-    "factions": ["emp"],
-    "pow": 3,
-    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack damages an enemy warjack, the warjack damaged suffers the System Failure continuous effect.\n\nThis Fury causes force damage."
-}

@@ -1,0 +1,8 @@
+{
+    "id": "kinematic_reassembler",
+    "name": "Kinematic Reassembler",
+    "type": "overdrive",
+    "factions": ["emp"],
+    "expansion": "cc",
+    "text": "Target a friendly warjack.\n\nRoll three action dice. For each strike rolled, remove 1 damage point from the warjack."
+}

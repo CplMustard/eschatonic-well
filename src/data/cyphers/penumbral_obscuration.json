@@ -1,7 +1,0 @@
-{
-    "id": "penumbral_obscuration",
-    "name": "Penumbral Obscuration",
-    "type": "harmonic",
-    "factions": ["mw"],
-    "text": "Target a friendly unit.\n\nAffected models ignore movement penalties for rough terrain. While completely within an area of rough terrain affected models gain Stealth. A model with Stealth cannot be targeted by attacks made by models more than 8\" away.\n\nPenumbral Obscuration expires at the end of the Pulse round."
-}

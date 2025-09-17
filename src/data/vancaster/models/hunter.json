@@ -1,0 +1,33 @@
+{
+    "id": "hunter",
+    "name": "Hunter",
+    "factions": ["mw"],
+    "type": "solo",
+    "expansion": "wc",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 3,
+        "rat": 6,
+        "def": 4,
+        "arm": 2,
+        "boxes": 2
+    },
+    "weapons": [
+        "sniper_rifle",
+        "combat_blade"
+    ],
+    "advantages": [
+        "stealth"
+    ],
+    "special_rules": [
+        "fire_and_displace",
+        "blast_cloak"
+    ],
+    "changes": [
+        "Increased Boxes to 2.",
+        "Replaced Mimetic Cloak with Stealth.",
+        "Added Blast Cloak."
+    ]
+}

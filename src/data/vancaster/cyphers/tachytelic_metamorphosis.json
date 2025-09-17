@@ -1,0 +1,11 @@
+{
+    "id": "tachytelic_metamorphosis",
+    "name": "Tachytelic Metamorphosis",
+    "type": "geometric",
+    "factions": ["isa"],
+    "expansion": "cc",
+    "text": "Target a friendly squad.\n\nAffected models gain +2 RAT, +2 MAT, and +2 DEF. Models affected by this Cypher cannot be targeted by Cyphers of the same type.\n\nTachytelic Metamorphosis expires at the end of the Pulse round.",
+    "changes": [
+        "Added \"Models affected by this Cypher cannot be targeted by Cyphers of the same type.\" restriction."
+    ]
+}

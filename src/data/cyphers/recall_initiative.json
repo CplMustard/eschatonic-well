@@ -1,7 +1,0 @@
-{
-    "id": "recall_initiative",
-    "name": "Recall Initiative",
-    "type": "harmonic",
-    "factions": ["all"],
-    "text": "Target a friendly unit.\n\nRecall the unit."
-}

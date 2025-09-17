@@ -1,0 +1,11 @@
+{
+    "id": "consecration_directive",
+    "name": "Consecration Directive",
+    "type": "geometric",
+    "factions": ["isa"],
+    "expansion": "cc",
+    "text": "Target a friendly squad.\n\nWhile within 1\" of a permanent objective, affected models add one power die to their defense rolls. When an affected model is missed by an enemy attack, immediately after the attack is resolved, the affected model can make one melee or ranged attack.\n\nConsecration Directive expires at the end of the Pulse round.",
+    "changes": [
+        "Replace \"While securing an objective.\" to \"While within 1\" of a permanent objective.\"."
+    ]
+}

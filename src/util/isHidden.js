@@ -1,9 +1,9 @@
 
-import { modelsData, modelTypesData } from "./../data";
+import { getModelsData, getModelTypesData } from "./../data";
 
 export function isHidden(modelId) {
-    const modelData = modelsData[modelId];
-    const hasHiddenType = modelTypesData[modelData.type].hidden;
-    const hasHiddenSubtype = modelData.subtypes ? modelData.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
+    const modelData = getModelsData()[modelId];
+    const hasHiddenType = getModelTypesData()[modelData.type].hidden;
+    const hasHiddenSubtype = modelData.subtypes ? modelData.subtypes.some((subtype) => getModelTypesData()[subtype].hidden) : false;
     return (hasHiddenType || hasHiddenSubtype || modelData.hidden);
 }

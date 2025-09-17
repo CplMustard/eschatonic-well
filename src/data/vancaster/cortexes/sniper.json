@@ -1,0 +1,8 @@
+{
+    "id": "sniper",
+    "name": "Sniper",
+    "special_rules": ["advanced_optics", "tactical_supremacy"],
+    "changes": [
+        "Added Tactical Supremacy."
+    ]
+}

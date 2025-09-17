@@ -1,0 +1,16 @@
+{
+    "id": "sun_piercer",
+    "name": "Sun Piercer",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 8, 
+        "pow": 2,
+        "special_rules": ["high_intensity", "hunter_killer_rounds"]
+    }],
+    "changes": [
+        "Increased POW to 2.",
+        "Added Hunter Killer Rounds."
+    ]
+}

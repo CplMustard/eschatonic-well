@@ -1,0 +1,15 @@
+{
+    "id": "eclipse_inducer",
+    "name": "Eclipse Inducer",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 12, 
+        "pow": 4,
+        "special_rules": ["energy_leech"]
+    }],
+    "changes": [
+        "Replaced Siphon Power with Energy Leech. Removes \"if this model was not already charged\" clause."
+    ]
+}

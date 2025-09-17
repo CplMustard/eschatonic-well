@@ -1,0 +1,30 @@
+{
+    "id": "marauder",
+    "name": "Marauder",
+    "factions": ["ac"],
+    "type": "solo",
+    "expansion": "wc",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 5,
+        "rat": 4,
+        "def": 2,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "shredder",
+        "claw"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "impulse_reactor"
+    ],
+    "changes": [
+        "Increased MAT to 5."
+    ]
+}

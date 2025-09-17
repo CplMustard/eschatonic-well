@@ -1,0 +1,34 @@
+{
+    "id": "paladin_siegebreaker",
+    "name": "Paladin Siegebreaker",
+    "factions": ["isa"],
+    "type": "solo",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 4,
+        "rat": 3,
+        "def": 2,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "castigator_missiles",
+        "radliffe_v9",
+        "fusion_sword"
+    ],
+    "advantages": [
+        "compound_armor",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "arcantrik_turbine",
+        "dominion_converter",
+        "power_focus"
+    ],
+    "changes": [
+        "Increased SPD to 5."
+    ]
+}

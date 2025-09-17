@@ -1,0 +1,12 @@
+{
+    "id": "psychonomic_lash",
+    "name": "Psychonomic Lash",
+    "type": "fury",
+    "factions": ["all"],
+    "expansion": "cc",
+    "pow": 4,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, after the attack is resolved your opponent must show you their hand of Cypher cards, if the target is damaged by this attack you may additionally choose one of your opponent’s cypher cards to discard.\n\nThis Fury causes force damage.",
+    "changes": [
+        "Added \"after the attack is resolved\" timing. The attacking player can also discard a card if they damaged an enemy model with this fury."
+    ]
+}

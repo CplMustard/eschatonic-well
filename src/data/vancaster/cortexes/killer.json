@@ -1,0 +1,8 @@
+{
+    "id": "killer",
+    "name": "Killer",
+    "special_rules": ["relentless", "vicious"],
+    "changes": [
+        "Added Vicious."
+    ]
+}

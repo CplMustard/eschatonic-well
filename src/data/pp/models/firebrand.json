@@ -1,0 +1,74 @@
+{
+    "id": "firebrand",
+    "name": "Firebrand",
+    "factions": ["isa"],
+    "type": "warjack",
+    "expansion": "wc",
+    "weapon_points": 5,
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 6,
+        "str": 4,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [],
+    "hard_points": [
+        {
+            "name": "Cortex",
+            "type": "cortex",
+            "options": [
+                "jack_hunter",
+                "neural_web",
+                "recon",
+                "reflex",
+                "vanquisher"
+            ]
+        },
+        {
+            "name": "Left Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "assault_rifle_and_bayonet",
+                "force_hammer",
+                "fusion_glaive",
+                "grenade_launcher",
+                "repulsor_shield",
+                "sun_piercer"
+            ]
+        },
+        {
+            "name": "Right Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "assault_rifle_and_bayonet",
+                "force_hammer",
+                "fusion_glaive",
+                "grenade_launcher",
+                "repulsor_shield",
+                "sun_piercer"
+            ]
+        },
+        {
+            "name": "Shoulder",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "harbinger_cannon_warjack",
+                "immolator",
+                "maelstrom",
+                "null_cannon"
+            ]
+        }
+    ],
+    "special_rules": [
+        "force_projector",
+        "refractor_field"
+    ]
+}

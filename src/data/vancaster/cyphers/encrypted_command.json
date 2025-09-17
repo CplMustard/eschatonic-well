@@ -1,0 +1,11 @@
+{
+    "id": "encrypted_command",
+    "name": "Encrypted Command",
+    "type": "harmonic",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly solo or light vehicle.\n\nRemove the activation token from the solo or light vehicle, then place this card in the discard pile.",
+    "changes": [
+        "Replace \"solo\" with \"solo or light vehicle\"."
+    ]
+}

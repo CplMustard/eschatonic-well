@@ -1,0 +1,15 @@
+{
+    "id": "fusion_drill",
+    "name": "Fusion Drill",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["spiral_power"]
+    }],
+    "changes": [
+        "Added Spiral Power."
+    ]
+}

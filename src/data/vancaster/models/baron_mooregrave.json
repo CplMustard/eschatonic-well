@@ -1,0 +1,34 @@
+{
+    "id": "baron_mooregrave",
+    "name": "Baron Cassius Mooregrave",
+    "factions": ["ac", "isa"],
+    "type": "solo",
+    "expansion": "wc",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 5,
+        "rat": 4,
+        "def": 4,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "magnum",
+        "oblivion"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "living_terror",
+        "phase_stalker",
+        "field_reinforcement"
+    ], 
+    "changes": [
+        "Increased DEF to 4.",
+        "Added Field Reinforcement."
+    ]
+}

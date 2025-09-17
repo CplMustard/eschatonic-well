@@ -8,7 +8,7 @@ import ForceCardList from "./ForceCardList";
 import DeployUnitModal from "./DeployUnitModal";
 import { playTabs } from "./EditorView.js";
 
-import { modelsData } from "./data";
+import { getModelsData, setRuleset } from "./data";
 
 function PlayModeViewer(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -31,22 +31,25 @@ function PlayModeViewer(props) {
     };
 
     const tabSelected = props.tabSelected;
+    const rulesetId = props.rulesetId;
     const models = props.forceModelsData;
     const cyphers = props.forceCyphersData;
     const specialIssueModels = props.specialIssueModelsData;
     const specialIssueCyphers = props.specialIssueCyphersData;
 
+    setRuleset(rulesetId);
+
     function openModelCard(modelId, entryId) {
-        history.push(`/model/${modelId}`, { entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
+        history.push(`/model/${modelId}`, { entryId: entryId, isPlayMode: true, rulesetId: rulesetId, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function openCypherCard(cypherId) {
-        history.push(`/cypher/${cypherId}`);
+        history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId });
     }
 
     function createUnitStatus(entryId) {
         const modelId = models.find((entry) => entry.id === entryId).modelId;
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
         const unitModels = [];
 
         if (modelData.stats.squad_size) {
@@ -69,7 +72,7 @@ function PlayModeViewer(props) {
 
         const attachments = [];
         attachmentIds.forEach((attachmentId) => {
-            const attachmentModelData = modelsData[attachmentId];
+            const attachmentModelData = getModelsData()[attachmentId];
             const attachmentUnitModels = [];
             if (attachmentModelData.stats.squad_size) {
                 for (let i=0; i < attachmentModelData.stats.squad_size; i++) {
@@ -83,7 +86,7 @@ function PlayModeViewer(props) {
 
         unitStatus.attachments = attachments;
 
-        const modelData = modelsData[unitStatus.modelId];
+        const modelData = getModelsData()[unitStatus.modelId];
 
         const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === unitStatus.id).length !== 0;
         const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === unitStatus.id).name : modelData.name;
@@ -105,7 +108,7 @@ function PlayModeViewer(props) {
         newUnitsStatus.push(unitStatus);
 
         const modelId = models.find((entry) => entry.id === entryId).modelId;
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
 
         if(modelData.attachments) {
             setCurrentUnitAttachments(modelData.attachments);

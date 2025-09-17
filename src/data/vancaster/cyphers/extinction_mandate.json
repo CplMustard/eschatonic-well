@@ -1,0 +1,11 @@
+{
+    "id": "extinction_mandate",
+    "name": "Extinction Mandate",
+    "type": "overdrive",
+    "factions": ["emp"],
+    "expansion": "cc",
+    "text": "Target a friendly warjack.\n\nWhen an affected model hits an enemy model with a melee attack it may move 2” immediately after the attack is resolved.\n\nExtinction Mandate expires at the end of the Pulse round.",
+    "changes": [
+        "Replaced granting Relentless special rule with a 2\" move that triggers on hitting enemy models with melee attacks."
+    ]
+}

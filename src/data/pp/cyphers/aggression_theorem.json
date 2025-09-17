@@ -1,0 +1,8 @@
+{
+    "id": "aggression_theorem",
+    "name": "Aggression Theorem",
+    "type": "harmonic",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target friendly unit model.\n\nThe target model can immediately make one melee or ranged attack."
+}

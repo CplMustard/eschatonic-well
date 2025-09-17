@@ -1,0 +1,27 @@
+{
+    "id": "axel_for_hire",
+    "name": "Axel for Hire",
+    "factions": ["ac", "emp", "isa", "ll", "mw"],
+    "type": "solo",
+    "expansion": "tw",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 3,
+        "rat": 5,
+        "def": 4,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "energy_sniper_rifle"
+    ],
+    "special_rules": [
+        "dynamic_accelerator",
+        "eclipse_drive",
+        "fire_and_displace",
+        "heightened_reflexes"
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "id": "vassal_boss",
+    "name": "Vassal Boss",
+    "factions": ["ac"],
+    "type": "solo",
+    "expansion": "tw",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 4,
+        "def": 3,
+        "arm": 2,
+        "boxes": 2
+    },
+    "weapons": [
+        "heavy_submachine_gun",
+        "heavy_submachine_gun"
+    ],
+    "advantages": [
+        "stealth",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "battle_commander|Sidestep",
+        "command_interface|Vassal",
+        "phase_sequencer",
+        "sidestep"
+    ],
+    "changes": [
+        "Reduce ARM to 2."
+    ]
+}

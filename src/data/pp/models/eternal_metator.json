@@ -1,0 +1,32 @@
+{
+    "id": "eternal_metator",
+    "name": "Eternal Metator",
+    "factions": ["emp"],
+    "type": "solo",
+    "expansion": "tw",
+    "subtypes": ["aeon", "champion"],
+    "cadre": "harbingers_of_cyriss",
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 7,
+        "mat": 4,
+        "rat": 5,
+        "def": 4,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "void_howler",
+        "plasma_voulge"
+    ],
+    "advantages": [
+        "flight",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "phylacteric_vault|Aeon",
+        "sacred_restoration",
+        "slip_field"
+    ]
+}

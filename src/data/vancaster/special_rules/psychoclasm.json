@@ -1,0 +1,8 @@
+{
+    "id": "psychoclasm",
+    "name": "Psychoclasm",
+    "text": "If this model destroys an enemy unit model with an attack with this weapon, this model can spike to allow you to replace the destroyed model with a small or medium-based solo from your reserves.",
+    "changes": [
+        "Replace \"enemy model\" with \"enemy unit model\" to prevent unintended interactions such as replacing enemy mantlets."
+    ]
+}

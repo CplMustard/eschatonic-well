@@ -1,0 +1,15 @@
+{
+    "id": "fusion_glaive",
+    "name": "Fusion Glaive",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["power_attack"]
+    }],
+    "changes": [
+        "Reduced COST to 1."
+    ]
+}

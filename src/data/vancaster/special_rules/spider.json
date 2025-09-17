@@ -1,0 +1,8 @@
+{
+    "id": "spider",
+    "name": "Spider",
+    "text": "This model never suffers damage from falling. This model can move over or onto structures as if it had Flight.",
+    "changes": [
+        "Allow models with Spider to climb on top of structures as well as not suffering fall damage."
+    ]
+}

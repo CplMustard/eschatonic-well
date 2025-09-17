@@ -3,15 +3,15 @@ import { useParams, useHistory } from "react-router-dom";
 
 import CardList from "./CardList";
 
-import { cyphersData, modelsData } from "./data";
+import { getCyphersData, getModelsData } from "./data";
 
 function CardListViewer(props) {
     const params = useParams();
     const history = useHistory();
 
     const factionId = props.factionId ? props.factionId : params.factionId;
-    const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(modelsData);
-    const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(cyphersData);
+    const models = (factionId && factionId !== "all") ? Object.values(getModelsData()).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(getModelsData());
+    const cyphers = (factionId && factionId !== "all") ? Object.values(getCyphersData()).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(getCyphersData());
 
     function openModelCard(id) {
         history.push(`/model/${id}`);

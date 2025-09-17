@@ -1,0 +1,8 @@
+{
+    "id": "resurrection_protocol",
+    "name": "Resurrection Protocol",
+    "text": "During its activation and while within 10\" of a target friendly squad, this model can spike to return up to two destroyed non-attachment models to the squad. Place these models within 2\" of another model in the squad. A squad can never have more non-attachment models than it was deployed with as a result of Resurrection Protocol.",
+    "changes": [
+        "Replace \"A squad can never have more than three trooper models\" with \"A squad can never have more non-attachment models than it was deployed with\" to match the wording used in Eternal Metator's Sacred Restoration. Previous wording prevented squads with attachments from returning troopers when attachments were added in certain cases."
+    ]
+}

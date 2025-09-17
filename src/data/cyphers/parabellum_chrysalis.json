@@ -1,7 +1,0 @@
-{
-    "id": "parabellum_chrysalis",
-    "name": "Parabellum Chrysalis",
-    "type": "geometric",
-    "factions": ["all"],
-    "text": "Target a friendly squad.\n\nWhile securing an objective, affected models add two power dice to their melee and ranged attack rolls.\n\nParabellum Chrysalis expires at the end of the Pulse round."
-}

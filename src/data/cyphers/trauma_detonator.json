@@ -1,7 +1,0 @@
-{
-    "id": "trauma_detonator",
-    "name": "Trauma Detonator",
-    "type": "overdrive",
-    "factions": ["all"],
-    "text": "Target a friendly warjack.\n\nThe warjack can immediately make one melee attack against an enemy model with a smaller- or equal-sized base within 1\". If the attack hits, the model hit suffers a damage roll equal with a POW equal to the attacking warjack's STR.\n\nAdditionally, the model hit gains an activation token."
-}

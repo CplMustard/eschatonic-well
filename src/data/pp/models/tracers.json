@@ -1,0 +1,33 @@
+{
+    "id": "tracers",
+    "name": "Tracers",
+    "factions": ["isa"],
+    "type": "squad",
+    "expansion": "tw",
+    "cadre": "alliance_regulators",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 8,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "force_driver"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "entropic_field",
+        "power_harvester",
+        "smart_lock"
+    ],
+    "attachments": [
+        "quartermaster"
+    ]
+}

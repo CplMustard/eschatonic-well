@@ -1,0 +1,8 @@
+{
+    "id": "guardian",
+    "name": "Guardian",
+    "text": "When a friendly model is targeted and hit by an enemy attack while within 5˝ of this model, you can choose to have this model be targeted and hit instead.",
+    "changes": [
+        "When redirecting an attack a model is always considered to be the target of the attack to resolve interactions with Blast and other special rules."
+    ]
+}

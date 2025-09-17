@@ -1,0 +1,5 @@
+{
+    "id": "blood_sacrifice",
+    "name": "Blood Sacrifice",
+    "text": "After this model destroys an enemy warrior model with an attack from this weapon, this model can immediately make one melee attack with this weapon, but suffers 1 damage point after the attack is resolved." 
+}

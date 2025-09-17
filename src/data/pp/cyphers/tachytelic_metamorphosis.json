@@ -1,0 +1,8 @@
+{
+    "id": "tachytelic_metamorphosis",
+    "name": "Tachytelic Metamorphosis",
+    "type": "geometric",
+    "factions": ["isa"],
+    "expansion": "cc",
+    "text": "Target a friendly squad.\n\nAffected models gain +2 RAT, +2 MAT, and +2 DEF.\n\nTachytelic Metamorphosis expires at the end of the Pulse round."
+}

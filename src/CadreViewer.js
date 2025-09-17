@@ -5,21 +5,21 @@ import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, 
 
 import CardList from "./CardList";
 
-import { cadresData, modelsData } from "./data";
+import { getCadresData, getModelsData } from "./data";
 
 function CadreViewer(props) {
     const params = useParams();
     const history = useHistory();
 
     const cadreId = props.cadreId ? props.cadreId : params.cadreId;
-    const models = Object.values(modelsData).filter((model) => model.cadre && (model.cadre === cadreId));
+    const models = Object.values(getModelsData()).filter((model) => model.cadre && (model.cadre === cadreId));
 
     function openModelCard(id) {
         history.push(`/model/${id}`);
     }
 
     return (
-        <IonPage className={cadresData[cadreId].faction}>
+        <IonPage className={getCadresData()[cadreId].faction}>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
@@ -29,7 +29,7 @@ function CadreViewer(props) {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <CardList header={`Cadre: ${cadresData[cadreId].name}`} cards={models} handleCardClicked={openModelCard}></CardList>
+                <CardList header={`Cadre: ${getCadresData()[cadreId].name}`} cards={models} handleCardClicked={openModelCard}></CardList>
             </IonContent>
         </IonPage>
     );

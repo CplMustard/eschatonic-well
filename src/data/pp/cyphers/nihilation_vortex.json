@@ -1,0 +1,9 @@
+{
+    "id": "nihilation_vortex",
+    "name": "Nihilation Vortex",
+    "type": "fury",
+    "factions": ["ac"],
+    "expansion": "cc",
+    "pow": 3,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, immediately after the attack is resolved, you can reposition the model hit anywhere within 3\" of its current location.\n\nThis Fury causes energy damage."
+}

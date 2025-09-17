@@ -1,0 +1,15 @@
+{
+    "id": "arc_blade",
+    "name": "Arc Blade",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 5,
+        "special_rules": ["attack_mode_arc_blade"]
+    }],
+    "changes": [
+        "Arc Blade weapon should not have \"Repulsor\" advantage.",
+        "RNG to 2."
+    ]
+}

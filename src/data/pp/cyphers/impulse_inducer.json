@@ -1,0 +1,8 @@
+{
+    "id": "impulse_inducer",
+    "name": "Impulse Inducer",
+    "type": "overdrive",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly warjack.\n\nRemove the activation token from the warjack."
+}

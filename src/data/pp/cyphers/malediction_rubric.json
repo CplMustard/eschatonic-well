@@ -1,0 +1,9 @@
+{
+    "id": "malediction_rubric",
+    "name": "Malediction Rubric",
+    "type": "fury",
+    "factions": ["all"],
+    "expansion": "wc",
+    "pow": 4,
+    "text": "Target enemy model unit in range.\n\nMake an attack roll against the target model. If the attack hits, enemy Cypher cards on the unit hit expire and the model hit suffers a damage roll.\n\nThis Fury causes energy damage. "
+}

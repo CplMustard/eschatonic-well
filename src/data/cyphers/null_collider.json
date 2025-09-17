@@ -1,8 +1,0 @@
-{
-    "id": "null_collider",
-    "name": "Null Collider",
-    "type": "fury",
-    "factions": ["all"],
-    "pow": 3,
-    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, in addition to a damage roll clear 1 Arc from the from the unit or void gate hit.\n\nThis Fury causes energy damage."
-}

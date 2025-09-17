@@ -1,0 +1,11 @@
+{
+    "id": "penumbral_obscuration",
+    "name": "Penumbral Obscuration",
+    "type": "harmonic",
+    "factions": ["mw"],
+    "expansion": "cc",
+    "text": "Target a friendly unit.\n\nAffected models ignore movement penalties for rough terrain. While within an area of rough terrain affected models gain +2 DEF and Stealth. A model with Stealth cannot be targeted by attacks made by models more than 8\" away.\n\nPenumbral Obscuration expires at the end of the Pulse round.",
+    "changes": [
+        "Replace \"completely within\" with \"within\". Now grants +2 DEF in addition to Stealth."
+    ]
+}

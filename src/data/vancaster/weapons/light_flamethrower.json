@@ -1,0 +1,14 @@
+{
+    "id": "light_flamethrower",
+    "name": "Light Flamethrower",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["fire"], 
+        "rng": 8, 
+        "pow": 3,
+        "special_rules": ["fire", "spray"]
+    }],
+    "changes": [
+        "Increased RNG to 8."
+    ]
+}

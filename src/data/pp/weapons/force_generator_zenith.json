@@ -1,0 +1,12 @@
+{
+    "id": "force_generator_zenith",
+    "name": "Force Generator",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 10,
+        "pow": 3,
+        "special_rules": ["force_ram", "shield"]
+    }]
+}

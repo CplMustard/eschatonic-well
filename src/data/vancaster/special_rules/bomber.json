@@ -1,0 +1,8 @@
+{
+    "id": "bomber",
+    "name": "Bomber",
+    "text": "This model gains +1 action die on attack rolls with explosion weapons. Additionally, when this model makes an attack with an explosion weapon, immediately after the attack is resolved, this model can move up to 2\".",
+    "changes": [
+        "Removed \"while this model has Flight\" clause."
+    ]
+}

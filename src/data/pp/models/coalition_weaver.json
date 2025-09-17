@@ -1,0 +1,27 @@
+{
+    "id": "coalition_weaver",
+    "name": "Coalition Weaver",
+    "factions": ["mw"],
+    "type": "solo",
+    "expansion": "wc",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 4,
+        "arm": 3,
+        "foc": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "handgun",
+        "battle_staff"
+    ],
+    "special_rules": [
+        "arcantrik_amplifier",
+        "arc_relay|10",
+        "fury_reciprocator"
+    ]
+}

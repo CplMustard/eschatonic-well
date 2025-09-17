@@ -1,0 +1,30 @@
+{
+    "id": "combat_engineer",
+    "name": "Combat Engineer",
+    "factions": ["mw"],
+    "type": "solo",
+    "expansion": "wc",
+    "stats": {
+        "dc": 1,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 3,
+        "rat": 3,
+        "def": 2,
+        "arm": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "fusion_torch",
+        "wrench"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "jump_start",
+        "repair",
+        "spotlight",
+        "tune_up"
+    ]
+}

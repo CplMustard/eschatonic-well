@@ -1,0 +1,11 @@
+{
+    "id": "cloaking_device",
+    "name": "Cloaking Device",
+    "point_cost": 1,
+    "profiles": [{
+        "special_rules": ["mimetic_cloak", "phase_sequencer"]
+    }],
+    "changes": [
+        "Added Phase Sequencer."
+    ]
+}

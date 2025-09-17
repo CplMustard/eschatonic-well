@@ -10,7 +10,7 @@ import { forceTabs } from "./EditorView.js";
 
 import { isHidden } from "./util/isHidden.js";
 
-import { cadresData,  modelsData, weaponsData } from "./data";
+import { getCadresData, getModelsData, getWeaponsData } from "./data";
 import CadreList from "./CadreList";
 
 const voidGateId = "void_gate";
@@ -31,7 +31,7 @@ function ForceEditor(props) {
             newForceData = insertModelCard(newForceData, voidGateId, addedModelNames);
         }
 
-        const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
+        const allMantlets = Object.values(getModelsData()).filter((modelData) => modelData.type === "mantlet");
         const availableMantlets = (factionId && factionId !== "all") ? allMantlets.filter((modelData) => {
             return modelData.factions.includes(factionId);
         }) : allMantlets;
@@ -43,11 +43,11 @@ function ForceEditor(props) {
 
         if(newForceData != forceModelsData) {
             //Show empty force prompt if we only have mantlets or void_gates
-            setForceEmpty(newForceData.length === availableMantlets.length + 1);
+            setForceEmpty(newForceData.filter((forceModel) => forceModel.type !== "mantlet" && forceModel.type !== "void_gate").length === 0);
             
             setForceModelsData(newForceData);
         }
-    }, [forceModelsData, specialIssueModelsData, factionId]);
+    }, [forceModelsData, specialIssueModelsData]);
     
     const presentToast = (message) => {
         present({
@@ -57,18 +57,27 @@ function ForceEditor(props) {
         });
     };
 
-    const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(modelsData);
+    const models = (factionId && factionId !== "all") ? Object.values(getModelsData()).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(getModelsData());
 
     function modelCount(forceData, modelId) {
         return forceData.filter((forceModel) => forceModel.modelId === modelId).length;
     }
 
     function checkFA(forceData, modelId) {
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
         const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
         const fa = modelData.fa ? modelData.fa : defaultFA;
 
         return modelCount(forceData, modelId) < fa;
+    }
+
+    function updateEmptyForceState(forceData) {
+        if(forceData != forceModelsData) {
+            //Show empty force prompt if we only have mantlets or void_gates
+            setForceEmpty(forceData.filter((forceModel) => forceModel.type !== "mantlet" && forceModel.type !== "void_gate").length === 0);
+            
+            setForceModelsData(forceData);
+        }
     }
 
     function addAttachments(forceData, modelData, addedModelNames) {
@@ -87,7 +96,7 @@ function ForceEditor(props) {
         modelData.attachments.forEach((attachment) => {
             //only delete if we're the last eligible unit for this attachment
             const attachmentIndex = newForceData.findIndex((forceModel) => forceModel.modelId === attachment);
-            const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length;
+            const remainingEligibleUnitCount = newForceData.filter((forceModel) => getModelsData()[forceModel.modelId].attachments && getModelsData()[forceModel.modelId].attachments.includes(attachment)).length;
             if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
                 newForceData = deleteModelCard(newForceData, attachmentIndex, deletedModelNames);
             }
@@ -97,7 +106,7 @@ function ForceEditor(props) {
 
     function countCadreModels(forceData, cadreId) {
         if (cadreId) {
-            const cadreModels = cadresData[cadreId].models;
+            const cadreModels = getCadresData()[cadreId].models;
             const cadreModelCounts = [];
             cadreModels.forEach((cadreModelId) => cadreModelCounts.push(modelCount(forceData, cadreModelId)));
             return Math.min(...cadreModelCounts);
@@ -107,7 +116,7 @@ function ForceEditor(props) {
 
     function addCadreChampion(forceData, cadreId, addedModelNames) {
         let newForceData = forceData;
-        const cadre = cadresData[cadreId];
+        const cadre = getCadresData()[cadreId];
         //add a champion for this cadre if the count doesn't match
         if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
             newForceData = insertModelCard(newForceData, cadre.champion, addedModelNames);
@@ -117,7 +126,7 @@ function ForceEditor(props) {
 
     function deleteCadreChampion(forceData, cadreId, deletedModelNames) {
         let newForceData = forceData;
-        const cadre = cadresData[cadreId];
+        const cadre = getCadresData()[cadreId];
         //remove a champion for this cadre if the count doesn't match
         if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
             const championIndex = newForceData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
@@ -129,12 +138,12 @@ function ForceEditor(props) {
     function insertModelCard(forceData, modelId, addedModelNames) {
         let newForceData = forceData;
         const newId = uuidv1();
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
         const defaultHardPoints = [];
         if(modelData.hard_points) {
             modelData.hard_points.forEach((hard_point) => {
-                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
-            }, [weaponsData]);
+                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? getWeaponsData()[hard_point.options[0]].point_cost : 0});
+            }, [getWeaponsData()]);
         }
         if (modelData.attachments) {
             newForceData = addAttachments(newForceData, modelData, addedModelNames);
@@ -155,7 +164,7 @@ function ForceEditor(props) {
     function deleteModelCard(forceData, index, deletedModelNames) {
         let newForceData = forceData;
         const modelId = newForceData[index].modelId;
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
         newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)];
         deletedModelNames.push(modelData.name);
         if (modelData.attachments) {
@@ -182,6 +191,8 @@ function ForceEditor(props) {
                 newForceData = insertModelCard(newForceData, modelId, addedModelNames);
             }
         });
+
+        updateEmptyForceState(newForceData);
         
         presentToast(`Added ${addedModelNames.join(", ")} to forcelist`);
 
@@ -194,6 +205,8 @@ function ForceEditor(props) {
         if(index !== -1) {
             let newForceData = forceModelsData;
             newForceData = deleteModelCard(newForceData, index, deletedModelNames);
+
+            updateEmptyForceState(newForceData);
 
             presentToast(`Deleted ${deletedModelNames.join(", ")} from forcelist`);
 
@@ -208,13 +221,13 @@ function ForceEditor(props) {
             // Make sure to check the special issue list for FA as well
             if(checkFA([...forceModelsData, ...newSpecialIssueModelsData], modelId)) {
                 const newId = uuidv1();
-                const modelData = modelsData[modelId];
+                const modelData = getModelsData()[modelId];
 
                 const defaultHardPoints = [];
                 if(modelData.hard_points) {
                     modelData.hard_points.forEach((hard_point) => {
-                        defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
-                    }, [weaponsData]);
+                        defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? getWeaponsData()[hard_point.options[0]].point_cost : 0});
+                    }, [getWeaponsData()]);
                 }
 
                 const canRemove = !isHidden(modelId);
@@ -232,7 +245,7 @@ function ForceEditor(props) {
     function removeSpecialIssue(id) {
         const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === id);
         const modelId = specialIssueModelsData[index].modelId;
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
     
         let newSpecialIssueModelsData = specialIssueModelsData;
         newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, index), ...newSpecialIssueModelsData.slice(index + 1)];
@@ -254,6 +267,8 @@ function ForceEditor(props) {
             //Don't list the special issue model as deleted from forcelist
             deletedModelNames.splice(deletedModelNames.indexOf(forceModelsData[index].name), 1);
 
+            updateEmptyForceState(newForceData);
+
             presentToast(`Swapped ${forceModelsData[index].name} to special issue${deletedModelNames.length !== 0 ? `, ${deletedModelNames.join(", ")} deleted from forcelist` : ""}`);
 
             setSpecialIssueModelsData(newSpecialIssueModelsData);
@@ -267,7 +282,7 @@ function ForceEditor(props) {
         let addedModelNames = [];
 
         const modelId = specialIssueModelsData[index].modelId;
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
         if(checkFA(newForceData, modelId)) {
             newForceData = newForceData.concat(specialIssueModelsData[index]);
 
@@ -282,6 +297,8 @@ function ForceEditor(props) {
     
         let newSpecialIssueModelsData = specialIssueModelsData;
         newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, index), ...newSpecialIssueModelsData.slice(index + 1)];
+
+        updateEmptyForceState(newForceData);
         
         presentToast(`Swapped ${modelData.name} to forcelist${addedModelNames.length !== 0 ? `, ${addedModelNames.join(", ")} added to forcelist` : ""}`);
 
@@ -301,7 +318,7 @@ function ForceEditor(props) {
     }
 
     function canAddToSpecialIssue(modelId) {
-        const modelType = modelsData[modelId].type;
+        const modelType = getModelsData()[modelId].type;
         return !specialIssueModelsData.some((forceModel) => forceModel.type === modelType);
     }
 
@@ -314,7 +331,7 @@ function ForceEditor(props) {
     }
 
     function getFAText(forceData, modelId) {
-        const modelData = modelsData[modelId];
+        const modelData = getModelsData()[modelId];
         const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
         const fa = modelData.fa ? modelData.fa : defaultFA;
         return `(${modelCount(forceData, modelId)}/${fa})`;
@@ -353,7 +370,7 @@ function ForceEditor(props) {
                 ></ForceCardList>
             </>}
             {tabSelected === forceTabs.units && <>
-                <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
+                <CadreList cadresData={getCadresData()} addModelCards={addModelCards} factionId={factionId}></CadreList>
                 <br/>
                 <CardList 
                     id={"ForceEditor"}

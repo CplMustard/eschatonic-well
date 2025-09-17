@@ -1,7 +1,0 @@
-{
-    "id": "arcanesscent_regenerator",
-    "name": "Arcanesscent Regenerator",
-    "type": "harmonic",
-    "factions": ["emp"],
-    "text": "Target a friendly void gate.\n\nYou can immediately charge the void gate with any amount of Arc up to its limit."
-}

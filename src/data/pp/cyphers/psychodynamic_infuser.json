@@ -1,0 +1,8 @@
+{
+    "id": "psychodynamic_infuser",
+    "name": "Psychodynamic Infuser",
+    "type": "harmonic",
+    "factions": ["all"],
+    "expansion": "cc",
+    "text": "Target a friendly light vehicle.\n\nRemove the activation token from the light vehicle, then place this card in the discard pile."
+}

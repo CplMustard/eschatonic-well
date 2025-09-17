@@ -1,0 +1,27 @@
+{
+    "id": "witch_hounds",
+    "name": "Witch Hounds",
+    "factions": ["isa"],
+    "type": "attachment",
+    "expansion": "tw",
+    "cadre": "alliance_regulators",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": "*",
+        "mat": 3,
+        "rat": 3,
+        "def": 2,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "force_strike"
+    ],
+    "special_rules": [
+        "arc_exchange",
+        "psycho_disruptor",
+        "spotlight"
+    ]
+}

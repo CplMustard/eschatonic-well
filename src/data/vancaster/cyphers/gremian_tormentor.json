@@ -1,0 +1,11 @@
+{
+    "id": "gremian_tormentor",
+    "name": "Gremian Tormentor",
+    "type": "harmonic",
+    "factions": ["mw"],
+    "expansion": "cc",
+    "text": "Target a friendly unit.\n\nWhen an enemy warjack ends its activation within 3\" of an affected model, the warjack suffers the System Failure continuous effect.\n\nGremian Tormentor expires at the end of the Pulse round.",
+    "changes": [
+        "Increased range of ability from 2\" to 3\""
+    ]
+}

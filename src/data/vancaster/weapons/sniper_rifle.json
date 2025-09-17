@@ -1,0 +1,14 @@
+{
+    "id": "sniper_rifle",
+    "name": "Sniper Rifle",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic"], 
+        "rng": 15, 
+        "pow": 5,
+        "special_rules": ["arc_booster"]
+    }],
+    "changes": [
+        "Increased POW to 5."
+    ]
+}

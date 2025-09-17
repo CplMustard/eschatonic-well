@@ -1,0 +1,89 @@
+{
+    "id": "morningstar",
+    "name": "Morningstar",
+    "factions": ["isa"],
+    "type": "warjack",
+    "expansion": "wc",
+    "weapon_points": 8,
+    "stats": {
+        "dc": 4,
+        "base_size": 50,
+        "spd": 6,
+        "str": 5,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 4
+    },
+    "weapons": [],
+    "hard_points": [
+        {
+            "name": "Cortex",
+            "type": "cortex",
+            "options": [
+                "dauntless",
+                "deadeye",
+                "defender",
+                "demolisher",
+                "exchanger"
+            ]
+        },
+        {
+            "name": "Left Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "assault_shield",
+                "force_hammer",
+                "grenade_launcher",
+                "heavy_fusion_glaive",
+                "seeker",
+                "sun_piercer"
+            ]
+        },
+        {
+            "name": "Right Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "assault_shield",
+                "force_hammer",
+                "grenade_launcher",
+                "heavy_fusion_glaive",
+                "seeker",
+                "sun_piercer"
+            ]
+        },
+        {
+            "name": "Left Shoulder",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "gate_crasher",
+                "harbinger_cannon_warjack",
+                "immolator",
+                "maelstrom",
+                "null_cannon",
+                "starburst_missiles"
+            ]
+        },
+        {
+            "name": "Right Shoulder",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "gate_crasher",
+                "harbinger_cannon_warjack",
+                "immolator",
+                "maelstrom",
+                "null_cannon",
+                "starburst_missiles"
+            ]
+        }
+    ],
+    "special_rules": [
+        "impulse_reciprocator",
+        "range_amplifier"
+    ]
+}

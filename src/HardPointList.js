@@ -1,7 +1,7 @@
 import React from "react";
 import { IonNote, IonItem, IonLabel, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
-import { cortexesData, weaponsData } from "./data";
+import { getCortexesData, getWeaponsData } from "./data";
 
 import HardPoint from "./HardPoint";
 
@@ -17,7 +17,7 @@ function HardPointList(props) {
     );
     
     const weaponPointCost = hardPointOptions.reduce((totalPointCost, option) => totalPointCost + option.point_cost, 0);
-    const hardPointOptionsText = hardPointOptions.map((hardPointOption) => hardPointOption.type === "cortex" ? cortexesData[hardPointOption.option].name : weaponsData[hardPointOption.option].name).join(", ");
+    const hardPointOptionsText = hardPointOptions.map((hardPointOption) => hardPointOption.type === "cortex" ? getCortexesData()[hardPointOption.option].name : getWeaponsData()[hardPointOption.option].name).join(", ");
 
     return <IonAccordionGroup>
         <IonAccordion readonly={isPlayMode}>

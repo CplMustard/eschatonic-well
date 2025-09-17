@@ -1,0 +1,18 @@
+{
+    "id": "carapax",
+    "name": "Carapax",
+    "factions": ["emp"],
+    "type": "mantlet",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": "*",
+        "def": 1,
+        "arm": 4,
+        "boxes": 2
+    },
+    "special_rules": [
+        "blast_shielding",
+        "wide_spectrum_scanners"
+    ]
+}

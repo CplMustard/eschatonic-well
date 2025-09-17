@@ -1,0 +1,44 @@
+{
+    "id": "interceptor",
+    "name": "Interceptor",
+    "factions": ["isa"],
+    "type": "vehicle",
+    "expansion": "cc",
+    "weapon_points": 3,
+    "stats": {
+        "dc": 3,
+        "base_size": 80,
+        "spd": 9,
+        "mat": 3,
+        "rat": 4,
+        "def": 4,
+        "arm": 4,
+        "boxes": 3
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "force_cannon",
+                "immolator",
+                "tempest_cannon"
+            ]
+        }
+    ],
+    "weapons": [
+        "fixed_guns"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "evasion_drive",
+        "high_performance"
+    ],
+    "maneuvers": [
+        "evasive_action",
+        "full_burn",
+        "sky_hunter"
+    ]
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useSessionStorageState } from "ahooks";
-import { IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
+import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
 import { skullOutline } from "ionicons/icons";
 
 import Cortex from "./Cortex";
@@ -10,14 +10,15 @@ import SpecialRuleList from "./SpecialRuleList";
 import WeaponList from "./WeaponList";
 import ManeuverList from "./ManeuverList";
 import UnitStatus from "./UnitStatus";
+import ViewChangesModal from "./ViewChangesModal";
 
-import { modelsData, modelTypesData, weaponsData, factionsData, cadresData } from "./data";
+import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./data";
 
 function ModelCardViewer(props) {
     const params = useParams();
     const history = useHistory();
     const location = useLocation();
-
+    
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
@@ -35,7 +36,7 @@ function ModelCardViewer(props) {
 
     const modelId = props.modelId ? props.modelId : params.modelId;
     
-    const cardData = modelsData[modelId];
+    const cardData = getModelsData()[modelId];
 
     useEffect(() => {
         if(entryId) {
@@ -58,6 +59,104 @@ function ModelCardViewer(props) {
 
     function openModelCard(id) {
         history.push(`/model/${id}`);
+    }
+
+    function getHardPointOptions(hard_points, hardPointOptions, typeId) {
+        return hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === typeId).map((hardPointOption) => hardPointOption.option) : undefined;
+    }
+
+    function getAllWeapons(hard_points, weapons, hardPointWeaponOptions) {
+        return hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
+    }
+
+    function getAllSpecialRules(special_rules, cadre, type) {
+        let all_special_rules = special_rules ? special_rules : [];
+        if(cadre) {
+            all_special_rules = ["cadre|" + getCadresData()[cadre].name].concat(all_special_rules);
+        }
+        if(type === "void_gate") {
+            all_special_rules = ["void_gate"].concat(all_special_rules);
+        }
+        if(type === "mantlet") {
+            all_special_rules = ["mantlet"].concat(all_special_rules);
+        }
+        return all_special_rules;
+    }
+
+    function collectSpecialRuleChanges(collectedChanges, special_rules) {
+        special_rules.forEach((special_rule) => {
+            const ruleParts = special_rule.split("|");
+            const ruleId = ruleParts.shift(); //don't include template strings in ID
+            const ruleArguments = ruleParts;
+
+            const ruleData = getSpecialRulesData()[ruleId];
+
+            let ruleTitleString = `${ruleData.name}: `;
+            ruleArguments.forEach((argument, index) => {
+                ruleTitleString = ruleTitleString.replaceAll(`{${index}}`, argument);
+            });
+            if(ruleData.changes) collectedChanges.push({source: ruleTitleString, changes: ruleData.changes});
+            if(ruleData.subrules) {
+                collectSpecialRuleChanges(collectedChanges, ruleData.subrules);
+            }
+        });
+    }
+
+    function collectChanges(name, changes, weapons, advantages, cadre, type, special_rules, hard_points, hardPointOptions, maneuvers) {
+        const collectedChanges = [];
+
+        const hardPointWeaponOptions = getHardPointOptions(hard_points, hardPointOptions, "weapon");
+        const hardPointCortexOption = getHardPointOptions(hard_points, hardPointOptions, "cortex");
+        const allWeapons = getAllWeapons(hard_points, weapons, hardPointWeaponOptions);
+        const all_special_rules = getAllSpecialRules(special_rules, cadre, type);
+
+        if (changes) collectedChanges.push({source: name, changes: changes});
+
+        if (allWeapons) {
+            allWeapons.forEach((weapon) => {
+                const weaponData = getWeaponsData()[weapon];
+                if(weaponData.changes) collectedChanges.push({source: weaponData.name, changes: weaponData.changes});
+                if(weaponData.special_rules) {
+                    collectSpecialRuleChanges(collectedChanges, weaponData.special_rules);
+                }
+                if(weaponData.profiles) {
+                    weaponData.profiles.forEach((profile) => {
+                        if(profile.special_rules) {
+                            collectSpecialRuleChanges(collectedChanges, profile.special_rules);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (hardPointCortexOption) {
+            const cortexData = getCortexesData()[hardPointCortexOption[0]];
+            if (cortexData) {
+                if(cortexData.changes) collectedChanges.push({source: cortexData.name, changes: cortexData.changes});
+                if(cortexData.special_rules) {
+                    collectSpecialRuleChanges(collectedChanges, cortexData.special_rules);
+                }
+            }
+        }
+
+        if (advantages) {
+            collectSpecialRuleChanges(collectedChanges, advantages);
+        }
+
+        if (all_special_rules) {
+            collectSpecialRuleChanges(collectedChanges, all_special_rules);
+        }
+
+        if (maneuvers) {
+            maneuvers.forEach((maneuver) => {
+                const maneuverData = getManeuversData()[maneuver];
+                if(maneuverData.changes) collectedChanges.push({source: maneuverData.name, changes: maneuverData.changes});
+            });
+        }
+
+        let filteredCollectedChanges = [...new Set(collectedChanges.map(JSON.stringify))].map(JSON.parse);
+
+        return filteredCollectedChanges;
     }
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
@@ -152,20 +251,30 @@ function ModelCardViewer(props) {
     }
 
     function CardHeader(props) {
-        const { name, type, subtypes, factions, dc, boxes, base_size, squad_size, isAttachment } = props;
+        const { cardData, isAttachment } = props;
+        const { name, changes, weapons, type, subtypes, factions, dc, stats, base_size, squad_size, special_rules, advantages, maneuvers } = cardData;
+        const { boxes } = stats;
         const factionNames = [];
         const subtypeNames = [];
         const unitStatusEntry = getUnitStatusEntry(entryId);
-        factions.forEach((faction) => factionNames.push(factionsData[faction].name));
+
+        factions.forEach((faction) => factionNames.push(getFactionsData()[faction].name));
         if(subtypes) {
-            subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name));
+            subtypes.forEach((subtype) => subtypeNames.push(getModelTypesData()[subtype].name));
         }
+
+        const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
+
+        const collectedChanges = collectChanges(name, changes, weapons, advantages, cadre, type, special_rules, hard_points, hardPointOptions, maneuvers);
+
         return <IonCardHeader>
+            <ViewChangesModal isOpen={isViewChangesModalOpen} setIsOpen={setIsViewChangesModalOpen} changeEntries={collectedChanges}></ViewChangesModal>
             <IonCardTitle color="primary"><h1 style={{margin: 0, fontWeight: "bolder"}}>{name}</h1></IonCardTitle>
+            {collectedChanges.length !== 0 && <IonButton onClick={() => {setIsViewChangesModalOpen(true);}}>CHANGES</IonButton>}
             <IonCardSubtitle>
                 <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
-                <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
+                <IonText color="primary"><h1>{getModelTypesData()[type].name}</h1></IonText>
                 {dc && <IonText color="secondary"><h2>Deployment Cost: {dc}</h2></IonText>}
                 {base_size && <IonText color="secondary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
                 {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
@@ -190,7 +299,7 @@ function ModelCardViewer(props) {
 
     function CardContent(props) {
         const { cardData, specialRules, weapons, hardPointCortexOption, isAttachment } = props;  
-        const { name, type, subtypes, weapon_points, factions, stats, hard_points, advantages, maneuvers, attachments } = cardData;
+        const { weapon_points, stats, hard_points, advantages, maneuvers, attachments } = cardData;
 
         const unitStatusEntry = getUnitStatusEntry(entryId);
         const deployedAttachmentsData = unitStatusEntry ? unitStatusEntry.attachments : [];
@@ -199,7 +308,7 @@ function ModelCardViewer(props) {
 
         return (
             <IonCard>
-                <CardHeader name={name} type={type} subtypes={subtypes} factions={factions} dc={stats.dc} boxes={stats.boxes} base_size={stats.base_size} squad_size={stats.squad_size} isAttachment={isAttachment}/><hr/>
+                <CardHeader cardData={cardData} isAttachment={isAttachment}/><hr/>
                 <IonCardContent>
                     <Statline stats={stats} />
                     {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)} isPlayMode={isPlayMode}/>}
@@ -234,12 +343,9 @@ function ModelCardViewer(props) {
         const attachmentCards = [];
 
         attachments.forEach((attachmentId, index) => {
-            const attachmentCardData = modelsData[attachmentId];
+            const attachmentCardData = getModelsData()[attachmentId];
 
-            let all_special_rules = attachmentCardData.special_rules ? attachmentCardData.special_rules : [];
-            if(attachmentCardData.cadre) {
-                all_special_rules = ["cadre|" + cadresData[cadre].name].concat(all_special_rules);
-            }
+            const all_special_rules = getAllSpecialRules(attachmentCardData.special_rules, attachmentCardData.cadre, attachmentCardData.type);
 
             attachmentCards.push(<CardContent key={index} cardData={attachmentCardData} weapons={attachmentCardData.weapons} specialRules={all_special_rules} isAttachment={true}/>);
         });
@@ -254,23 +360,14 @@ function ModelCardViewer(props) {
     if(hard_points && hardPointOptions.length === 0) {
         const defaultHardPoints = [];
         hard_points.forEach((hard_point) => {
-            defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
-        }, [weaponsData]);
+            defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? getWeaponsData()[hard_point.options[0]].point_cost : 0});
+        }, [getWeaponsData()]);
         setHardPointOptions(defaultHardPoints);
     }
-    const hardPointWeaponOptions = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "weapon").map((hardPointOption) => hardPointOption.option) : undefined;
-    const hardPointCortexOption = hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === "cortex").map((hardPointOption) => hardPointOption.option) : undefined;
-    const allWeapons = hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
-    let all_special_rules = special_rules ? special_rules : [];
-    if(cadre) {
-        all_special_rules = ["cadre|" + cadresData[cadre].name].concat(all_special_rules);
-    }
-    if(type === "void_gate") {
-        all_special_rules = ["void_gate"].concat(all_special_rules);
-    }
-    if(type === "mantlet") {
-        all_special_rules = ["mantlet"].concat(all_special_rules);
-    }
+    const hardPointWeaponOptions = getHardPointOptions(hard_points, hardPointOptions, "weapon");
+    const hardPointCortexOption = getHardPointOptions(hard_points, hardPointOptions, "cortex");
+    const allWeapons = getAllWeapons(hard_points, weapons, hardPointWeaponOptions);
+    const all_special_rules = getAllSpecialRules(special_rules, cadre, type);
 
     return (
         <IonPage className={factions.length === 1 ? factions[0] : ""}>

@@ -1,0 +1,8 @@
+{
+    "id": "reclamation_principle",
+    "name": "Reclamation Principle",
+    "type": "harmonic",
+    "factions": ["mw"],
+    "expansion": "cc",
+    "text": "Target a friendly unit.\n\nAffected models gains +2 MAT. When an affected models destroys an enemy model with a melee attack, you can remove 1 damage point from a friendly warjack within 5\" of the affected model.\n\nReclamation Principle expires at the end of the Pulse round."
+}

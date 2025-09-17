@@ -1,0 +1,25 @@
+{
+    "id": "warder",
+    "name": "Warder",
+    "factions": ["mw"],
+    "type": "attachment",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": "*",
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "handgun"
+    ],
+    "special_rules": [
+        "apotropaic_reactor",
+        "arc_disruptor",
+        "arc_exchange"
+    ]
+}

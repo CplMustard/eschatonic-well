@@ -1,7 +1,0 @@
-{
-    "id": "encrypted_command",
-    "name": "Encrypted Command",
-    "type": "harmonic",
-    "factions": ["all"],
-    "text": "Target a friendly solo.\n\nRemove the activation token from the solo, then place this card in the discard pile."
-}

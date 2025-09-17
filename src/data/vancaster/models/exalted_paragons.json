@@ -1,0 +1,38 @@
+{
+    "id": "exalted_paragons",
+    "name": "Exalted Paragons",
+    "factions": ["emp"],
+    "type": "squad",
+    "expansion": "tw",
+    "subtypes": ["aeon"],
+    "cadre": "harbingers_of_cyriss",
+    "stats": {
+        "dc": 3,
+        "base_size": 40,
+        "spd": 5,
+        "mat": 4,
+        "rat": 4,
+        "def": 2,
+        "arm": 4,
+        "squad_size": 3,
+        "boxes": 2
+    },
+    "weapons": [
+        "numinous_agitator",
+        "fusion_glaive"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "nemesis_engine"
+    ],
+    "attachments": [
+        "quartermaster"
+    ],
+    "changes": [
+        "Increased DC to 3.",
+        "Increased Fusion Glaive RNG to 2."
+    ]
+}

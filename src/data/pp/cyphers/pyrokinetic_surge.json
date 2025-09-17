@@ -1,0 +1,9 @@
+{
+    "id": "pyrokinetic_surge",
+    "name": "Pyrokinetic Surge",
+    "type": "fury",
+    "factions": ["all"],
+    "expansion": "wc",
+    "pow": 3,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, the model hit suffers the Fire continuous effect in addition to suffering a damage roll.\n\nThis Fury causes fire damage."
+}

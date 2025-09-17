@@ -1,0 +1,35 @@
+{
+    "id": "phaetheon_wraith",
+    "name": "Phaetheon, the Whisper of Death (Wraith)",
+    "factions": ["ac"],
+    "type": "solo",
+    "expansion": "tw",
+    "subtypes": ["hero"],
+    "hidden": true,
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 8,
+        "mat": 5,
+        "rat": 4,
+        "def": 4,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "death_touch"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "incorporeal",
+        "living_terror",
+        "phase_stalker",
+        "scything_run",
+        "temporal_anomaly"
+    ],
+    "changes": [
+        "Removed Stealth"
+    ]
+}

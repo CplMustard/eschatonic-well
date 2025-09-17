@@ -1,0 +1,15 @@
+{
+    "id": "repulsor_shield",
+    "name": "Repulsor Shield",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["force"], 
+        "rng": 1, 
+        "pow": 2,
+        "special_rules": ["repulsor_ram", "shield"]
+    }],
+    "changes": [
+        "Reduced RNG to 1."
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "id": "aurelion",
+    "name": "Aurelion, Aeon Weaver",
+    "factions": ["emp"],
+    "type": "solo",
+    "expansion": "tw",
+    "subtypes": ["aeon", "hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 50,
+        "spd": 5,
+        "mat": 3,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "foc": 5,
+        "boxes": 3
+    },
+    "weapons": [
+        "abyssal_pulse"
+    ],
+    "advantages": [
+        "pathfinder",
+        "revelator"
+    ],
+    "special_rules": [
+        "arc_capacitor",
+        "annihilation_synthesizer",
+        "arc_relay|16",
+        "fury_reciprocator"
+    ], 
+    "changes": [
+        "Decreased RAT to 4."
+    ]
+}

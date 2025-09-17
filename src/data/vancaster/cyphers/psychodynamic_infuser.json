@@ -1,0 +1,11 @@
+{
+    "id": "psychodynamic_infuser",
+    "name": "Psychodynamic Infuser",
+    "type": "harmonic",
+    "factions": ["all"],
+    "expansion": "cc",
+    "text": "Target a friendly light vehicle.\n\nThe light vehicle becomes affected by the Tune Up continuous effect.",
+    "changes": [
+        "Replace removing activation token effect with Tune Up continuous effect. Encrypted Command can now target vehicles."
+    ]
+}

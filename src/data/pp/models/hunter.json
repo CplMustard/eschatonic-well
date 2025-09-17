@@ -1,0 +1,25 @@
+{
+    "id": "hunter",
+    "name": "Hunter",
+    "factions": ["mw"],
+    "type": "solo",
+    "expansion": "wc",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 3,
+        "rat": 6,
+        "def": 4,
+        "arm": 2,
+        "boxes": 1
+    },
+    "weapons": [
+        "sniper_rifle",
+        "combat_blade"
+    ],
+    "special_rules": [
+        "fire_and_displace",
+        "mimetic_cloak"
+    ]
+}

@@ -7,7 +7,7 @@ import { cardSorting, groupSorting } from "./util/sortingUtil";
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
 
-import { cypherTypesData, modelTypesData } from "./data";
+import { getCypherTypesData, getModelTypesData } from "./data";
 
 function ForceCardList(props) {
     const { id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
@@ -64,7 +64,7 @@ function ForceCardList(props) {
     Object.entries(forceGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
         // Don't hide champions, mantlets or void gates in reserves
-        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && ((isPlayMode && (typeParts[0] === "champion" || typeParts[0] === "mantlet" || typeParts[0] === "void_gate")) || !modelTypesData[typeParts[0]].hidden))) {
+        if (!hideHiddenTypes || (getModelTypesData()[typeParts[0]] && ((isPlayMode && (typeParts[0] === "champion" || typeParts[0] === "mantlet" || typeParts[0] === "void_gate")) || !getModelTypesData()[typeParts[0]].hidden))) {
             const entryComponents = [];
             value.sort(cardSorting).forEach((entry, index) => {
                 const cardActionButtons = [];
@@ -120,7 +120,7 @@ function ForceCardList(props) {
                 );
             });
             const typeParts = key.split("|");
-            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
+            const cardTypeName = getModelTypesData()[typeParts[0]] ? (typeParts.length !== 1 ? `${getModelTypesData()[typeParts[1]].name} ` : "") + getModelTypesData()[typeParts[0]].name : getCypherTypesData()[typeParts[0]].name;
             forceGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
                     <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>

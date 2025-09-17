@@ -1,7 +1,0 @@
-{
-    "id": "revelation_matrix",
-    "name": "Revelation Matrix",
-    "type": "harmonic",
-    "factions": ["all"],
-    "text": "Target a friendly unit.\n\nThe unit can ignore the Stealth special rule.\n\nRevelation Matrix expires at the end of the Pulse round."
-}

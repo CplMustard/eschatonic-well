@@ -1,0 +1,8 @@
+{
+    "id": "neural_net",
+    "name": "Neural Net",
+    "text": "This model gains a cumulative +1 DEF bonus for each other friendly unit model within 5\", up to a bonus of +3.",
+    "changes": [
+        "Replace \"each other friendly unit\" with \"each other friendly unit model\"."
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "id": "vassal_witch_hunters",
+    "name": "Vassal Witch Hunters",
+    "factions": ["ac"],
+    "type": "squad",
+    "expansion": "wc",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 4,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 2,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "hex_cannon"
+    ],
+    "advantages": [
+        "stealth"
+    ],
+    "special_rules": [
+        "phase_walker",
+        "purgation",
+        "null_munitions"
+    ],
+    "attachments": [
+        "raker",
+        "quartermaster"
+    ],
+    "changes": [
+        "Increased SPD to 6.",
+        "Replace Mimetic Cloak with Stealth",
+        "Replace Phase Sequencer spike with Phase Walker charge.",
+        "Add Null Munitions",
+        "Add Purgation"
+    ]
+}

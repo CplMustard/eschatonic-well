@@ -100,6 +100,10 @@ hr {
 	text-overflow: ellipsis;
 }
 
+.changes-modal {
+	margin: 1rem;
+}
+
 .ac {
 	--ion-background-color: #312020;
 	--ion-background-color-rgb: 49,32,32;

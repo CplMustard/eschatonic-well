@@ -1,0 +1,15 @@
+{
+    "id": "battle_staff",
+    "name": "Battle Staff",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 4,
+        "special_rules": ["force_ram"]
+    }],
+    "changes": [
+        "Increased RNG to 2.",
+        "Replaced Repulsor advantage with Force Ram special rule."
+    ]
+}

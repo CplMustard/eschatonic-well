@@ -1,0 +1,13 @@
+{
+    "id": "fusion_sword",
+    "name": "Fusion Sword", 
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 5
+    }],
+    "changes": [
+        "Increased POW to 5."
+    ]
+}

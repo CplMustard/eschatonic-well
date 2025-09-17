@@ -2,7 +2,7 @@ import React from "react";
 import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion } from "@ionic/react";
 import { add, bodyOutline, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
 
-import { modelsData } from "./data";
+import { getModelsData } from "./data";
 
 function UnitStatus(props) {
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode, collapsible } = props;
@@ -172,7 +172,7 @@ function UnitStatus(props) {
 
     const attachmentComponents = [];
     attachments && attachments.forEach((attachment, index) => {
-        const attachmentModelData = modelsData[attachment.modelId];
+        const attachmentModelData = getModelsData()[attachment.modelId];
         attachmentComponents.push(<div key={index}>
             <IonText color="primary"><h2>{attachmentModelData.name}</h2></IonText>
             <UnitModels unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>
@@ -180,7 +180,7 @@ function UnitStatus(props) {
         );
     });
 
-    const modelData = modelsData[modelId];
+    const modelData = getModelsData()[modelId];
 
     const statusEntryComponent = 
         <div className="status-entry" slot="content">

@@ -1,0 +1,16 @@
+{
+    "id": "impaler",
+    "name": "Impaler",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 3,
+        "special_rules": ["armor_piercing"]
+    }],
+    "changes": [
+        "Increased COST to 2.",
+        "Increased POW to 3."
+    ]
+}

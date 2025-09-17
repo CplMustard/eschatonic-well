@@ -1,0 +1,15 @@
+{
+    "id": "void_gate",
+    "name": "Void Gate",
+    "factions": ["all"],
+    "type": "void_gate",
+    "expansion": "wc",
+    "stats": {
+        "dc": "1 to 5 arc",
+        "base_size": 30,
+        "def": 3,
+        "arm": 5,
+        "boxes": "# of arc on the model"
+    },
+    "fa": 2
+}

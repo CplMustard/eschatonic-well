@@ -1,0 +1,32 @@
+{
+    "id": "malek_sezzar",
+    "name": "Warchief Malek Sezzar",
+    "factions": ["mw"],
+    "type": "solo",
+    "expansion": "tw",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "light_flamethrower",
+        "thumper_cannon"
+    ],
+    "advantages": [
+        "pathfinder",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "command_interface|Ranger",
+        "fire_and_displace",
+        "mimetic_cloak",
+        "spider"
+    ]
+}

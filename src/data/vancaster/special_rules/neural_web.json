@@ -1,0 +1,8 @@
+{
+    "id": "neural_web",
+    "name": "Neural Web",
+    "text": "This model gains a cumulative +1 MAT bonus for each other friendly unit model within 5\", up to a bonus of +3.",
+    "changes": [
+        "Replace \"each other friendly unit\" with \"each other friendly unit model\"."
+    ]
+}

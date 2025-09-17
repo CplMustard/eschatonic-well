@@ -1,0 +1,15 @@
+{
+    "id": "fusion_saw_nemesis",
+    "name": "Fusion Saw",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 2,
+        "special_rules": ["high_intensity"]
+    }],
+    "changes": [
+        "Increased POW to 2."
+    ]
+}

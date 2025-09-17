@@ -1,0 +1,48 @@
+{
+    "id": "duchess",
+    "name": "Duchess",
+    "factions": ["isa"],
+    "type": "vehicle",
+    "expansion": "cc",
+    "subtypes": ["hero"],
+    "weapon_points": 3,
+    "stats": {
+        "dc": 3,
+        "base_size": 80,
+        "spd": 9,
+        "mat": 3,
+        "rat": 5,
+        "def": 5,
+        "arm": 4,
+        "boxes": 3
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "force_cannon",
+                "immolator",
+                "null_torpedo",
+                "tempest_cannon"
+            ]
+        }
+    ],
+    "weapons": [
+        "fixed_guns"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "evasion_drive",
+        "high_performance"
+    ],
+    "maneuvers": [
+        "evasive_action",
+        "full_burn",
+        "pursuit_intercept",
+        "sky_hunter",
+        "strafing_run"
+    ]
+}

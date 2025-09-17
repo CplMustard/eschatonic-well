@@ -1,8 +1,0 @@
-{
-    "id": "instability_equation",
-    "name": "Instability Equation",
-    "type": "fury",
-    "factions": ["all"],
-    "pow": 4,
-    "text": "Target enemy model unit.\n\nWhen this attack hits its target, resolve the attack against the target as normal. Additionally, when this attack hits its target the two models closest to the target that are also within 2\" of it suffer a blast damage rolls equal to the POW of this attack. If this attack misses its target, the target still suffers a blast damage roll equal to the POW of this attack.\n\nThis Fury causes blast damage. "
-}

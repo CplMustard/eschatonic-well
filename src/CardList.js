@@ -4,7 +4,7 @@ import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid,
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
-import { cypherTypesData, modelTypesData } from "./data";
+import { getCypherTypesData, getModelTypesData } from "./data";
 
 function CardList(props) {
     const { id, cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
@@ -59,10 +59,10 @@ function CardList(props) {
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
-        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (!modelTypesData[typeParts[0]].hidden))) {
+        if (!hideHiddenTypes || (getModelTypesData()[typeParts[0]] && (!getModelTypesData()[typeParts[0]].hidden))) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
-                const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
+                const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => getModelTypesData()[subtype].hidden) : false));
                 if(!hasHiddenSubtype) {
                     const cardActionButtons = [];
                     cardActions && cardActions.forEach((action, index) => {
@@ -91,7 +91,7 @@ function CardList(props) {
                 }
             });
 
-            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
+            const cardTypeName = getModelTypesData()[typeParts[0]] ? (typeParts.length !== 1 ? `${getModelTypesData()[typeParts[1]].name} ` : "") + getModelTypesData()[typeParts[0]].name : getCypherTypesData()[typeParts[0]].name;
             cardGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
                     <IonItem slot="header" color="tertiary">

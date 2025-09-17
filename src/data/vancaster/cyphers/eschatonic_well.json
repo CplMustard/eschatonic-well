@@ -1,0 +1,11 @@
+{
+    "id": "eschatonic_well",
+    "name": "Eschatonic Well",
+    "type": "harmonic",
+    "factions": ["isa"],
+    "expansion": "cc",
+    "text": "Target a friendly warrior model.\n\nPlace a void gate anywhere within 5\" of the target model. You can charge this void gate with up to 1 Arc in Pulse Round 1, 2 Arc in Pulse Round 2, and 3 Arc in Pulse Round 3 and above.\n\nAfter this card is played, remove it from the game. (Do not discard it.)",
+    "changes": [
+        "Changed Arc limit to 1 arc for every pulse round instead of a flat 3."
+    ]
+}

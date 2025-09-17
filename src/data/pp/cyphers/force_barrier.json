@@ -1,0 +1,8 @@
+{
+    "id": "force_barrier",
+    "name": "Force Barrier",
+    "type": "geometric",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly squad.\n\nAffected models gain cover.\n\nForce Barrier expires at the end of the Pulse round."
+}

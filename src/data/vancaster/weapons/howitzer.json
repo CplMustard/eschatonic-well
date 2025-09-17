@@ -1,0 +1,15 @@
+{
+    "id": "howitzer",
+    "name": "Howitzer",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["ballistic", "explosion"], 
+        "rng": 15, 
+        "pow": 6,
+        "special_rules": ["blast", "concussive_shells"]
+    }],
+    "changes": [
+        "Increased POW to 6.",
+        "Added Concussive Shells."
+    ]
+}

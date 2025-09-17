@@ -1,0 +1,15 @@
+{
+    "id": "fusion_scythe_nemesis",
+    "name": "Fusion Scythe",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 2, 
+        "pow": 4,
+        "special_rules": ["cleave"]
+    }],
+    "changes": [
+        "Added Cleave."
+    ]
+}

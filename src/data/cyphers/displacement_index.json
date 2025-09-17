@@ -1,7 +1,0 @@
-{
-    "id": "displacement_index",
-    "name": "Displacement Index",
-    "type": "geometric",
-    "factions": ["all"],
-    "text": "Target a friendly squad.\n\nThe squad can immediately move up to 3\"."
-}

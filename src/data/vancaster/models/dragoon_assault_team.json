@@ -1,0 +1,39 @@
+{
+    "id": "dragoon_assault_team",
+    "name": "Dragoon Assault Team",
+    "factions": ["mw"],
+    "type": "squad",
+    "expansion": "tw",
+    "cadre": "dragoon_air_cavalry",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 7,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "battle_rifle_dragoon",
+        "battle_rifle_dragoon"
+    ],    
+    "advantages": [
+        "flight",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "sequence_dominator",
+        "slip_field"
+    ],
+    "attachments": [
+        "dragoon_gunner",
+        "quartermaster"
+    ],
+    "changes": [
+        "Replace Reflex Accelerator with Weapon Expert.",
+        "Add Slip Field."
+    ]
+}

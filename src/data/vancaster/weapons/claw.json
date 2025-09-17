@@ -1,0 +1,14 @@
+{
+    "id": "claw",
+    "name": "Claw",
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 1, 
+        "pow": 5,
+        "special_rules": ["power_attack"]
+    }],
+    "changes": [
+        "Increased POW to 5."
+    ]
+}

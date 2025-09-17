@@ -1,0 +1,33 @@
+{
+    "id": "phaetheon_living",
+    "name": "Phaetheon, the Whisper of Death (Living)",
+    "factions": ["ac"],
+    "type": "solo",
+    "expansion": "tw",
+    "subtypes": ["hero"],
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 5,
+        "rat": 4,
+        "def": 3,
+        "arm": 3,
+        "boxes": 3
+    },
+    "weapons": [
+        "heavy_pistol",
+        "witherbane"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "inhabiting_spirit",
+        "mimetic_cloak",
+        "phase_stalker"
+    ],
+    "attachments": [
+        "phaetheon_wraith"
+    ]
+}

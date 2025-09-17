@@ -1,0 +1,5 @@
+{
+    "id": "phase_walker",
+    "name": "Phase Walker",
+    "text": "While this squad is charged, models in this squad can move through structures and through other models if they have enough movement to move completely past them."
+}

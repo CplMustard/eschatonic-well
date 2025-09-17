@@ -1,0 +1,8 @@
+{
+    "id": "impulse_agitator",
+    "name": "Impulse Agitator",
+    "text": "Choose a friendly unit within 10\" of this model. That unit can immediately move up to 3\".",
+    "changes": [
+        "Reduced movement distance from the model's current SPD to flat 3\". Removed \"non-vehicle\" clause."
+    ]
+}

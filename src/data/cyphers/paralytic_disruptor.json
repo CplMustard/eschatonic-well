@@ -1,8 +1,0 @@
-{
-    "id": "paralytic_disruptor",
-    "name": "Paralytic Disruptor",
-    "type": "fury",
-    "factions": ["all"],
-    "pow": 4,
-    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack hits, the model hit suffers the Lock Down continuous effect in addition to suffering a damage roll.\n\nThis Fury causes force damage. "
-}

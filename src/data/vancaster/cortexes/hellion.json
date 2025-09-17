@@ -1,0 +1,8 @@
+{
+    "id": "hellion",
+    "name": "Hellion",
+    "special_rules": ["relentless", "aggression_nexus"],
+    "changes": [
+        "Added Aggression Nexus."
+    ]
+}

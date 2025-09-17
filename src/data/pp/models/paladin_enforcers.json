@@ -1,0 +1,33 @@
+{
+    "id": "paladin_enforcers",
+    "name": "Paladin Enforcers",
+    "factions": ["isa"],
+    "type": "squad",
+    "expansion": "wc",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "assault_rifle",
+        "bayonet"
+    ],
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "divination_lock",
+        "reflex_accelerator"
+    ],
+    "attachments": [
+        "paladin_aegis",
+        "quartermaster"
+    ]
+}

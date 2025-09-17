@@ -1,0 +1,34 @@
+{
+    "id": "ranger_fire_team",
+    "name": "Ranger Fire Team",
+    "factions": ["mw"],
+    "type": "squad",
+    "expansion": "wc",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 3,
+        "def": 3,
+        "arm": 3,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "battle_rifle",
+        "null_detonator",
+        "fusion_blade"
+    ],
+    "special_rules": [
+        "slip_displacer_squad",
+        "havoc_engine"
+    ],
+    "attachments": [
+        "warder",
+        "quartermaster"
+    ],
+    "changes": [
+        "Added Havoc Engine"
+    ]
+}

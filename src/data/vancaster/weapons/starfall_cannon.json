@@ -1,0 +1,15 @@
+{
+    "id": "starfall_cannon",
+    "name": "Starfall Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 10, 
+        "pow": 2,
+        "special_rules": ["high_intensity"]
+    }],
+    "changes": [
+        "Increased POW to 2."
+    ]
+}

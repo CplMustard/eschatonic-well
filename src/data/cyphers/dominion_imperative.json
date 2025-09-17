@@ -1,7 +1,0 @@
-{
-    "id": "dominion_imperative",
-    "name": "Dominion Imperative",
-    "type": "harmonic",
-    "factions": ["all"],
-    "text": "Each friendly solo can immediately move up to 2\"."
-}

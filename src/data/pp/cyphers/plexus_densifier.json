@@ -1,0 +1,8 @@
+{
+    "id": "plexus_densifier",
+    "name": "Plexus Densifier",
+    "type": "geometric",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly squad.\n\nThe squad gains +2 ARM but suffers –1 SPD.\n\nPlexus Densifier expires at the end of the Pulse round."
+}

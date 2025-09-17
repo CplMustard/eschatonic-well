@@ -1,0 +1,8 @@
+{
+    "id": "specter",
+    "name": "Specter",
+    "special_rules": ["phase_sequencer"],
+    "changes": [
+        "Replaced Vortex Capacitor with Phase Sequencer."
+    ]
+}

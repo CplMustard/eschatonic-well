@@ -1,0 +1,5 @@
+{
+    "id": "null_munitions",
+    "name": "Null Munitions",
+    "text": "This squad can spike to use Null Munitions anytime during its activation. For the rest of this activation, when a non-attachment model in this squad hits one or more models with an attack, clear 1 arc from the unit or void gate hit." 
+}

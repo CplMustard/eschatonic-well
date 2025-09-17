@@ -1,0 +1,44 @@
+{
+    "id": "razorbat",
+    "name": "Razorbat",
+    "factions": ["mw"],
+    "type": "vehicle",
+    "expansion": "cc",
+    "weapon_points": 3,
+    "stats": {
+        "dc": 3,
+        "base_size": 80,
+        "spd": 8,
+        "mat": 3,
+        "rat": 4,
+        "def": 3,
+        "arm": 5,
+        "boxes": 4
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "blazer_razorbat",
+                "slug_cannon",
+                "talon_mkii"
+            ]
+        }
+    ],
+    "weapons": [
+        "cyclone_cannon_razorbat"
+    ],
+    "advantages": [
+        "pathfinder"
+    ],
+    "special_rules": [
+        "defense_matrix",
+        "maelstrom_activator"
+    ],
+    "maneuvers": [
+        "guns_ready",
+        "hit_the_jump",
+        "stand_and_deliver"
+    ]
+}

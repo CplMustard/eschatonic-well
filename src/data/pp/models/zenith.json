@@ -1,0 +1,44 @@
+{
+    "id": "zenith",
+    "name": "Zenith",
+    "factions": ["emp"],
+    "type": "vehicle",
+    "expansion": "cc",
+    "weapon_points": 3,
+    "stats": {
+        "dc": 3,
+        "base_size": 80,
+        "spd": 8,
+        "mat": 3,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 4
+    },
+    "hard_points": [
+        {
+            "name": "Weapon",
+            "type": "weapon",
+            "options": [
+                "force_generator_zenith",
+                "heavy_antiminator",
+                "nova_cannon"
+            ]
+        }
+    ],
+    "weapons": [
+        "ion_blasters"
+    ],
+    "advantages": [
+        "flight"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "slip_displacer"
+    ],
+    "maneuvers": [
+        "sequence_alpha",
+        "sequence_gamma",
+        "sequence_omega"
+    ]
+}

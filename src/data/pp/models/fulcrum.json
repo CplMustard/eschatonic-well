@@ -1,0 +1,25 @@
+{
+    "id": "fulcrum",
+    "name": "Fulcrum",
+    "factions": ["emp"],
+    "type": "solo",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 3,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "void_cannon"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "slip_field",
+        "void_phaser"
+    ]
+}

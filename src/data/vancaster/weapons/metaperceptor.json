@@ -1,0 +1,11 @@
+{
+    "id": "metaperceptor",
+    "name": "Metaperceptor",
+    "point_cost": 1,
+    "profiles": [{
+        "special_rules": ["revelator", "advanced_optics", "wide_spectrum_scanners"]
+    }],
+    "changes": [
+        "Added Wide Spectrum Scanners."
+    ]
+}

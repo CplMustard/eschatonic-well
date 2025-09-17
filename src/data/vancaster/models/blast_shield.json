@@ -1,0 +1,24 @@
+{
+    "id": "blast_shield",
+    "name": "Blast Shield",
+    "factions": ["mw"],
+    "type": "mantlet",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": "*",
+        "def": 1,
+        "arm": 4,
+        "boxes": 2
+    },
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "blast_shielding",
+        "mobile_cover"
+    ], 
+    "changes": [
+        "Added Mobile Cover."
+    ]
+}

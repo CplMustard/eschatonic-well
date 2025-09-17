@@ -1,0 +1,34 @@
+{
+    "id": "paladin_commander",
+    "name": "Paladin Commander",
+    "factions": ["isa"],
+    "type": "solo",
+    "expansion": "wc",
+    "stats": {
+        "dc": 1,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "pulse_cannon",
+        "fusion_sword"
+    ],
+    "advantages": [
+        "compound_armor",
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "command_interface|Paladin",
+        "combat_fervor|Paladin"
+    ],
+    "changes": [
+        "Increased ARM to 4.",
+        "Replaced Reflex Accelerator with Weapon Expert",
+        "Added Combat Fervor"
+    ]
+}

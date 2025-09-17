@@ -1,0 +1,8 @@
+{
+    "id": "momentum_calibrator",
+    "name": "Momentum Calibrator",
+    "type": "overdrive",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly warjack.\n\nWhen the warjack hits a model with an equal or smaller base with a melee attack, before damage is rolled, the model hit is slammed directly away from the warjack. Roll a number of action dice equal to STR of the warjack. For every strike rolled, move the model hit 1\". Collateral damage is equal to the STR of the attacking warjack.\n\nThis card expires at the end of this turn."
+}

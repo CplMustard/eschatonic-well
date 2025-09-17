@@ -1,0 +1,8 @@
+{
+    "id": "beholder",
+    "name": "Beholder",
+    "special_rules": ["advanced_optics", "spotlight"],
+    "changes": [
+        "Added Spotlight."
+    ]
+}

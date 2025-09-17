@@ -1,0 +1,30 @@
+{
+    "id": "heavy_saber",
+    "name": "Heavy Saber",
+    "factions": ["emp"],
+    "type": "solo",
+    "expansion": "tw",
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 7,
+        "mat": 4,
+        "rat": 4,
+        "def": 3,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "light_meteor_cannon",
+        "protean_forge",
+        "protean_forge"
+    ],
+    "advantages": [
+        "weapon_expert"
+    ],
+    "special_rules": [
+        "arcanum_module",
+        "dynamic_accelerator",
+        "eclipse_drive"
+    ]
+}

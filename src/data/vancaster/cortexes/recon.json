@@ -1,0 +1,8 @@
+{
+    "id": "recon",
+    "name": "Recon",
+    "special_rules": ["pathfinder", "revelator", "advanced_optics"],
+    "changes": [
+        "Added Advanced Optics."
+    ]
+}

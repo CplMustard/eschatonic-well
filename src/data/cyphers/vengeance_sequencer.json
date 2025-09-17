@@ -1,7 +1,0 @@
-{
-    "id": "vengeance_sequencer",
-    "name": "Vengeance Sequencer",
-    "type": "overdrive",
-    "factions": ["all"],
-    "text": "Target a friendly warjack.\n\nWhen the warjack is targeted and hit by an enemy attack, immediately after the attack is resolved the warjack can make one attack.\n\nVengeance Sequencer expires at the end of the Pulse round."
-}

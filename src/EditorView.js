@@ -14,7 +14,7 @@ import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
 import PlayModeViewer from "./PlayModeViewer";
 
-import { factionsData, forceSizesData } from "./data";
+import { getFactionsData, getForceSizesData, setRuleset, rulesets } from "./data";
 
 const forcesPath = "eschatonic-well/forces/";
 const forcesExtension = ".esch";
@@ -35,8 +35,9 @@ function EditorView() {
     const [playTabSelected, setPlayTabSelected] = useSessionStorageState("playTabSelected", {defaultValue: playTabs.deployed});
     
     const [cardViewFactionId, setCardViewFactionId] = useLocalStorageState("cardViewFactionId", {defaultValue: "all"});
+    const [rulesetId, setRulesetId] = useLocalStorageState("rulesetId", {defaultValue: "pp"});
     const [factionId, setFactionId] = useLocalStorageState("factionId", {defaultValue: "all"});
-    const [forceSize, setForceSize] = useLocalStorageState("forceSize", {defaultValue: forceSizesData["custom"]});
+    const [forceSize, setForceSize] = useLocalStorageState("forceSize", {defaultValue: getForceSizesData()["custom"]});
 
     const [forceName, setForceName] = useSessionStorageState("forceName", {defaultValue: "New Force"});
     const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: [], listenStorageChange: true});
@@ -45,6 +46,7 @@ function EditorView() {
     const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorageState("specialIssueCyphersData", {defaultValue: [], listenStorageChange: true});
 
     const [playForceName, setPlayForceName] = useSessionStorageState("playForceName", {defaultValue: undefined});
+    const [playRulesetId, setPlayRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: undefined});
     const [playFactionId, setPlayFactionId] = useLocalStorageState("playFactionId", {defaultValue: undefined});
     const [playForceSize, setPlayForceSize] = useLocalStorageState("playForceSize", {defaultValue: undefined});
     const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
@@ -73,6 +75,16 @@ function EditorView() {
         })();
     }, [forcesDirty]);
 
+    useEffect(() => {
+        if(tabSelected === editorTabs.play) {
+            console.log("loading play ruleset " + playRulesetId);
+            setRuleset(playRulesetId);
+        } else {
+            console.log("loading normal ruleset " + rulesetId);
+            setRuleset(rulesetId);
+        }
+    });
+
     const presentToast = (message) => {
         present({
             message: message,
@@ -84,15 +96,42 @@ function EditorView() {
     const contentRef = createRef();
   
     function scrollToTop() {
-      contentRef.current?.scrollToTop();
+        contentRef.current?.scrollToTop();
     }
 
     const changeCardViewFaction = (id) => {
         setCardViewFactionId(id);
     };
+
+    const changeRuleset = (id) => {
+        presentToast(`Ruleset changed to ${rulesets[id].name}`);
+        setRulesetId(id);
+        setRuleset(id);
+    };
+
+    const changeRulesetConfirm = (id) => {
+        if(factionId !== id) {
+            presentAlert({
+                header: "Change Ruleset?",
+                buttons: [
+                    {
+                        text: "Cancel",
+                        role: "cancel",
+                        handler: () => {},
+                    },
+                    {
+                        text: "OK",
+                        role: "confirm",
+                        handler: () => changeRuleset(id),
+                    },
+                ],
+                onDidDismiss: () => {}
+            });
+        }
+    };
     
     const changeFaction = (id) => {
-        presentToast(`Faction changed to ${factionsData[id].name}, force cleared`);
+        presentToast(`Faction changed to ${getFactionsData()[id].name}, force cleared`);
         setFactionId(id);
         clearForce();
     };
@@ -120,8 +159,8 @@ function EditorView() {
     };
 
     const changeForceSize = (forceSizeId) => {
-        presentToast(`Force size changed to ${forceSizesData[forceSizeId].name}`);
-        setForceSize(forceSizesData[forceSizeId]);
+        presentToast(`Force size changed to ${getForceSizesData()[forceSizeId].name}`);
+        setForceSize(getForceSizesData()[forceSizeId]);
     };
 
     const clearForce = () => {
@@ -198,9 +237,10 @@ function EditorView() {
         }
     };
 
-    const saveForce = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
+    const saveForce = async (forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         const json = {
             "forceName": forceName,
+            "rulesetId": rulesetId,
             "factionId": factionId,
             "forceSize": forceSize,
             "forceModelsData": forceModelsData,
@@ -262,6 +302,9 @@ function EditorView() {
             
             const json = JSON.parse(result.data);
             setForceName(json.forceName);
+            //Forces saved in earlier versions won't have a ruleset, so assume pp
+            setRulesetId(json.rulesetId ? json.rulesetId : "pp");
+            setRuleset(rulesetId);
             setFactionId(json.factionId);
             setForceSize(json.forceSize);
             setForceModelsData(json.forceModelsData);
@@ -285,6 +328,9 @@ function EditorView() {
             
             const json = JSON.parse(result.data);
             setPlayForceName(json.forceName);
+            //Forces saved in earlier versions won't have a ruleset, so assume pp
+            setPlayRulesetId(json.rulesetId ? json.rulesetId : "pp");
+            setRuleset(rulesetId);
             setPlayFactionId(json.factionId);
             setPlayForceSize(json.forceSize);
             setPlayForceModelsData(json.forceModelsData);
@@ -314,7 +360,7 @@ function EditorView() {
     };
 
     const factionSelectOptions = [];
-    Object.entries(factionsData).forEach(([key, value]) => {
+    Object.entries(getFactionsData()).forEach(([key, value]) => {
         if(!value.hidden) {
             factionSelectOptions.push(<IonSelectOption key={key} value={value.id}>{value.name}</IonSelectOption>);
         }
@@ -322,9 +368,17 @@ function EditorView() {
     factionSelectOptions.push(<IonSelectOption key={"all"} value={"all"}>ALL</IonSelectOption>);
 
     const forceSizeOptions = [];
-    Object.entries(forceSizesData).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
+    Object.entries(getForceSizesData()).sort((a, b) => a[1].units-b[1].units).forEach(([key, value]) => {
         forceSizeOptions.push(<IonSelectOption key={key} value={value.id}>{`${value.name} ${value.id !== "custom" ? `(${value.units} / ${value.hero_solos})` : ""}`}</IonSelectOption>);
     });
+
+    const rulesetSelectOptions = [];
+    Object.entries(rulesets).forEach(([key, value]) => {
+        if(!value.hidden) {
+            rulesetSelectOptions.push(<IonSelectOption key={key} value={value.id}>{value.name}</IonSelectOption>);
+        }
+    });
+
     return (
         <IonPage className={(tabSelected === editorTabs.cards ? cardViewFactionId : tabSelected === editorTabs.play ? playFactionId : factionId)}>
             <IonHeader>
@@ -352,15 +406,16 @@ function EditorView() {
                 <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
                 <LoadForceModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} forceFiles={forceFiles} loadForce={loadPlayForce}></LoadForceModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
+                    <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSize.id} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h2>Force Name: <IonInput type="text" fill="solid" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD</IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {
-                                copyForceToText(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
+                                copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
                                 presentToast("Force copied to clipboard");
                             }}><div>COPY TO TEXT</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm();}}><div>CLEAR ALL</div></IonButton></IonCol>
@@ -376,10 +431,12 @@ function EditorView() {
                     </IonGrid>
                 </>}
                 {(tabSelected === editorTabs.cards) && <>
+                    <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 </>}
                 {(tabSelected === editorTabs.play) && <>
-                    {playFactionId && <IonText color="primary"><h3>Faction: {factionsData[playFactionId].name}</h3></IonText>}
+                    {playRulesetId && <IonText color="primary"><h3>Faction: {rulesets[playRulesetId].name}</h3></IonText>}
+                    {playFactionId && <IonText color="primary"><h3>Faction: {getFactionsData()[playFactionId].name}</h3></IonText>}
                     {playForceSize && <IonText color="primary"><h3>Force Size: {playForceSize.name}</h3></IonText>}
                     {playForceName && <IonText color="primary"><h2>Force Name: {playForceName}</h2></IonText>}
                     <IonGrid>
@@ -414,6 +471,7 @@ function EditorView() {
 
                 {tabSelected === editorTabs.play && <PlayModeViewer
                     tabSelected={playTabSelected}
+                    rulesetId={playRulesetId}
                     forceModelsData={playForceModelsData} 
                     setForceModelsData={setPlayForceModelsData} 
                     specialIssueModelsData={playSpecialIssueModelsData} 

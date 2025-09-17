@@ -1,0 +1,25 @@
+{
+    "id": "raker",
+    "name": "Raker",
+    "factions": ["ac"],
+    "type": "attachment",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": 50,
+        "spd": "*",
+        "mat": 4,
+        "rat": 2,
+        "def": 4,
+        "arm": 4,
+        "boxes": 2
+    },
+    "weapons": [
+        "mandibles"
+    ],
+    "special_rules": [
+        "mimetic_cloak",
+        "phase_stalker",
+        "spotlight"
+    ]
+}

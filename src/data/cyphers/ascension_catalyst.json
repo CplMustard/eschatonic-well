@@ -1,7 +1,0 @@
-{
-    "id": "ascension_catalyst",
-    "name": "Ascension Catalyst",
-    "type": "overdrive",
-    "factions": ["all"],
-    "text": "Target a friendly warjack.\n\nThe warjack gains +2 SPD and the Flight special rule.\n\nAscension Catalyst expires at the end of this turn."
-}

@@ -1,7 +1,0 @@
-{
-    "id": "devastation_optimizer",
-    "name": "Devastation Optimizer",
-    "type": "overdrive",
-    "factions": ["all"],
-    "text": "Target a friendly warjack.\n\nThe warjack becomes affected by the Tune Up continuous effect."
-}

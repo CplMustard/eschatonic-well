@@ -1,0 +1,35 @@
+{
+    "id": "paladin_defenders",
+    "name": "Paladin Defenders",
+    "factions": ["isa"],
+    "type": "squad",
+    "expansion": "cc",
+    "stats": {
+        "dc": 2,
+        "base_size": 30,
+        "spd": 6,
+        "mat": 4,
+        "rat": 3,
+        "def": 3,
+        "arm": 4,
+        "squad_size": 3,
+        "boxes": 1
+    },
+    "weapons": [
+        "fusion_spear"
+    ],
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "force_projector",
+        "intercept_driver"
+    ],
+    "attachments": [
+        "paladin_aegis",
+        "quartermaster"
+    ],
+    "changes": [
+        "Increased MAT to 4."
+    ]
+}

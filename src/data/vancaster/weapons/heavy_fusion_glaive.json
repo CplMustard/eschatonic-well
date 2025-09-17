@@ -1,0 +1,15 @@
+{
+    "id": "heavy_fusion_glaive",
+    "name": "Heavy Fusion Glaive",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "melee", 
+        "damage_types": ["kinetic"], 
+        "rng": 3, 
+        "pow": 4,
+        "special_rules": ["power_attack"]
+    }],
+    "changes": [
+        "Increased RNG to 3."
+    ]
+}

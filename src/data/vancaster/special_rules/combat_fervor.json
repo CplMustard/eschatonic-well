@@ -1,0 +1,5 @@
+{
+    "id": "combat_fervor",
+    "name": "Combat Fervor [{0}]",
+    "text": "While this model is charged, friendly {0} models within 10” can reroll melee attack rolls." 
+}

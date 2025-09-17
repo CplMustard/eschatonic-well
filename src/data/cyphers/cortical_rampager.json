@@ -1,7 +1,0 @@
-{
-    "id": "cortical_rampager",
-    "name": "Cortical Rampager",
-    "type": "overdrive",
-    "factions": ["mw"],
-    "text": "Target a friendly warjack.\n\nThe warjack can immediately move up to 5\". The warjack can move through warrior models during this movement if it has enough movement to move completely past them."
-}

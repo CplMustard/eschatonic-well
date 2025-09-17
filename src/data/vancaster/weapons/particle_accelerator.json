@@ -1,0 +1,16 @@
+{
+    "id": "particle_accelerator",
+    "name": "Particle Accelerator",
+    "point_cost": 2,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["beam"], 
+        "rng": 8, 
+        "pow": 2,
+        "special_rules": ["high_intensity", "particle_collapse"]
+    }],
+    "changes": [
+        "Increased POW to 2.",
+        "Added Particle Collapse."
+    ]
+}

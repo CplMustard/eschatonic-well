@@ -1,0 +1,20 @@
+{
+    "id": "force_barrier",
+    "name": "Force Barrier",
+    "factions": ["isa"],
+    "type": "mantlet",
+    "expansion": "cc",
+    "stats": {
+        "dc": 1,
+        "base_size": "*",
+        "def": 1,
+        "arm": 4,
+        "boxes": 2
+    },
+    "advantages": [
+        "compound_armor"
+    ],
+    "special_rules": [
+        "field_reinforcement"
+    ]
+}

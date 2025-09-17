@@ -1,0 +1,75 @@
+{
+    "id": "scourge",
+    "name": "Scourge",
+    "factions": ["ac"],
+    "type": "warjack",
+    "expansion": "wc",
+    "weapon_points": 5,
+    "stats": {
+        "dc": 2,
+        "base_size": 50,
+        "spd": 6,
+        "str": 4,
+        "mat": 4,
+        "rat": 3,
+        "def": 3,
+        "arm": 4,
+        "boxes": 3
+    },
+    "weapons": [
+        "wrecking_claw"
+    ],
+    "hard_points": [
+        {
+            "name": "Cortex",
+            "type": "cortex",
+            "options": [
+                "dragon",
+                "killer",
+                "misanthrope",
+                "revenger",
+                "spider"
+            ]
+        },
+        {
+            "name": "Arm",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "force_rod",
+                "reaper",
+                "stinger_cannon",
+                "void_splitter"
+            ]
+        },
+        {
+            "name": "Left Shoulder",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "cloaking_device",
+                "entrophier",
+                "hex_cannon",
+                "hollowphage_cannon",
+                "nailer",
+                "rocket_pod"
+            ]
+        },
+        {
+            "name": "Right Shoulder",
+            "type": "weapon",
+            "options": [
+                "empty",
+                "cloaking_device",
+                "entrophier",
+                "hex_cannon",
+                "hollowphage_cannon",
+                "nailer",
+                "rocket_pod"
+            ]
+        }
+    ],
+    "special_rules": [
+        "servo_booster"
+    ]
+}

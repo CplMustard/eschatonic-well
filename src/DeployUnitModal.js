@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow } from "@ionic/react";
 
-import { modelsData } from "./data";
+import { getModelsData } from "./data";
 
 function DeployUnitModal (props) {   
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -11,7 +11,7 @@ function DeployUnitModal (props) {
     const { isOpen, setIsOpen, attachments, unitStatus, cancelDeploy, addAttachmentsToUnit } = props;
 
     const modelId = unitStatus ? unitStatus.modelId : undefined;
-    const unitName = modelId ? modelsData[modelId].name : "";
+    const unitName = modelId ? getModelsData()[modelId].name : "";
 
     function cancel() {
         setAttachmentsToAdd([]); 
@@ -45,7 +45,7 @@ function DeployUnitModal (props) {
     const attachmentButtons = [];
     if(attachments) {
         attachments.forEach((attachmentId, index) => {
-            const modelData = modelsData[attachmentId];
+            const modelData = getModelsData()[attachmentId];
             const { name, factions } = modelData;
             const factionId = factions.length === 1 ? factions[0] : "wc";
             attachmentButtons.push(<IonRow key={index}>
@@ -58,7 +58,7 @@ function DeployUnitModal (props) {
         });
     }
 
-    const attachmentNames = attachmentsToAdd.map((id) => modelsData[id].name);
+    const attachmentNames = attachmentsToAdd.map((id) => getModelsData()[id].name);
 
     return (
         <IonModal isOpen={isOpen} backdropDismiss={false}>

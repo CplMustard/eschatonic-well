@@ -1,0 +1,8 @@
+{
+    "id": "umbral_transvection",
+    "name": "Umbral Transvection",
+    "type": "geometric",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly squad.\n\nAffected models gain Flight.\n\nUmbral Transvection expires at the end of the Pulse round."
+}

@@ -1,4 +1,4 @@
-import { cypherTypesData, modelTypesData } from "../data";
+import { getCypherTypesData, getModelTypesData } from "../data";
 
 export const cardSorting = (a, b) => {
     // wildcards should be sorted at the bottom in alphabetical order
@@ -18,8 +18,8 @@ export const cardSorting = (a, b) => {
 export const groupSorting = (a, b) => {
     const typeA = a[0].split("|")[0];
     const typeB = b[0].split("|")[0];
-    const isHiddenA = modelTypesData[typeA] ? modelTypesData[typeA].hidden : cypherTypesData[typeA].hidden;
-    const isHiddenB = modelTypesData[typeB] ? modelTypesData[typeB].hidden : cypherTypesData[typeB].hidden;
+    const isHiddenA = getModelTypesData()[typeA] ? getModelTypesData()[typeA].hidden : getCypherTypesData()[typeA].hidden;
+    const isHiddenB = getModelTypesData()[typeB] ? getModelTypesData()[typeB].hidden : getCypherTypesData()[typeB].hidden;
     // sort hidden types at the bottom
     if(!isHiddenA && isHiddenB) return -1;
     if(isHiddenA && !isHiddenB) return 1;
