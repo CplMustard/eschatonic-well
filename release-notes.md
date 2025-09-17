@@ -59,3 +59,8 @@
  ## New Features 
  - Updated look of play mode
  - Unit status views can now be collapsed for compact force viewing
+
+  # 0.4.0:
+ ## New Features 
+ - Users can now swap rulesets, currently supports default PP and Van-caster rulesets, note that Van-caster is still in Beta and rules are subject to change
+ - Cards will have changelogs displayed, if there are changes from the printed cards in that ruleset there will be a button called "Changes" to view them

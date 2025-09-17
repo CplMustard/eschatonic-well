@@ -11,6 +11,8 @@ import { getCypherTypesData, getModelTypesData } from "./data";
 
 function ForceCardList(props) {
     const { id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
+    console.log(id);
+    console.log(forceEntries);
 
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {

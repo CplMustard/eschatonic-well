@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
-import { useSessionStorageState } from "ahooks";
+import { useLocalStorageState, useSessionStorageState } from "ahooks";
 import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
 import { skullOutline } from "ionicons/icons";
 
@@ -12,13 +12,16 @@ import ManeuverList from "./ManeuverList";
 import UnitStatus from "./UnitStatus";
 import ViewChangesModal from "./ViewChangesModal";
 
-import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./data";
+import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData, setRuleset } from "./data";
 
 function ModelCardViewer(props) {
     const params = useParams();
     const history = useHistory();
     const location = useLocation();
     
+    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: undefined, listenStorageChange: true});
+    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: undefined, listenStorageChange: true});
+
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
@@ -35,6 +38,12 @@ function ModelCardViewer(props) {
     const entryId = location.state ? location.state.entryId : undefined;
 
     const modelId = props.modelId ? props.modelId : params.modelId;
+
+    if(isPlayMode) {
+        setRuleset(playRulesetId);
+    } else {
+        setRuleset(rulesetId);
+    }
     
     const cardData = getModelsData()[modelId];
 

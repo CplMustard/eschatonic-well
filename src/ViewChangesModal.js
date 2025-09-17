@@ -30,7 +30,7 @@ function ViewChangesModal (props) {
                     <IonButtons slot="start">
                         <IonButton onClick={() => close()}>Close</IonButton>
                     </IonButtons>
-                    <IonTitle>Model Changes</IonTitle>
+                    <IonTitle>Card Changes</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>

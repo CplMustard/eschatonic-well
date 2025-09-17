@@ -266,7 +266,7 @@ function EditorView() {
         }
     };
 
-    const saveForceConfirm = async (forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
+    const saveForceConfirm = async (forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         let showOverwriteWarning = false;
         const sanitizedForceName = sanitize(forceName);
         const result = await listForces();
@@ -285,7 +285,7 @@ function EditorView() {
                 {
                     text: "OK",
                     role: "confirm",
-                    handler: () => {saveForce(forceName, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);},
+                    handler: () => {saveForce(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);},
                 },
             ],
             onDidDismiss: () => {}
@@ -327,6 +327,7 @@ function EditorView() {
             });
             
             const json = JSON.parse(result.data);
+            console.log(json);
             setPlayForceName(json.forceName);
             //Forces saved in earlier versions won't have a ruleset, so assume pp
             setPlayRulesetId(json.rulesetId ? json.rulesetId : "pp");
@@ -471,7 +472,6 @@ function EditorView() {
 
                 {tabSelected === editorTabs.play && <PlayModeViewer
                     tabSelected={playTabSelected}
-                    rulesetId={playRulesetId}
                     forceModelsData={playForceModelsData} 
                     setForceModelsData={setPlayForceModelsData} 
                     specialIssueModelsData={playSpecialIssueModelsData} 

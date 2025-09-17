@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useLocalStorageState } from "ahooks";
 import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
 
 import ViewChangesModal from "./ViewChangesModal";
 
-import { getCyphersData, getCypherTypesData, getFactionsData } from "./data";
+import { getCyphersData, getCypherTypesData, getFactionsData, setRuleset } from "./data";
 
 function CypherCardViewer(props) {
     const params = useParams();
 
+    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: undefined, listenStorageChange: true});
+    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: undefined, listenStorageChange: true});
+
     const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
+
+    const isPlayMode = location.state && location.state.isPlayMode;
+
+    if(isPlayMode) {
+        setRuleset(playRulesetId);
+    } else {
+        setRuleset(rulesetId);
+    }
 
     const cypherId = props.cypherId ? props.cypherId : params.cypherId;
     const cypherData = getCyphersData()[cypherId];
 
-    const collectedChanges = new Set();
+    const collectedChanges = [];
     if(cypherData.changes) {
         collectedChanges.push({ source: cypherData.name, changes: cypherData.changes });
     }

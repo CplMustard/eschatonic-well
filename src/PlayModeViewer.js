@@ -8,7 +8,7 @@ import ForceCardList from "./ForceCardList";
 import DeployUnitModal from "./DeployUnitModal";
 import { playTabs } from "./EditorView.js";
 
-import { getModelsData, setRuleset } from "./data";
+import { getModelsData } from "./data";
 
 function PlayModeViewer(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -31,20 +31,17 @@ function PlayModeViewer(props) {
     };
 
     const tabSelected = props.tabSelected;
-    const rulesetId = props.rulesetId;
     const models = props.forceModelsData;
     const cyphers = props.forceCyphersData;
     const specialIssueModels = props.specialIssueModelsData;
     const specialIssueCyphers = props.specialIssueCyphersData;
 
-    setRuleset(rulesetId);
-
     function openModelCard(modelId, entryId) {
-        history.push(`/model/${modelId}`, { entryId: entryId, isPlayMode: true, rulesetId: rulesetId, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
+        history.push(`/model/${modelId}`, { entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function openCypherCard(cypherId) {
-        history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId });
+        history.push(`/cypher/${cypherId}`, { isPlayMode: true });
     }
 
     function createUnitStatus(entryId) {
@@ -224,8 +221,8 @@ function PlayModeViewer(props) {
                 <ForceCardList id={"PlaySpecialIssueModels"} header={"Special Issue"} forceEntries={specialIssueModels} handleCardClicked={openModelCard}></ForceCardList>
             </>}
             {(tabSelected === playTabs.rack) && <>
-                <ForceCardList id={"PlayCyphers"} header={"Cyphers"} forceEntries={cyphers} handleCardClicked={openCypherCard}></ForceCardList>
-                <ForceCardList id={"PlaySpecialIssueCyphers"} header={"Special Issue"} forceEntries={specialIssueCyphers} handleCardClicked={openCypherCard}></ForceCardList>
+                <ForceCardList id={"PlayCyphers"} header={"Cyphers"} forceEntries={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
+                <ForceCardList id={"PlaySpecialIssueCyphers"} header={"Special Issue"} forceEntries={specialIssueCyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
             </>}
         </div>
     );

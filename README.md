@@ -85,8 +85,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 Copyright (c) 2023 Jack Anderson
 
-All trademarks contained herein including Privateer Press (r), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds,
-The Hyperuranion, Arcanessence, and their logos are property of Privateer Press, Inc., 21220 87th Ave. S.E., Woodinville, WA 98072
+All trademarks contained herein including Steamforged Games (c), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds,
+The Hyperuranion, Arcanessence, and their logos are property of Steamforged Games Ltd, Osprey House, 217-227 Broadway, Salford, Manchester, M50 2UE, United Kingdom 
 
 This program is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Privateer Press, Inc, or any of its subsidiaries or its affiliates.
 
