@@ -2,5 +2,7 @@
     "id": "repulsor_ram",
     "name": "Repulsor Ram",
     "text": "When this model is hit by a melee attack, after the attack is resolved, this model can spike once to use Repulsor Ram. The attacking model is immediately slammed 3\" directly away from this model and suffers a damage roll with a POW equal to the POW of this weapon. Collateral damage is equal to the POW of this weapon.",
-    "changes": "POW of the slam is equal to the POW of this weapon, not the attacking model's weapon, POW of collateral damage is equal to the POW of this weapon."
+    "changes": [
+        "POW of the slam is equal to the POW of this weapon, not the attacking model's weapon, POW of collateral damage is equal to the POW of this weapon."
+    ]
 }
