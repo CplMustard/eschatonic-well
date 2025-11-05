@@ -83,7 +83,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### LICENSE
 
-Copyright (c) 2023 Jack Anderson
+Copyright (c) 2025 Jack Anderson
 
 All trademarks contained herein including Steamforged Games (c), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds,
 The Hyperuranion, Arcanessence, and their logos are property of Steamforged Games Ltd, Osprey House, 217-227 Broadway, Salford, Manchester, M50 2UE, United Kingdom 
