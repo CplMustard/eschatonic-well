@@ -1,7 +1,7 @@
 {
     "id": "dragon",
     "name": "Dragon",
-    "special_rules": ["dominion_converter", "impulse_reciprocator"],
+    "special_rules": ["dominion_converter", "dragon_scales"],
     "changes": [
         "Added Impulse Reciprocator."
     ]
