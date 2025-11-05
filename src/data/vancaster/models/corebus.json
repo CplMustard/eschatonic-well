@@ -4,7 +4,7 @@
     "factions": ["emp", "mw"],
     "type": "solo",
     "expansion": "cc",
-    "subtypes": ["hero"],
+    "subtypes": ["aeon", "hero"],
     "stats": {
         "dc": 1,
         "base_size": 40,
@@ -32,6 +32,7 @@
     "changes": [
         "Increased MAT to 5.",
         "Increased ARM to 5.",
+        "Added Aeon tag.",
         "Added Retaliatory Strike."
     ]
 }

@@ -1,0 +1,5 @@
+{
+    "id": "dragon_scales",
+    "name": "Dragon Scales",
+    "text": "When this model is hit by a melee attack, it can spike once to apply the fire continuous effect to the attacking enemy model after the attack is resolved." 
+}

@@ -9,7 +9,7 @@
         "dc": 1,
         "base_size": 40,
         "spd": 5,
-        "mat": 4,
+        "mat": 5,
         "rat": 3,
         "def": 2,
         "arm": 4,
@@ -30,7 +30,6 @@
         "void_disruptor"
     ],
     "changes": [
-        "Reduced Arc Relay range to 8.",
-        "Decreased MAT to 4."
+        "Reduced Arc Relay range to 8."
     ]
 }

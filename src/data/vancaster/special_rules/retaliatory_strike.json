@@ -1,5 +1,5 @@
 {
     "id": "retaliatory_strike",
     "name": "Retaliatory Strike",
-    "text": "When this model is hit by an enemy attack, after the attack is resolved this model may immediately make an attack, if the enemy attack would reduce this model to zero boxes it may still make the attack before it is removed from play." 
+    "text": "When this model is hit by an enemy attack while it is charged, after the attack is resolved this model may immediately make an attack, if the enemy attack would reduce this model to zero boxes it may still make the attack before it is removed from play." 
 }
