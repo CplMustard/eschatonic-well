@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useLocalStorageState, useSessionStorageState } from "ahooks";
 import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
@@ -39,12 +39,14 @@ function ModelCardViewer(props) {
 
     const modelId = props.modelId ? props.modelId : params.modelId;
 
-    if(isPlayMode) {
-        setRuleset(playRulesetId);
-    } else {
-        setRuleset(rulesetId);
-    }
-    
+    useEffect(() => {
+        if(isPlayMode) {
+            setRuleset(playRulesetId);
+        } else {
+            setRuleset(rulesetId);
+        }
+    }, [isPlayMode]);
+        
     const cardData = getModelsData()[modelId];
 
     useEffect(() => {

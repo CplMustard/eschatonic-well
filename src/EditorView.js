@@ -75,14 +75,6 @@ function EditorView() {
         })();
     }, [forcesDirty]);
 
-    useEffect(() => {
-        if(tabSelected === editorTabs.play) {
-            setRuleset(playRulesetId);
-        } else {
-            setRuleset(rulesetId);
-        }
-    });
-
     const presentToast = (message) => {
         present({
             message: message,
@@ -105,6 +97,7 @@ function EditorView() {
         presentToast(`Ruleset changed to ${rulesets[id].name}`);
         setRulesetId(id);
         setRuleset(id);
+        location.reload();
     };
 
     const changeRulesetConfirm = (id) => {
@@ -383,7 +376,9 @@ function EditorView() {
                 <IonToolbar>
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
                         scrollToTop();
-                        setTabSelected(e.detail.value);
+                        setTabSelected(e.detail.value );
+                        setRuleset(tabSelected === editorTabs.play ? playRulesetId : rulesetId);
+                        location.reload();
                     }}>
                         <IonSegmentButton value={editorTabs.force}>
                             <IonLabel>Force</IonLabel>

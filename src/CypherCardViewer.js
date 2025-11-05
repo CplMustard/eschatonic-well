@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLocalStorageState } from "ahooks";
 import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
@@ -17,11 +17,13 @@ function CypherCardViewer(props) {
 
     const isPlayMode = location.state && location.state.isPlayMode;
 
-    if(isPlayMode) {
-        setRuleset(playRulesetId);
-    } else {
-        setRuleset(rulesetId);
-    }
+    useEffect(() => {
+        if(isPlayMode) {
+            setRuleset(playRulesetId);
+        } else {
+            setRuleset(rulesetId);
+        }
+    }, [isPlayMode]);
 
     const cypherId = props.cypherId ? props.cypherId : params.cypherId;
     const cypherData = getCyphersData()[cypherId];
