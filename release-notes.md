@@ -68,4 +68,6 @@
  # 0.4.1:
  ## New Features 
  - Updated Van-caster ruleset to Version 0.1.1
+ ## Bugfixes
  - Fixed issue where switching between rulesets in different tabs would not update properly
+ - Fixed crash when viewing Repulsor Shield rules
