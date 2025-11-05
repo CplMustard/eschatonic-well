@@ -55,17 +55,17 @@
  - Fix typos on Factotum, Ranger Outrider, Cadre, Master Tulcan, Paladin Enforcers, Saber Vanguard, Gravitronic Lash, weapon orders
  - Fix various issues where changes in one screen would not reflect on other screens
 
-  # 0.3.1:
+ # 0.3.1:
  ## New Features 
  - Updated look of play mode
  - Unit status views can now be collapsed for compact force viewing
 
-  # 0.4.0:
+ # 0.4.0:
  ## New Features 
  - Users can now swap rulesets, currently supports default PP and Van-caster rulesets, note that Van-caster is still in Beta and rules are subject to change
  - Cards will have changelogs displayed, if there are changes from the printed cards in that ruleset there will be a button called "Changes" to view them
 
-  # 0.4.1:
+ # 0.4.1:
  ## New Features 
  - Updated Van-caster ruleset to Version 0.1.1
  - Fixed issue where switching between rulesets in different tabs would not update properly
