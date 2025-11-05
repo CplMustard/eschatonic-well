@@ -12,12 +12,10 @@ import flamethrower from "./flamethrower.json";
 import force_generator from "./force_generator.json";
 import force_hammer from "./force_hammer.json";
 import fusion_drill from "./fusion_drill.json";
-import fusion_glaive from "./fusion_glaive.json";
 import fusion_saw from "./fusion_saw.json";
 import fusion_saw_nemesis from "./fusion_saw_nemesis.json";
 import fusion_scythe_nemesis from "./fusion_scythe_nemesis.json";
 import fusion_sword_jax from "./fusion_sword_jax.json";
-import grenade_launcher from "./grenade_launcher.json";
 import heavy_fusion_glaive from "./heavy_fusion_glaive.json";
 import howitzer from "./howitzer.json";
 import impaler from "./impaler.json";
@@ -30,7 +28,6 @@ import particle_blaster_dragoon from "./particle_blaster_dragoon.json";
 import reaper from "./reaper.json";
 import repulsor_shield from "./repulsor_shield.json";
 import sniper_rifle from "./sniper_rifle.json";
-import starburst_missiles from "./starburst_missiles.json";
 import starfall_cannon from "./starfall_cannon.json";
 import sun_piercer from "./sun_piercer.json";
 import wildflower_mine_layer from "./wildflower_mine_layer.json";
@@ -50,12 +47,10 @@ const weaponsData = {
 	force_generator: force_generator,
 	force_hammer: force_hammer,
 	fusion_drill: fusion_drill,
-	fusion_glaive: fusion_glaive,
 	fusion_saw: fusion_saw,
 	fusion_saw_nemesis: fusion_saw_nemesis,
 	fusion_scythe_nemesis: fusion_scythe_nemesis,
 	fusion_sword_jax: fusion_sword_jax,
-	grenade_launcher: grenade_launcher,
 	heavy_fusion_glaive: heavy_fusion_glaive,
 	howitzer: howitzer,
 	impaler: impaler,
@@ -68,7 +63,6 @@ const weaponsData = {
 	reaper: reaper,
 	repulsor_shield: repulsor_shield,
 	sniper_rifle: sniper_rifle,
-	starburst_missiles: starburst_missiles,
 	starfall_cannon: starfall_cannon,
 	sun_piercer: sun_piercer,
 	wildflower_mine_layer: wildflower_mine_layer

@@ -9,6 +9,7 @@ import combat_fervor from "./combat_fervor.json";
 import concussive_shells from "./concussive_shells.json";
 import defensive_strike from "./defensive_strike.json";
 import delayed_blast from "./delayed_blast.json";
+import dragon_scales from "./dragon_scales.json";
 import energy_leech from "./energy_leech.json";
 import energy_web from "./energy_web.json";
 import guardian from "./guardian.json";
@@ -47,6 +48,7 @@ const special_rulesData = {
 	concussive_shells: concussive_shells,
 	defensive_strike: defensive_strike,
 	delayed_blast: delayed_blast,
+	dragon_scales: dragon_scales,
 	energy_leech: energy_leech,
 	energy_web: energy_web,
 	guardian: guardian,
