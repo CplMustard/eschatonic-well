@@ -8,13 +8,15 @@ import ForceCardList from "./ForceCardList";
 import DeployUnitModal from "./DeployUnitModal";
 import { playTabs } from "./EditorView.js";
 
-import { getModelsData } from "./data";
+import { getModelsData } from "./DataLoader";
 
 function PlayModeViewer(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const history = useHistory();
     const [present] = useIonToast();
+
+    const modelsData = getModelsData("pp");
 
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
 
@@ -46,7 +48,7 @@ function PlayModeViewer(props) {
 
     function createUnitStatus(entryId) {
         const modelId = models.find((entry) => entry.id === entryId).modelId;
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
         const unitModels = [];
 
         if (modelData.stats.squad_size) {
@@ -69,7 +71,7 @@ function PlayModeViewer(props) {
 
         const attachments = [];
         attachmentIds.forEach((attachmentId) => {
-            const attachmentModelData = getModelsData()[attachmentId];
+            const attachmentModelData = modelsData[attachmentId];
             const attachmentUnitModels = [];
             if (attachmentModelData.stats.squad_size) {
                 for (let i=0; i < attachmentModelData.stats.squad_size; i++) {
@@ -83,7 +85,7 @@ function PlayModeViewer(props) {
 
         unitStatus.attachments = attachments;
 
-        const modelData = getModelsData()[unitStatus.modelId];
+        const modelData = modelsData[unitStatus.modelId];
 
         const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === unitStatus.id).length !== 0;
         const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === unitStatus.id).name : modelData.name;
@@ -105,7 +107,7 @@ function PlayModeViewer(props) {
         newUnitsStatus.push(unitStatus);
 
         const modelId = models.find((entry) => entry.id === entryId).modelId;
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
 
         if(modelData.attachments) {
             setCurrentUnitAttachments(modelData.attachments);

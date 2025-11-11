@@ -1,10 +1,12 @@
 import React from "react";
 import { IonText } from "@ionic/react";
 
-import { getManeuversData } from "./data";
+import { getManeuversData } from "./DataLoader";
 
 function Maneuver(props) {
-    const maneuverData = getManeuversData()[props.maneuverId];
+    const manueversData = getManeuversData("pp");
+    
+    const maneuverData = manueversData[props.maneuverId];
 
     return (
         <div>

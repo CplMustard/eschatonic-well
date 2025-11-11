@@ -1,14 +1,16 @@
 import React from "react";
 import { IonText, IonItem, IonList } from "@ionic/react";
 
-import { getSpecialRulesData } from "./data";
+import { getSpecialRulesData } from "./DataLoader";
 
 function SpecialRule(props) {
+    const specialRulesData = getSpecialRulesData("pp");
+
     const ruleParts = props.ruleId.split("|");
     const ruleId = ruleParts.shift(); //don't include template strings in ID
     const ruleArguments = ruleParts;
 
-    const ruleData = getSpecialRulesData()[ruleId];
+    const ruleData = specialRulesData[ruleId];
 
     let ruleTitleString = `${ruleData.name}: `;
     let ruleString = `${ruleData.text}`;

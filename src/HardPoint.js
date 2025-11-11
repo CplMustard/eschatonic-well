@@ -1,17 +1,20 @@
 import React from "react";
 import { IonText, IonSelect, IonSelectOption } from "@ionic/react";
 
-import { getCortexesData, getWeaponsData } from "./data";
+import { getCortexesData, getWeaponsData } from "./DataLoader";
 
 function HardPoint(props) {
+    const cortexesData = getCortexesData("pp");
+    const weaponsData = getWeaponsData("pp");
+    
     const { hard_point, index, selectedOption, onChangeHardPoint } = props;
     function handleChange (e) {
-        onChangeHardPoint(e.target.value, hard_point.type, hard_point.type === "weapon" ? getWeaponsData()[e.target.value].point_cost : 0, index); 
+        onChangeHardPoint(e.target.value, hard_point.type, hard_point.type === "weapon" ? weaponsData[e.target.value].point_cost : 0, index); 
     }
 
     const optionComponents = [];
     hard_point.options.forEach((option, index) => {
-        const optionName = hard_point.type === "weapon" ? `${getWeaponsData()[option].name} (${getWeaponsData()[option].point_cost})` : getCortexesData()[option].name;
+        const optionName = hard_point.type === "weapon" ? `${weaponsData[option].name} (${weaponsData[option].point_cost})` : cortexesData[option].name;
         optionComponents.push(<IonSelectOption key={index} value={option}><IonText color="primary">{optionName}</IonText></IonSelectOption>);
     });
     return (

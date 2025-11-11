@@ -10,15 +10,18 @@ import { forceTabs } from "./EditorView.js";
 
 import { isHidden } from "./util/isHidden.js";
 
-import { getCadresData, getModelsData, getWeaponsData } from "./data";
+import { getCadresData, getModelsData, getWeaponsData } from "./DataLoader";
 import CadreList from "./CadreList";
 
 const voidGateId = "void_gate";
 
 function ForceEditor(props) {
-
     const history = useHistory();
     const [present] = useIonToast();
+
+    const cadresData = getCadresData("pp");
+    const modelsData = getModelsData("pp");
+    const weaponsData = getWeaponsData("pp");
 
     const [forceEmpty, setForceEmpty] = useState(true);
 
@@ -31,7 +34,7 @@ function ForceEditor(props) {
             newForceData = insertModelCard(newForceData, voidGateId, addedModelNames);
         }
 
-        const allMantlets = Object.values(getModelsData()).filter((modelData) => modelData.type === "mantlet");
+        const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
         const availableMantlets = (factionId && factionId !== "all") ? allMantlets.filter((modelData) => {
             return modelData.factions.includes(factionId);
         }) : allMantlets;
@@ -57,14 +60,14 @@ function ForceEditor(props) {
         });
     };
 
-    const models = (factionId && factionId !== "all") ? Object.values(getModelsData()).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(getModelsData());
+    const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(modelsData);
 
     function modelCount(forceData, modelId) {
         return forceData.filter((forceModel) => forceModel.modelId === modelId).length;
     }
 
     function checkFA(forceData, modelId) {
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
         const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
         const fa = modelData.fa ? modelData.fa : defaultFA;
 
@@ -96,7 +99,7 @@ function ForceEditor(props) {
         modelData.attachments.forEach((attachment) => {
             //only delete if we're the last eligible unit for this attachment
             const attachmentIndex = newForceData.findIndex((forceModel) => forceModel.modelId === attachment);
-            const remainingEligibleUnitCount = newForceData.filter((forceModel) => getModelsData()[forceModel.modelId].attachments && getModelsData()[forceModel.modelId].attachments.includes(attachment)).length;
+            const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length;
             if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
                 newForceData = deleteModelCard(newForceData, attachmentIndex, deletedModelNames);
             }
@@ -106,7 +109,7 @@ function ForceEditor(props) {
 
     function countCadreModels(forceData, cadreId) {
         if (cadreId) {
-            const cadreModels = getCadresData()[cadreId].models;
+            const cadreModels = cadresData[cadreId].models;
             const cadreModelCounts = [];
             cadreModels.forEach((cadreModelId) => cadreModelCounts.push(modelCount(forceData, cadreModelId)));
             return Math.min(...cadreModelCounts);
@@ -116,7 +119,7 @@ function ForceEditor(props) {
 
     function addCadreChampion(forceData, cadreId, addedModelNames) {
         let newForceData = forceData;
-        const cadre = getCadresData()[cadreId];
+        const cadre = cadresData[cadreId];
         //add a champion for this cadre if the count doesn't match
         if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
             newForceData = insertModelCard(newForceData, cadre.champion, addedModelNames);
@@ -126,7 +129,7 @@ function ForceEditor(props) {
 
     function deleteCadreChampion(forceData, cadreId, deletedModelNames) {
         let newForceData = forceData;
-        const cadre = getCadresData()[cadreId];
+        const cadre = cadresData[cadreId];
         //remove a champion for this cadre if the count doesn't match
         if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
             const championIndex = newForceData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
@@ -138,18 +141,18 @@ function ForceEditor(props) {
     function insertModelCard(forceData, modelId, addedModelNames) {
         let newForceData = forceData;
         const newId = uuidv1();
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
         const defaultHardPoints = [];
         if(modelData.hard_points) {
             modelData.hard_points.forEach((hard_point) => {
-                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? getWeaponsData()[hard_point.options[0]].point_cost : 0});
-            }, [getWeaponsData()]);
+                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
+            }, [weaponsData]);
         }
         if (modelData.attachments) {
             newForceData = addAttachments(newForceData, modelData, addedModelNames);
         }
         
-        const canRemove = !isHidden(modelId);
+        const canRemove = !isHidden(modelId, "pp");
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         addedModelNames.push(modelData.name);
         newForceData = newForceData.concat(forceEntry);
@@ -164,7 +167,7 @@ function ForceEditor(props) {
     function deleteModelCard(forceData, index, deletedModelNames) {
         let newForceData = forceData;
         const modelId = newForceData[index].modelId;
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
         newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)];
         deletedModelNames.push(modelData.name);
         if (modelData.attachments) {
@@ -221,16 +224,16 @@ function ForceEditor(props) {
             // Make sure to check the special issue list for FA as well
             if(checkFA([...forceModelsData, ...newSpecialIssueModelsData], modelId)) {
                 const newId = uuidv1();
-                const modelData = getModelsData()[modelId];
+                const modelData = modelsData[modelId];
 
                 const defaultHardPoints = [];
                 if(modelData.hard_points) {
                     modelData.hard_points.forEach((hard_point) => {
-                        defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? getWeaponsData()[hard_point.options[0]].point_cost : 0});
-                    }, [getWeaponsData()]);
+                        defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
+                    }, [weaponsData]);
                 }
 
-                const canRemove = !isHidden(modelId);
+                const canRemove = !isHidden(modelId, "pp");
                 const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
                 addedModelNames.push(modelData.name);
                 newSpecialIssueModelsData.push(forceEntry);
@@ -245,7 +248,7 @@ function ForceEditor(props) {
     function removeSpecialIssue(id) {
         const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === id);
         const modelId = specialIssueModelsData[index].modelId;
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
     
         let newSpecialIssueModelsData = specialIssueModelsData;
         newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, index), ...newSpecialIssueModelsData.slice(index + 1)];
@@ -282,7 +285,7 @@ function ForceEditor(props) {
         let addedModelNames = [];
 
         const modelId = specialIssueModelsData[index].modelId;
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
         if(checkFA(newForceData, modelId)) {
             newForceData = newForceData.concat(specialIssueModelsData[index]);
 
@@ -318,7 +321,7 @@ function ForceEditor(props) {
     }
 
     function canAddToSpecialIssue(modelId) {
-        const modelType = getModelsData()[modelId].type;
+        const modelType = modelsData[modelId].type;
         return !specialIssueModelsData.some((forceModel) => forceModel.type === modelType);
     }
 
@@ -331,7 +334,7 @@ function ForceEditor(props) {
     }
 
     function getFAText(forceData, modelId) {
-        const modelData = getModelsData()[modelId];
+        const modelData = modelsData[modelId];
         const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
         const fa = modelData.fa ? modelData.fa : defaultFA;
         return `(${modelCount(forceData, modelId)}/${fa})`;
@@ -370,7 +373,7 @@ function ForceEditor(props) {
                 ></ForceCardList>
             </>}
             {tabSelected === forceTabs.units && <>
-                <CadreList cadresData={getCadresData()} addModelCards={addModelCards} factionId={factionId}></CadreList>
+                <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
                 <br/>
                 <CardList 
                     id={"ForceEditor"}

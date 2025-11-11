@@ -8,7 +8,7 @@ import CardList from "./CardList";
 import ForceCardList from "./ForceCardList";
 import { rackTabs } from "./EditorView.js";
 
-import { getCyphersData } from "./data";
+import { getCyphersData } from "./DataLoader";
 
 const cypherTypeMin = 3;
 
@@ -17,6 +17,8 @@ function RackEditor(props) {
 
     const history = useHistory();
     const [present] = useIonToast();
+
+    const cyphersData = getCyphersData();
 
     const { tabSelected, factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
@@ -28,7 +30,7 @@ function RackEditor(props) {
         });
     };
 
-    const cyphers = (factionId && factionId !== "all") ? Object.values(getCyphersData()).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(getCyphersData());
+    const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(cyphersData);
 
     function cypherCount(rackData, cypherId) {
         return rackData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
@@ -43,9 +45,9 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
-                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: getCyphersData()[cypherId].type, name: getCyphersData()[cypherId].name, factions: getCyphersData()[cypherId].factions};
+                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newForceCyphersData = newForceCyphersData.concat(cypherEntry);
-                addedCypherNames.push(getCyphersData()[cypherId].name);
+                addedCypherNames.push(cyphersData[cypherId].name);
             }
         });
 
@@ -69,9 +71,9 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
-                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: getCyphersData()[cypherId].type, name: getCyphersData()[cypherId].name, factions: getCyphersData()[cypherId].factions};
+                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newSpecialIssueCyphersData = newSpecialIssueCyphersData.concat(cypherEntry);
-                addedCypherNames.push(getCyphersData()[cypherId].name);
+                addedCypherNames.push(cyphersData[cypherId].name);
             }
         });
 
@@ -131,7 +133,7 @@ function RackEditor(props) {
     }
 
     function canAddToSpecialIssue(cypherId) {
-        const cypherType = getCyphersData()[cypherId].type;
+        const cypherType = cyphersData[cypherId].type;
         return !specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
     }
 

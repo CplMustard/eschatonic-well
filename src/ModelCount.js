@@ -10,13 +10,13 @@ function ModelCount(props) {
 
     function countUnits(forceData) {
         return forceData.filter((forceModel) => {        
-            return !isHidden(forceModel.modelId);
+            return !isHidden(forceModel.modelId, "pp");
         }).length - Math.min(countHeroSolos(forceData), freeHeroSolos ? freeHeroSolos : 0);
     }
 
     function countHeroSolos(forceData) {
         return forceData.filter((forceModel) => {
-            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") && !isHidden(forceModel.modelId) : false;
+            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") && !isHidden(forceModel.modelId, "pp") : false;
             return forceModel.type === "solo" && hasHeroSubtype;
         }).length;
     }

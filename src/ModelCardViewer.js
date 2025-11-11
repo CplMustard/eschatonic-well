@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
-import { useLocalStorageState, useSessionStorageState } from "ahooks";
+import { useSessionStorageState } from "ahooks";
 import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
 import { skullOutline } from "ionicons/icons";
 
@@ -12,15 +12,21 @@ import ManeuverList from "./ManeuverList";
 import UnitStatus from "./UnitStatus";
 import ViewChangesModal from "./ViewChangesModal";
 
-import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData, setRuleset } from "./data";
+import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./DataLoader";
 
 function ModelCardViewer(props) {
     const params = useParams();
     const history = useHistory();
     const location = useLocation();
-    
-    const [rulesetId] = useLocalStorageState("rulesetId", {defaultValue: "pp", listenStorageChange: true});
-    const [playRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: "pp", listenStorageChange: true});
+
+    const cortexesData = getCortexesData("pp");
+    const modelsData = getModelsData("pp");
+    const modelTypesData = getModelTypesData("pp");
+    const weaponsData = getWeaponsData("pp");
+    const specialRulesData = getSpecialRulesData("pp");
+    const factionsData = getFactionsData("pp");
+    const cadresData = getCadresData("pp");
+    const maneuversData = getManeuversData("pp");
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
@@ -38,16 +44,8 @@ function ModelCardViewer(props) {
     const entryId = location.state ? location.state.entryId : undefined;
 
     const modelId = props.modelId ? props.modelId : params.modelId;
-
-    useEffect(() => {
-        if(isPlayMode) {
-            setRuleset(playRulesetId);
-        } else {
-            setRuleset(rulesetId);
-        }
-    }, [isPlayMode]);
         
-    const cardData = getModelsData()[modelId];
+    const cardData = modelsData[modelId];
 
     useEffect(() => {
         if(entryId) {
@@ -83,7 +81,7 @@ function ModelCardViewer(props) {
     function getAllSpecialRules(special_rules, cadre, type) {
         let all_special_rules = special_rules ? special_rules : [];
         if(cadre) {
-            all_special_rules = ["cadre|" + getCadresData()[cadre].name].concat(all_special_rules);
+            all_special_rules = ["cadre|" + cadresData[cadre].name].concat(all_special_rules);
         }
         if(type === "void_gate") {
             all_special_rules = ["void_gate"].concat(all_special_rules);
@@ -100,7 +98,7 @@ function ModelCardViewer(props) {
             const ruleId = ruleParts.shift(); //don't include template strings in ID
             const ruleArguments = ruleParts;
 
-            const ruleData = getSpecialRulesData()[ruleId];
+            const ruleData = specialRulesData[ruleId];
 
             let ruleTitleString = `${ruleData.name}: `;
             ruleArguments.forEach((argument, index) => {
@@ -125,7 +123,7 @@ function ModelCardViewer(props) {
 
         if (allWeapons) {
             allWeapons.forEach((weapon) => {
-                const weaponData = getWeaponsData()[weapon];
+                const weaponData = weaponsData[weapon];
                 if(weaponData.changes) collectedChanges.push({source: weaponData.name, changes: weaponData.changes});
                 if(weaponData.special_rules) {
                     collectSpecialRuleChanges(collectedChanges, weaponData.special_rules);
@@ -141,7 +139,7 @@ function ModelCardViewer(props) {
         }
 
         if (hardPointCortexOption) {
-            const cortexData = getCortexesData()[hardPointCortexOption[0]];
+            const cortexData = cortexesData[hardPointCortexOption[0]];
             if (cortexData) {
                 if(cortexData.changes) collectedChanges.push({source: cortexData.name, changes: cortexData.changes});
                 if(cortexData.special_rules) {
@@ -160,7 +158,7 @@ function ModelCardViewer(props) {
 
         if (maneuvers) {
             maneuvers.forEach((maneuver) => {
-                const maneuverData = getManeuversData()[maneuver];
+                const maneuverData = maneuversData[maneuver];
                 if(maneuverData.changes) collectedChanges.push({source: maneuverData.name, changes: maneuverData.changes});
             });
         }
@@ -269,9 +267,9 @@ function ModelCardViewer(props) {
         const subtypeNames = [];
         const unitStatusEntry = getUnitStatusEntry(entryId);
 
-        factions.forEach((faction) => factionNames.push(getFactionsData()[faction].name));
+        factions.forEach((faction) => factionNames.push(factionsData[faction].name));
         if(subtypes) {
-            subtypes.forEach((subtype) => subtypeNames.push(getModelTypesData()[subtype].name));
+            subtypes.forEach((subtype) => subtypeNames.push(modelTypesData[subtype].name));
         }
 
         const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
@@ -285,7 +283,7 @@ function ModelCardViewer(props) {
             <IonCardSubtitle>
                 <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
-                <IonText color="primary"><h1>{getModelTypesData()[type].name}</h1></IonText>
+                <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>
                 {dc && <IonText color="secondary"><h2>Deployment Cost: {dc}</h2></IonText>}
                 {base_size && <IonText color="secondary"><h3>Base Size: {base_size}{!isNaN(base_size) && "mm"}</h3></IonText>}
                 {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
@@ -354,7 +352,7 @@ function ModelCardViewer(props) {
         const attachmentCards = [];
 
         attachments.forEach((attachmentId, index) => {
-            const attachmentCardData = getModelsData()[attachmentId];
+            const attachmentCardData = modelsData[attachmentId];
 
             const all_special_rules = getAllSpecialRules(attachmentCardData.special_rules, attachmentCardData.cadre, attachmentCardData.type);
 
@@ -371,8 +369,8 @@ function ModelCardViewer(props) {
     if(hard_points && hardPointOptions.length === 0) {
         const defaultHardPoints = [];
         hard_points.forEach((hard_point) => {
-            defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? getWeaponsData()[hard_point.options[0]].point_cost : 0});
-        }, [getWeaponsData()]);
+            defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
+        }, [weaponsData]);
         setHardPointOptions(defaultHardPoints);
     }
     const hardPointWeaponOptions = getHardPointOptions(hard_points, hardPointOptions, "weapon");

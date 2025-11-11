@@ -3,10 +3,12 @@ import { IonText } from "@ionic/react";
 
 import SpecialRuleList from "./SpecialRuleList";
 
-import { getCortexesData } from "./data";
+import { getCortexesData } from "./DataLoader";
 
 function Cortex(props) {
-    const cortexData = getCortexesData()[props.cortexId];
+    const cortexesData = getCortexesData("pp");
+
+    const cortexData = cortexesData[props.cortexId];
 
     const { special_rules, name } = cortexData;
     return (
