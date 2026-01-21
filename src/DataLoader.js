@@ -6,7 +6,6 @@ const rulesets = {
 };
 
 const getRulesetData = (rulesetId) => {
-    console.log(rulesetId);
     const ruleset = rulesets[rulesetId] ? rulesets[rulesetId] : rulesets.pp;
     return ruleset.data;
 };
