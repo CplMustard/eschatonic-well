@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useSessionStorageState } from "ahooks";
-import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonTitle, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
+import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
 import { skullOutline } from "ionicons/icons";
 
 import Cortex from "./Cortex";
@@ -46,7 +46,7 @@ function ModelCardViewer(props) {
     const maneuversData = getManeuversData(rulesetId);
 
     const modelId = props.modelId ? props.modelId : params.modelId;
-        
+
     const cardData = modelsData[modelId];
 
     useEffect(() => {
@@ -388,7 +388,6 @@ function ModelCardViewer(props) {
                     <IonButtons slot="start">
                         <IonBackButton></IonBackButton>
                     </IonButtons>
-                    <IonTitle>Back Button</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>

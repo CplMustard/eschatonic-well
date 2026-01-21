@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton } from "@ionic/react";
 
 import CardList from "./CardList";
 
@@ -29,7 +29,6 @@ function CadreViewer(props) {
                     <IonButtons slot="start">
                         <IonBackButton></IonBackButton>
                     </IonButtons>
-                    <IonTitle>Back Button</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>

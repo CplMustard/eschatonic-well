@@ -38,18 +38,18 @@ const ppData = {
 };
 
 const vancasterData = {
-    cadresData : {},
-    cortexesData : cortexesDataVancaster,
-    cyphersData : cyphersDataVancaster,
-    cypherTypesData : {},
-    damageTypesData : {},
-    factionsData : {},
-    forceSizesData : {},
-    maneuversData : maneuversDataVancaster,
-    modelsData : modelsDataVancaster,
-    modelTypesData : {},
-    specialRulesData : specialRulesDataVancaster,
-    weaponsData : weaponsDataVancaster
+    cadresData : ppData.cadresData,
+    cortexesData : Object.assign({}, ppData.cortexesData, cortexesDataVancaster),
+    cyphersData : Object.assign({}, ppData.cyphersData, cyphersDataVancaster),
+    cypherTypesData : ppData.cypherTypesData,
+    damageTypesData : ppData.damageTypesData,
+    factionsData : ppData.factionsData,
+    forceSizesData : ppData.forceSizesData,
+    maneuversData : Object.assign({}, ppData.maneuversData, maneuversDataVancaster),
+    modelsData : Object.assign({}, ppData.modelsData, modelsDataVancaster),
+    modelTypesData : ppData.modelTypesData,
+    specialRulesData : Object.assign({}, ppData.specialRulesData, specialRulesDataVancaster),
+    weaponsData : Object.assign({}, ppData.weaponsData, weaponsDataVancaster)
 };
 
 export {
