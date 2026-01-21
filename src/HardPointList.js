@@ -6,10 +6,11 @@ import { getCortexesData, getWeaponsData } from "./DataLoader";
 import HardPoint from "./HardPoint";
 
 function HardPointList(props) {
-    const cortexesData = getCortexesData("pp");
-    const weaponsData = getWeaponsData("pp");
+    const { rulesetId, hard_points, hardPointOptions, weaponPoints, onChangeHardPoint, isPlayMode } = props;
 
-    const { hard_points, hardPointOptions, weaponPoints, onChangeHardPoint, isPlayMode } = props;
+    const cortexesData = getCortexesData(rulesetId);
+    const weaponsData = getWeaponsData(rulesetId);
+
     const hardPointComponents = [];
     hard_points.forEach((hard_point, index) =>
         hardPointComponents.push(<IonRow key={index}>

@@ -11,13 +11,15 @@ function CadreViewer(props) {
     const params = useParams();
     const history = useHistory();
 
-    const cadresData = getCadresData("pp");
+    const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
+
+    const cadresData = getCadresData(rulesetId);
 
     const cadreId = props.cadreId ? props.cadreId : params.cadreId;
     const models = Object.values(getModelsData()).filter((model) => model.cadre && (model.cadre === cadreId));
 
     function openModelCard(id) {
-        history.push(`/model/${id}`);
+        history.push(`/model/${id}`, { rulesetId: rulesetId });
     }
 
     return (
@@ -31,7 +33,7 @@ function CadreViewer(props) {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <CardList header={`Cadre: ${cadresData[cadreId].name}`} cards={models} handleCardClicked={openModelCard}></CardList>
+                <CardList rulesetId={rulesetId} header={`Cadre: ${cadresData[cadreId].name}`} cards={models} handleCardClicked={openModelCard}></CardList>
             </IonContent>
         </IonPage>
     );

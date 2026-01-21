@@ -8,10 +8,10 @@ import { getWeaponsData, getDamageTypesData } from "./DataLoader";
 const weaponTypeNames = {"melee": "Melee", "range": "Ranged"};
 
 function Weapon(props) {
-    const { weaponId, count } = props;
+    const { rulesetId, weaponId, count } = props;
 
-    const weaponsData = getWeaponsData("pp");
-    const damageTypesData = getDamageTypesData("pp");
+    const weaponsData = getWeaponsData(rulesetId);
+    const damageTypesData = getDamageTypesData(rulesetId);
     
     const weaponData = weaponsData[weaponId];
 
@@ -31,7 +31,7 @@ function Weapon(props) {
                         {pow && <IonCol size="auto" className="statline-entry"><IonText color="primary"><h2>POW</h2></IonText><IonText color="secondary"><h1>{pow}</h1></IonText></IonCol>}
                     </IonRow>}
                     {special_rules && <IonRow>
-                        <SpecialRuleList special_rules={special_rules}/>
+                        <SpecialRuleList rulesetId={rulesetId} special_rules={special_rules}/>
                     </IonRow>}
                 </IonGrid>
             </div>

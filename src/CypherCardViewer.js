@@ -11,9 +11,11 @@ function CypherCardViewer(props) {
 
     const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
 
-    const cyphersData = getCyphersData("pp");
-    const cypherTypesData = getCypherTypesData("pp");
-    const factionsData = getFactionsData("pp");
+    const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
+
+    const cyphersData = getCyphersData(rulesetId);
+    const cypherTypesData = getCypherTypesData(rulesetId);
+    const factionsData = getFactionsData(rulesetId);
 
     const cypherId = props.cypherId ? props.cypherId : params.cypherId;
     const cypherData = cyphersData[cypherId];

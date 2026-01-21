@@ -8,9 +8,9 @@ function DeployUnitModal (props) {
 
     const [attachmentsToAdd, setAttachmentsToAdd] = useState([]);
 
-    const { isOpen, setIsOpen, attachments, unitStatus, cancelDeploy, addAttachmentsToUnit } = props;
+    const { rulesetId, isOpen, setIsOpen, attachments, unitStatus, cancelDeploy, addAttachmentsToUnit } = props;
 
-    const modelsData = getModelsData("pp");
+    const modelsData = getModelsData(rulesetId);
 
     const modelId = unitStatus ? unitStatus.modelId : undefined;
     const unitName = modelId ? modelsData[modelId].name : "";

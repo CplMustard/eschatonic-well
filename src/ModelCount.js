@@ -6,17 +6,17 @@ import { isHidden } from "./util/isHidden.js";
 const maxSpecialIssue = 4;
 
 function ModelCount(props) {
-    const {models, specialIssue, maxUnits, freeHeroSolos} = props;
+    const {rulesetId, models, specialIssue, maxUnits, freeHeroSolos} = props;
 
     function countUnits(forceData) {
         return forceData.filter((forceModel) => {        
-            return !isHidden(forceModel.modelId, "pp");
+            return !isHidden(forceModel.modelId, rulesetId);
         }).length - Math.min(countHeroSolos(forceData), freeHeroSolos ? freeHeroSolos : 0);
     }
 
     function countHeroSolos(forceData) {
         return forceData.filter((forceModel) => {
-            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") && !isHidden(forceModel.modelId, "pp") : false;
+            const hasHeroSubtype = forceModel.subtypes ? forceModel.subtypes.includes("hero") && !isHidden(forceModel.modelId, rulesetId) : false;
             return forceModel.type === "solo" && hasHeroSubtype;
         }).length;
     }

@@ -19,15 +19,6 @@ function ModelCardViewer(props) {
     const history = useHistory();
     const location = useLocation();
 
-    const cortexesData = getCortexesData("pp");
-    const modelsData = getModelsData("pp");
-    const modelTypesData = getModelTypesData("pp");
-    const weaponsData = getWeaponsData("pp");
-    const specialRulesData = getSpecialRulesData("pp");
-    const factionsData = getFactionsData("pp");
-    const cadresData = getCadresData("pp");
-    const maneuversData = getManeuversData("pp");
-
     const [hardPointOptions, setHardPointOptions] = useState([]);
 
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
@@ -38,10 +29,21 @@ function ModelCardViewer(props) {
 
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
 
+    const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
+
     const isPlayMode = location.state && location.state.isPlayMode;
     const modelsDataState = location.state ? (isPlayMode? (location.state.isSpecialIssue ? playSpecialIssueModelsData : playForceModelsData) : (location.state.isSpecialIssue ? specialIssueModelsData : forceModelsData)) : [];
     const setModelsData = location.state ? (isPlayMode? (location.state.isSpecialIssue ? setPlaySpecialIssueModelsData : setPlayForceModelsData) : (location.state.isSpecialIssue ? setSpecialIssueModelsData : setForceModelsData)) : () => {};
     const entryId = location.state ? location.state.entryId : undefined;
+
+    const cortexesData = getCortexesData(rulesetId);
+    const modelsData = getModelsData(rulesetId);
+    const modelTypesData = getModelTypesData(rulesetId);
+    const weaponsData = getWeaponsData(rulesetId);
+    const specialRulesData = getSpecialRulesData(rulesetId);
+    const factionsData = getFactionsData(rulesetId);
+    const cadresData = getCadresData(rulesetId);
+    const maneuversData = getManeuversData(rulesetId);
 
     const modelId = props.modelId ? props.modelId : params.modelId;
         
@@ -67,7 +69,7 @@ function ModelCardViewer(props) {
     };
 
     function openModelCard(id) {
-        history.push(`/model/${id}`);
+        history.push(`/model/${id}`, { rulesetId: rulesetId });
     }
 
     function getHardPointOptions(hard_points, hardPointOptions, typeId) {
@@ -260,7 +262,7 @@ function ModelCardViewer(props) {
     }
 
     function CardHeader(props) {
-        const { cardData, isAttachment } = props;
+        const { rulesetId, cardData, isAttachment } = props;
         const { name, changes, weapons, type, subtypes, factions, dc, stats, base_size, squad_size, special_rules, advantages, maneuvers } = cardData;
         const { boxes } = stats;
         const factionNames = [];
@@ -289,6 +291,7 @@ function ModelCardViewer(props) {
                 {squad_size && <IonText color="secondary"><h3>Squad Size: {squad_size}</h3></IonText>}
                 {unitStatusEntry && !isAttachment && 
                     <UnitStatus 
+                        rulesetId={rulesetId} 
                         id={entryId} 
                         entry={unitStatusEntry} 
                         boxes={boxes} 
@@ -307,7 +310,7 @@ function ModelCardViewer(props) {
     }
 
     function CardContent(props) {
-        const { cardData, specialRules, weapons, hardPointCortexOption, isAttachment } = props;  
+        const { rulesetId, cardData, specialRules, weapons, hardPointCortexOption, isAttachment } = props;  
         const { weapon_points, stats, hard_points, advantages, maneuvers, attachments } = cardData;
 
         const unitStatusEntry = getUnitStatusEntry(entryId);
@@ -317,16 +320,16 @@ function ModelCardViewer(props) {
 
         return (
             <IonCard>
-                <CardHeader cardData={cardData} isAttachment={isAttachment}/><hr/>
+                <CardHeader rulesetId={rulesetId} cardData={cardData} isAttachment={isAttachment}/><hr/>
                 <IonCardContent>
                     <Statline stats={stats} />
-                    {hard_points && <HardPointList hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)} isPlayMode={isPlayMode}/>}
-                    {weapons && <WeaponList weapons={weapons} />}
-                    {advantages && <SpecialRuleList special_rules={advantages} header={"Advantages"} />}
-                    {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex cortexId={hardPointCortexOption}/>}
-                    {specialRules && <SpecialRuleList special_rules={specialRules} header={"Special Rules"}/>}
-                    {maneuvers && <ManeuverList maneuvers={maneuvers} header={"Maneuvers"}/>}
-                    {attachments && <AttachmentCards attachments={attachmentIds}/>}
+                    {hard_points && <HardPointList rulesetId={rulesetId} hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)} isPlayMode={isPlayMode}/>}
+                    {weapons && <WeaponList rulesetId={rulesetId} weapons={weapons} />}
+                    {advantages && <SpecialRuleList rulesetId={rulesetId} special_rules={advantages} header={"Advantages"} />}
+                    {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex rulesetId={rulesetId} cortexId={hardPointCortexOption}/>}
+                    {specialRules && <SpecialRuleList rulesetId={rulesetId} special_rules={specialRules} header={"Special Rules"}/>}
+                    {maneuvers && <ManeuverList rulesetId={rulesetId} maneuvers={maneuvers} header={"Maneuvers"}/>}
+                    {attachments && <AttachmentCards rulesetId={rulesetId} attachments={attachmentIds}/>}
                 </IonCardContent>
             </IonCard>
         );
@@ -356,7 +359,7 @@ function ModelCardViewer(props) {
 
             const all_special_rules = getAllSpecialRules(attachmentCardData.special_rules, attachmentCardData.cadre, attachmentCardData.type);
 
-            attachmentCards.push(<CardContent key={index} cardData={attachmentCardData} weapons={attachmentCardData.weapons} specialRules={all_special_rules} isAttachment={true}/>);
+            attachmentCards.push(<CardContent rulesetId={rulesetId} key={index} cardData={attachmentCardData} weapons={attachmentCardData.weapons} specialRules={all_special_rules} isAttachment={true}/>);
         });
         return <>
             <IonText color="secondary"><h1 style={{margin: 0, fontWeight: "bolder"}}>Attachments</h1></IonText>
@@ -389,7 +392,7 @@ function ModelCardViewer(props) {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <CardContent cardData={cardData} specialRules={all_special_rules} weapons={allWeapons} hardPointCortexOption={hardPointCortexOption} attachments={attachments}/>
+                <CardContent rulesetId={rulesetId} cardData={cardData} specialRules={all_special_rules} weapons={allWeapons} hardPointCortexOption={hardPointCortexOption} attachments={attachments}/>
             </IonContent>
         </IonPage>
     );

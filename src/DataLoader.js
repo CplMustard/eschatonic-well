@@ -16,27 +16,27 @@ const base = {
 };
 
 const rulesets = {
-    pp: { id: "pp", name: "Privateer Press", data: base },
+    pp: { id: "pp", name: "Privateer Press", data: ppData },
     vancaster: { id: "vancaster", name: "Van-caster", data: vancasterData }
 };
 
 const getRulesetData = (rulesetId) => {
-    const rulesetData = Object.keys(rulesets).find((ruleset) => ruleset.id === rulesetId);
-    return rulesetData ? rulesetData : base;
+    const ruleset = rulesets[rulesetId];
+    return ruleset ? ruleset.data : base;
 };
 
-const getCadresData = (rulesetId) => Object.assign(ppData.cadresData, getRulesetData(rulesetId).cadresData);
-const getCortexesData = (rulesetId) => Object.assign(ppData.cortexesData, getRulesetData(rulesetId).cortexesData);
-const getCyphersData = (rulesetId) => Object.assign(ppData.cyphersData, getRulesetData(rulesetId).cyphersData);
-const getCypherTypesData = (rulesetId) => Object.assign(ppData.cypherTypesData, getRulesetData(rulesetId).cypherTypesData);
-const getDamageTypesData = (rulesetId) => Object.assign(ppData.damageTypesData, getRulesetData(rulesetId).damageTypesData);
-const getFactionsData = (rulesetId) => Object.assign(ppData.factionsData, getRulesetData(rulesetId).factionsData);
-const getForceSizesData = (rulesetId) => Object.assign(ppData.forceSizesData, getRulesetData(rulesetId).forceSizesData);
-const getManeuversData = (rulesetId) => Object.assign(ppData.maneuversData, getRulesetData(rulesetId).maneuversData);
-const getModelsData = (rulesetId) => Object.assign(ppData.modelsData, getRulesetData(rulesetId).modelsData);
-const getModelTypesData = (rulesetId) => Object.assign(ppData.modelTypesData, getRulesetData(rulesetId).modelTypesData);
-const getSpecialRulesData = (rulesetId) => Object.assign(ppData.specialRulesData, getRulesetData(rulesetId).specialRulesData);
-const getWeaponsData = (rulesetId) => Object.assign(ppData.weaponsData, getRulesetData(rulesetId).weaponsData);
+const getCadresData = (rulesetId) => Object.assign(base.cadresData, getRulesetData(rulesetId).cadresData);
+const getCortexesData = (rulesetId) => Object.assign(base.cortexesData, getRulesetData(rulesetId).cortexesData);
+const getCyphersData = (rulesetId) => Object.assign(base.cyphersData, getRulesetData(rulesetId).cyphersData);
+const getCypherTypesData = (rulesetId) => Object.assign(base.cypherTypesData, getRulesetData(rulesetId).cypherTypesData);
+const getDamageTypesData = (rulesetId) => Object.assign(base.damageTypesData, getRulesetData(rulesetId).damageTypesData);
+const getFactionsData = (rulesetId) => Object.assign(base.factionsData, getRulesetData(rulesetId).factionsData);
+const getForceSizesData = (rulesetId) => Object.assign(base.forceSizesData, getRulesetData(rulesetId).forceSizesData);
+const getManeuversData = (rulesetId) => Object.assign(base.maneuversData, getRulesetData(rulesetId).maneuversData);
+const getModelsData = (rulesetId) => Object.assign(base.modelsData, getRulesetData(rulesetId).modelsData);
+const getModelTypesData = (rulesetId) => Object.assign(base.modelTypesData, getRulesetData(rulesetId).modelTypesData);
+const getSpecialRulesData = (rulesetId) => Object.assign(base.specialRulesData, getRulesetData(rulesetId).specialRulesData);
+const getWeaponsData = (rulesetId) => Object.assign(base.weaponsData, getRulesetData(rulesetId).weaponsData);
 
 export {
     getCadresData,

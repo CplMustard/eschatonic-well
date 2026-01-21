@@ -4,8 +4,10 @@ import { IonText } from "@ionic/react";
 import { getManeuversData } from "./DataLoader";
 
 function Maneuver(props) {
-    const manueversData = getManeuversData("pp");
-    
+    const { rulesetId } = props;
+
+    const manueversData = getManeuversData(rulesetId);
+
     const maneuverData = manueversData[props.maneuverId];
 
     return (

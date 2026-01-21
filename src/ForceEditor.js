@@ -19,13 +19,13 @@ function ForceEditor(props) {
     const history = useHistory();
     const [present] = useIonToast();
 
-    const cadresData = getCadresData("pp");
-    const modelsData = getModelsData("pp");
-    const weaponsData = getWeaponsData("pp");
-
     const [forceEmpty, setForceEmpty] = useState(true);
 
-    const { tabSelected, factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
+    const { tabSelected, rulesetId, factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
+    
+    const cadresData = getCadresData(rulesetId);
+    const modelsData = getModelsData(rulesetId);
+    const weaponsData = getWeaponsData(rulesetId);
 
     useEffect(() => {
         let newForceData = forceModelsData;
@@ -152,7 +152,7 @@ function ForceEditor(props) {
             newForceData = addAttachments(newForceData, modelData, addedModelNames);
         }
         
-        const canRemove = !isHidden(modelId, "pp");
+        const canRemove = !isHidden(modelId, rulesetId);
         const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         addedModelNames.push(modelData.name);
         newForceData = newForceData.concat(forceEntry);
@@ -182,7 +182,7 @@ function ForceEditor(props) {
     }
 
     function openModelCard(modelId, entryId) {
-        history.push(`/model/${modelId}`, { entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 });
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function addModelCards(modelIds) {
@@ -233,7 +233,7 @@ function ForceEditor(props) {
                     }, [weaponsData]);
                 }
 
-                const canRemove = !isHidden(modelId, "pp");
+                const canRemove = !isHidden(modelId, rulesetId);
                 const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
                 addedModelNames.push(modelData.name);
                 newSpecialIssueModelsData.push(forceEntry);
@@ -346,6 +346,7 @@ function ForceEditor(props) {
                 {forceEmpty && <IonText color="primary"><h2>Tap <i>Units</i> and add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
 
                 <ForceCardList 
+                    rulesetId={rulesetId} 
                     id={"Force"}
                     header={"Force"} 
                     forceEntries={forceModelsData} 
@@ -361,6 +362,7 @@ function ForceEditor(props) {
                 {specialIssueModelsData.length === 0 && <IonText color="primary"><h2>Add a unit to your Special Issue with <IonIcon slot="icon-only" icon={logOut}></IonIcon> to view them here.</h2></IonText>}
 
                 <ForceCardList 
+                    rulesetId={rulesetId} 
                     id={"ForceSpecialIssue"}
                     header={"Special Issue"} 
                     forceEntries={specialIssueModelsData} 
@@ -373,9 +375,10 @@ function ForceEditor(props) {
                 ></ForceCardList>
             </>}
             {tabSelected === forceTabs.units && <>
-                <CadreList cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
+                <CadreList rulesetId={rulesetId} cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
                 <br/>
                 <CardList 
+                    rulesetId={rulesetId} 
                     id={"ForceEditor"}
                     header={"Models"} 
                     cards={models} 

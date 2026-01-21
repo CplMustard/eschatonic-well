@@ -1,5 +1,3 @@
-import { getCypherTypesData, getModelTypesData } from "../DataLoader";
-
 export const cardSorting = (a, b) => {
     // wildcards should be sorted at the bottom in alphabetical order
     if (a.factions.length > 1 && b.factions.length === 1) return 1;
@@ -15,15 +13,15 @@ export const cardSorting = (a, b) => {
     return a.name.localeCompare(b.name);
 };
 
-// TODO: Need to handle if homebrew adds new model/cypher types, but we can safely default to the PP types for right now
 export const groupSorting = (a, b) => {
-    const typeA = a[0].split("|")[0];
-    const typeB = b[0].split("|")[0];
-    const isHiddenA = getModelTypesData("pp")[typeA] ? getModelTypesData("pp")[typeA].hidden : getCypherTypesData("pp")[typeA].hidden;
-    const isHiddenB = getModelTypesData("pp")[typeB] ? getModelTypesData("pp")[typeB].hidden : getCypherTypesData("pp")[typeB].hidden;
+    //const typeA = a[0].split("|")[0];
+    //const typeB = b[0].split("|")[0];
+    // element 2 is the isHidden property
+    //const isHiddenA = a[2];
+    //const isHiddenB = b[2];
     // sort hidden types at the bottom
-    if(!isHiddenA && isHiddenB) return -1;
-    if(isHiddenA && !isHiddenB) return 1;
+    //if(!isHiddenA && isHiddenB) return -1;
+    //if(isHiddenA && !isHiddenB) return 1;
     // sort groups by alphabetical order
     return a[0].localeCompare(b[0]);
 };

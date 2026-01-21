@@ -25,7 +25,6 @@ export const rackTabs = {rack: 0, special_issue: 1, cyphers: 2 };
 export const playTabs = {deployed: 0, reserves: 1, rack: 2 };
 
 function EditorView() {
-    
     const [presentAlert] = useIonAlert();
     const [present] = useIonToast();
 
@@ -59,9 +58,6 @@ function EditorView() {
     const [isLoadForceModalOpen, setIsLoadForceModalOpen] = useState(false);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
 
-    const factionsData = getFactionsData("pp");
-    const forceSizesData = getForceSizesData("pp");
-
     useEffect(() => {
         (async function () {
             await createForcesDir();
@@ -77,6 +73,9 @@ function EditorView() {
             }
         })();
     }, [forcesDirty]);
+
+    const factionsData = getFactionsData(rulesetId);
+    const forceSizesData = getForceSizesData(rulesetId);
 
     const presentToast = (message) => {
         present({
@@ -369,8 +368,6 @@ function EditorView() {
         }
     });
 
-    console.log(forceSizeId);
-    console.log(forceSizeOptions);
     const forceSize = forceSizesData[forceSizeId];
 
     return (
@@ -416,7 +413,7 @@ function EditorView() {
                         </IonRow>
                         <IonRow>
                             <IonCol size={"auto"}>
-                                <ModelCount models={forceModelsData} specialIssue={specialIssueModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
+                                <ModelCount rulesetId={rulesetId} models={forceModelsData} specialIssue={specialIssueModelsData} maxUnits={forceSize.units} freeHeroSolos={forceSize.hero_solos}/>
                             </IonCol>
                             <IonCol size={"auto"}>
                                 <CypherCount cyphers={forceCyphersData} specialIssue={specialIssueCyphersData} />
@@ -429,7 +426,7 @@ function EditorView() {
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 </>}
                 {(tabSelected === editorTabs.play) && <>
-                    {playRulesetId && <IonText color="primary"><h3>Faction: {rulesets[playRulesetId].name}</h3></IonText>}
+                    {playRulesetId && <IonText color="primary"><h3>Ruleset: {rulesets[playRulesetId].name}</h3></IonText>}
                     {playFactionId && <IonText color="primary"><h3>Faction: {factionsData[playFactionId].name}</h3></IonText>}
                     {playForceSizeId && <IonText color="primary"><h3>Force Size: {forceSizesData[playForceSizeId].name}</h3></IonText>}
                     {playForceName && <IonText color="primary"><h2>Force Name: {playForceName}</h2></IonText>}
@@ -442,6 +439,7 @@ function EditorView() {
 
                 {tabSelected === editorTabs.force && <ForceEditor 
                     tabSelected={forceTabSelected}
+                    rulesetId={rulesetId}
                     factionId={factionId}
                     forceName={forceName} 
                     forceModelsData={forceModelsData} 
@@ -452,6 +450,7 @@ function EditorView() {
                 
                 {tabSelected === editorTabs.rack && <RackEditor 
                     tabSelected={rackTabSelected}
+                    rulesetId={rulesetId}
                     factionId={factionId}
                     forceCyphersData={forceCyphersData}
                     setForceCyphersData={setForceCyphersData}
@@ -460,11 +459,13 @@ function EditorView() {
                 ></RackEditor>}
 
                 {tabSelected === editorTabs.cards && <CardListViewer 
+                    rulesetId={rulesetId}
                     factionId={cardViewFactionId}
                 ></CardListViewer>}
 
                 {tabSelected === editorTabs.play && <PlayModeViewer
                     tabSelected={playTabSelected}
+                    rulesetId={playRulesetId}
                     forceModelsData={playForceModelsData} 
                     setForceModelsData={setPlayForceModelsData} 
                     specialIssueModelsData={playSpecialIssueModelsData} 

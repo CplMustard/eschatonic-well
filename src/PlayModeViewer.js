@@ -15,14 +15,16 @@ function PlayModeViewer(props) {
 
     const history = useHistory();
     const [present] = useIonToast();
-
-    const modelsData = getModelsData("pp");
-
+    
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
 
     const [isDeployUnitModalOpen, setIsDeployUnitModalOpen] = useState(false);
     const [currentUnitAttachments, setCurrentUnitAttachments] = useState([]);
     const [currentUnitStatus, setCurrentUnitStatus] = useState({});
+
+    const { rulesetId } = props;
+
+    const modelsData = getModelsData(rulesetId);
     
     const presentToast = (message) => {
         present({
@@ -39,11 +41,11 @@ function PlayModeViewer(props) {
     const specialIssueCyphers = props.specialIssueCyphersData;
 
     function openModelCard(modelId, entryId) {
-        history.push(`/model/${modelId}`, { entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function openCypherCard(cypherId) {
-        history.push(`/cypher/${cypherId}`, { isPlayMode: true });
+        history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId, isPlayMode: true });
     }
 
     function createUnitStatus(entryId) {
@@ -186,10 +188,11 @@ function PlayModeViewer(props) {
 
     return (
         <div className="container">
-            <DeployUnitModal isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} cancelDeploy={cancelDeploy} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
+            <DeployUnitModal rulesetId={rulesetId} isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} cancelDeploy={cancelDeploy} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
             {(tabSelected === playTabs.deployed) && <>
                 <IonText><h3>Tap Reserves and deploy a unit with <IonIcon slot="icon-only" icon={download}></IonIcon> to track their status here. Recall units with <IonIcon slot="icon-only" icon={push}></IonIcon></h3></IonText>
                 <ForceCardList
+                    rulesetId={rulesetId} 
                     id={"PlayDeployed"}
                     header={"Deployed"}
                     forceEntries={deployedModels} 
@@ -209,6 +212,7 @@ function PlayModeViewer(props) {
             </>}
             {(tabSelected === playTabs.reserves) && <>
                 <ForceCardList 
+                    rulesetId={rulesetId} 
                     id={"PlayReserves"} 
                     header={"Models"} 
                     forceEntries={models} 
@@ -220,11 +224,11 @@ function PlayModeViewer(props) {
                     ]}
                 >
                 </ForceCardList>
-                <ForceCardList id={"PlaySpecialIssueModels"} header={"Special Issue"} forceEntries={specialIssueModels} handleCardClicked={openModelCard}></ForceCardList>
+                <ForceCardList rulesetId={rulesetId} id={"PlaySpecialIssueModels"} header={"Special Issue"} forceEntries={specialIssueModels} handleCardClicked={openModelCard}></ForceCardList>
             </>}
             {(tabSelected === playTabs.rack) && <>
-                <ForceCardList id={"PlayCyphers"} header={"Cyphers"} forceEntries={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
-                <ForceCardList id={"PlaySpecialIssueCyphers"} header={"Special Issue"} forceEntries={specialIssueCyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
+                <ForceCardList rulesetId={rulesetId} id={"PlayCyphers"} header={"Cyphers"} forceEntries={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
+                <ForceCardList rulesetId={rulesetId} id={"PlaySpecialIssueCyphers"} header={"Special Issue"} forceEntries={specialIssueCyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
             </>}
         </div>
     );

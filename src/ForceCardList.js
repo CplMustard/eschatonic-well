@@ -10,16 +10,17 @@ import UnitStatus from "./UnitStatus.js";
 import { getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 function ForceCardList(props) {
-    const cypherTypesData = getCypherTypesData("pp");
-    const modelTypesData = getModelTypesData("pp");
+    const { rulesetId, id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
-    const { id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
+    const cypherTypesData = getCypherTypesData(rulesetId);
+    const modelTypesData = getModelTypesData(rulesetId);
 
     const forceGroupComponents = [];
     const forceGroups = forceEntries.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
         const type = isChampion ? "champion" : current["type"] + (isHero ? "|hero" : "");
+        //const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
@@ -96,6 +97,7 @@ function ForceCardList(props) {
                     {entry.hard_points && <IonRow>
                         <IonCol>
                             <HardPointList 
+                                rulesetId={rulesetId}
                                 hard_points={entry.hard_points} 
                                 hardPointOptions={entry.hardPointOptions} 
                                 weaponPoints={entry.weapon_points} 
@@ -107,6 +109,7 @@ function ForceCardList(props) {
                     {statusEntry && <IonRow>
                         <IonCol>
                             <UnitStatus 
+                                rulesetId={rulesetId} 
                                 id={entry.id} 
                                 entry={statusEntry}
                                 handleCardClicked={handleCardClicked}

@@ -8,11 +8,11 @@ import { cadreSorting } from "./util/sortingUtil";
 function CadreList(props) {
     const history = useHistory();
     
-    const { cadresData, addModelCards, factionId } = props;
+    const { rulesetId, cadresData, addModelCards, factionId } = props;
     const cadreButtonComponents = [];
 
     function handleCadreClicked(id) {
-        history.push(`/cadre/${id}`);
+        history.push(`/cadre/${id}`, { rulesetId: rulesetId });
     }
     Object.entries(cadresData).sort(cadreSorting).forEach(([key, value]) => {
         if(factionId === "all" || value.faction === factionId) {

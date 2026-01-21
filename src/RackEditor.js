@@ -17,10 +17,10 @@ function RackEditor(props) {
 
     const history = useHistory();
     const [present] = useIonToast();
+    
+    const { tabSelected, rulesetId, factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
 
-    const cyphersData = getCyphersData();
-
-    const { tabSelected, factionId, forceCyphersData, setForceCyphersData, specialIssueCyphersData, setSpecialIssueCyphersData } = props;
+    const cyphersData = getCyphersData(rulesetId);
 
     const presentToast = (message) => {
         present({
@@ -37,7 +37,7 @@ function RackEditor(props) {
     }
 
     function openCypherCard(id) {
-        history.push(`/cypher/${id}`);
+        history.push(`/cypher/${id}`, { rulesetId: rulesetId });
     }
 
     function addCypherCards(cypherIds) {
@@ -143,6 +143,7 @@ function RackEditor(props) {
         <div>
             {tabSelected === rackTabs.rack && <>
                 <ForceCardList 
+                    rulesetId={rulesetId} 
                     id={"Rack"}
                     header={"Rack"} 
                     forceEntries={forceCyphersData} 
@@ -158,6 +159,7 @@ function RackEditor(props) {
             </>}
             {tabSelected === rackTabs.special_issue && <>
                 <ForceCardList 
+                    rulesetId={rulesetId} 
                     id={"RackSpecialIssue"}
                     header={"Special Issue"} 
                     forceEntries={specialIssueCyphersData} 
@@ -172,6 +174,7 @@ function RackEditor(props) {
             </>}
             {tabSelected === rackTabs.cyphers && <>
                 <CardList 
+                    rulesetId={rulesetId} 
                     id={"CypherEditor"}
                     header={"Cyphers"} 
                     cards={remainingCypherCardList} 

@@ -4,7 +4,9 @@ import { IonText, IonItem, IonList } from "@ionic/react";
 import { getSpecialRulesData } from "./DataLoader";
 
 function SpecialRule(props) {
-    const specialRulesData = getSpecialRulesData("pp");
+    const { rulesetId } = props;
+
+    const specialRulesData = getSpecialRulesData(rulesetId);
 
     const ruleParts = props.ruleId.split("|");
     const ruleId = ruleParts.shift(); //don't include template strings in ID
@@ -19,7 +21,7 @@ function SpecialRule(props) {
         ruleString = ruleString.replaceAll(`{${index}}`, argument);
     });
     const subrules = ruleData.subrules;
-    const subruleEntries = subrules ? subrules.map((subrule) => <IonItem key={subrule}><SpecialRule ruleId={subrule}/></IonItem>) : undefined;
+    const subruleEntries = subrules ? subrules.map((subrule) => <IonItem key={subrule}><SpecialRule rulesetId={rulesetId} ruleId={subrule}/></IonItem>) : undefined;
     return (
         <div>
             <IonText style={{fontWeight: "bold"}}>{ruleTitleString}</IonText><IonText><div className="rules-text">{ruleString}</div></IonText>

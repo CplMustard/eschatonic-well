@@ -7,15 +7,17 @@ import { cardSorting, groupSorting } from "./util/sortingUtil";
 import { getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 function CardList(props) {
-    const cypherTypesData = getCypherTypesData("pp");
-    const modelTypesData = getModelTypesData("pp");
+    const { rulesetId, id, cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
 
-    const { id, cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
+    const cypherTypesData = getCypherTypesData(rulesetId);
+    const modelTypesData = getModelTypesData(rulesetId);
+
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
         const type = isChampion ? "champion" : current["type"] + (isHero ? "|hero" : "");
+        //const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});

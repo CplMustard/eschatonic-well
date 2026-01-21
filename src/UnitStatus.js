@@ -5,7 +5,9 @@ import { add, bodyOutline, create, remove, checkmarkCircle, checkmarkCircleOutli
 import { getModelsData } from "./DataLoader";
 
 function UnitStatus(props) {
-    const modelsData = getModelsData("pp");
+    const { rulesetId } = props;
+
+    const modelsData = getModelsData(rulesetId);
 
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode, collapsible } = props;
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
