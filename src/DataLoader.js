@@ -2,7 +2,7 @@ import { ppData, vancasterData } from "./data";
 
 const rulesets = {
     pp: { id: "pp", name: "Privateer Press", data: ppData },
-    vancaster: { id: "vancaster", name: "Van-caster", data: vancasterData }
+    vancaster: { id: "vancaster", name: "Remix", data: vancasterData }
 };
 
 const getRulesetData = (rulesetId) => {
