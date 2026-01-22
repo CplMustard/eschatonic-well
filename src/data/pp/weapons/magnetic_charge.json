@@ -5,7 +5,7 @@
         "type": "melee", 
         "damage_types": ["explosion"], 
         "rng": 2, 
-        "pow": 5,
+        "pow": 4,
         "special_rules": ["blast", "delayed_blast"]
     }]
 }
