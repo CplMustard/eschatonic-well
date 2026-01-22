@@ -1,17 +1,15 @@
 import React from "react";
 import { IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
 
-const forcesExtension = ".esch";
-
-function LoadForceModal (props) {    
+function LoadModal (props) {    
     const [presentAlert] = useIonAlert();
 
-    const { isOpen, setIsOpen, forceFiles, loadForce, deleteForce } = props;
+    const { isOpen, setIsOpen, title, fileTypeName, fileExtension, files, filterFiles, loadFile, deleteFile } = props;
 
-    const loadForceConfirm = (forceName, filename) => {
+    const loadFileConfirm = (name, filename) => {
         presentAlert({
-            header: `Load Force ${forceName}?`,
-            message: "This action will clear your force",
+            header: `Load ${fileTypeName} ${name}?`,
+            message: `This action will clear your ${fileTypeName}`,
             buttons: [
                 {
                     text: "Cancel",
@@ -22,7 +20,7 @@ function LoadForceModal (props) {
                     text: "OK",
                     role: "confirm",
                     handler: () => {
-                        loadForce(filename);
+                        loadFile(filename);
                         setIsOpen(false);
                     },
                 },
@@ -31,10 +29,10 @@ function LoadForceModal (props) {
         });
     };
 
-    const deleteForceConfirm = (forceName, filename) => {
+    const deleteFileConfirm = (name, filename) => {
         presentAlert({
-            header: `Delete Force ${forceName}?`,
-            message: "This action will delete this force permanently",
+            header: `Delete ${fileTypeName} ${name}?`,
+            message: `This action will delete this ${fileTypeName} permanently`,
             buttons: [
                 {
                     text: "Cancel",
@@ -45,9 +43,9 @@ function LoadForceModal (props) {
                     text: "OK",
                     role: "confirm",
                     handler: () => {
-                        deleteForce(filename);
-                        //Close modal if this force is the last one
-                        if(forceFiles.length === 1) {
+                        deleteFile(filename);
+                        //Close modal if this file is the last one
+                        if(files.length === 1) {
                             setIsOpen(false);
                         }
                     },
@@ -57,22 +55,24 @@ function LoadForceModal (props) {
         });
     };
 
-    const loadForceButtons = [];
-    forceFiles.forEach((file, index) => {
-        const forceName = file.fileInfo.name.replace(forcesExtension, "");
+    const loadFileButtons = [];
+    files.forEach((file, index) => {
+        const fileName = file.fileInfo.name.replace(fileExtension, "");
         const factionId = file.factionId;
-        loadForceButtons.push(<IonRow key={index}>
-            <IonCol>
-                <IonButton className={factionId} expand="block" onClick={() => loadForceConfirm(forceName, file.fileInfo.name)}>
-                    <div>{forceName}</div>
-                </IonButton>
-            </IonCol>
-            {deleteForce && <IonCol size="auto">
-                <IonButton expand="block" onClick={() => deleteForceConfirm(forceName, file.fileInfo.name)}>
-                    DELETE
-                </IonButton>
-            </IonCol>}
-        </IonRow>);
+        if(filterFiles ? filterFiles(file) : true) {
+            loadFileButtons.push(<IonRow key={index}>
+                <IonCol>
+                    <IonButton className={factionId} expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>
+                        <div>{fileName}</div>
+                    </IonButton>
+                </IonCol>
+                {deleteFile && <IonCol size="auto">
+                    <IonButton expand="block" onClick={() => deleteFileConfirm(fileName, file.fileInfo.name)}>
+                        DELETE
+                    </IonButton>
+                </IonCol>}
+            </IonRow>);
+        }
     });
 
 
@@ -83,14 +83,14 @@ function LoadForceModal (props) {
                     <IonButtons slot="start">
                         <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
                     </IonButtons>
-                    <IonTitle>Load Forcelist</IonTitle>
+                    <IonTitle>{title}</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                {forceFiles.length !== 0 && <IonGrid>{loadForceButtons}</IonGrid>}
+                {files.length !== 0 && <IonGrid>{loadFileButtons}</IonGrid>}
             </IonContent>
         </IonModal>
     );
 }
 
-export default LoadForceModal;
+export default LoadModal;

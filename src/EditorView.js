@@ -9,7 +9,7 @@ import { copyForceToText } from "./util/copyForceToText";
 import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
 import CardListViewer from "./CardListViewer";
-import LoadForceModal from "./LoadForceModal";
+import LoadModal from "./LoadModal";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
 import PlayModeViewer from "./PlayModeViewer";
@@ -18,7 +18,9 @@ import VersionNumber from "./VersionNumber";
 import { getFactionsData, getForceSizesData, rulesets } from "./DataLoader";
 
 const forcesPath = "eschatonic-well/forces/";
+const racksPath = "eschatonic-well/racks/";
 const forcesExtension = ".esch";
+const racksExtension = ".rack";
 
 const editorTabs = {force: 0, rack: 1, cards: 2, play: 3};
 export const forceTabs = {force: 0, special_issue: 1, units: 2 };
@@ -40,6 +42,7 @@ function EditorView() {
     const [forceSizeId, setForceSizeId] = useLocalStorageState("forceSize", {defaultValue: "custom"});
 
     const [forceName, setForceName] = useSessionStorageState("forceName", {defaultValue: "New Force"});
+    const [rackName, setRackName] = useSessionStorageState("rackName", {defaultValue: "New Rack"});
     const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: [], listenStorageChange: true});
     const [forceCyphersData, setForceCyphersData] = useSessionStorageState("forceCyphersData", {defaultValue: [], listenStorageChange: true});
     const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: [], listenStorageChange: true});
@@ -54,26 +57,36 @@ function EditorView() {
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
     const [playSpecialIssueCyphersData, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
-    const [forcesDirty, setForcesDirty] = useState(true);
+    const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
+    const [rackFiles, setRackFiles] = useState([]);
     const [isLoadForceModalOpen, setIsLoadForceModalOpen] = useState(false);
+    const [isLoadRackModalOpen, setIsLoadRackModalOpen] = useState(false);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
-            await createForcesDir();
-            const result = await listForces();
-            if(forcesDirty && result) {
+            await createDir(forcesPath);
+            await createDir(racksPath);
+            const forcesResult = await listFiles(forcesPath);
+            const racksResult = await listFiles(racksPath);
+            if(filesDirty && (forcesResult && racksResult)) {
                 const forces = [];
-                for await (const file of result.files) {
-                    const factionId = await getFactionIdFromForce(file.name);
+                const racks = [];
+                for await (const file of forcesResult.files) {
+                    const factionId = await getFactionIdFromFile(forcesPath, file.name);
                     forces.push({fileInfo: file, factionId: factionId});
                 }
+                for await (const file of racksResult.files) {
+                    const factionId = await getFactionIdFromFile(racksPath, file.name);
+                    racks.push({fileInfo: file, factionId: factionId});
+                }
                 setForceFiles(forces);
-                setForcesDirty(false);
+                setRackFiles(racks);
+                setFilesDirty(false);
             }
         })();
-    }, [forcesDirty]);
+    }, [filesDirty]);
 
     const factionsData = getFactionsData(rulesetId);
     const forceSizesData = getForceSizesData(rulesetId);
@@ -186,13 +199,13 @@ function EditorView() {
         });
     };
 
-    const createForcesDir = async () => {
+    const createDir = async (path) => {
         try {
-            listForces();
+            listFiles(path);
             return;
         } catch (e) {
             const result = await Filesystem.mkdir({
-                path: forcesPath,
+                path: path,
                 directory: Directory.Data,
                 recursive: true
             });
@@ -201,23 +214,23 @@ function EditorView() {
         }
     };
 
-    const listForces = async () => {
+    const listFiles = async (path) => {
         try {
             const result = await Filesystem.readdir({
-                path: forcesPath,
+                path: path,
                 directory: Directory.Data
             });
             
             return result;
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
-    const getFactionIdFromForce = async (filename) => {
+    const getFactionIdFromFile = async (path, filename) => {
         try {
             const result = await Filesystem.readFile({
-                path: `${forcesPath}${filename}`,
+                path: `${path}${filename}`,
                 directory: Directory.Data,
                 encoding: Encoding.UTF8,
             });
@@ -225,7 +238,7 @@ function EditorView() {
             const json = JSON.parse(result.data);
             return json.factionId;
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
@@ -250,18 +263,18 @@ function EditorView() {
                 recursive: true
             });
             
-            setForcesDirty(true);
+            setFilesDirty(true);
             presentToast(`Force saved as ${forceName} successfully`);
             return result;
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
     const saveForceConfirm = async (forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         let showOverwriteWarning = false;
         const sanitizedForceName = sanitize(forceName);
-        const result = await listForces();
+        const result = await listFiles(forcesPath);
         if(result && result.files) {
             showOverwriteWarning = result.files.find((file) => file.name.replace(forcesExtension, "") === sanitizedForceName);
         }
@@ -305,7 +318,7 @@ function EditorView() {
             
             presentToast(`Force ${json.forceName} loaded successfully`);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
@@ -330,7 +343,7 @@ function EditorView() {
             
             presentToast(`Force ${json.forceName} loaded successfully`);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
@@ -340,12 +353,99 @@ function EditorView() {
                 path: `${forcesPath}${filename}`,
                 directory: Directory.Data,
             });
-            setForcesDirty(true);
+            setFilesDirty(forcesPath, true);
             
             presentToast(`Force ${filename.replace(forcesExtension, "")} deleted successfully`);
             return result;
         } catch (e) {
-            console.log(e);
+            console.error(e);
+        }
+    };
+
+    const getRackFactionId = (forceCyphersData, specialIssueCyphersData) => {
+        // TODO: don't save files if they have more than one faction's cypher's represented or flag them special somehow
+        const allCyphers = forceCyphersData.concat(specialIssueCyphersData);
+        // This breaks if the faction of a card is ["all", "anything else"], this is undefined behaviour though
+        const factionCypher = allCyphers.find((cypher) => cypher.factions.indexOf("all") === -1);
+        // Since there are no multi-faction cyphers to worry about we can just grab the first faction we find
+        return factionCypher ? factionCypher.factions[0] : "all";
+    };
+
+    const filterRacks = (file) => {
+        return file.factionId === factionId || file.factionId === "all";
+    };
+
+    const saveRack = async (rackName, rulesetId, forceCyphersData, specialIssueCyphersData) => {
+        const factionId = getRackFactionId(forceCyphersData, specialIssueCyphersData);
+        const json = {
+            "rackName": rackName,
+            "rulesetId": rulesetId,
+            "factionId": factionId,
+            "forceCyphersData": forceCyphersData,
+            "specialIssueModelsData": specialIssueModelsData,
+            "specialIssueCyphersData": specialIssueCyphersData
+        };
+        const filename = sanitize(rackName);
+        try {
+            const result = await Filesystem.writeFile({
+                path: `${racksPath}${filename}${racksExtension}`,
+                data: JSON.stringify(json),
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+                recursive: true
+            });
+            
+            setFilesDirty(true);
+            presentToast(`Rack saved as ${rackName} successfully`);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const saveRackConfirm = async (rackName, rulesetId, forceCyphersData, specialIssueCyphersData) => {
+        let showOverwriteWarning = false;
+        const sanitizedRackName = sanitize(rackName);
+        const result = await listFiles(racksPath);
+        if(result && result.files) {
+            showOverwriteWarning = result.files.find((file) => file.name.replace(racksExtension, "") === sanitizedRackName);
+        }
+        presentAlert({
+            header: "Save Rack?",
+            message: showOverwriteWarning ? `Overwrite the rack saved as ${sanitizedRackName}?` : `Save current rack as ${sanitizedRackName}?`,
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: () => {},
+                },
+                {
+                    text: "OK",
+                    role: "confirm",
+                    handler: () => {saveRack(rackName, rulesetId, forceCyphersData, specialIssueCyphersData);},
+                },
+            ],
+            onDidDismiss: () => {}
+        });
+    };
+
+    const loadRack = async (filename) => {
+        try {
+            const result = await Filesystem.readFile({
+                path: `${racksPath}${filename}`,
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+            });
+            
+            const json = JSON.parse(result.data);
+            //Forces saved in earlier versions won't have a ruleset, so assume pp
+            setRulesetId(json.rulesetId ? json.rulesetId : "pp");
+            setForceCyphersData(json.forceCyphersData);
+            setSpecialIssueCyphersData(json.specialIssueCyphersData);
+            
+            presentToast(`Rack ${json.rackName} loaded successfully`);
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -396,17 +496,21 @@ function EditorView() {
                 </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
-                <LoadForceModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} forceFiles={forceFiles} loadForce={loadForce} deleteForce={deleteForce}></LoadForceModal>
-                <LoadForceModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} forceFiles={forceFiles} loadForce={loadPlayForce}></LoadForceModal>
+                <LoadModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadForce} deleteFile={deleteForce}></LoadModal>
+                <LoadModal isOpen={isLoadRackModalOpen} setIsOpen={setIsLoadRackModalOpen} title={"Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} files={rackFiles} filterFiles={filterRacks} loadFile={loadRack}></LoadModal>
+                <LoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></LoadModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSizeId} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h2>Force Name: <IonInput type="text" fill="solid" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
+                    <IonText color="primary"><h2>Rack Name: <IonInput type="text" fill="solid" value={rackName} onIonChange={(e) => setRackName(sanitize(e.target.value))}/></h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE FORCE AND RACK</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD FORCE AND RACK</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {saveRackConfirm(rackName, rulesetId, forceCyphersData, specialIssueCyphersData);}}><div>SAVE RACK ONLY</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadRackModalOpen(true);}}>LOAD RACK ONLY</IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {
                                 copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
                                 presentToast("Force copied to clipboard");
