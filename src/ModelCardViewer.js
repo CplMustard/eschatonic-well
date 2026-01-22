@@ -264,8 +264,8 @@ function ModelCardViewer(props) {
 
     function CardHeader(props) {
         const { rulesetId, cardData, isAttachment } = props;
-        const { name, changes, weapons, type, subtypes, factions, dc, stats, base_size, squad_size, special_rules, advantages, maneuvers } = cardData;
-        const { boxes } = stats;
+        const { name, changes, weapons, type, subtypes, factions,stats, special_rules, advantages, maneuvers } = cardData;
+        const { dc, base_size, squad_size, boxes } = stats;
         const factionNames = [];
         const subtypeNames = [];
         const unitStatusEntry = getUnitStatusEntry(entryId);
