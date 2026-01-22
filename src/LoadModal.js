@@ -60,6 +60,7 @@ function LoadModal (props) {
         const fileName = file.fileInfo.name.replace(fileExtension, "");
         const factionId = file.factionId;
         if(filterFiles ? filterFiles(file) : true) {
+            console.log(factionId);
             loadFileButtons.push(<IonRow key={index}>
                 <IonCol>
                     <IonButton className={factionId} expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>

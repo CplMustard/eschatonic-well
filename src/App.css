@@ -122,6 +122,10 @@ hr {
 	--background: var(--ion-color-primary);
 }
 
+.multi {
+	--background: DarkSlateGray;
+}
+
 .emp {
 	--ion-background-color: #2f1f2f;
 	--ion-background-color-rgb: 47,31,47;

@@ -363,16 +363,22 @@ function EditorView() {
     };
 
     const getRackFactionId = (forceCyphersData, specialIssueCyphersData) => {
-        // TODO: don't save files if they have more than one faction's cypher's represented or flag them special somehow
         const allCyphers = forceCyphersData.concat(specialIssueCyphersData);
-        // This breaks if the faction of a card is ["all", "anything else"], this is undefined behaviour though
-        const factionCypher = allCyphers.find((cypher) => cypher.factions.indexOf("all") === -1);
-        // Since there are no multi-faction cyphers to worry about we can just grab the first faction we find
-        return factionCypher ? factionCypher.factions[0] : "all";
+        const factionCyphers = allCyphers.filter((cypher) => cypher.factions.some((faction) => faction !== "all"));
+        console.log(factionCyphers);
+        const collectedFactionIds = new Set();
+        factionCyphers.forEach((cypher) => {
+            cypher.factions.forEach((faction) => {
+                collectedFactionIds.add(faction);
+            });
+        });
+        // Assuming there are no multi-faction cyphers, which currently don't exist
+        const factionId = collectedFactionIds.size === 1 ? collectedFactionIds.keys().next().value : collectedFactionIds.size < 1 ? "all" : "multi";
+        return factionId;
     };
 
     const filterRacks = (file) => {
-        return file.factionId === factionId || file.factionId === "all";
+        return file.factionId === "multi" && factionId == "all" || file.factionId === factionId || file.factionId === "all";
     };
 
     const saveRack = async (rackName, rulesetId, forceCyphersData, specialIssueCyphersData) => {
