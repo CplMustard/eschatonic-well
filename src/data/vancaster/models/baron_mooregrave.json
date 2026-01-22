@@ -24,8 +24,7 @@
     ],
     "special_rules": [
         "living_terror",
-        "phase_stalker",
-        "field_reinforcement"
+        "phase_stalker"
     ], 
     "changes": [
         "Increased DEF to 4.",
