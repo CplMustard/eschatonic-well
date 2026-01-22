@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton } from "@ionic/react";
 
 import CardList from "./CardList";
+import VersionNumber from "./VersionNumber";
 
 import { getCadresData, getModelsData } from "./DataLoader";
 
@@ -25,6 +26,7 @@ function CadreViewer(props) {
     return (
         <IonPage className={cadresData[cadreId].faction}>
             <IonHeader>
+                <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton></IonBackButton>

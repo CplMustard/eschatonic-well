@@ -104,6 +104,14 @@ hr {
 	margin: 1rem;
 }
 
+.version-number {
+	position: absolute;
+	right: 0.5rem;
+	opacity: 0.5;
+	background: transparent;
+	z-index: 9999;
+}
+
 .ac {
 	--ion-background-color: #312020;
 	--ion-background-color-rgb: 49,32,32;

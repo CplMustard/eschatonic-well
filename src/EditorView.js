@@ -13,6 +13,7 @@ import LoadForceModal from "./LoadForceModal";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
 import PlayModeViewer from "./PlayModeViewer";
+import VersionNumber from "./VersionNumber";
 
 import { getFactionsData, getForceSizesData, rulesets } from "./DataLoader";
 
@@ -373,6 +374,7 @@ function EditorView() {
     return (
         <IonPage className={(tabSelected === editorTabs.cards ? cardViewFactionId : tabSelected === editorTabs.play ? playFactionId : factionId)}>
             <IonHeader>
+                <VersionNumber/>
                 <IonToolbar>
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
                         scrollToTop();
