@@ -119,11 +119,11 @@ function SaveLoadModal (props) {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <IonTitle>Load {fileTypeName[0].toUpperCase() + fileTypeName.slice(1)}:</IonTitle>
+                <IonText color="primary"><h2 className="label" style={{marginBottom:"0"}}>Load {fileTypeName[0].toUpperCase() + fileTypeName.slice(1)}:</h2></IonText>
                 {files.length !== 0 && <IonGrid>{loadFileButtons}</IonGrid>}
             </IonContent>
             {!disableSave && <IonFooter>
-                <IonText color="primary"><h2>Save {fileTypeName} as: <IonInput type="text" fill="solid" value={fileName} onIonChange={(e) => setFileName(sanitize(e.target.value))}/></h2></IonText>
+                <IonText color="primary"><h2 className="label">Save {fileTypeName} as: <IonInput type="text" fill="solid" value={fileName} onIonChange={(e) => setFileName(sanitize(e.target.value))}/></h2></IonText>
                 <IonButton expand="block" onClick={() => saveFileConfirm(fileName, fileData)}>
                     <div>Save {fileTypeName}</div>
                 </IonButton>

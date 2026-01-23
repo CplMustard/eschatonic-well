@@ -343,7 +343,7 @@ function ForceEditor(props) {
     return (
         <>
             {tabSelected === forceTabs.force && <>
-                {forceEmpty && <IonText color="primary"><h2>Tap <i>Units</i> and add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
+                {forceEmpty && <IonText color="primary"><h2 className={"label"}>Tap <i>Units</i> and add a unit to your Force with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
 
                 <ForceCardList 
                     rulesetId={rulesetId} 

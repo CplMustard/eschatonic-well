@@ -473,10 +473,10 @@ function EditorView() {
                 <SaveLoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} disableSave={true} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></SaveLoadModal>
 
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
-                    <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSizeId} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h2>Force Name: {forceName}</h2></IonText>
+                    <IonText color="primary"><h3 className="label"><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
+                    <IonText color="primary"><h3 className="label"><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+                    <IonText color="primary"><h3 className="label"><IonSelect label="Force Size:" justify="start" value={forceSizeId} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
+                    <IonText color="primary"><h2 className="label">Force Name: {forceName}</h2></IonText>
                     <IonGrid>
                         <IonRow>
                             <IonCol><IonButton expand="block" onClick={() => {setIsSaveLoadForceModalOpen(true);}}><div>SAVE/LOAD FORCE AND RACK</div></IonButton></IonCol>
@@ -498,14 +498,14 @@ function EditorView() {
                     </IonGrid>
                 </>}
                 {(tabSelected === editorTabs.cards) && <>
-                    <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
+                    <IonText color="primary"><h3 className="label"><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
+                    <IonText color="primary"><h3 className="label"><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                 </>}
                 {(tabSelected === editorTabs.play) && <>
-                    {playRulesetId && <IonText color="primary"><h3>Ruleset: {rulesets[playRulesetId].name}</h3></IonText>}
-                    {playFactionId && <IonText color="primary"><h3>Faction: {factionsData[playFactionId].name}</h3></IonText>}
-                    {playForceSizeId && <IonText color="primary"><h3>Force Size: {forceSizesData[playForceSizeId].name}</h3></IonText>}
-                    {playForceName && <IonText color="primary"><h2>Force Name: {playForceName}</h2></IonText>}
+                    {playRulesetId && <IonText color="primary"><h3 className="label">Ruleset: {rulesets[playRulesetId].name}</h3></IonText>}
+                    {playFactionId && <IonText color="primary"><h3 className="label">Faction: {factionsData[playFactionId].name}</h3></IonText>}
+                    {playForceSizeId && <IonText color="primary"><h3 className="label">Force Size: {forceSizesData[playForceSizeId].name}</h3></IonText>}
+                    {playForceName && <IonText color="primary"><h2 className="label">Force Name: {playForceName}</h2></IonText>}
                     <IonGrid>
                         <IonRow>
                             <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadPlayForceModalOpen(true);}}>LOAD</IonButton></IonCol>

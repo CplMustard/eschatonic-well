@@ -14,14 +14,11 @@ export const cardSorting = (a, b) => {
 };
 
 export const groupSorting = (a, b) => {
-    //const typeA = a[0].split("|")[0];
-    //const typeB = b[0].split("|")[0];
-    // element 2 is the isHidden property
-    //const isHiddenA = a[2];
-    //const isHiddenB = b[2];
+    const isHiddenA = a[0].split("|").find((type) => type === "hidden");
+    const isHiddenB = b[0].split("|").find((type) => type === "hidden");
     // sort hidden types at the bottom
-    //if(!isHiddenA && isHiddenB) return -1;
-    //if(isHiddenA && !isHiddenB) return 1;
+    if(!isHiddenA && isHiddenB) return -1;
+    if(isHiddenA && !isHiddenB) return 1;
     // sort groups by alphabetical order
     return a[0].localeCompare(b[0]);
 };

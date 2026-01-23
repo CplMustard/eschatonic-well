@@ -16,8 +16,8 @@ function CardList(props) {
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
-        const type = isChampion ? "champion" : current["type"] + (isHero ? "|hero" : "");
-        //const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
+        const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
+        const type = isChampion ? "champion" : current["type"] + (isHero ? "|hero" : "") + (isHidden ? "|hidden" : "");
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
@@ -96,7 +96,7 @@ function CardList(props) {
                 }
             });
 
-            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]].name} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
+            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             cardGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
                     <IonItem slot="header" color="tertiary">
@@ -111,8 +111,8 @@ function CardList(props) {
     });
     return <>
         {cards.length !== 0 && <><IonLabel color="primary"><h1>{header}</h1></IonLabel>
-        <IonButton fill="outline" onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
-        <IonButton fill="outline" onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
+        <IonButton fill="outline" className={"label"} onClick={() => {collapseAll();}}><div>COLLAPSE ALL</div></IonButton>
+        <IonButton fill="outline" className={"label"} onClick={() => {expandAll();}}><div>EXPAND ALL</div></IonButton>
         <IonAccordionGroup id={id} ref={accordionGroup} multiple={true} onIonChange={accordionGroupChange}>
             <IonList>{cardGroupComponents}</IonList>
         </IonAccordionGroup></>}
