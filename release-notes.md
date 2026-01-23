@@ -62,12 +62,20 @@
 
  # 0.4.0:
  ## New Features 
- - Users can now swap rulesets, currently supports default PP and Van-caster rulesets, note that Van-caster is still in Beta and rules are subject to change
+ - Users can now swap rulesets, currently supports default PP and Warcaster: Remix rulesets, note that Warcaster: Remix is still in Beta and rules are subject to change
  - Cards will have changelogs displayed, if there are changes from the printed cards in that ruleset there will be a button called "Changes" to view them
 
  # 0.4.1:
  ## New Features 
- - Updated Van-caster ruleset to Version 0.1.1
+ - Updated Warcaster: Remix ruleset to Version 0.1.1
  ## Bugfixes
  - Fixed issue where switching between rulesets in different tabs would not update properly
  - Fixed crash when viewing Repulsor Shield rules
+
+  # 0.5.0:
+ ## New Features 
+ - Updated Warcaster: Remix ruleset to Version 0.1.2
+ - Added capability to save/load racks separately from forcelists
+ ## Bugfixes
+ - Multiple fixes for switching rulesets and general stability improvements
+ - Fixed typo on Ranger Infiltrators's Magnetic Charge weapon
