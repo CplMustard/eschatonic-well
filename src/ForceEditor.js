@@ -384,7 +384,7 @@ function ForceEditor(props) {
                     cards={models} 
                     hideHiddenTypes={true} 
                     handleCardClicked={openModelCard} 
-                    faText={(id) => getFAText([...forceModelsData, ...specialIssueModelsData], id)}
+                    rightInfoText={(id) => getFAText([...forceModelsData, ...specialIssueModelsData], id)}
                     cardActions={[
                         {handleClicked: (modelId) => addModelCards([modelId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (id) => !checkFA([...forceModelsData, ...specialIssueModelsData], id) }, 
                         {handleClicked: (modelId) => addSpecialIssue([modelId]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canAddToSpecialIssue(id) || !checkFA([...forceModelsData, ...specialIssueModelsData], id)}

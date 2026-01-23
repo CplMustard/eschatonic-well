@@ -137,6 +137,12 @@ function PlayModeViewer(props) {
         forceUpdate();
     }
 
+    function getUnitDC(entryId) {
+        const modelId = models.find((entry) => entry.id === entryId).modelId;
+        console.log(modelId);
+        return Number.isInteger(modelsData[modelId].stats.dc) ? `DC ${modelsData[modelId].stats.dc}` : undefined;
+    }
+
     function setArc(id, arc) {
         let newUnitsStatus = unitsStatus;
 
@@ -223,6 +229,7 @@ function PlayModeViewer(props) {
                     isPlayMode={true}
                     handleCardClicked={openModelCard} 
                     hideHiddenTypes={true}
+                    rightInfoText={getUnitDC}
                     cardActions={[
                         {handleClicked: (entryId) => deployModel(entryId), text: <IonIcon slot="icon-only" icon={download}></IonIcon>, isDisabled: (entryId) => unitsStatus.find((entry) => entry.id === entryId) }, 
                     ]}

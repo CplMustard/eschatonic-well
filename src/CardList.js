@@ -7,7 +7,7 @@ import { cardSorting, groupSorting } from "./util/sortingUtil";
 import { getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 function CardList(props) {
-    const { rulesetId, id, cards, header, hideHiddenTypes, handleCardClicked, faText, cardActions } = props;
+    const { rulesetId, id, cards, header, hideHiddenTypes, handleCardClicked, rightInfoText, cardActions } = props;
 
     const cypherTypesData = getCypherTypesData(rulesetId);
     const modelTypesData = getModelTypesData(rulesetId);
@@ -87,7 +87,7 @@ function CardList(props) {
                                     <div className="button-inner">
                                         <div className="button-text">{card.name}</div>
                                     </div>
-                                    {faText && <IonBadge className="button-fa">{faText(card.id)}</IonBadge>}
+                                    {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card.id)}</IonBadge>}
                                 </IonButton>
                             </IonCol>
                             {cardActionButtons}

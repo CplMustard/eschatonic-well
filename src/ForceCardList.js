@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef }  from "react";
 import { useSessionStorageState } from "ahooks";
-import { IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
+import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
@@ -10,7 +10,7 @@ import UnitStatus from "./UnitStatus.js";
 import { getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 function ForceCardList(props) {
-    const { rulesetId, id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, arcInWell } = props;
+    const { rulesetId, id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
     const cypherTypesData = getCypherTypesData(rulesetId);
     const modelTypesData = getModelTypesData(rulesetId);
@@ -90,6 +90,7 @@ function ForceCardList(props) {
                                 <div className="button-inner">
                                     <div className="button-text">{entry.name}</div>
                                 </div>
+                                {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(entry.id)}</IonBadge>}
                             </IonButton>
                         </IonCol>
                         {cardActionButtons}
