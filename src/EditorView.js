@@ -2,7 +2,7 @@ import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
 import { useSessionStorageState, useLocalStorageState } from "ahooks";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
 
 import { copyForceToText } from "./util/copyForceToText";
 
@@ -10,6 +10,7 @@ import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
 import CardListViewer from "./CardListViewer";
 import LoadModal from "./LoadModal";
+import SaveModal from "./SaveModal";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
 import PlayModeViewer from "./PlayModeViewer";
@@ -42,7 +43,6 @@ function EditorView() {
     const [forceSizeId, setForceSizeId] = useLocalStorageState("forceSize", {defaultValue: "custom"});
 
     const [forceName, setForceName] = useSessionStorageState("forceName", {defaultValue: "New Force"});
-    const [rackName, setRackName] = useSessionStorageState("rackName", {defaultValue: "New Rack"});
     const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: [], listenStorageChange: true});
     const [forceCyphersData, setForceCyphersData] = useSessionStorageState("forceCyphersData", {defaultValue: [], listenStorageChange: true});
     const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: [], listenStorageChange: true});
@@ -63,6 +63,9 @@ function EditorView() {
     const [isLoadForceModalOpen, setIsLoadForceModalOpen] = useState(false);
     const [isLoadRackModalOpen, setIsLoadRackModalOpen] = useState(false);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
+    
+    const [isSaveForceModalOpen, setIsSaveForceModalOpen] = useState(false);
+    const [isSaveRackModalOpen, setIsSaveRackModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -271,32 +274,6 @@ function EditorView() {
         }
     };
 
-    const saveForceConfirm = async (forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
-        let showOverwriteWarning = false;
-        const sanitizedForceName = sanitize(forceName);
-        const result = await listFiles(forcesPath);
-        if(result && result.files) {
-            showOverwriteWarning = result.files.find((file) => file.name.replace(forcesExtension, "") === sanitizedForceName);
-        }
-        presentAlert({
-            header: "Save Force?",
-            message: showOverwriteWarning ? `Overwrite the force saved as ${sanitizedForceName}?` : `Save current force as ${sanitizedForceName}?`,
-            buttons: [
-                {
-                    text: "Cancel",
-                    role: "cancel",
-                    handler: () => {},
-                },
-                {
-                    text: "OK",
-                    role: "confirm",
-                    handler: () => {saveForce(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);},
-                },
-            ],
-            onDidDismiss: () => {}
-        });
-    };
-
     const loadForce = async (filename) => {
         try {
             const result = await Filesystem.readFile({
@@ -409,32 +386,6 @@ function EditorView() {
         }
     };
 
-    const saveRackConfirm = async (rackName, rulesetId, forceCyphersData, specialIssueCyphersData) => {
-        let showOverwriteWarning = false;
-        const sanitizedRackName = sanitize(rackName);
-        const result = await listFiles(racksPath);
-        if(result && result.files) {
-            showOverwriteWarning = result.files.find((file) => file.name.replace(racksExtension, "") === sanitizedRackName);
-        }
-        presentAlert({
-            header: "Save Rack?",
-            message: showOverwriteWarning ? `Overwrite the rack saved as ${sanitizedRackName}?` : `Save current rack as ${sanitizedRackName}?`,
-            buttons: [
-                {
-                    text: "Cancel",
-                    role: "cancel",
-                    handler: () => {},
-                },
-                {
-                    text: "OK",
-                    role: "confirm",
-                    handler: () => {saveRack(rackName, rulesetId, forceCyphersData, specialIssueCyphersData);},
-                },
-            ],
-            onDidDismiss: () => {}
-        });
-    };
-
     const loadRack = async (filename) => {
         try {
             const result = await Filesystem.readFile({
@@ -477,6 +428,9 @@ function EditorView() {
 
     const forceSize = forceSizesData[forceSizeId];
 
+    const forceData = [rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData];
+    const rackData = [rulesetId, forceCyphersData, specialIssueCyphersData];
+
     return (
         <IonPage className={(tabSelected === editorTabs.cards ? cardViewFactionId : tabSelected === editorTabs.play ? playFactionId : factionId)}>
             <IonHeader>
@@ -505,17 +459,20 @@ function EditorView() {
                 <LoadModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadForce} deleteFile={deleteForce}></LoadModal>
                 <LoadModal isOpen={isLoadRackModalOpen} setIsOpen={setIsLoadRackModalOpen} title={"Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} files={rackFiles} filterFiles={filterRacks} loadFile={loadRack}></LoadModal>
                 <LoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></LoadModal>
+
+                <SaveModal isOpen={isSaveForceModalOpen} setIsOpen={setIsSaveForceModalOpen} title={"Save Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} fileData={forceData} listFiles={listFiles} saveFile={saveForce}></SaveModal>
+                <SaveModal isOpen={isSaveRackModalOpen} setIsOpen={setIsSaveRackModalOpen} title={"Save Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={racksPath} fileData={rackData} listFiles={listFiles} saveFile={saveRack}></SaveModal>
+
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3><IonSelect label="Force Size:" justify="start" value={forceSizeId} onIonChange={(e) => changeForceSize(e.detail.value)}>{forceSizeOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h2>Force Name: <IonInput type="text" fill="solid" value={forceName} onIonChange={(e) => setForceName(sanitize(e.target.value))}/></h2></IonText>
-                    <IonText color="primary"><h2>Rack Name: <IonInput type="text" fill="solid" value={rackName} onIonChange={(e) => setRackName(sanitize(e.target.value))}/></h2></IonText>
+                    <IonText color="primary"><h2>Force Name: {forceName}</h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {saveForceConfirm(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);}}><div>SAVE FORCE AND RACK</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveForceModalOpen(true);}}><div>SAVE FORCE AND RACK</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD FORCE AND RACK</IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {saveRackConfirm(rackName, rulesetId, forceCyphersData, specialIssueCyphersData);}}><div>SAVE RACK ONLY</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveRackModalOpen(true);}}><div>SAVE RACK ONLY</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadRackModalOpen(true);}}>LOAD RACK ONLY</IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {
                                 copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);

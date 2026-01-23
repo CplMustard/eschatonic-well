@@ -60,10 +60,9 @@ function LoadModal (props) {
         const fileName = file.fileInfo.name.replace(fileExtension, "");
         const factionId = file.factionId;
         if(filterFiles ? filterFiles(file) : true) {
-            console.log(factionId);
             loadFileButtons.push(<IonRow key={index}>
                 <IonCol>
-                    <IonButton className={factionId} expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>
+                    <IonButton className={factionId} style={{textTransform: "none", fontWeight: "bold"}}expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>
                         <div>{fileName}</div>
                     </IonButton>
                 </IonCol>
@@ -78,7 +77,7 @@ function LoadModal (props) {
 
 
     return (
-        <IonModal isOpen={isOpen}>
+        <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
