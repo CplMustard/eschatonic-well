@@ -5,9 +5,9 @@ import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonInp
 function SaveModal (props) {    
     const [presentAlert] = useIonAlert();
 
-    const { isOpen, setIsOpen, title, fileTypeName, fileExtension, filesPath, fileData, listFiles, saveFile } = props;
+    const { isOpen, setIsOpen, title, fileTypeName, fileExtension, filesPath, defaultFileName, fileData, listFiles, saveFile } = props;
 
-    const [fileName, setFileName] = useState(`New ${fileTypeName[0].toUpperCase() + fileTypeName.slice(1)}`);
+    const [fileName, setFileName] = useState(defaultFileName);
 
     const saveFileConfirm = async (name, fileData) => {
         let showOverwriteWarning = false;

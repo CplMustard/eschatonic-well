@@ -460,8 +460,8 @@ function EditorView() {
                 <LoadModal isOpen={isLoadRackModalOpen} setIsOpen={setIsLoadRackModalOpen} title={"Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} files={rackFiles} filterFiles={filterRacks} loadFile={loadRack}></LoadModal>
                 <LoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></LoadModal>
 
-                <SaveModal isOpen={isSaveForceModalOpen} setIsOpen={setIsSaveForceModalOpen} title={"Save Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} fileData={forceData} listFiles={listFiles} saveFile={saveForce}></SaveModal>
-                <SaveModal isOpen={isSaveRackModalOpen} setIsOpen={setIsSaveRackModalOpen} title={"Save Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={racksPath} fileData={rackData} listFiles={listFiles} saveFile={saveRack}></SaveModal>
+                <SaveModal isOpen={isSaveForceModalOpen} setIsOpen={setIsSaveForceModalOpen} title={"Save Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} defaultFileName={forceName} fileData={forceData} listFiles={listFiles} saveFile={saveForce}></SaveModal>
+                <SaveModal isOpen={isSaveRackModalOpen} setIsOpen={setIsSaveRackModalOpen} title={"Save Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={racksPath} defaultFileName={"New Rack"} fileData={rackData} listFiles={listFiles} saveFile={saveRack}></SaveModal>
 
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
