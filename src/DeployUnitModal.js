@@ -45,7 +45,8 @@ function DeployUnitModal (props) {
     }
 
     function getTotalDC(modelId, attachmentsToAdd) {
-        return attachmentsToAdd.reduce((attachmentsDC, attachmentId) => modelsData[attachmentId].stats.dc + attachmentsDC, modelsData[modelId].stats.dc);
+        const initialDC = modelsData[modelId] ? modelsData[modelId].stats.dc : 0;
+        return attachmentsToAdd.reduce((attachmentsDC, attachmentId) => modelsData[attachmentId].stats.dc + attachmentsDC, initialDC);
     }
 
     const attachmentButtons = [];

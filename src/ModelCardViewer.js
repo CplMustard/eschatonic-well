@@ -50,6 +50,9 @@ function ModelCardViewer(props) {
 
     const cardData = modelsData[modelId];
 
+    const totalArc = 7;
+    const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
+
     useEffect(() => {
         if(entryId) {
             const entry = modelsDataState.find((entry) => entry.id === entryId);
@@ -298,6 +301,7 @@ function ModelCardViewer(props) {
                         boxes={boxes} 
                         isPlayMode={isPlayMode} 
                         collapsible={false}
+                        arcInWell={arcInWell}
                         setArc={setArc} 
                         toggleActivation={toggleActivation} 
                         toggleContinuousEffect={toggleContinuousEffect} 

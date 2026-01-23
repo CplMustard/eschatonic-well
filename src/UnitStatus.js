@@ -1,5 +1,5 @@
 import React from "react";
-import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion } from "@ionic/react";
+import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion, IonGrid, IonRow, IonCol } from "@ionic/react";
 import { add, bodyOutline, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
 
 import { getModelsData } from "./DataLoader";
@@ -12,30 +12,43 @@ function UnitStatus(props) {
     const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, arcInWell, isPlayMode, collapsible } = props;
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
+    const modelData = modelsData[modelId];
+
     const getSummary = () => {
         return <>
-            <IonIcon color={"secondary"} icon={create} size="large"/><IonText style={{display: "inline-block"}}>{unitModels.length > 1 
-                ? <><AliveSquadMembers unitModels={unitModels} attachments={attachments}/></>
-                : unitModels[0].boxes.length !== 0 
-                    ? <><HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true}/></>
-                    : <>{arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit} disabled={true}></ArcTracker>}</>
-                }
+            <IonIcon color={"secondary"} icon={create} size="large"/><IonText style={{display: "inline-block"}}>
+                <IonGrid>
+                    <IonRow>
+                        {modelData.type !== "mantlet" && modelData.type !== "void_gate" && <IonCol size="auto">         
+                            <Activation activated={activated} hideLabel={true} disabled={true}></Activation>
+                        </IonCol>}
+                        <IonCol size="auto">
+                            {unitModels.length > 1 
+                                ? <AliveSquadMembers unitModels={unitModels} attachments={attachments}/>
+                                : <HitBoxes modelIndex={0} model={unitModels[0]} showLabel={false} disabled={true} size={"large"}/>
+                            }
+                        </IonCol>
+                        <IonCol size="auto">
+                            {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit} arcInWell={arcInWell} disabled={true} color={"secondary"}></ArcTracker>}
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
             </IonText>
         </>;
     };
 
     function ArcTracker(props) {
-        const { arc, arcLimit, arcInWell, disabled } = props;
-        console.log(arcInWell);
+        const { arc, arcLimit, arcInWell, disabled, color, size } = props;
 
-        return <IonText color="primary">
-            <IonLabel>Arc:</IonLabel>
+        return <IonText color={color ? color : "primary"} style={{display: "flex", alignContent: "center", justifyContent: "flex-start"}}>
+            <IonLabel style={{position: "relative", top: "0.5rem"}}>Arc:</IonLabel>
             {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
             {!collapsible && <br/>}
             <h1 style={{margin: 0}}>
-                <IonIcon 
-                    color={!disabled && arc-1 >= 0 ? "secondary" : "tertiary"}
+                {!disabled && <IonIcon 
+                    color={arc-1 >= 0 ? "secondary" : "tertiary"}
                     icon={remove} 
+                    style={{position: "relative", top: "0.25rem"}}
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
@@ -44,12 +57,13 @@ function UnitStatus(props) {
                             }
                         }
                     }} 
-                    size="large"
-                ></IonIcon>
-                <IonText>{arc}</IonText> 
-                <IonIcon 
+                    size={size ? size : "large"}
+                ></IonIcon>}
+                <IonText style={{position: "relative", top: "0.125rem", margin: "0.25rem"}}>{arc}</IonText> 
+                {!disabled && <IonIcon 
                     color={!disabled && (arc+1 <= arcLimit && arcInWell > 0) ? "secondary" : "tertiary"}
                     icon={add} 
+                    style={{position: "relative", top: "0.25rem"}}
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
@@ -58,17 +72,17 @@ function UnitStatus(props) {
                             }
                         }
                     }} 
-                    size="large"
-                ></IonIcon>
+                    size={size ? size : "large"}
+                ></IonIcon>}
             </h1>
         </IonText>;
     }
 
     function Activation(props) {
-        const { activated } = props;
+        const { activated, disabled, hideLabel } = props;
 
         return <IonText color="primary">
-            <IonLabel>Activated:</IonLabel>
+            {!hideLabel && <IonLabel>Activated:</IonLabel>}
             {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
             {!collapsible && <br/>}
             <IonIcon 
@@ -76,7 +90,7 @@ function UnitStatus(props) {
                 icon={activated ? checkmarkCircle : checkmarkCircleOutline} 
                 onClick={(e) => {
                     e.preventDefault();
-                    if (isPlayMode) {
+                    if (isPlayMode && !disabled) {
                         toggleActivation(id);
                     }
                 }} 
@@ -105,7 +119,7 @@ function UnitStatus(props) {
     }
 
     function HitBoxes(props) {
-        const { modelIndex, attachmentId, showLabel, disabled } = props;
+        const { modelIndex, attachmentId, showLabel, disabled, size } = props;
         const { boxes } = props.model;
         return <IonText color="primary">
             {showLabel && <IonLabel>Boxes:</IonLabel>}
@@ -123,7 +137,7 @@ function UnitStatus(props) {
                             toggleDamageBox(id, modelIndex, attachmentId, i);
                         }
                     }} 
-                    size="large"
+                    size={size ? size : "large"}
                 ></IonIcon>
             )}
             </h3>
@@ -147,7 +161,7 @@ function UnitStatus(props) {
             }
         });
         return <IonText color="primary">
-            <h1 style={{margin: 0, display: "inline"}}><IonIcon color={"secondary"} icon={bodyOutline} size="large"></IonIcon><IonText>{AliveModelCount}</IonText></h1>
+            <h1 style={{margin: 0, padding: 0, display: "flex"}}><IonIcon color={"secondary"} icon={bodyOutline} size="large"></IonIcon><IonText>{AliveModelCount}</IonText></h1>
         </IonText>;
     }
 
@@ -185,16 +199,16 @@ function UnitStatus(props) {
         );
     });
 
-    const modelData = modelsData[modelId];
-
     const statusEntryComponent = 
         <div className="status-entry" slot="content">
             {isPlayMode && <>
-                <Activation activated={activated}></Activation>
+                {modelData.type !== "mantlet" && modelData.type !== "void_gate" && <Activation activated={activated}></Activation>}
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && <br/>}
                 {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit} arcInWell={arcInWell}></ArcTracker>}
-                {unitModels.length > 1 && <><AliveSquadMembers unitModels={unitModels} attachments={attachments}/><br/></>}
+                {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
+                {!collapsible && <br/>}
+                {unitModels.length > 1 && <AliveSquadMembers unitModels={unitModels} attachments={attachments}/>}
             </>}
             {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
             <UnitModels unitModels={unitModels}></UnitModels>
