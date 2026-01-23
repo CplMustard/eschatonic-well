@@ -9,7 +9,7 @@ function UnitStatus(props) {
 
     const modelsData = getModelsData(rulesetId);
 
-    const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, isPlayMode, collapsible } = props;
+    const { id, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, arcInWell, isPlayMode, collapsible } = props;
     const { modelId, activated, arc, arcLimit, unitModels, attachments } = props.entry;
 
     const getSummary = () => {
@@ -25,7 +25,8 @@ function UnitStatus(props) {
     };
 
     function ArcTracker(props) {
-        const { arc, arcLimit, disabled } = props;
+        const { arc, arcLimit, arcInWell, disabled } = props;
+        console.log(arcInWell);
 
         return <IonText color="primary">
             <IonLabel>Arc:</IonLabel>
@@ -47,12 +48,12 @@ function UnitStatus(props) {
                 ></IonIcon>
                 <IonText>{arc}</IonText> 
                 <IonIcon 
-                    color={!disabled && arc+1 <= arcLimit ? "secondary" : "tertiary"}
+                    color={!disabled && (arc+1 <= arcLimit && arcInWell > 0) ? "secondary" : "tertiary"}
                     icon={add} 
                     onClick={(e) => {
                         e.preventDefault();
                         if (isPlayMode) {
-                            if(!disabled && arc+1 <= arcLimit) {
+                            if(!disabled && (arc+1 <= arcLimit && arcInWell > 0)) {
                                 setArc(id, arc+1);
                             }
                         }
@@ -192,7 +193,7 @@ function UnitStatus(props) {
                 <Activation activated={activated}></Activation>
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && <br/>}
-                {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit}></ArcTracker>}
+                {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit} arcInWell={arcInWell}></ArcTracker>}
                 {unitModels.length > 1 && <><AliveSquadMembers unitModels={unitModels} attachments={attachments}/><br/></>}
             </>}
             {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}

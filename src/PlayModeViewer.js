@@ -186,6 +186,9 @@ function PlayModeViewer(props) {
 
     const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.id === model.id));
 
+    const totalArc = 7;
+    const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
+
     return (
         <div className="container">
             <DeployUnitModal rulesetId={rulesetId} isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} cancelDeploy={cancelDeploy} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
@@ -204,6 +207,7 @@ function PlayModeViewer(props) {
                     toggleActivation={toggleActivation}
                     toggleContinuousEffect={toggleContinuousEffect}
                     toggleDamageBox={toggleDamageBox}
+                    arcInWell={arcInWell}
                     cardActions={[
                         {handleClicked: (entryId) => recallModel(entryId), text: <IonIcon slot="icon-only" icon={push}></IonIcon> }, 
                     ]}

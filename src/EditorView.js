@@ -12,6 +12,7 @@ import CardListViewer from "./CardListViewer";
 import SaveLoadModal from "./SaveLoadModal.js";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
+import PlayModeTracker from "./PlayModeTracker";
 import PlayModeViewer from "./PlayModeViewer";
 import VersionNumber from "./VersionNumber";
 
@@ -466,6 +467,9 @@ function EditorView() {
                         </IonSegmentButton>
                     </IonSegment>
                 </IonToolbar>
+                {(tabSelected === editorTabs.play) && <>
+                    <PlayModeTracker rulesetId={playRulesetId} factionId={playFactionId}></PlayModeTracker>
+                </>}
             </IonHeader>
             <IonContent ref={contentRef}>
                 <SaveLoadModal isOpen={isSaveLoadForceModalOpen} setIsOpen={setIsSaveLoadForceModalOpen} title={"Save/Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} files={forceFiles} defaultFileName={forceName} fileData={forceData} loadFile={loadForce} deleteFile={deleteForce} listFiles={listFiles} saveFile={saveForce}></SaveLoadModal>

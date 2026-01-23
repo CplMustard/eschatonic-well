@@ -109,6 +109,13 @@ hr {
 	margin: 1rem;
 }
 
+.play-tracker-status {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	margin-top: -1rem;
+	margin-bottom: 0;
+}
+
 .version-number {
 	position: absolute;
 	right: 0.5rem;

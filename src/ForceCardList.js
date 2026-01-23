@@ -10,7 +10,7 @@ import UnitStatus from "./UnitStatus.js";
 import { getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 function ForceCardList(props) {
-    const { rulesetId, id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
+    const { rulesetId, id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox, arcInWell } = props;
 
     const cypherTypesData = getCypherTypesData(rulesetId);
     const modelTypesData = getModelTypesData(rulesetId);
@@ -118,7 +118,8 @@ function ForceCardList(props) {
                                 setArc={setArc} 
                                 toggleActivation={toggleActivation} 
                                 toggleContinuousEffect={toggleContinuousEffect} 
-                                toggleDamageBox={toggleDamageBox} 
+                                toggleDamageBox={toggleDamageBox}                      
+                                arcInWell={arcInWell} 
                             ></UnitStatus>
                         </IonCol>
                     </IonRow>}
