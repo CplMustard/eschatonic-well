@@ -18,50 +18,51 @@ function PlayModeTracker(props) {
 
     const dcDeployed = unitsStatus.reduce((currentDC, unitStatus) => currentDC + (Number.isInteger(modelsData[unitStatus.modelId].stats.dc) && modelsData[unitStatus.modelId].type !== "mantlet" ? modelsData[unitStatus.modelId].stats.dc : 0), 0);
 
-    return <div className={factionId}>
-        <IonGrid>
+    return (<>
+        <IonGrid className={factionId}>
             <IonRow>
                 <IonCol>
-                    <IonText color="primary"><h3 className="play-tracker-status">ARC IN WELL : <span style={{fontSize: "2rem", position: "relative", top: "0.25rem"}}>{arcInWell}</span> / 7</h3></IonText>
+                    <IonText color="primary"><h5 className="play-tracker-label">ARC IN WELL : <span className="play-tracker-value">{arcInWell}</span> / 7</h5></IonText>
                 </IonCol>
                 <IonCol>
-                    <IonText color="primary"><h3 className="play-tracker-status">DC DEPLOYED : <span style={{fontSize: "2rem", position: "relative", top: "0.25rem"}}>{dcDeployed}</span></h3></IonText>
+                    <IonText color="primary"><h5 className="play-tracker-label">DC DEPLOYED : <span className="play-tracker-value">{dcDeployed}</span></h5></IonText>
                 </IonCol>
                 <IonCol>
-                    <IonText color="primary"><h3 className="play-tracker-status">SCORE : 
-                        <span style={{position: "relative", top: "0.25rem"}}>
-                            <IonIcon 
-                                color={score-1 < 0 ? "tertiary" : "primary"}
-                                style={{position: "relative", top: "0.125rem"}}
-                                icon={remove} 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    if(score > 0) {
-                                        setScore(score-1);
-                                    }
-                                }} 
-                                size="large"
-                            ></IonIcon>
-                            <span style={{fontSize: "2rem"}}>{score}</span>
-                            <IonIcon 
-                                color={score+1 > 99 ? "tertiary" : "primary"}
-                                style={{position: "relative", top: "0.125rem"}}
-                                icon={add} 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    if(score < 99) {
-                                        setScore(score+1);
-                                    }
-                                }} 
-                                size="large"
-                            ></IonIcon>
-                        </span>
-                        </h3>
+                    <IonText color="primary">
+                        <h5 className="play-tracker-label">SCORE : 
+                            <span>
+                                <IonIcon 
+                                    color={score-1 < 0 ? "tertiary" : "primary"}
+                                    style={{position: "relative", top: "0.5rem"}}
+                                    icon={remove} 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if(score > 0) {
+                                            setScore(score-1);
+                                        }
+                                    }} 
+                                    size="large"
+                                ></IonIcon>
+                                <span className="play-tracker-value">{score}</span>
+                                <IonIcon 
+                                    color={score+1 > 99 ? "tertiary" : "primary"}
+                                    style={{position: "relative", top: "0.5rem"}}
+                                    icon={add} 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if(score < 99) {
+                                            setScore(score+1);
+                                        }
+                                    }} 
+                                    size="large"
+                                ></IonIcon>
+                            </span>
+                        </h5>
                     </IonText>
                 </IonCol>
             </IonRow>
         </IonGrid>
-    </div>;
+    </>);
 }
 
 export default PlayModeTracker;

@@ -109,11 +109,18 @@ hr {
 	margin: 1rem;
 }
 
-.play-tracker-status {
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	margin-top: -1rem;
-	margin-bottom: 0;
+.play-tracker-label {
+	position: relative;
+	margin: 0;
+	top: -1rem;
+	height: 1.5rem;
+}
+
+.play-tracker-value {
+	position: relative;
+	font-size: 2rem;
+	margin: 0;
+	top: 0.25rem;
 }
 
 .version-number {
@@ -139,24 +146,28 @@ hr {
 }
 
 .emp {
+	background: #2f1f2f;
 	--ion-background-color: #2f1f2f;
 	--ion-background-color-rgb: 47,31,47;
 	--background: #7d0074;
 }
 
 .isa {
+	background: #302219;
 	--ion-background-color: #302219;
 	--ion-background-color-rgb: 48,34,25;
 	--background: #975800;
 }
 
 .ll {
+	background: #241d29;
 	--ion-background-color: #241d29;
 	--ion-background-color-rgb: 36,29,41;
 	--background: Indigo;
 }
 
 .mw {
+	background: #1c1f30;
 	--ion-background-color: #1c1f30;
 	--ion-background-color-rgb: 28,31,48;
 	--background: #0141b0;
