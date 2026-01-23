@@ -79,3 +79,8 @@
  ## Bugfixes
  - Multiple fixes for switching rulesets and general stability improvements
  - Fixed typo on Ranger Infiltrators's Magnetic Charge weapon
+
+ # 0.5.1:
+ ## New Features 
+ - Added well, dc and score tracker to play mode
+ - Additional info in play mode, various visual improvements
