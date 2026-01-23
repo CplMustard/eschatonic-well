@@ -22,18 +22,18 @@ function PlayModeTracker(props) {
         <IonGrid className={factionId}>
             <IonRow>
                 <IonCol>
-                    <IonText color="primary"><h5 className="play-tracker-label">ARC IN WELL : <span className="play-tracker-value">{arcInWell}</span> / 7</h5></IonText>
+                    <IonText color="primary"><h6 className="play-tracker-label">ARC IN WELL : <span className="play-tracker-value">{arcInWell}</span> / 7</h6></IonText>
                 </IonCol>
                 <IonCol>
-                    <IonText color="primary"><h5 className="play-tracker-label">DC DEPLOYED : <span className="play-tracker-value">{dcDeployed}</span></h5></IonText>
+                    <IonText color="primary"><h6 className="play-tracker-label">DC DEPLOYED : <span className="play-tracker-value">{dcDeployed}</span></h6></IonText>
                 </IonCol>
                 <IonCol>
                     <IonText color="primary">
-                        <h5 className="play-tracker-label">SCORE : 
+                        <h6 className="play-tracker-label">SCORE : 
                             <span>
                                 <IonIcon 
                                     color={score-1 < 0 ? "tertiary" : "primary"}
-                                    style={{position: "relative", top: "0.5rem"}}
+                                    style={{position: "relative", top: "0.5rem", fontSize: "24px"}}
                                     icon={remove} 
                                     onClick={(e) => {
                                         e.preventDefault();
@@ -41,12 +41,12 @@ function PlayModeTracker(props) {
                                             setScore(score-1);
                                         }
                                     }} 
-                                    size="large"
+                                    size="32px"
                                 ></IonIcon>
                                 <span className="play-tracker-value">{score}</span>
                                 <IonIcon 
                                     color={score+1 > 99 ? "tertiary" : "primary"}
-                                    style={{position: "relative", top: "0.5rem"}}
+                                    style={{position: "relative", top: "0.5rem", fontSize: "24px"}}
                                     icon={add} 
                                     onClick={(e) => {
                                         e.preventDefault();
@@ -54,10 +54,9 @@ function PlayModeTracker(props) {
                                             setScore(score+1);
                                         }
                                     }} 
-                                    size="large"
                                 ></IonIcon>
                             </span>
-                        </h5>
+                        </h6>
                     </IonText>
                 </IonCol>
             </IonRow>

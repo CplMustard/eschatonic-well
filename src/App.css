@@ -113,12 +113,12 @@ hr {
 	position: relative;
 	margin: 0;
 	top: -1rem;
-	height: 1.5rem;
+	height: 0.75rem;
 }
 
 .play-tracker-value {
 	position: relative;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	margin: 0;
 	top: 0.25rem;
 }
