@@ -9,8 +9,7 @@ import { copyForceToText } from "./util/copyForceToText";
 import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
 import CardListViewer from "./CardListViewer";
-import LoadModal from "./LoadModal";
-import SaveModal from "./SaveModal";
+import SaveLoadModal from "./SaveLoadModal.js";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
 import PlayModeViewer from "./PlayModeViewer";
@@ -60,12 +59,9 @@ function EditorView() {
     const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [rackFiles, setRackFiles] = useState([]);
-    const [isLoadForceModalOpen, setIsLoadForceModalOpen] = useState(false);
-    const [isLoadRackModalOpen, setIsLoadRackModalOpen] = useState(false);
+    const [isSaveLoadForceModalOpen, setIsSaveLoadForceModalOpen] = useState(false);
+    const [isSaveLoadRackModalOpen, setIsSaveLoadRackModalOpen] = useState(false);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
-    
-    const [isSaveForceModalOpen, setIsSaveForceModalOpen] = useState(false);
-    const [isSaveRackModalOpen, setIsSaveRackModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -319,6 +315,7 @@ function EditorView() {
             setPlaySpecialIssueCyphersData(json.specialIssueCyphersData);
             
             presentToast(`Force ${json.forceName} loaded successfully`);
+            setPlayTabSelected(playTabs.reserves);
         } catch (e) {
             console.error(e);
         }
@@ -406,6 +403,21 @@ function EditorView() {
         }
     };
 
+    const deleteRack = async (filename) => {
+        try {
+            const result = await Filesystem.deleteFile({
+                path: `${racksPath}${filename}`,
+                directory: Directory.Data,
+            });
+            setFilesDirty(racksPath, true);
+            
+            presentToast(`Rack ${filename.replace(racksExtension, "")} deleted successfully`);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     const factionSelectOptions = [];
     Object.entries(factionsData).forEach(([key, value]) => {
         if(!value.hidden) {
@@ -456,12 +468,9 @@ function EditorView() {
                 </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
-                <LoadModal isOpen={isLoadForceModalOpen} setIsOpen={setIsLoadForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadForce} deleteFile={deleteForce}></LoadModal>
-                <LoadModal isOpen={isLoadRackModalOpen} setIsOpen={setIsLoadRackModalOpen} title={"Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} files={rackFiles} filterFiles={filterRacks} loadFile={loadRack}></LoadModal>
-                <LoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></LoadModal>
-
-                <SaveModal isOpen={isSaveForceModalOpen} setIsOpen={setIsSaveForceModalOpen} title={"Save Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} defaultFileName={forceName} fileData={forceData} listFiles={listFiles} saveFile={saveForce}></SaveModal>
-                <SaveModal isOpen={isSaveRackModalOpen} setIsOpen={setIsSaveRackModalOpen} title={"Save Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={racksPath} defaultFileName={"New Rack"} fileData={rackData} listFiles={listFiles} saveFile={saveRack}></SaveModal>
+                <SaveLoadModal isOpen={isSaveLoadForceModalOpen} setIsOpen={setIsSaveLoadForceModalOpen} title={"Save/Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} files={forceFiles} defaultFileName={forceName} fileData={forceData} loadFile={loadForce} deleteFile={deleteForce} listFiles={listFiles} saveFile={saveForce}></SaveLoadModal>
+                <SaveLoadModal isOpen={isSaveLoadRackModalOpen} setIsOpen={setIsSaveLoadRackModalOpen} title={"Save/Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={forcesPath} files={rackFiles} defaultFileName={"New Rack"} fileData={rackData} filterFiles={filterRacks} loadFile={loadRack} deleteFile={deleteRack} listFiles={listFiles} saveFile={saveRack}></SaveLoadModal>
+                <SaveLoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} disableSave={true} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></SaveLoadModal>
 
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
@@ -470,10 +479,8 @@ function EditorView() {
                     <IonText color="primary"><h2>Force Name: {forceName}</h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveForceModalOpen(true);}}><div>SAVE FORCE AND RACK</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadForceModalOpen(true);}}>LOAD FORCE AND RACK</IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveRackModalOpen(true);}}><div>SAVE RACK ONLY</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadRackModalOpen(true);}}>LOAD RACK ONLY</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveLoadForceModalOpen(true);}}><div>SAVE/LOAD FORCE AND RACK</div></IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveLoadRackModalOpen(true);}}><div>SAVE/LOAD RACK ONLY</div></IonButton></IonCol>
                             <IonCol><IonButton expand="block" onClick={() => {
                                 copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
                                 presentToast("Force copied to clipboard");

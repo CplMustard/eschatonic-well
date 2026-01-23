@@ -1,10 +1,42 @@
-import React from "react";
-import { IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
+import React, { useState } from "react";
+import sanitize from "sanitize-filename";
+import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
 
-function LoadModal (props) {    
+function SaveLoadModal (props) {    
     const [presentAlert] = useIonAlert();
 
-    const { isOpen, setIsOpen, title, fileTypeName, fileExtension, files, filterFiles, loadFile, deleteFile } = props;
+    const { isOpen, setIsOpen, disableSave, title, fileTypeName, fileExtension, files, filesPath, filterFiles, defaultFileName, fileData, loadFile, deleteFile, listFiles, saveFile } = props;
+
+    const [fileName, setFileName] = useState(defaultFileName);
+
+    const saveFileConfirm = async (name, fileData) => {
+        let showOverwriteWarning = false;
+        const sanitizedFileName = sanitize(name);
+        const result = await listFiles(filesPath);
+        if(result && result.files) {
+            showOverwriteWarning = result.files.find((file) => file.name.replace(fileExtension, "") === sanitizedFileName);
+        }
+        presentAlert({
+            header: `${title}?`,
+            message: showOverwriteWarning ? `Overwrite the ${fileTypeName} saved as ${sanitizedFileName}?` : `Save current ${fileTypeName} as ${sanitizedFileName}?`,
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: () => {},
+                },
+                {
+                    text: "OK",
+                    role: "confirm",
+                    handler: () => {
+                        saveFile(sanitizedFileName, ...fileData);
+                        setIsOpen(false);
+                    },
+                },
+            ],
+            onDidDismiss: () => {}
+        });
+    };
 
     const loadFileConfirm = (name, filename) => {
         presentAlert({
@@ -87,10 +119,17 @@ function LoadModal (props) {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
+                <IonTitle>Load {fileTypeName[0].toUpperCase() + fileTypeName.slice(1)}:</IonTitle>
                 {files.length !== 0 && <IonGrid>{loadFileButtons}</IonGrid>}
             </IonContent>
+            {!disableSave && <IonFooter>
+                <IonText color="primary"><h2>Save {fileTypeName} as: <IonInput type="text" fill="solid" value={fileName} onIonChange={(e) => setFileName(sanitize(e.target.value))}/></h2></IonText>
+                <IonButton expand="block" onClick={() => saveFileConfirm(fileName, fileData)}>
+                    <div>Save {fileTypeName}</div>
+                </IonButton>
+            </IonFooter>}
         </IonModal>
     );
 }
 
-export default LoadModal;
+export default SaveLoadModal;
