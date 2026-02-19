@@ -131,6 +131,11 @@ hr {
 	z-index: 9999;
 }
 
+.warning-header {
+	margin: 1rem;
+	height: 2rem;
+}
+
 .ac {
 	--ion-background-color: #312020;
 	--ion-background-color-rgb: 49,32,32;

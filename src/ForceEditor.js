@@ -153,7 +153,7 @@ function ForceEditor(props) {
         }
         
         const canRemove = !isHidden(modelId, rulesetId);
-        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, cadre: modelData.cadre, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
         addedModelNames.push(modelData.name);
         newForceData = newForceData.concat(forceEntry);
 
@@ -234,7 +234,7 @@ function ForceEditor(props) {
                 }
 
                 const canRemove = !isHidden(modelId, rulesetId);
-                const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
+                const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, cadre: modelData.cadre, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
                 addedModelNames.push(modelData.name);
                 newSpecialIssueModelsData.push(forceEntry);
             }

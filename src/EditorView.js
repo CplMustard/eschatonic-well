@@ -2,7 +2,10 @@ import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
 import { useSessionStorageState, useLocalStorageState } from "ahooks";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
+import { warning } from "ionicons/icons";
+
+var semver = require("semver");
 
 import { copyForceToText } from "./util/copyForceToText";
 
@@ -16,12 +19,15 @@ import PlayModeTracker from "./PlayModeTracker";
 import PlayModeViewer from "./PlayModeViewer";
 import VersionNumber from "./VersionNumber";
 
-import { getFactionsData, getForceSizesData, rulesets } from "./DataLoader";
+import { getFactionsData, getForceSizesData, getModelsData, rulesets } from "./DataLoader";
 
 const forcesPath = "eschatonic-well/forces/";
 const racksPath = "eschatonic-well/racks/";
-const forcesExtension = ".esch";
-const racksExtension = ".rack";
+export const forcesExtension = ".esch";
+export const racksExtension = ".rack";
+
+export const forceFormatVersion = "0.1.0";
+export const rackFormatVersion = "0.1.0";
 
 const editorTabs = {force: 0, rack: 1, cards: 2, play: 3};
 export const forceTabs = {force: 0, special_issue: 1, units: 2 };
@@ -57,6 +63,9 @@ function EditorView() {
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
     const [playSpecialIssueCyphersData, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
+    const [promptSave, setPromptSave] = useSessionStorageState("promptSave", {defaultValue: false});
+    const [warningText, setWarningText] = useSessionStorageState("warningText", {defaultValue: ""});
+
     const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [rackFiles, setRackFiles] = useState([]);
@@ -74,12 +83,14 @@ function EditorView() {
                 const forces = [];
                 const racks = [];
                 for await (const file of forcesResult.files) {
+                    const formatVersion = await getFormatVersionFromFile(forcesPath, file.name);
                     const factionId = await getFactionIdFromFile(forcesPath, file.name);
-                    forces.push({fileInfo: file, factionId: factionId});
+                    forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId});
                 }
                 for await (const file of racksResult.files) {
+                    const formatVersion = await getFormatVersionFromFile(racksPath, file.name);
                     const factionId = await getFactionIdFromFile(racksPath, file.name);
-                    racks.push({fileInfo: file, factionId: factionId});
+                    racks.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId});
                 }
                 setForceFiles(forces);
                 setRackFiles(racks);
@@ -90,12 +101,15 @@ function EditorView() {
 
     const factionsData = getFactionsData(rulesetId);
     const forceSizesData = getForceSizesData(rulesetId);
+    const modelsData = getModelsData(rulesetId);
 
-    const presentToast = (message) => {
+    const presentToast = (message, isWarning) => {
         present({
             message: message,
             duration: 1500,
             position: "top",
+            icon: isWarning ? warning : undefined,
+            color: isWarning ? "warning" : undefined
         });
     };
 
@@ -170,6 +184,8 @@ function EditorView() {
 
     const clearForce = () => {
         presentToast("Force cleared");
+        setPromptSave(false);
+        setWarningText("");
         setForceModelsData([]);
         setForceCyphersData([]);
         setSpecialIssueModelsData([]);
@@ -201,16 +217,15 @@ function EditorView() {
 
     const createDir = async (path) => {
         try {
-            listFiles(path);
-            return;
-        } catch (e) {
             const result = await Filesystem.mkdir({
                 path: path,
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 recursive: true
             });
             
             return result;
+        }  catch (e) {
+            console.error(e);
         }
     };
 
@@ -218,10 +233,29 @@ function EditorView() {
         try {
             const result = await Filesystem.readdir({
                 path: path,
-                directory: Directory.Data
+                directory: Directory.Documents
             });
             
             return result;
+        } catch (e) {
+            try {
+                createDir(path);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    };
+
+    const getFormatVersionFromFile = async (path, filename) => {
+        try {
+            const result = await Filesystem.readFile({
+                path: `${path}${filename}`,
+                directory: Directory.Documents,
+                encoding: Encoding.UTF8,
+            });
+            
+            const json = JSON.parse(result.data);
+            return json.formatVersion;
         } catch (e) {
             console.error(e);
         }
@@ -231,7 +265,7 @@ function EditorView() {
         try {
             const result = await Filesystem.readFile({
                 path: `${path}${filename}`,
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 encoding: Encoding.UTF8,
             });
             
@@ -244,6 +278,7 @@ function EditorView() {
 
     const saveForce = async (forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {
         const json = {
+            "formatVersion": forceFormatVersion,
             "forceName": forceName,
             "rulesetId": rulesetId,
             "factionId": factionId,
@@ -258,7 +293,7 @@ function EditorView() {
             const result = await Filesystem.writeFile({
                 path: `${forcesPath}${filename}${forcesExtension}`,
                 data: JSON.stringify(json),
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 encoding: Encoding.UTF8,
                 recursive: true
             });
@@ -271,23 +306,43 @@ function EditorView() {
         }
     };
 
+    const insertCadreData = (forceModelsData) => {
+        let newForceModelsData = forceModelsData.map((forceModel) => {
+            if(!forceModel.cadre) {
+                forceModel.cadre = modelsData[forceModel.modelId].cadre;
+            }
+            return forceModel;
+        });
+        return newForceModelsData;
+    };
+
     const loadForce = async (filename) => {
         try {
             const result = await Filesystem.readFile({
                 path: `${forcesPath}${filename}`,
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 encoding: Encoding.UTF8,
             });
             
             const json = JSON.parse(result.data);
+            if(!json.formatVersion || semver.ltr(json.formatVersion, forceFormatVersion)) {
+                console.log(json.formatVersion);
+                setPromptSave(true);
+                setWarningText(`Force ${json.forceName} format out of date, please save force`);
+            } else {
+                setPromptSave(false);
+                setWarningText(false);
+            }
             setForceName(json.forceName);
-            //Forces saved in earlier versions won't have a ruleset, so assume pp
+            // Forces saved in earlier versions won't have a ruleset, so assume pp
             setRulesetId(json.rulesetId ? json.rulesetId : "pp");
             setFactionId(json.factionId);
             setForceSizeId(json.forceSize.id);
-            setForceModelsData(json.forceModelsData);
+            // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
+            setForceModelsData(insertCadreData(json.forceModelsData));
             setForceCyphersData(json.forceCyphersData);
-            setSpecialIssueModelsData(json.specialIssueModelsData);
+            // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
+            setSpecialIssueModelsData(insertCadreData(json.specialIssueModelsData));
             setSpecialIssueCyphersData(json.specialIssueCyphersData);
             
             presentToast(`Force ${json.forceName} loaded successfully`);
@@ -300,14 +355,18 @@ function EditorView() {
         try {
             const result = await Filesystem.readFile({
                 path: `${forcesPath}${filename}`,
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 encoding: Encoding.UTF8,
             });
             
             const json = JSON.parse(result.data);
+            if(!json.formatVersion || semver.ltr(json.formatVersion, forceFormatVersion)) {
+                console.log(json.formatVersion);
+                presentToast(`Could not load force ${json.forceName}. File format out of date!`, true);
+                throw new Error(`Force ${filename} file format out of date!`);
+            }
             setPlayForceName(json.forceName);
-            //Forces saved in earlier versions won't have a ruleset, so assume pp
-            setPlayRulesetId(json.rulesetId ? json.rulesetId : "pp");
+            setPlayRulesetId(json.rulesetId);
             setPlayFactionId(json.factionId);
             setPlayForceSizeId(json.forceSize.id);
             setPlayForceModelsData(json.forceModelsData);
@@ -326,7 +385,7 @@ function EditorView() {
         try {
             const result = await Filesystem.deleteFile({
                 path: `${forcesPath}${filename}`,
-                directory: Directory.Data,
+                directory: Directory.Documents,
             });
             setFilesDirty(forcesPath, true);
             
@@ -359,6 +418,7 @@ function EditorView() {
     const saveRack = async (rackName, rulesetId, forceCyphersData, specialIssueCyphersData) => {
         const factionId = getRackFactionId(forceCyphersData, specialIssueCyphersData);
         const json = {
+            "formatVersion": rackFormatVersion,
             "rackName": rackName,
             "rulesetId": rulesetId,
             "factionId": factionId,
@@ -371,7 +431,7 @@ function EditorView() {
             const result = await Filesystem.writeFile({
                 path: `${racksPath}${filename}${racksExtension}`,
                 data: JSON.stringify(json),
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 encoding: Encoding.UTF8,
                 recursive: true
             });
@@ -388,11 +448,16 @@ function EditorView() {
         try {
             const result = await Filesystem.readFile({
                 path: `${racksPath}${filename}`,
-                directory: Directory.Data,
+                directory: Directory.Documents,
                 encoding: Encoding.UTF8,
             });
             
             const json = JSON.parse(result.data);
+            if(!json.formatVersion || semver.ltr(json.formatVersion, rackFormatVersion)) {
+                console.log(json.formatVersion);
+                setPromptSave(true);
+                setWarningText(`Rack ${json.rackName} format out of date, please save rack`);
+            }
             //Forces saved in earlier versions won't have a ruleset, so assume pp
             setRulesetId(json.rulesetId ? json.rulesetId : "pp");
             setForceCyphersData(json.forceCyphersData);
@@ -408,7 +473,7 @@ function EditorView() {
         try {
             const result = await Filesystem.deleteFile({
                 path: `${racksPath}${filename}`,
-                directory: Directory.Data,
+                directory: Directory.Documents,
             });
             setFilesDirty(racksPath, true);
             
@@ -469,6 +534,9 @@ function EditorView() {
                 </IonToolbar>
                 {(tabSelected === editorTabs.play) && <>
                     <PlayModeTracker rulesetId={playRulesetId} factionId={playFactionId}></PlayModeTracker>
+                </>}
+                {(promptSave || warningText) && <>
+                    <IonText color="warning"><h3 className="warning-header"><IonIcon icon={warning} size={"large"} style={{position: "relative", top: "0.5rem"}}></IonIcon>{warningText}</h3></IonText>
                 </>}
             </IonHeader>
             <IonContent ref={contentRef}>

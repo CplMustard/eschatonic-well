@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import sanitize from "sanitize-filename";
-import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonInput, IonButton, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
+import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonInput, IonButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
+import { warning } from "ionicons/icons";
+
+var semver = require("semver");
+
+import {forcesExtension, forceFormatVersion, rackFormatVersion} from "./EditorView.js";
 
 function SaveLoadModal (props) {    
     const [presentAlert] = useIonAlert();
@@ -87,15 +92,26 @@ function SaveLoadModal (props) {
         });
     };
 
+    const checkOutOfDateFormat = (file) => {
+        if(!file.formatVersion) {
+            return true;
+        }
+        // If we need more than two file formats this will need to change
+        const versionToCheck = file.fileInfo.fileExtension === forcesExtension ? forceFormatVersion : rackFormatVersion;
+        return semver.ltr(file.formatVersion, versionToCheck);
+    };
+
     const loadFileButtons = [];
     files.forEach((file, index) => {
         const fileName = file.fileInfo.name.replace(fileExtension, "");
         const factionId = file.factionId;
+        const isOutOfDate = checkOutOfDateFormat(file);
         if(filterFiles ? filterFiles(file) : true) {
             loadFileButtons.push(<IonRow key={index}>
                 <IonCol>
                     <IonButton className={factionId} style={{textTransform: "none", fontWeight: "bold"}}expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>
                         <div>{fileName}</div>
+                        {isOutOfDate && <IonIcon icon={warning}></IonIcon>}
                     </IonButton>
                 </IonCol>
                 {deleteFile && <IonCol size="auto">

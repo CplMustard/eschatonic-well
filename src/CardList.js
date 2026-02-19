@@ -16,8 +16,9 @@ function CardList(props) {
     const cardGroups = cards.reduce((memo, current) => {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
+        const cadreId = current["cadre"] ? current["cadre"] : undefined;
         const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
-        const type = isChampion ? "champion" : current["type"] + (isHero ? "|hero" : "") + (isHidden ? "|hidden" : "");
+        const type = current["type"] + (isHero ? "|hero" : "") + (isHidden ? "|hidden" : "") + (isChampion ? "|champion" : "") + (cadreId ? `|cadre:${cadreId}` : "");
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
