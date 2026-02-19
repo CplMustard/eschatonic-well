@@ -75,8 +75,6 @@ function EditorView() {
 
     useEffect(() => {
         (async function () {
-            await createDir(forcesPath);
-            await createDir(racksPath);
             const forcesResult = await listFiles(forcesPath);
             const racksResult = await listFiles(racksPath);
             if(filesDirty && (forcesResult && racksResult)) {
@@ -239,7 +237,13 @@ function EditorView() {
             return result;
         } catch (e) {
             try {
-                createDir(path);
+                await createDir(path);            
+                const result = await Filesystem.readdir({
+                    path: path,
+                    directory: Directory.Documents
+                });
+                
+                return result;
             } catch (e) {
                 console.error(e);
             }
