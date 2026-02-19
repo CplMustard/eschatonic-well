@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
 
 import ViewChangesModal from "./ViewChangesModal";
@@ -9,6 +9,7 @@ import { getCyphersData, getCypherTypesData, getFactionsData } from "./DataLoade
 
 function CypherCardViewer(props) {
     const params = useParams();
+    const location = useLocation();
 
     const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
 

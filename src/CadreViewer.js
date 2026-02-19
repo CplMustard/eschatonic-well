@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 
 import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton } from "@ionic/react";
 
@@ -11,6 +11,7 @@ import { getCadresData, getModelsData } from "./DataLoader";
 function CadreViewer(props) {
     const params = useParams();
     const history = useHistory();
+    const location = useLocation();
 
     const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
 
