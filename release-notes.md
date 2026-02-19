@@ -84,3 +84,8 @@
  ## New Features 
  - Added well, dc and score tracker to play mode
  - Additional info in play mode, various visual improvements
+
+ # 0.5.2:
+ ## Bugfixes
+ - Fixed issue where forces and racks could not be saved
+ - Fixed issue where on first startup creating a force or rack would not allow it to be loaded until the app was restarted
