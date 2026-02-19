@@ -7,11 +7,14 @@ import { cardSorting, groupSorting } from "./util/sortingUtil";
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
 
-import { getCypherTypesData, getModelTypesData } from "./DataLoader";
+import { getCadresData, getCypherTypesData, getModelTypesData } from "./DataLoader";
+
+const mergeCadres = false;
 
 function ForceCardList(props) {
     const { rulesetId, id, forceEntries, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
+    const cadresData = getCadresData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
     const modelTypesData = getModelTypesData(rulesetId);
 
@@ -22,10 +25,13 @@ function ForceCardList(props) {
         const cadreId = current["cadre"] ? current["cadre"] : undefined;
         const hasHiddenSubtype = current["subtypes"] ? current["subtypes"].some((subtype) => modelTypesData[subtype].hidden) : false;
         const isHidden = hasHiddenSubtype || (modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden);
-        const type = current["type"] + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (cadreId ? `|cadre:${cadreId}` : "") + (isHidden ? "|hidden" : "");
+        const baseType = mergeCadres && cadreId ? `cadre:${cadreId}|${current["type"]}` : current["type"];
+        const type = baseType + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (isHidden ? "|hidden" : "");
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
+
+    //TODO: merge cadre model groups together
 
     const allGroups = Object.keys(forceGroups);
 
@@ -130,8 +136,9 @@ function ForceCardList(props) {
                 );
             });
             const typeParts = key.split("|");
-            // TODO: This breaks if there is a champion hero, thankfully we don't have to worry about that yet
-            const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
+            const isCadre = typeParts[0].includes("cadre");
+            const cadreId = isCadre ? typeParts[0].split(":")[1] : undefined;
+            const cardTypeName = cadreId ? cadresData[cadreId].name : modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             forceGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
                     <IonItem slot="header" color={entryComponents.length < typeMin ? "danger" : "tertiary"}>
