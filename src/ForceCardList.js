@@ -20,8 +20,9 @@ function ForceCardList(props) {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
         const cadreId = current["cadre"] ? current["cadre"] : undefined;
-        const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
-        const type = current["type"] + (isHero ? "|hero" : "") + (isHidden ? "|hidden" : "") + (isChampion ? "|champion" : "") + (cadreId ? `|cadre:${cadreId}` : "");
+        const hasHiddenSubtype = current["subtypes"] ? current["subtypes"].some((subtype) => modelTypesData[subtype].hidden) : false;
+        const isHidden = hasHiddenSubtype || (modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden);
+        const type = current["type"] + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (cadreId ? `|cadre:${cadreId}` : "") + (isHidden ? "|hidden" : "");
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
@@ -69,7 +70,7 @@ function ForceCardList(props) {
     Object.entries(forceGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
         // Don't hide champions, mantlets or void gates in reserves
-        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && ((isPlayMode && (typeParts[0] === "champion" || typeParts[0] === "mantlet" || typeParts[0] === "void_gate")) || !modelTypesData[typeParts[0]].hidden))) {
+        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && isPlayMode && (typeParts.includes("champion") || typeParts.includes("mantlet") || typeParts.includes("void_gate") || !modelTypesData[typeParts[0]].hidden))) {
             const entryComponents = [];
             value.sort(cardSorting).forEach((entry, index) => {
                 const cardActionButtons = [];
@@ -129,6 +130,7 @@ function ForceCardList(props) {
                 );
             });
             const typeParts = key.split("|");
+            // TODO: This breaks if there is a champion hero, thankfully we don't have to worry about that yet
             const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             forceGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>

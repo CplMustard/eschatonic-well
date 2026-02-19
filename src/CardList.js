@@ -17,8 +17,9 @@ function CardList(props) {
         const isHero = current["subtypes"] ? current["subtypes"].includes("hero") : false;
         const isChampion = current["subtypes"] ? current["subtypes"].includes("champion") : false;
         const cadreId = current["cadre"] ? current["cadre"] : undefined;
-        const isHidden = modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden;
-        const type = current["type"] + (isHero ? "|hero" : "") + (isHidden ? "|hidden" : "") + (isChampion ? "|champion" : "") + (cadreId ? `|cadre:${cadreId}` : "");
+        const hasHiddenSubtype = current["subtypes"] ? current["subtypes"].some((subtype) => modelTypesData[subtype].hidden) : false;
+        const isHidden = hasHiddenSubtype || (modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden);
+        const type = current["type"] + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (cadreId ? `|cadre:${cadreId}` : "") + (isHidden ? "|hidden" : "");
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
@@ -65,38 +66,36 @@ function CardList(props) {
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
-        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (!modelTypesData[typeParts[0]].hidden))) {
+        if (!hideHiddenTypes || !typeParts.includes("hidden")) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
-                const hasHiddenSubtype = hideHiddenTypes && (card.hidden || (card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false));
-                if(!hasHiddenSubtype) {
-                    const cardActionButtons = [];
-                    cardActions && cardActions.forEach((action, index) => {
-                        action.handleClicked && action.text && cardActionButtons.push(
-                            <IonCol key={index} size="auto">
-                                <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(card.id))} onClick={() => action.handleClicked(card.id)}>
-                                    {action.text}
-                                </IonButton>
-                            </IonCol>
-                        );
-                    });
-                    const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
-                    cardComponents.push(
-                        <IonRow key={index}>
-                            <IonCol>
-                                <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card.id)}>
-                                    <div className="button-inner">
-                                        <div className="button-text">{card.name}</div>
-                                    </div>
-                                    {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card.id)}</IonBadge>}
-                                </IonButton>
-                            </IonCol>
-                            {cardActionButtons}
-                        </IonRow>
+                const cardActionButtons = [];
+                cardActions && cardActions.forEach((action, index) => {
+                    action.handleClicked && action.text && cardActionButtons.push(
+                        <IonCol key={index} size="auto">
+                            <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(card.id))} onClick={() => action.handleClicked(card.id)}>
+                                {action.text}
+                            </IonButton>
+                        </IonCol>
                     );
-                }
+                });
+                const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
+                cardComponents.push(
+                    <IonRow key={index}>
+                        <IonCol>
+                            <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card.id)}>
+                                <div className="button-inner">
+                                    <div className="button-text">{card.name}</div>
+                                </div>
+                                {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card.id)}</IonBadge>}
+                            </IonButton>
+                        </IonCol>
+                        {cardActionButtons}
+                    </IonRow>
+                );
             });
 
+            // TODO: This breaks if there is a champion hero, thankfully we don't have to worry about that yet
             const cardTypeName = modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
             cardGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
