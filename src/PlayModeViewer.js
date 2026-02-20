@@ -61,7 +61,7 @@ function PlayModeViewer(props) {
             unitModels.push({boxes: Number(modelData.stats.boxes) ? Array(modelData.stats.boxes).fill(false) : [], continuousEffects: []});
         }
 
-        const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") ? 0 : 1;
+        const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") || modelData.type === "mantlet" ? 0 : 1;
 
         const unitStatus = {id: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels, attachments: []};
 
