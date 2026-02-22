@@ -26,8 +26,8 @@ const racksPath = "eschatonic-well/racks/";
 export const forcesExtension = ".esch";
 export const racksExtension = ".rack";
 
-export const forceFormatVersion = "0.1.0";
-export const rackFormatVersion = "0.1.0";
+export const forceFormatVersion = "0.2.0";
+export const rackFormatVersion = "0.2.0";
 
 const editorTabs = {force: 0, rack: 1, cards: 2, play: 3};
 export const forceTabs = {force: 0, special_issue: 1, units: 2 };
@@ -117,17 +117,17 @@ function EditorView() {
         contentRef.current?.scrollToTop();
     }
 
-    const changeCardViewFaction = (id) => {
-        setCardViewFactionId(id);
+    const changeCardViewFaction = (newFactionId) => {
+        setCardViewFactionId(newFactionId);
     };
 
-    const changeRuleset = (id) => {
-        presentToast(`Ruleset changed to ${rulesets[id].name}`);
-        setRulesetId(id);
+    const changeRuleset = (newRulesetId) => {
+        presentToast(`Ruleset changed to ${rulesets[newRulesetId].name}`);
+        setRulesetId(newRulesetId);
     };
 
-    const changeRulesetConfirm = (id) => {
-        if(factionId !== id) {
+    const changeRulesetConfirm = (newRulesetId) => {
+        if(rulesetId !== newRulesetId) {
             presentAlert({
                 header: "Change Ruleset?",
                 buttons: [
@@ -139,7 +139,7 @@ function EditorView() {
                     {
                         text: "OK",
                         role: "confirm",
-                        handler: () => changeRuleset(id),
+                        handler: () => changeRuleset(newRulesetId),
                     },
                 ],
                 onDidDismiss: () => {}
@@ -147,14 +147,14 @@ function EditorView() {
         }
     };
     
-    const changeFaction = (id) => {
-        presentToast(`Faction changed to ${factionsData[id].name}, force cleared`);
-        setFactionId(id);
+    const changeFaction = (newFactionId) => {
+        presentToast(`Faction changed to ${factionsData[newFactionId].name}, force cleared`);
+        setFactionId(newFactionId);
         clearForce();
     };
 
-    const changeFactionConfirm = (id) => {
-        if(factionId !== id) {
+    const changeFactionConfirm = (newFactionId) => {
+        if(factionId !== newFactionId) {
             presentAlert({
                 header: "Change Faction?",
                 message: "Changing faction will clear your force",
@@ -167,7 +167,7 @@ function EditorView() {
                     {
                         text: "OK",
                         role: "confirm",
-                        handler: () => changeFaction(id),
+                        handler: () => changeFaction(newFactionId),
                     },
                 ],
                 onDidDismiss: () => {}
@@ -310,6 +310,16 @@ function EditorView() {
         }
     };
 
+    const fixupIds = (forceData) => {
+        let newForceData = forceData.map((entry) => {
+            if(!entry.entryId) {
+                entry.entryId = entry.id;
+            }
+            return entry;
+        });
+        return newForceData;
+    };
+
     const insertCadreData = (forceModelsData) => {
         let newForceModelsData = forceModelsData.map((forceModel) => {
             if(!forceModel.cadre) {
@@ -342,12 +352,24 @@ function EditorView() {
             setRulesetId(json.rulesetId ? json.rulesetId : "pp");
             setFactionId(json.factionId);
             setForceSizeId(json.forceSize.id);
+            let forceModelsData = json.forceModelsData;
+            // Fixup missing entryId from older formats
+            forceModelsData = fixupIds(forceModelsData);
             // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
-            setForceModelsData(insertCadreData(json.forceModelsData));
-            setForceCyphersData(json.forceCyphersData);
+            forceModelsData = insertCadreData(forceModelsData);
+            setForceModelsData(forceModelsData);
+            // Fixup missing entryId from older formats
+            let forceCyphersData = fixupIds(forceCyphersData);
+            setForceCyphersData(forceCyphersData);
+            let specialIssueModelsData = json.specialIssueModelsData;
             // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
-            setSpecialIssueModelsData(insertCadreData(json.specialIssueModelsData));
-            setSpecialIssueCyphersData(json.specialIssueCyphersData);
+            specialIssueModelsData = insertCadreData(specialIssueModelsData);
+            // Fixup missing entryId from older formats
+            specialIssueModelsData = fixupIds(specialIssueModelsData);
+            setSpecialIssueModelsData(specialIssueModelsData);
+            // Fixup missing entryId from older formats
+            let specialIssueCyphersData = fixupIds(json.specialIssueCyphersData);
+            setSpecialIssueCyphersData(specialIssueCyphersData);
             
             presentToast(`Force ${json.forceName} loaded successfully`);
         } catch (e) {
@@ -403,7 +425,6 @@ function EditorView() {
     const getRackFactionId = (forceCyphersData, specialIssueCyphersData) => {
         const allCyphers = forceCyphersData.concat(specialIssueCyphersData);
         const factionCyphers = allCyphers.filter((cypher) => cypher.factions.some((faction) => faction !== "all"));
-        console.log(factionCyphers);
         const collectedFactionIds = new Set();
         factionCyphers.forEach((cypher) => {
             cypher.factions.forEach((faction) => {
@@ -464,8 +485,12 @@ function EditorView() {
             }
             //Forces saved in earlier versions won't have a ruleset, so assume pp
             setRulesetId(json.rulesetId ? json.rulesetId : "pp");
-            setForceCyphersData(json.forceCyphersData);
-            setSpecialIssueCyphersData(json.specialIssueCyphersData);
+            // Fixup missing entryId from older formats
+            let forceCyphersData = fixupIds(forceCyphersData);
+            setForceCyphersData(forceCyphersData);
+            // Fixup missing entryId from older formats
+            let specialIssueCyphersData = fixupIds(json.specialIssueCyphersData);
+            setSpecialIssueCyphersData(specialIssueCyphersData);
             
             presentToast(`Rack ${json.rackName} loaded successfully`);
         } catch (e) {

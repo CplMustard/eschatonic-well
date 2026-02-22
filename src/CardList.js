@@ -4,12 +4,15 @@ import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid,
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 
+import HardPointList from "./HardPointList";
+import UnitStatus from "./UnitStatus.js";
+
 import { getCadresData, getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 const mergeCadres = false;
 
 function CardList(props) {
-    const { rulesetId, id, cards, header, hideHiddenTypes, handleCardClicked, rightInfoText, cardActions } = props;
+    const { rulesetId, id, cards, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
     const cadresData = getCadresData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
@@ -22,8 +25,8 @@ function CardList(props) {
         const cadreId = current["cadre"] ? current["cadre"] : undefined;
         const hasHiddenSubtype = current["subtypes"] ? current["subtypes"].some((subtype) => modelTypesData[subtype].hidden) : false;
         const isHidden = hasHiddenSubtype || (modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden);
-        const baseType = mergeCadres && cadreId ? `cadre:${cadreId}|${current["type"]}` : current["type"];
-        const type = baseType + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (isHidden ? "|hidden" : "");
+        const cadreType = cadreId ? `cadre:${cadreId}` + (isChampion ? "|champion" : "") : undefined;
+        const type = mergeCadres && cadreId ? cadreType : (current["type"] + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (isHidden ? "|hidden" : ""));
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
@@ -72,41 +75,85 @@ function CardList(props) {
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
-        if (!hideHiddenTypes || !typeParts.includes("hidden")) {
+        // Don't hide champions, mantlets or void gates in reserves
+        const playModeOverrideShow = isPlayMode && typeParts.includes("champion") || typeParts.includes("mantlet") || typeParts.includes("void_gate");
+        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (playModeOverrideShow || !modelTypesData[typeParts[0]].hidden))) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
+                // Hide specific cards with a hidden subtype as well
+                const hasHiddenSubtype = card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
+                const isHidden = hasHiddenSubtype || (modelTypesData[card.type] ? modelTypesData[card.type].hidden : cypherTypesData[card.type].hidden);
+                if (hideHiddenTypes && !playModeOverrideShow && isHidden) {
+                    return;
+                }
                 const cardActionButtons = [];
                 cardActions && cardActions.forEach((action, index) => {
                     action.handleClicked && action.text && cardActionButtons.push(
                         <IonCol key={index} size="auto">
-                            <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(card.id))} onClick={() => action.handleClicked(card.id)}>
+                            <IonButton size="medium" expand="block" disabled={(action.isDisabled && action.isDisabled(card))} onClick={() => action.handleClicked(card)}>
                                 {action.text}
                             </IonButton>
                         </IonCol>
                     );
                 });
                 const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
+                const statusEntry = isPlayMode && unitsStatus && card.entryId && unitsStatus.find((deployed) => deployed.entryId === card.entryId);
                 cardComponents.push(
-                    <IonRow key={index}>
-                        <IonCol>
-                            <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card.id)}>
-                                <div className="button-inner">
-                                    <div className="button-text">{card.name}</div>
-                                </div>
-                                {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card.id)}</IonBadge>}
-                            </IonButton>
-                        </IonCol>
-                        {cardActionButtons}
-                    </IonRow>
+                    <div key={index}>
+                        <IonRow key={index}>
+                            <IonCol>
+                                <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card)}>
+                                    <div className="button-inner">
+                                        <div className="button-text">{card.name}</div>
+                                    </div>
+                                    {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card)}</IonBadge>}
+                                </IonButton>
+                            </IonCol>
+                            {cardActionButtons}
+                        </IonRow>
+                        {card.entryId && card.hard_points && <IonRow>
+                            <IonCol>
+                                <HardPointList 
+                                    rulesetId={rulesetId}
+                                    hard_points={card.hard_points}
+                                    hardPointOptions={card.hardPointOptions}
+                                    weaponPoints={card.weapon_points}
+                                    onChangeHardPoint={updateModelHardPoint ? ((option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, card.entryId)) : null}
+                                    isPlayMode={isPlayMode}
+                                />
+                            </IonCol>
+                        </IonRow>}
+                        {statusEntry && <IonRow>
+                            <IonCol>
+                                <UnitStatus 
+                                    rulesetId={rulesetId}
+                                    id={card.entryId} 
+                                    entry={statusEntry}
+                                    handleCardClicked={handleCardClicked}
+                                    isPlayMode={isPlayMode}
+                                    collapsible={true}
+                                    setArc={setArc}
+                                    toggleActivation={toggleActivation} 
+                                    toggleContinuousEffect={toggleContinuousEffect} 
+                                    toggleDamageBox={toggleDamageBox}
+                                    arcInWell={arcInWell}
+                                ></UnitStatus>
+                            </IonCol>
+                        </IonRow>}
+                    </div>
                 );
             });
 
             const isCadre = typeParts[0].includes("cadre");
             const cadreId = isCadre ? typeParts[0].split(":")[1] : undefined;
-            const cardTypeName = cadreId ? cadresData[cadreId].name : modelTypesData[typeParts[0]] ? (typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""} ` : "") + modelTypesData[typeParts[0]].name : cypherTypesData[typeParts[0]].name;
+            const subtype = typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""}` : "";
+            const cardTypeName = cadreId ? `${cadresData[cadreId].name} ${subtype}` : modelTypesData[typeParts[0]] ? `${subtype} ${modelTypesData[typeParts[0]].name}` : cypherTypesData[typeParts[0]].name;
+            if(hideHiddenTypes && typeParts.includes("champion")) {
+                return;
+            }
             cardGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
-                    <IonItem slot="header" color="tertiary">
+                    <IonItem slot="header" color={typeMin && cardComponents.length < typeMin ? "danger" : "tertiary"}>
                         <IonLabel>{`${cardTypeName} (${cardComponents.length})`}</IonLabel>
                     </IonItem>
                     <div className="ion-padding" slot="content"> 

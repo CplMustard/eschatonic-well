@@ -4,7 +4,7 @@ import { useSessionStorageState } from "ahooks";
 import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { download, push } from "ionicons/icons";
 
-import ForceCardList from "./ForceCardList";
+import CardList from "./CardList";
 import DeployUnitModal from "./DeployUnitModal";
 import { playTabs } from "./EditorView.js";
 
@@ -40,16 +40,19 @@ function PlayModeViewer(props) {
     const specialIssueModels = props.specialIssueModelsData;
     const specialIssueCyphers = props.specialIssueCyphersData;
 
-    function openModelCard(modelId, entryId) {
-        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
+    function openModelCard(entry) {
+        const modelId = entry.modelId;
+        const entryId = entry.entryId;
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.entryId === entryId).length !== 0 });
     }
 
-    function openCypherCard(cypherId) {
+    function openCypherCard(entry) {
+        const cypherId = entry.cypherId;
         history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId, isPlayMode: true });
     }
 
     function createUnitStatus(entryId) {
-        const modelId = models.find((entry) => entry.id === entryId).modelId;
+        const modelId = models.find((entry) => entry.entryId === entryId).modelId;
         const modelData = modelsData[modelId];
         const unitModels = [];
 
@@ -63,7 +66,7 @@ function PlayModeViewer(props) {
 
         const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") || modelData.type === "mantlet" ? 0 : 1;
 
-        const unitStatus = {id: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels, attachments: []};
+        const unitStatus = {entryId: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels, attachments: []};
 
         return unitStatus;
     }
@@ -89,14 +92,14 @@ function PlayModeViewer(props) {
 
         const modelData = modelsData[unitStatus.modelId];
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === unitStatus.id).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === unitStatus.id).name : modelData.name;
+        const isSpecialIssue = specialIssueModels.filter((entry) => entry.entryId === unitStatus.entryId).length !== 0;
+        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === unitStatus.entryId).name : modelData.name;
         presentToast(`Deployed ${modelName} to the table.`);
         setUnitsStatus(newUnitsStatus);
     }
 
     function cancelDeploy(entryId) {
-        const index = unitsStatus.findIndex((entry) => entry.id === entryId);
+        const index = unitsStatus.findIndex((entry) => entry.entryId === entryId);
         let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
         setUnitsStatus(newUnitsStatus);
 
@@ -108,7 +111,7 @@ function PlayModeViewer(props) {
         const unitStatus = createUnitStatus(entryId);
         newUnitsStatus.push(unitStatus);
 
-        const modelId = models.find((entry) => entry.id === entryId).modelId;
+        const modelId = models.find((entry) => entry.entryId === entryId).modelId;
         const modelData = modelsData[modelId];
 
         if(modelData.attachments) {
@@ -116,7 +119,7 @@ function PlayModeViewer(props) {
             setCurrentUnitStatus(unitStatus);
             setIsDeployUnitModalOpen(true);
         } else {   
-            const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
+            const isSpecialIssue = specialIssueModels.filter((entry) => entry.entryId === entryId).length !== 0;
             const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : modelData.name;
 
             presentToast(`Deployed ${modelName} to the table.`);
@@ -125,10 +128,10 @@ function PlayModeViewer(props) {
     }
 
     function recallModel(entryId) {
-        const index = unitsStatus.findIndex((entry) => entry.id === entryId);
+        const index = unitsStatus.findIndex((entry) => entry.entryId === entryId);
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : models.find((entry) => entry.id === entryId).name;
+        const isSpecialIssue = specialIssueModels.filter((entry) => entry.entryId === entryId).length !== 0;
+        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : models.find((entry) => entry.entryId === entryId).name;
 
         let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
 
@@ -137,15 +140,15 @@ function PlayModeViewer(props) {
         forceUpdate();
     }
 
-    function getUnitDC(entryId) {
-        const modelId = models.find((entry) => entry.id === entryId).modelId;
+    function getUnitDC(entry) {
+        const modelId = entry.modelId;
         return Number.isInteger(modelsData[modelId].stats.dc) ? `DC ${modelsData[modelId].stats.dc}` : undefined;
     }
 
     function setArc(id, arc) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
         if(arc <= unitsStatus[index].arcLimit) {
             unitsStatus[index].arc = arc;
             setUnitsStatus(newUnitsStatus);
@@ -155,7 +158,7 @@ function PlayModeViewer(props) {
     function toggleActivation(id) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
         unitsStatus[index].activated = !unitsStatus[index].activated;
         setUnitsStatus(newUnitsStatus);
     }
@@ -163,7 +166,7 @@ function PlayModeViewer(props) {
     function toggleContinuousEffect(id, modelIndex, attachmentId, effectId) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
         const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
         const unitModel = unitModels[modelIndex];
         const continuousEffects = unitModel.continuousEffects;
@@ -181,7 +184,7 @@ function PlayModeViewer(props) {
     function toggleDamageBox(id, modelIndex, attachmentId, boxIndex) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
         const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
         const unitModel = unitModels[modelIndex];
         const boxes = unitModel.boxes;
@@ -189,7 +192,7 @@ function PlayModeViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
-    const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.id === model.id));
+    const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.entryId === model.entryId));
 
     const totalArc = 7;
     const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
@@ -199,11 +202,11 @@ function PlayModeViewer(props) {
             <DeployUnitModal rulesetId={rulesetId} isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} cancelDeploy={cancelDeploy} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
             {(tabSelected === playTabs.deployed) && <>
                 <IonText color="primary"><h2 className={"label"}>Tap Reserves and deploy a unit with <IonIcon slot="icon-only" icon={download}></IonIcon> to track their status here. Recall units with <IonIcon slot="icon-only" icon={push}></IonIcon></h2></IonText>
-                <ForceCardList
+                <CardList
                     rulesetId={rulesetId} 
                     id={"PlayDeployed"}
                     header={"Deployed"}
-                    forceEntries={deployedModels} 
+                    cards={deployedModels} 
                     unitsStatus={unitsStatus}
                     isPlayMode={true}
                     handleCardClicked={openModelCard} 
@@ -214,31 +217,31 @@ function PlayModeViewer(props) {
                     toggleDamageBox={toggleDamageBox}
                     arcInWell={arcInWell}
                     cardActions={[
-                        {handleClicked: (entryId) => recallModel(entryId), text: <IonIcon slot="icon-only" icon={push}></IonIcon> }, 
+                        {handleClicked: (entry) => recallModel(entry.entryId), text: <IonIcon slot="icon-only" icon={push}></IonIcon> }, 
                     ]}
                 >
-                </ForceCardList>
+                </CardList>
             </>}
             {(tabSelected === playTabs.reserves) && <>
-                <ForceCardList 
+                <CardList 
                     rulesetId={rulesetId} 
                     id={"PlayReserves"} 
                     header={"Models"} 
-                    forceEntries={models} 
+                    cards={models} 
                     isPlayMode={true}
                     handleCardClicked={openModelCard} 
                     hideHiddenTypes={true}
                     rightInfoText={getUnitDC}
                     cardActions={[
-                        {handleClicked: (entryId) => deployModel(entryId), text: <IonIcon slot="icon-only" icon={download}></IonIcon>, isDisabled: (entryId) => unitsStatus.find((entry) => entry.id === entryId) }, 
+                        {handleClicked: (entry) => deployModel(entry.entryId), text: <IonIcon slot="icon-only" icon={download}></IonIcon>, isDisabled: (entry) => unitsStatus.find((unitStatus) => unitStatus.entryId === entry.entryId) }, 
                     ]}
                 >
-                </ForceCardList>
-                <ForceCardList rulesetId={rulesetId} id={"PlaySpecialIssueModels"} header={"Special Issue"} forceEntries={specialIssueModels} handleCardClicked={openModelCard}></ForceCardList>
+                </CardList>
+                <CardList rulesetId={rulesetId} id={"PlaySpecialIssueModels"} header={"Special Issue"} cards={specialIssueModels} handleCardClicked={openModelCard}></CardList>
             </>}
             {(tabSelected === playTabs.rack) && <>
-                <ForceCardList rulesetId={rulesetId} id={"PlayCyphers"} header={"Cyphers"} forceEntries={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
-                <ForceCardList rulesetId={rulesetId} id={"PlaySpecialIssueCyphers"} header={"Special Issue"} forceEntries={specialIssueCyphers} isPlayMode={true} handleCardClicked={openCypherCard}></ForceCardList>
+                <CardList rulesetId={rulesetId} id={"PlayCyphers"} header={"Cyphers"} cards={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
+                <CardList rulesetId={rulesetId} id={"PlaySpecialIssueCyphers"} header={"Special Issue"} cards={specialIssueCyphers} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
             </>}
         </div>
     );

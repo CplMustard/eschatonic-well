@@ -11,8 +11,8 @@ function CadreList(props) {
     const { rulesetId, cadresData, addModelCards, factionId } = props;
     const cadreButtonComponents = [];
 
-    function handleCadreClicked(id) {
-        history.push(`/cadre/${id}`, { rulesetId: rulesetId });
+    function handleCadreClicked(cadreId) {
+        history.push(`/cadre/${cadreId}`, { rulesetId: rulesetId });
     }
     Object.entries(cadresData).sort(cadreSorting).forEach(([key, value]) => {
         if(factionId === "all" || value.faction === factionId) {

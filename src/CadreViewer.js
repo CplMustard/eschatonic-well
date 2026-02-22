@@ -20,8 +20,9 @@ function CadreViewer(props) {
     const cadreId = props.cadreId ? props.cadreId : params.cadreId;
     const models = Object.values(getModelsData()).filter((model) => model.cadre && (model.cadre === cadreId));
 
-    function openModelCard(id) {
-        history.push(`/model/${id}`, { rulesetId: rulesetId });
+    function openModelCard(card) {
+        const modelId = card.id;
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId });
     }
 
     return (

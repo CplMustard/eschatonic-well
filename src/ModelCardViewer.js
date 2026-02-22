@@ -55,7 +55,7 @@ function ModelCardViewer(props) {
 
     useEffect(() => {
         if(entryId) {
-            const entry = modelsDataState.find((entry) => entry.id === entryId);
+            const entry = modelsDataState.find((entry) => entry.entryId === entryId);
             if(entry && entry.hardPointOptions) {
                 setHardPointOptions(entry.hardPointOptions);
             }
@@ -65,15 +65,16 @@ function ModelCardViewer(props) {
     const getUnitStatusEntry = (entryId) => {
         if (entryId && isPlayMode) {
             if (unitsStatus) {
-                return unitsStatus.find((entry) => entry.id === entryId);
+                return unitsStatus.find((entry) => entry.entryId === entryId);
             }
         } else {
             return undefined;
         }
     };
 
-    function openModelCard(id) {
-        history.push(`/model/${id}`, { rulesetId: rulesetId });
+    function openModelCard(card) {
+        const modelId = card.id;
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId });
     }
 
     function getHardPointOptions(hard_points, hardPointOptions, typeId) {
@@ -178,52 +179,52 @@ function ModelCardViewer(props) {
         const newHardPointOptions = [...hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...hardPointOptions.slice(hardPointIndex+1)];
         if(entryId && !isPlayMode) {
             let newModelsData = modelsDataState;
-            newModelsData.find((entry) => entry.id === entryId).hardPointOptions = newHardPointOptions;
+            newModelsData.find((entry) => entry.entryId === entryId).hardPointOptions = newHardPointOptions;
             setModelsData(newModelsData);
         }
         setHardPointOptions(newHardPointOptions);
     }
 
-    function setArc(id, arc) {
+    function setArc(entryId, arc) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === entryId);
         if(arc <= unitsStatus[index].arcLimit) {
             unitsStatus[index].arc = arc;
             setUnitsStatus(newUnitsStatus);
         }
     }
 
-    function toggleActivation(id) {
+    function toggleActivation(entryId) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === entryId);
         unitsStatus[index].activated = !unitsStatus[index].activated;
         setUnitsStatus(newUnitsStatus);
     }
 
-    function toggleContinuousEffect(id, modelIndex, attachmentId, effectId) {
+    function toggleContinuousEffect(entryId, modelIndex, attachmentId, newEffectId) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === entryId);
         const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
         const unitModel = unitModels[modelIndex];
         const continuousEffects = unitModel.continuousEffects;
         if(continuousEffects) {
-            if(continuousEffects.includes(effectId)) {
-                const effectIndex = continuousEffects.findIndex((id) => id === effectId);
+            if(continuousEffects.includes(newEffectId)) {
+                const effectIndex = continuousEffects.findIndex((effectId) => effectId === newEffectId);
                 unitModel.continuousEffects = [...continuousEffects.slice(0, effectIndex), ...continuousEffects.slice(effectIndex + 1)];
             } else {
-                continuousEffects.push(effectId);
+                continuousEffects.push(newEffectId);
             }
             setUnitsStatus(newUnitsStatus);
         }
     }
 
-    function toggleDamageBox(id, modelIndex, attachmentId, boxIndex) {
+    function toggleDamageBox(entryId, modelIndex, attachmentId, boxIndex) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.entryId === entryId);
         const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
         const unitModel = unitModels[modelIndex];
         const boxes = unitModel.boxes;

@@ -17,12 +17,12 @@ function DeployUnitModal (props) {
 
     function cancel() {
         setAttachmentsToAdd([]); 
-        cancelDeploy(unitStatus.id);
+        cancelDeploy(unitStatus.entryId);
         setIsOpen(false);
     }
 
     function toggleAttachment(attachmentId) {
-        if (attachmentsToAdd.find((id) => id === attachmentId)) {
+        if (attachmentsToAdd.find((modelId) => modelId === attachmentId)) {
             removeAttachment(attachmentId);
         } else {
             addAttachment(attachmentId);
@@ -38,7 +38,7 @@ function DeployUnitModal (props) {
     }
 
     function removeAttachment(attachmentId) {
-        const index = attachmentsToAdd.findIndex((id) => id === attachmentId);
+        const index = attachmentsToAdd.findIndex((modelId) => modelId === attachmentId);
         let newAttachmentsToAdd = [...attachmentsToAdd.slice(0, index), ...attachmentsToAdd.slice(index + 1)];
 
         setAttachmentsToAdd(newAttachmentsToAdd);
@@ -57,7 +57,7 @@ function DeployUnitModal (props) {
             const factionId = factions.length === 1 ? factions[0] : "wc";
             attachmentButtons.push(<IonRow key={index}>
                 <IonCol>
-                    <IonButton className={factionId} expand="block" fill={attachmentsToAdd.find((id) => id === attachmentId) ? "outline" : "default"} onClick={() => toggleAttachment(attachmentId)}>
+                    <IonButton className={factionId} expand="block" fill={attachmentsToAdd.find((modelId) => modelId === attachmentId) ? "outline" : "default"} onClick={() => toggleAttachment(attachmentId)}>
                         <div className="button-inner">
                             <div>{name}</div>
                         </div>
@@ -68,7 +68,7 @@ function DeployUnitModal (props) {
         });
     }
 
-    const attachmentNames = attachmentsToAdd.map((id) => modelsData[id].name);
+    const attachmentNames = attachmentsToAdd.map((modelId) => modelsData[modelId].name);
 
     return (
         <IonModal isOpen={isOpen} backdropDismiss={false}>

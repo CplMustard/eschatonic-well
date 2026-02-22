@@ -5,7 +5,6 @@ import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { add, remove, logOut, logIn } from "ionicons/icons";
 
 import CardList from "./CardList";
-import ForceCardList from "./ForceCardList";
 import { rackTabs } from "./EditorView.js";
 
 import { getCyphersData } from "./DataLoader";
@@ -36,8 +35,9 @@ function RackEditor(props) {
         return rackData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
     }
 
-    function openCypherCard(id) {
-        history.push(`/cypher/${id}`, { rulesetId: rulesetId });
+    function openCypherCard(entry) {
+        const cypherId = entry.cypherId;
+        history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId });
     }
 
     function addCypherCards(cypherIds) {
@@ -45,7 +45,7 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
-                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
+                const cypherEntry = {entryId: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newForceCyphersData = newForceCyphersData.concat(cypherEntry);
                 addedCypherNames.push(cyphersData[cypherId].name);
             }
@@ -56,8 +56,8 @@ function RackEditor(props) {
         updateForceData(newForceCyphersData);
     }
 
-    function removeCypherCard(id) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+    function removeCypherCard(cypherId) {
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
         if(index !== -1) {
             const removedCypherName = forceCyphersData[index].name;
             updateForceData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
@@ -71,7 +71,7 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
-                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
+                const cypherEntry = {entryId: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newSpecialIssueCyphersData = newSpecialIssueCyphersData.concat(cypherEntry);
                 addedCypherNames.push(cyphersData[cypherId].name);
             }
@@ -82,8 +82,8 @@ function RackEditor(props) {
         updateSpecialIssueData(newSpecialIssueCyphersData);
     }
 
-    function removeSpecialIssue(id) {
-        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+    function removeSpecialIssue(cypherId) {
+        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
         if(index !== -1) {
             const removedCypherName = specialIssueCyphersData[index].name;
             updateSpecialIssueData([...specialIssueCyphersData.slice(0, index), ...specialIssueCyphersData.slice(index + 1)]);
@@ -92,19 +92,19 @@ function RackEditor(props) {
         }
     }
 
-    function swapToSpecialIssue(id) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+    function swapToSpecialIssue(cypherId) {
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
         newSpecialIssueCyphersData.push(forceCyphersData[index]);
 
         presentToast(`Swapped ${forceCyphersData[index].name} to special issue`);
 
-        removeCypherCard(id);
+        removeCypherCard(cypherId);
         updateSpecialIssueData(newSpecialIssueCyphersData);
     }
 
-    function swapFromSpecialIssue(id) {
-        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+    function swapFromSpecialIssue(cypherId) {
+        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
         addCypherCards([specialIssueCyphersData[index].cypherId]);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
         newSpecialIssueCyphersData = [...newSpecialIssueCyphersData.slice(0, index), ...newSpecialIssueCyphersData.slice(index + 1)];
@@ -126,8 +126,8 @@ function RackEditor(props) {
         forceUpdate();
     }
 
-    function canSpecialIssueSwap(id) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === id);
+    function canSpecialIssueSwap(cypherId) {
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
         const cypherType = forceCyphersData[index].type;
         return specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
     }
@@ -142,33 +142,33 @@ function RackEditor(props) {
     return (
         <div>
             {tabSelected === rackTabs.rack && <>
-                <ForceCardList 
+                <CardList 
                     rulesetId={rulesetId} 
                     id={"Rack"}
                     header={"Rack"} 
-                    forceEntries={forceCyphersData} 
+                    cards={forceCyphersData} 
                     typeMin={cypherTypeMin}
                     handleCardClicked={openCypherCard} 
                     cardActions={[
-                        {handleClicked: removeCypherCard, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
-                        {handleClicked: swapToSpecialIssue, text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: canSpecialIssueSwap}
+                        {handleClicked: (entry) => removeCypherCard(entry.cypherId), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
+                        {handleClicked: (entry) => swapToSpecialIssue(entry.cypherId), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => canSpecialIssueSwap(entry.cypherId)}
                     ]}
-                ></ForceCardList>
+                ></CardList>
 
                 {forceCyphersData.length === 0 && <IonText color="primary"><h2>Tap <i>Cyphers</i> and add a cypher to your Rack with <IonIcon slot="icon-only" icon={add}></IonIcon> to view them here.</h2></IonText>}
             </>}
             {tabSelected === rackTabs.special_issue && <>
-                <ForceCardList 
+                <CardList 
                     rulesetId={rulesetId} 
                     id={"RackSpecialIssue"}
                     header={"Special Issue"} 
-                    forceEntries={specialIssueCyphersData} 
+                    cards={specialIssueCyphersData} 
                     handleCardClicked={openCypherCard} 
                     cardActions={[
-                        {handleClicked: removeSpecialIssue, text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
-                        {handleClicked: swapFromSpecialIssue, text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                        {handleClicked: (entry) => removeSpecialIssue(entry.cypherId), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
+                        {handleClicked: (entry) => swapFromSpecialIssue(entry.cypherId), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
                     ]}
-                ></ForceCardList>
+                ></CardList>
                 
                 {specialIssueCyphersData.length === 0 && <IonText color="primary"><h2>Add a cypher to your Special Issue with <IonIcon slot="icon-only" icon={logOut}></IonIcon> to view them here.</h2></IonText>}
             </>}
@@ -180,8 +180,8 @@ function RackEditor(props) {
                     cards={remainingCypherCardList} 
                     handleCardClicked={openCypherCard} 
                     cardActions={[
-                        {handleClicked: (cypherId) => addCypherCards([cypherId]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>},
-                        {handleClicked: (cypherId) => addSpecialIssue([cypherId]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (id) => !canAddToSpecialIssue(id) || cypherCount([...forceCyphersData, ...specialIssueCyphersData], id) !== 0}
+                        {handleClicked: (card) => addCypherCards([card.id]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>},
+                        {handleClicked: (card) => addSpecialIssue([card.id]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (card) => !canAddToSpecialIssue(card.id) || cypherCount([...forceCyphersData, ...specialIssueCyphersData], card.id) !== 0}
                     ]}
                 ></CardList>
             </>}

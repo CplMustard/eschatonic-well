@@ -18,12 +18,14 @@ function CardListViewer(props) {
     const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(modelsData);
     const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(cyphersData);
 
-    function openModelCard(id) {
-        history.push(`/model/${id}`, { rulesetId: rulesetId });
+    function openModelCard(card) {
+        const modelId = card.id;
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId });
     }
 
-    function openCypherCard(id) {
-        history.push(`/cypher/${id}`, { rulesetId: rulesetId });
+    function openCypherCard(card) {
+        const cypherId = card.id;
+        history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId });
     }
 
     return (
