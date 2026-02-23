@@ -6,7 +6,11 @@ const config: CapacitorConfig = {
   webDir: 'build',
   server: {
     androidScheme: 'https'
-  }
+  },
+  ios: {
+    contentInset: 'always',
+  },
+  backgroundColor: '#2d302f'
 };
 
 export default config;
