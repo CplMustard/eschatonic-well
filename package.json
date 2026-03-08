@@ -41,7 +41,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "electron:start": "npm run build && npx cap copy @capacitor-community/electron && npx cap open @capacitor-community/electron",
-    "android:start": "npm run build && npx cap run android"
+    "android:start": "npm run build && npx cap run android",
+    "ios:start": "npm run build && npx cap run ios"
   },
   "eslintConfig": {
     "extends": [
