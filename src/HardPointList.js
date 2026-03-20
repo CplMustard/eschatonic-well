@@ -15,7 +15,7 @@ function HardPointList(props) {
     hard_points.forEach((hard_point, index) =>
         hardPointComponents.push(<IonRow key={index}>
             <IonCol>
-                <HardPoint hard_point={hard_point} index={index} selectedOption={hardPointOptions[index]} onChangeHardPoint={onChangeHardPoint ? onChangeHardPoint.bind(this) : null}/>
+                <HardPoint rulesetId={rulesetId} hard_point={hard_point} index={index} selectedOption={hardPointOptions[index]} onChangeHardPoint={onChangeHardPoint ? onChangeHardPoint.bind(this) : null}/>
             </IonCol>
         </IonRow>)
     );
