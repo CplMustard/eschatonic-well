@@ -181,6 +181,10 @@ function ForceEditor(props) {
     }
 
     function openModelCard(entry) {
+        history.push(`/model/${entry.id}`, { rulesetId: rulesetId });
+    }
+
+    function openEntryCard(entry) {
         history.push(`/model/${entry.modelId}`, { rulesetId: rulesetId, entryId: entry.id, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entry.id).length !== 0 });
     }
 
@@ -349,7 +353,7 @@ function ForceEditor(props) {
                     id={"Force"}
                     header={"Force"} 
                     cards={forceModelsData} 
-                    handleCardClicked={openModelCard} 
+                    handleCardClicked={openEntryCard} 
                     cardActions={[
                         {handleClicked: (entry) => removeModelCard(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: (entry) => isCardUnremovable(entry.id)}, 
                         {handleClicked: (entry) => swapToSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => !canSpecialIssueSwap(entry.id)}
@@ -365,7 +369,7 @@ function ForceEditor(props) {
                     id={"ForceSpecialIssue"}
                     header={"Special Issue"} 
                     cards={specialIssueModelsData} 
-                    handleCardClicked={openModelCard} 
+                    handleCardClicked={openEntryCard} 
                     cardActions={[
                         {handleClicked: (entry) => removeSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
                         {handleClicked: (entry) => swapFromSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
