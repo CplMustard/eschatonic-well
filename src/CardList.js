@@ -97,7 +97,7 @@ function CardList(props) {
                     );
                 });
                 const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
-                const statusEntry = isPlayMode && unitsStatus && card.entryId && unitsStatus.find((deployed) => deployed.entryId === card.entryId);
+                const statusEntry = isPlayMode && unitsStatus && card.modelId && unitsStatus.find((deployed) => deployed.id === card.id);
                 cardComponents.push(
                     <div key={index}>
                         <IonRow key={index}>
@@ -111,14 +111,14 @@ function CardList(props) {
                             </IonCol>
                             {cardActionButtons}
                         </IonRow>
-                        {card.entryId && card.hard_points && <IonRow>
+                        {card.modelId && card.hard_points && <IonRow>
                             <IonCol>
                                 <HardPointList 
                                     rulesetId={rulesetId}
                                     hard_points={card.hard_points}
                                     hardPointOptions={card.hardPointOptions}
                                     weaponPoints={card.weapon_points}
-                                    onChangeHardPoint={updateModelHardPoint ? ((option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, card.entryId)) : null}
+                                    onChangeHardPoint={updateModelHardPoint ? ((option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, card.id)) : null}
                                     isPlayMode={isPlayMode}
                                 />
                             </IonCol>
@@ -127,7 +127,7 @@ function CardList(props) {
                             <IonCol>
                                 <UnitStatus 
                                     rulesetId={rulesetId}
-                                    id={card.entryId} 
+                                    id={card.id} 
                                     entry={statusEntry}
                                     handleCardClicked={handleCardClicked}
                                     isPlayMode={isPlayMode}

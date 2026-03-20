@@ -17,7 +17,7 @@ function DeployUnitModal (props) {
 
     function cancel() {
         setAttachmentsToAdd([]); 
-        cancelDeploy(unitStatus.entryId);
+        cancelDeploy(unitStatus.id);
         setIsOpen(false);
     }
 

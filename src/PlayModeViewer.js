@@ -42,17 +42,17 @@ function PlayModeViewer(props) {
 
     function openModelCard(entry) {
         const modelId = entry.modelId;
-        const entryId = entry.entryId;
-        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.entryId === entryId).length !== 0 });
+        const entryId = entry.id;
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function openCypherCard(entry) {
-        const cypherId = entry.cypherId;
+        const cypherId = entry.id;
         history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId, isPlayMode: true });
     }
 
     function createUnitStatus(entryId) {
-        const modelId = models.find((entry) => entry.entryId === entryId).modelId;
+        const modelId = models.find((entry) => entry.id === entryId).modelId;
         const modelData = modelsData[modelId];
         const unitModels = [];
 
@@ -92,14 +92,14 @@ function PlayModeViewer(props) {
 
         const modelData = modelsData[unitStatus.modelId];
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.entryId === unitStatus.entryId).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === unitStatus.entryId).name : modelData.name;
+        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === unitStatus.id).length !== 0;
+        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === unitStatus.id).name : modelData.name;
         presentToast(`Deployed ${modelName} to the table.`);
         setUnitsStatus(newUnitsStatus);
     }
 
     function cancelDeploy(entryId) {
-        const index = unitsStatus.findIndex((entry) => entry.entryId === entryId);
+        const index = unitsStatus.findIndex((entry) => entry.id === entryId);
         let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
         setUnitsStatus(newUnitsStatus);
 
@@ -111,7 +111,7 @@ function PlayModeViewer(props) {
         const unitStatus = createUnitStatus(entryId);
         newUnitsStatus.push(unitStatus);
 
-        const modelId = models.find((entry) => entry.entryId === entryId).modelId;
+        const modelId = models.find((entry) => entry.id === entryId).modelId;
         const modelData = modelsData[modelId];
 
         if(modelData.attachments) {
@@ -119,8 +119,8 @@ function PlayModeViewer(props) {
             setCurrentUnitStatus(unitStatus);
             setIsDeployUnitModalOpen(true);
         } else {   
-            const isSpecialIssue = specialIssueModels.filter((entry) => entry.entryId === entryId).length !== 0;
-            const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : modelData.name;
+            const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
+            const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === entryId).name : modelData.name;
 
             presentToast(`Deployed ${modelName} to the table.`);
             setUnitsStatus(newUnitsStatus);
@@ -128,10 +128,10 @@ function PlayModeViewer(props) {
     }
 
     function recallModel(entryId) {
-        const index = unitsStatus.findIndex((entry) => entry.entryId === entryId);
+        const index = unitsStatus.findIndex((entry) => entry.id === entryId);
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.entryId === entryId).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.entryId === entryId).name : models.find((entry) => entry.entryId === entryId).name;
+        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
+        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === entryId).name : models.find((entry) => entry.id === entryId).name;
 
         let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
 
@@ -148,7 +148,7 @@ function PlayModeViewer(props) {
     function setArc(id, arc) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
         if(arc <= unitsStatus[index].arcLimit) {
             unitsStatus[index].arc = arc;
             setUnitsStatus(newUnitsStatus);
@@ -158,7 +158,7 @@ function PlayModeViewer(props) {
     function toggleActivation(id) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
         unitsStatus[index].activated = !unitsStatus[index].activated;
         setUnitsStatus(newUnitsStatus);
     }
@@ -166,7 +166,7 @@ function PlayModeViewer(props) {
     function toggleContinuousEffect(id, modelIndex, attachmentId, effectId) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
         const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
         const unitModel = unitModels[modelIndex];
         const continuousEffects = unitModel.continuousEffects;
@@ -184,7 +184,7 @@ function PlayModeViewer(props) {
     function toggleDamageBox(id, modelIndex, attachmentId, boxIndex) {
         let newUnitsStatus = unitsStatus;
 
-        const index = newUnitsStatus.findIndex((entry) => entry.entryId === id);
+        const index = newUnitsStatus.findIndex((entry) => entry.id === id);
         const unitModels = attachmentId ? unitsStatus[index].attachments.find((entry) => entry.modelId === attachmentId).unitModels: unitsStatus[index].unitModels;
         const unitModel = unitModels[modelIndex];
         const boxes = unitModel.boxes;
@@ -192,7 +192,7 @@ function PlayModeViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
-    const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.entryId === model.entryId));
+    const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.id === model.id));
 
     const totalArc = 7;
     const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
@@ -217,7 +217,7 @@ function PlayModeViewer(props) {
                     toggleDamageBox={toggleDamageBox}
                     arcInWell={arcInWell}
                     cardActions={[
-                        {handleClicked: (entry) => recallModel(entry.entryId), text: <IonIcon slot="icon-only" icon={push}></IonIcon> }, 
+                        {handleClicked: (entry) => recallModel(entry.id), text: <IonIcon slot="icon-only" icon={push}></IonIcon> }, 
                     ]}
                 >
                 </CardList>
@@ -233,7 +233,7 @@ function PlayModeViewer(props) {
                     hideHiddenTypes={true}
                     rightInfoText={getUnitDC}
                     cardActions={[
-                        {handleClicked: (entry) => deployModel(entry.entryId), text: <IonIcon slot="icon-only" icon={download}></IonIcon>, isDisabled: (entry) => unitsStatus.find((unitStatus) => unitStatus.entryId === entry.entryId) }, 
+                        {handleClicked: (entry) => deployModel(entry.id), text: <IonIcon slot="icon-only" icon={download}></IonIcon>, isDisabled: (entry) => unitsStatus.find((unitStatus) => unitStatus.id === entry.id) }, 
                     ]}
                 >
                 </CardList>

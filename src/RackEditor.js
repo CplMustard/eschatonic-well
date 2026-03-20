@@ -32,11 +32,11 @@ function RackEditor(props) {
     const cyphers = (factionId && factionId !== "all") ? Object.values(cyphersData).filter((cypher) => cypher.factions && (cypher.factions.includes(factionId) || cypher.factions.includes("all"))) : Object.values(cyphersData);
 
     function cypherCount(rackData, cypherId) {
-        return rackData.filter((forceCypher) => forceCypher.cypherId === cypherId).length;
+        return rackData.filter((forceCypher) => forceCypher.id === cypherId).length;
     }
 
     function openCypherCard(entry) {
-        const cypherId = entry.cypherId;
+        const cypherId = entry.id;
         history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId });
     }
 
@@ -57,7 +57,7 @@ function RackEditor(props) {
     }
 
     function removeCypherCard(cypherId) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === cypherId);
         if(index !== -1) {
             const removedCypherName = forceCyphersData[index].name;
             updateForceData([...forceCyphersData.slice(0, index), ...forceCyphersData.slice(index + 1)]);
@@ -83,7 +83,7 @@ function RackEditor(props) {
     }
 
     function removeSpecialIssue(cypherId) {
-        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
+        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === cypherId);
         if(index !== -1) {
             const removedCypherName = specialIssueCyphersData[index].name;
             updateSpecialIssueData([...specialIssueCyphersData.slice(0, index), ...specialIssueCyphersData.slice(index + 1)]);
@@ -93,7 +93,7 @@ function RackEditor(props) {
     }
 
     function swapToSpecialIssue(cypherId) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === cypherId);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
         newSpecialIssueCyphersData.push(forceCyphersData[index]);
 
@@ -104,8 +104,8 @@ function RackEditor(props) {
     }
 
     function swapFromSpecialIssue(cypherId) {
-        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
-        addCypherCards([specialIssueCyphersData[index].cypherId]);
+        const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === cypherId);
+        addCypherCards([specialIssueCyphersData[index].id]);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
         newSpecialIssueCyphersData = [...newSpecialIssueCyphersData.slice(0, index), ...newSpecialIssueCyphersData.slice(index + 1)];
 
@@ -127,7 +127,7 @@ function RackEditor(props) {
     }
 
     function canSpecialIssueSwap(cypherId) {
-        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypherId);
+        const index = forceCyphersData.findIndex((forceCypher) => forceCypher.id === cypherId);
         const cypherType = forceCyphersData[index].type;
         return specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
     }
@@ -137,7 +137,7 @@ function RackEditor(props) {
         return !specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
     }
 
-    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
+    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.id === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === cypher.id) === -1);
 
     return (
         <div>
@@ -150,8 +150,8 @@ function RackEditor(props) {
                     typeMin={cypherTypeMin}
                     handleCardClicked={openCypherCard} 
                     cardActions={[
-                        {handleClicked: (entry) => removeCypherCard(entry.cypherId), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
-                        {handleClicked: (entry) => swapToSpecialIssue(entry.cypherId), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => canSpecialIssueSwap(entry.cypherId)}
+                        {handleClicked: (entry) => removeCypherCard(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
+                        {handleClicked: (entry) => swapToSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => canSpecialIssueSwap(entry.id)}
                     ]}
                 ></CardList>
 
@@ -165,8 +165,8 @@ function RackEditor(props) {
                     cards={specialIssueCyphersData} 
                     handleCardClicked={openCypherCard} 
                     cardActions={[
-                        {handleClicked: (entry) => removeSpecialIssue(entry.cypherId), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
-                        {handleClicked: (entry) => swapFromSpecialIssue(entry.cypherId), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                        {handleClicked: (entry) => removeSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
+                        {handleClicked: (entry) => swapFromSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
                     ]}
                 ></CardList>
                 

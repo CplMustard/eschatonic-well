@@ -310,16 +310,6 @@ function EditorView() {
         }
     };
 
-    const fixupIds = (forceData) => {
-        let newForceData = forceData.map((entry) => {
-            if(!entry.entryId) {
-                entry.entryId = entry.id;
-            }
-            return entry;
-        });
-        return newForceData;
-    };
-
     const insertCadreData = (forceModelsData) => {
         let newForceModelsData = forceModelsData.map((forceModel) => {
             if(!forceModel.cadre) {
@@ -353,22 +343,14 @@ function EditorView() {
             setFactionId(json.factionId);
             setForceSizeId(json.forceSize.id);
             let forceModelsData = json.forceModelsData;
-            // Fixup missing entryId from older formats
-            forceModelsData = fixupIds(forceModelsData);
             // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
             forceModelsData = insertCadreData(forceModelsData);
             setForceModelsData(forceModelsData);
-            // Fixup missing entryId from older formats
-            let forceCyphersData = fixupIds(forceCyphersData);
             setForceCyphersData(forceCyphersData);
             let specialIssueModelsData = json.specialIssueModelsData;
             // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
             specialIssueModelsData = insertCadreData(specialIssueModelsData);
-            // Fixup missing entryId from older formats
-            specialIssueModelsData = fixupIds(specialIssueModelsData);
             setSpecialIssueModelsData(specialIssueModelsData);
-            // Fixup missing entryId from older formats
-            let specialIssueCyphersData = fixupIds(json.specialIssueCyphersData);
             setSpecialIssueCyphersData(specialIssueCyphersData);
             
             presentToast(`Force ${json.forceName} loaded successfully`);
@@ -485,12 +467,8 @@ function EditorView() {
             }
             //Forces saved in earlier versions won't have a ruleset, so assume pp
             setRulesetId(json.rulesetId ? json.rulesetId : "pp");
-            // Fixup missing entryId from older formats
-            let forceCyphersData = fixupIds(forceCyphersData);
-            setForceCyphersData(forceCyphersData);
-            // Fixup missing entryId from older formats
-            let specialIssueCyphersData = fixupIds(json.specialIssueCyphersData);
-            setSpecialIssueCyphersData(specialIssueCyphersData);
+            setForceCyphersData(json.forceCyphersData);
+            setSpecialIssueCyphersData(json.specialIssueCyphersData);
             
             presentToast(`Rack ${json.rackName} loaded successfully`);
         } catch (e) {

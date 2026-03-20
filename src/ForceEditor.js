@@ -181,9 +181,7 @@ function ForceEditor(props) {
     }
 
     function openModelCard(entry) {
-        const modelId = entry.modelId ? entry.modelId : entry.id;
-        const entryId = entry.entryId;
-        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.entryId === entryId).length !== 0 });
+        history.push(`/model/${entry.modelId}`, { rulesetId: rulesetId, entryId: entry.id, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entry.id).length !== 0 });
     }
 
     function addModelCards(modelIds) {
@@ -205,7 +203,7 @@ function ForceEditor(props) {
 
     function removeModelCard(entryId) {
         let deletedModelNames = [];
-        const index = forceModelsData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = forceModelsData.findIndex((forceModel) => forceModel.id === entryId);
         if(index !== -1) {
             let newForceData = forceModelsData;
             newForceData = deleteModelCard(newForceData, index, deletedModelNames);
@@ -247,7 +245,7 @@ function ForceEditor(props) {
     }
 
     function removeSpecialIssue(entryId) {
-        const index = specialIssueModelsData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === entryId);
         const modelId = specialIssueModelsData[index].modelId;
         const modelData = modelsData[modelId];
     
@@ -260,7 +258,7 @@ function ForceEditor(props) {
     }
 
     function swapToSpecialIssue(entryId) {
-        const index = forceModelsData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = forceModelsData.findIndex((forceModel) => forceModel.id === entryId);
         let newSpecialIssueModelsData = specialIssueModelsData;
         let deletedModelNames = [];
         if(index !== -1) {
@@ -281,7 +279,7 @@ function ForceEditor(props) {
     }
 
     function swapFromSpecialIssue(entryId) {
-        const index = specialIssueModelsData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = specialIssueModelsData.findIndex((forceModel) => forceModel.id === entryId);
         let newForceData = forceModelsData;
         let addedModelNames = [];
 
@@ -311,12 +309,12 @@ function ForceEditor(props) {
     }
 
     function isCardUnremovable(entryId) {
-        const index = forceModelsData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = forceModelsData.findIndex((forceModel) => forceModel.id === entryId);
         return forceModelsData[index] && !forceModelsData[index].canRemove;
     }
 
     function canSpecialIssueSwap(entryId) {
-        const index = forceModelsData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = forceModelsData.findIndex((forceModel) => forceModel.id === entryId);
         const modelType = forceModelsData[index] && forceModelsData[index].type;
         return forceModelsData[index] && !isCardUnremovable(entryId) && !specialIssueModelsData.some((forceModel) => forceModel.type === modelType);
     }
@@ -327,7 +325,7 @@ function ForceEditor(props) {
     }
 
     function updateModelHardPoint(forceData, setModelsData, option, type, point_cost, hardPointIndex, entryId) {
-        const index = forceData.findIndex((forceModel) => forceModel.entryId === entryId);
+        const index = forceData.findIndex((forceModel) => forceModel.id === entryId);
         let entry = forceData[index];
         const newHardPointOptions = [...entry.hardPointOptions.slice(0, hardPointIndex), {type: type, option: option, point_cost: point_cost}, ...entry.hardPointOptions.slice(hardPointIndex+1)];
         entry.hardPointOptions = newHardPointOptions;
@@ -353,8 +351,8 @@ function ForceEditor(props) {
                     cards={forceModelsData} 
                     handleCardClicked={openModelCard} 
                     cardActions={[
-                        {handleClicked: (entry) => removeModelCard(entry.entryId), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: (entry) => isCardUnremovable(entry.entryId)}, 
-                        {handleClicked: (entry) => swapToSpecialIssue(entry.entryId), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => !canSpecialIssueSwap(entry.entryId)}
+                        {handleClicked: (entry) => removeModelCard(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, isDisabled: (entry) => isCardUnremovable(entry.id)}, 
+                        {handleClicked: (entry) => swapToSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => !canSpecialIssueSwap(entry.id)}
                     ]} 
                     updateModelHardPoint={(option, type, point_cost, hardPointIndex, entryId) => {updateModelHardPoint(forceModelsData, setForceModelsData, option, type, point_cost, hardPointIndex, entryId);}}
                 ></CardList>
@@ -369,8 +367,8 @@ function ForceEditor(props) {
                     cards={specialIssueModelsData} 
                     handleCardClicked={openModelCard} 
                     cardActions={[
-                        {handleClicked: (entry) => removeSpecialIssue(entry.entryId), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
-                        {handleClicked: (entry) => swapFromSpecialIssue(entry.entryId), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
+                        {handleClicked: (entry) => removeSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>}, 
+                        {handleClicked: (entry) => swapFromSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon>}
                     ]} 
                     updateModelHardPoint={(option, type, point_cost, hardPointIndex, entryId) => {updateModelHardPoint(specialIssueModelsData, setSpecialIssueModelsData, option, type, point_cost, hardPointIndex, entryId);}}
                 ></CardList>
