@@ -3,6 +3,6 @@
     "name": "Dragon",
     "special_rules": ["dominion_converter", "dragon_scales"],
     "changes": [
-        "Added Impulse Reciprocator."
+        "Added Dragon Scales."
     ]
 }

@@ -1,0 +1,8 @@
+{
+    "id": "spider",
+    "name": "Spider",
+    "special_rules": ["spider", "energy_web"],
+    "changes": [
+        "Added Energy Web."
+    ]
+}
