@@ -6,7 +6,7 @@
         "type": "melee", 
         "damage_types": ["kinetic"], 
         "rng": 2, 
-        "pow": 4,
+        "pow": 6,
         "special_rules": ["power_attack"]
     }]
 }
