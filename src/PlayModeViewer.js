@@ -66,7 +66,7 @@ function PlayModeViewer(props) {
 
         const arcLimit = modelData.type === "void_gate" ? 5 : modelData.type === "warjack" ? 3 : modelData.special_rules.includes("awakened_spirit") || modelData.type === "mantlet" ? 0 : 1;
 
-        const unitStatus = {entryId: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels, attachments: []};
+        const unitStatus = {id: entryId, modelId: modelId, activated: false, arc: 0, arcLimit: arcLimit, unitModels: unitModels, attachments: []};
 
         return unitStatus;
     }

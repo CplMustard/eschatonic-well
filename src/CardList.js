@@ -9,7 +9,7 @@ import UnitStatus from "./UnitStatus.js";
 
 import { getCadresData, getCypherTypesData, getModelTypesData } from "./DataLoader";
 
-const mergeCadres = true;
+const mergeCadres = false;
 
 function CardList(props) {
     const { rulesetId, id, cards, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
@@ -30,8 +30,6 @@ function CardList(props) {
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});
-    
-    //TODO: merge cadre model groups together
     
     const allGroups = Object.keys(cardGroups);
 
