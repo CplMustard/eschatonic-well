@@ -329,7 +329,14 @@ function ModelCardViewer(props) {
                 <CardHeader rulesetId={rulesetId} cardData={cardData} isAttachment={isAttachment}/><hr/>
                 <IonCardContent>
                     <Statline stats={stats} />
-                    {hard_points && <HardPointList rulesetId={rulesetId} hard_points={hard_points} hardPointOptions={hardPointOptions} weaponPoints={weapon_points} onChangeHardPoint={updateHardPoint.bind(this)} isPlayMode={isPlayMode}/>}
+                    {hard_points && <HardPointList 
+                        rulesetId={rulesetId} 
+                        hard_points={hard_points} 
+                        hardPointOptions={hardPointOptions} 
+                        weaponPoints={weapon_points} 
+                        onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateHardPoint(option, type, point_cost, hardPointIndex)} 
+                        isPlayMode={isPlayMode}
+                    />}
                     {weapons && <WeaponList rulesetId={rulesetId} weapons={weapons} />}
                     {advantages && <SpecialRuleList rulesetId={rulesetId} special_rules={advantages} header={"Advantages"} />}
                     {hardPointCortexOption && hardPointCortexOption.length !== 0 && <Cortex rulesetId={rulesetId} cortexId={hardPointCortexOption}/>}

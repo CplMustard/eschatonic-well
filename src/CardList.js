@@ -9,7 +9,7 @@ import UnitStatus from "./UnitStatus.js";
 
 import { getCadresData, getCypherTypesData, getModelTypesData } from "./DataLoader";
 
-const mergeCadres = false;
+const mergeCadres = true;
 
 function CardList(props) {
     const { rulesetId, id, cards, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
@@ -75,14 +75,16 @@ function CardList(props) {
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
+        const isCadre = typeParts[0].includes("cadre");
         // Don't hide champions, mantlets or void gates in reserves
         const playModeOverrideShow = isPlayMode && typeParts.includes("champion") || typeParts.includes("mantlet") || typeParts.includes("void_gate");
-        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (playModeOverrideShow || !modelTypesData[typeParts[0]].hidden))) {
+        if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (playModeOverrideShow || !modelTypesData[typeParts[0]].hidden) || isCadre)) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
                 // Hide specific cards with a hidden subtype as well
                 const hasHiddenSubtype = card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
-                const isHidden = hasHiddenSubtype || (modelTypesData[card.type] ? modelTypesData[card.type].hidden : cypherTypesData[card.type].hidden);
+                const hasHiddenType = modelTypesData[card.type] ? modelTypesData[card.type].hidden : cypherTypesData[card.type].hidden;
+                const isHidden = hasHiddenSubtype || hasHiddenType || card.hidden;
                 if (hideHiddenTypes && !playModeOverrideShow && isHidden) {
                     return;
                 }
@@ -144,7 +146,6 @@ function CardList(props) {
                 );
             });
 
-            const isCadre = typeParts[0].includes("cadre");
             const cadreId = isCadre ? typeParts[0].split(":")[1] : undefined;
             const subtype = typeParts.length !== 1 ? `${modelTypesData[typeParts[1]] ? modelTypesData[typeParts[1]].name : ""}` : "";
             const cardTypeName = cadreId ? `${cadresData[cadreId].name} ${subtype}` : modelTypesData[typeParts[0]] ? `${subtype} ${modelTypesData[typeParts[0]].name}` : cypherTypesData[typeParts[0]].name;
