@@ -45,7 +45,7 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
-                const cypherEntry = {entryId: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
+                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newForceCyphersData = newForceCyphersData.concat(cypherEntry);
                 addedCypherNames.push(cyphersData[cypherId].name);
             }
@@ -71,7 +71,7 @@ function RackEditor(props) {
         const addedCypherNames = [];
         cypherIds.forEach((cypherId) => {
             if(cypherCount([...forceCyphersData, ...specialIssueCyphersData], cypherIds) === 0) {
-                const cypherEntry = {entryId: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
+                const cypherEntry = {id: uuidv1(), cypherId: cypherId, type: cyphersData[cypherId].type, name: cyphersData[cypherId].name, factions: cyphersData[cypherId].factions};
                 newSpecialIssueCyphersData = newSpecialIssueCyphersData.concat(cypherEntry);
                 addedCypherNames.push(cyphersData[cypherId].name);
             }
@@ -137,7 +137,9 @@ function RackEditor(props) {
         return !specialIssueCyphersData.some((forceCypher) => forceCypher.type === cypherType);
     }
 
-    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.id === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === cypher.id) === -1);
+    const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
+    console.log(remainingCypherCardList);
+    console.log(forceCyphersData);
 
     return (
         <div>
