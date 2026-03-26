@@ -303,6 +303,7 @@ function EditorView() {
             });
             
             setFilesDirty(true);
+            setForceName(forceName);
             presentToast(`Force saved as ${forceName} successfully`);
             return result;
         } catch (e) {

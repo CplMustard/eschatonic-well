@@ -35,6 +35,7 @@ function SaveLoadModal (props) {
                     role: "confirm",
                     handler: () => {
                         saveFile(sanitizedFileName, ...fileData);
+                        setFileName(sanitizedFileName);
                         setIsOpen(false);
                     },
                 },
@@ -58,6 +59,7 @@ function SaveLoadModal (props) {
                     role: "confirm",
                     handler: () => {
                         loadFile(filename);
+                        setFileName(name);
                         setIsOpen(false);
                     },
                 },
