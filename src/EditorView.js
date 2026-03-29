@@ -343,16 +343,16 @@ function EditorView() {
             setRulesetId(json.rulesetId ? json.rulesetId : "pp");
             setFactionId(json.factionId);
             setForceSizeId(json.forceSize.id);
-            let forceModelsData = json.forceModelsData;
+            let newForceModelsData = json.forceModelsData;
             // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
-            forceModelsData = insertCadreData(forceModelsData);
-            setForceModelsData(forceModelsData);
-            setForceCyphersData(forceCyphersData);
-            let specialIssueModelsData = json.specialIssueModelsData;
+            newForceModelsData = insertCadreData(newForceModelsData);
+            setForceModelsData(newForceModelsData);
+            setForceCyphersData(json.forceCyphersData);
+            let newSpecialIssueModelsData = json.specialIssueModelsData;
             // This is a necessary stopgap to ensure that older-style lists will have cadre data filled in correctly
-            specialIssueModelsData = insertCadreData(specialIssueModelsData);
-            setSpecialIssueModelsData(specialIssueModelsData);
-            setSpecialIssueCyphersData(specialIssueCyphersData);
+            newSpecialIssueModelsData = insertCadreData(newSpecialIssueModelsData);
+            setSpecialIssueModelsData(newSpecialIssueModelsData);
+            setSpecialIssueCyphersData(json.specialIssueCyphersData);
             
             presentToast(`Force ${json.forceName} loaded successfully`);
         } catch (e) {
