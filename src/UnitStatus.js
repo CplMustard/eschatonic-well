@@ -1,6 +1,8 @@
 import React from "react";
 import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion, IonGrid, IonRow, IonCol } from "@ionic/react";
-import { add, bodyOutline, create, remove, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
+import { bodyOutline, create, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
+
+import ArcTracker from "./ArcTracker";
 
 import { getModelsData } from "./DataLoader";
 
@@ -36,47 +38,6 @@ function UnitStatus(props) {
             </IonText>
         </>;
     };
-
-    function ArcTracker(props) {
-        const { arc, arcLimit, arcInWell, disabled, color, size } = props;
-
-        return <IonText color={color ? color : "primary"} style={{display: "flex", alignContent: "center", justifyContent: "flex-start"}}>
-            <IonLabel style={{position: "relative", top: "0.5rem"}}>Arc:</IonLabel>
-            {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
-            {!collapsible && <br/>}
-            <h1 style={{margin: 0}}>
-                {!disabled && <IonIcon 
-                    color={arc-1 >= 0 ? "secondary" : "tertiary"}
-                    icon={remove} 
-                    style={{position: "relative", top: "0.25rem"}}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isPlayMode) {
-                            if(!disabled && arc-1 >= 0) {
-                                setArc(id, arc-1);
-                            }
-                        }
-                    }} 
-                    size={size ? size : "large"}
-                ></IonIcon>}
-                <IonText style={{position: "relative", top: "0.125rem", margin: "0.25rem"}}>{arc}</IonText> 
-                {!disabled && <IonIcon 
-                    color={!disabled && (arc+1 <= arcLimit && arcInWell > 0) ? "secondary" : "tertiary"}
-                    icon={add} 
-                    style={{position: "relative", top: "0.25rem"}}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isPlayMode) {
-                            if(!disabled && (arc+1 <= arcLimit && arcInWell > 0)) {
-                                setArc(id, arc+1);
-                            }
-                        }
-                    }} 
-                    size={size ? size : "large"}
-                ></IonIcon>}
-            </h1>
-        </IonText>;
-    }
 
     function Activation(props) {
         const { activated, disabled, hideLabel } = props;
@@ -205,7 +166,7 @@ function UnitStatus(props) {
                 {modelData.type !== "mantlet" && modelData.type !== "void_gate" && <Activation activated={activated}></Activation>}
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && <br/>}
-                {arcLimit > 0 && <ArcTracker arc={arc} arcLimit={arcLimit} arcInWell={arcInWell}></ArcTracker>}
+                {arcLimit > 0 && <ArcTracker id={id} arc={arc} arcLimit={arcLimit} arcInWell={arcInWell} setArc={setArc} isPlayMode={isPlayMode} collapsible={collapsible}></ArcTracker>}
                 {/*TODO: Card viewer specific formatting change, should be handled with styles instead*/}
                 {!collapsible && <br/>}
                 {unitModels.length > 1 && <AliveSquadMembers unitModels={unitModels} attachments={attachments}/>}

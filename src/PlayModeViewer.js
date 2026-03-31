@@ -98,6 +98,15 @@ function PlayModeViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
+    function addArcToUnit(entryId, arc) {
+        const index = unitsStatus.findIndex((entry) => entry.id === entryId);
+        let newUnitsStatus = unitsStatus;
+
+        const unitStatus = newUnitsStatus[index];
+        unitStatus.arc = arc;
+        setUnitsStatus(newUnitsStatus);
+    }
+
     function cancelDeploy(entryId) {
         const index = unitsStatus.findIndex((entry) => entry.id === entryId);
         let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
@@ -114,11 +123,11 @@ function PlayModeViewer(props) {
         const modelId = models.find((entry) => entry.id === entryId).modelId;
         const modelData = modelsData[modelId];
 
-        if(modelData.attachments) {
+        if((modelData.attachments && modelData.type === "squad") || (modelData.type === "void_gate")) {
             setCurrentUnitAttachments(modelData.attachments);
             setCurrentUnitStatus(unitStatus);
             setIsDeployUnitModalOpen(true);
-        } else {   
+        } else {
             const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
             const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === entryId).name : modelData.name;
 
@@ -199,7 +208,17 @@ function PlayModeViewer(props) {
 
     return (
         <div className="container">
-            <DeployUnitModal rulesetId={rulesetId} isOpen={isDeployUnitModalOpen} setIsOpen={setIsDeployUnitModalOpen} attachments={currentUnitAttachments} unitStatus={currentUnitStatus} cancelDeploy={cancelDeploy} addAttachmentsToUnit={addAttachmentsToUnit}></DeployUnitModal>
+            <DeployUnitModal 
+                rulesetId={rulesetId} 
+                isOpen={isDeployUnitModalOpen} 
+                setIsOpen={setIsDeployUnitModalOpen} 
+                attachments={currentUnitAttachments} 
+                unitStatus={currentUnitStatus} 
+                arcInWell={arcInWell}
+                cancelDeploy={cancelDeploy} 
+                addAttachmentsToUnit={addAttachmentsToUnit}
+                addArcToUnit={addArcToUnit}
+            ></DeployUnitModal>
             {(tabSelected === playTabs.deployed) && <>
                 <IonText color="primary"><h2 className={"label"}>Tap Reserves and deploy a unit with <IonIcon slot="icon-only" icon={download}></IonIcon> to track their status here. Recall units with <IonIcon slot="icon-only" icon={push}></IonIcon></h2></IonText>
                 <CardList

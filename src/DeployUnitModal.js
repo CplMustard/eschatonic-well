@@ -1,14 +1,17 @@
 import React, { useState, useReducer } from "react";
 import { IonBadge, IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow } from "@ionic/react";
 
+import ArcTracker from "./ArcTracker";
+
 import { getModelsData } from "./DataLoader";
 
 function DeployUnitModal (props) {   
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const [attachmentsToAdd, setAttachmentsToAdd] = useState([]);
+    const [currentArc, setCurrentArc] = useState(0);
 
-    const { rulesetId, isOpen, setIsOpen, attachments, unitStatus, cancelDeploy, addAttachmentsToUnit } = props;
+    const { rulesetId, isOpen, setIsOpen, attachments, unitStatus, arcInWell, cancelDeploy, addAttachmentsToUnit, addArcToUnit } = props;
 
     const modelsData = getModelsData(rulesetId);
 
@@ -17,6 +20,7 @@ function DeployUnitModal (props) {
 
     function cancel() {
         setAttachmentsToAdd([]); 
+        setCurrentArc(0);
         cancelDeploy(unitStatus.id);
         setIsOpen(false);
     }
@@ -49,6 +53,11 @@ function DeployUnitModal (props) {
         return attachmentsToAdd.reduce((attachmentsDC, attachmentId) => modelsData[attachmentId].stats.dc + attachmentsDC, initialDC);
     }
 
+    function setArc(entryId, arc) {
+        addArcToUnit(entryId, arc);
+        setCurrentArc(arc);
+    }
+
     const attachmentButtons = [];
     if(attachments) {
         attachments.forEach((attachmentId, index) => {
@@ -70,6 +79,8 @@ function DeployUnitModal (props) {
 
     const attachmentNames = attachmentsToAdd.map((modelId) => modelsData[modelId].name);
 
+    const isVoidGate = modelId ? modelsData[modelId].type === "void_gate" : false;
+
     return (
         <IonModal isOpen={isOpen} backdropDismiss={false}>
             <IonHeader>
@@ -77,20 +88,22 @@ function DeployUnitModal (props) {
                     <IonButtons slot="start">
                         <IonButton onClick={() => cancel()}>Cancel</IonButton>
                     </IonButtons>
-                    <IonTitle>Add Attachments</IonTitle>
+                    <IonTitle>{isVoidGate ? "Charge Gate With Arc" : "Add Attachments"}</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
                 <IonText><h3 className="label">Deploy {unitName}</h3></IonText>
-                <IonText><h4 className="label">DC: {getTotalDC(modelId, attachmentsToAdd)}</h4></IonText>
-                <IonText><h3 className="label" style={{marginBottom: 0}}>{`Attachments: ${attachmentNames.sort((a,b) => a.localeCompare(b)).join(", ")}`}</h3></IonText>
+                {attachmentButtons.length !== 0 && <IonText><h4 className="label">DC: {getTotalDC(modelId, attachmentsToAdd)}</h4></IonText>}
+                {attachmentButtons.length !== 0 && <IonText><h3 className="label" style={{marginBottom: 0}}>{`Attachments: ${attachmentNames.sort((a,b) => a.localeCompare(b)).join(", ")}`}</h3></IonText>}
                 {attachmentButtons.length !== 0 && <IonGrid>{attachmentButtons}</IonGrid>}
+                {isVoidGate && <ArcTracker id={unitStatus.id} arc={currentArc} arcLimit={unitStatus.arcLimit} arcInWell={arcInWell} setArc={setArc} isPlayMode={true} collapsable={false}></ArcTracker>}
             </IonContent>
             <IonFooter>                
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonButton onClick={() => {
                             setAttachmentsToAdd([]); 
+                            setCurrentArc(0);
                             addAttachmentsToUnit(unitStatus, attachmentsToAdd);
                             setIsOpen(false);
                         }}>Deploy Unit</IonButton>
