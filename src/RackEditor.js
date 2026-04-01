@@ -138,8 +138,6 @@ function RackEditor(props) {
     }
 
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
-    console.log(remainingCypherCardList);
-    console.log(forceCyphersData);
 
     return (
         <div>
