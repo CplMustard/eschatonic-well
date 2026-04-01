@@ -5,12 +5,13 @@ import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { add, remove, logOut, logIn } from "ionicons/icons";
 
 import CardList from "./CardList";
+import CadreList from "./CadreList";
+import RemoveModelModal from "./RemoveModelModal.js";
 import { forceTabs } from "./EditorView.js";
 
 import { isHidden } from "./util/isHidden.js";
 
 import { getCadresData, getModelsData, getWeaponsData } from "./DataLoader";
-import CadreList from "./CadreList";
 
 const voidGateId = "void_gate";
 
@@ -19,6 +20,9 @@ function ForceEditor(props) {
     const [present] = useIonToast();
 
     const [forceEmpty, setForceEmpty] = useState(true);
+    const [isRemoveModelModalOpen, setIsRemoveModelModalOpen] = useState(false);
+    const [currentRemoveModelsData, setCurrentRemoveModelsData] = useState([]);
+    const [currentRemoveModelName, setCurrentRemoveModelName] = useState("");
 
     const { tabSelected, rulesetId, factionId, forceModelsData, setForceModelsData, specialIssueModelsData, setSpecialIssueModelsData } = props;
     
@@ -220,6 +224,26 @@ function ForceEditor(props) {
         }
     }
 
+    function removeModelById(modelId) {
+        const count = modelCount([...forceModelsData, ...specialIssueModelsData], modelId);
+        if(count > 1 && modelsData[modelId].hard_points) {
+            let removeModelsData = [...forceModelsData, ...specialIssueModelsData].filter((forceModel) => forceModel.modelId === modelId);
+            removeModelsData.forEach((forceModel) => forceModel.isSpecialIssue = specialIssueModelsData.filter((entry) => entry.id === forceModel.id).length !== 0 );
+            const removeModelName = removeModelsData[0].name;
+            setIsRemoveModelModalOpen(true);
+            setCurrentRemoveModelName(removeModelName);
+            setCurrentRemoveModelsData(removeModelsData);
+        } else {
+            const index = forceModelsData.findIndex((forceModel) => forceModel.modelId === modelId);
+            if(index !== -1) {
+                removeModelCard(forceModelsData[index].id);
+            } else {
+                const index = specialIssueModelsData.findIndex((forceModel) => forceModel.modelId === modelId);
+                removeSpecialIssue(specialIssueModelsData[index].id);
+            }
+        }
+    }
+
     function addSpecialIssue(modelIds) {
         let newSpecialIssueModelsData = specialIssueModelsData;
         let addedModelNames = [];
@@ -378,6 +402,15 @@ function ForceEditor(props) {
                 ></CardList>
             </>}
             {tabSelected === forceTabs.units && <>
+                <RemoveModelModal
+                    rulesetId={rulesetId} 
+                    isOpen={isRemoveModelModalOpen} 
+                    setIsOpen={setIsRemoveModelModalOpen} 
+                    matchingModelsData={currentRemoveModelsData} 
+                    modelName={currentRemoveModelName} 
+                    removeModelCard={removeModelCard}
+                    removeSpecialIssue={removeSpecialIssue}
+                ></RemoveModelModal>
                 <CadreList rulesetId={rulesetId} cadresData={cadresData} addModelCards={addModelCards} factionId={factionId}></CadreList>
                 <br/>
                 <CardList 
@@ -389,8 +422,21 @@ function ForceEditor(props) {
                     handleCardClicked={openModelCard} 
                     rightInfoText={(card) => getFAText([...forceModelsData, ...specialIssueModelsData], card.id)}
                     cardActions={[
-                        {handleClicked: (card) => addModelCards([card.id]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>, isDisabled: (card) => !checkFA([...forceModelsData, ...specialIssueModelsData], card.id) }, 
-                        {handleClicked: (card) => addSpecialIssue([card.id]), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (card) => !canAddToSpecialIssue(card.id) || !checkFA([...forceModelsData, ...specialIssueModelsData], card.id)}
+                        {
+                            handleClicked: (card) => removeModelById(card.id), 
+                            text: <IonIcon slot="icon-only" icon={remove}></IonIcon>, 
+                            isDisabled: (card) => modelCount([...forceModelsData, ...specialIssueModelsData], card.id, card.id) <= 0 || isHidden(card.id, rulesetId) 
+                        }, 
+                        {
+                            handleClicked: (card) => addModelCards([card.id]), 
+                            text: <IonIcon slot="icon-only" icon={add}></IonIcon>, 
+                            isDisabled: (card) => !checkFA([...forceModelsData, ...specialIssueModelsData], card.id) 
+                        }, 
+                        {
+                            handleClicked: (card) => addSpecialIssue([card.id]), 
+                            text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, 
+                            isDisabled: (card) => !canAddToSpecialIssue(card.id) || !checkFA([...forceModelsData, ...specialIssueModelsData], card.id)
+                        }
                     ]}
                 ></CardList>
             </>}

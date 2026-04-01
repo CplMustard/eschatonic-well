@@ -12,7 +12,7 @@ import { getCadresData, getCypherTypesData, getModelTypesData } from "./DataLoad
 const mergeCadres = false;
 
 function CardList(props) {
-    const { rulesetId, id, cards, unitsStatus, isPlayMode, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
+    const { rulesetId, id, cards, unitsStatus, isPlayMode, disableHardPoints, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
     const cadresData = getCadresData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
@@ -119,7 +119,7 @@ function CardList(props) {
                                     hardPointOptions={card.hardPointOptions}
                                     weaponPoints={card.weapon_points}
                                     onChangeHardPoint={updateModelHardPoint ? ((option, type, point_cost, hardPointIndex) => updateModelHardPoint(option, type, point_cost, hardPointIndex, card.id)) : null}
-                                    isPlayMode={isPlayMode}
+                                    readonly={isPlayMode || disableHardPoints}
                                 />
                             </IonCol>
                         </IonRow>}

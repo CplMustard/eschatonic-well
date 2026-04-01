@@ -6,7 +6,7 @@ import { getCortexesData, getWeaponsData } from "./DataLoader";
 import HardPoint from "./HardPoint";
 
 function HardPointList(props) {
-    const { rulesetId, hard_points, hardPointOptions, weaponPoints, onChangeHardPoint, isPlayMode } = props;
+    const { rulesetId, hard_points, hardPointOptions, weaponPoints, onChangeHardPoint, readonly } = props;
 
     const cortexesData = getCortexesData(rulesetId);
     const weaponsData = getWeaponsData(rulesetId);
@@ -24,7 +24,7 @@ function HardPointList(props) {
     const hardPointOptionsText = hardPointOptions.map((hardPointOption) => hardPointOption.type === "cortex" ? cortexesData[hardPointOption.option].name : weaponsData[hardPointOption.option].name).join(", ");
 
     return <IonAccordionGroup>
-        <IonAccordion readonly={isPlayMode}>
+        <IonAccordion readonly={readonly}>
             <IonItem slot="header" color="dark" size="small">
                 <IonLabel color="primary">{hardPointOptionsText}</IonLabel>
             </IonItem>
