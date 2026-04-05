@@ -189,7 +189,7 @@ function ForceEditor(props) {
     }
 
     function openEntryCard(entry) {
-        history.push(`/model/${entry.modelId}`, { rulesetId: rulesetId, entryId: entry.id, isSpecialIssue: specialIssueModelsData.filter((entry) => entry.id === entry.id).length !== 0 });
+        history.push(`/model/${entry.modelId}`, { rulesetId: rulesetId, entryId: entry.id, isSpecialIssue: specialIssueModelsData.filter((specialIssueEntry) => specialIssueEntry.id === entry.id).length !== 0 });
     }
 
     function addModelCards(modelIds) {

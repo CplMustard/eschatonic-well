@@ -56,6 +56,7 @@ function ModelCardViewer(props) {
     useEffect(() => {
         if(entryId) {
             const entry = modelsDataState.find((entry) => entry.id === entryId);
+            console.log(entry);
             if(entry && entry.hardPointOptions) {
                 setHardPointOptions(entry.hardPointOptions);
             }
