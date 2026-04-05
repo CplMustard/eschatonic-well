@@ -21,6 +21,7 @@ function ModelCardViewer(props) {
     const location = useLocation();
 
     const [hardPointOptions, setHardPointOptions] = useState([]);
+    const [isHardpointDropdownOpen, setIsHardpointDropdownOpen] = useState(false);
 
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
     const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: [], listenStorageChange: true});
@@ -56,7 +57,6 @@ function ModelCardViewer(props) {
     useEffect(() => {
         if(entryId) {
             const entry = modelsDataState.find((entry) => entry.id === entryId);
-            console.log(entry);
             if(entry && entry.hardPointOptions) {
                 setHardPointOptions(entry.hardPointOptions);
             }
@@ -184,6 +184,7 @@ function ModelCardViewer(props) {
             setModelsData(newModelsData);
         }
         setHardPointOptions(newHardPointOptions);
+        setIsHardpointDropdownOpen(true);
     }
 
     function setArc(entryId, arc) {
@@ -335,6 +336,8 @@ function ModelCardViewer(props) {
                         hard_points={hard_points} 
                         hardPointOptions={hardPointOptions} 
                         weaponPoints={weapon_points} 
+                        isDropdownOpen={isHardpointDropdownOpen}
+                        onClick={() => setIsHardpointDropdownOpen(!isHardpointDropdownOpen)}
                         onChangeHardPoint={(option, type, point_cost, hardPointIndex) => updateHardPoint(option, type, point_cost, hardPointIndex)} 
                         isPlayMode={isPlayMode}
                     />}
