@@ -2,13 +2,14 @@ import React, { useState, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { useSessionStorageState } from "ahooks";
 import { IonText, IonIcon, useIonToast } from "@ionic/react";
-import { download, push } from "ionicons/icons";
+import { download, push, logIn } from "ionicons/icons";
 
 import CardList from "./CardList";
 import DeployUnitModal from "./modals/DeployUnitModal.js";
 import { playTabs } from "./EditorView.js";
 
 import { getModelsData } from "./DataLoader";
+import SwapSpecialIssueModal from "./modals/SwapSpecialIssueModal.js";
 
 function PlayModeViewer(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -19,8 +20,10 @@ function PlayModeViewer(props) {
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
 
     const [isDeployUnitModalOpen, setIsDeployUnitModalOpen] = useState(false);
+    const [isSwapSpecialIssueModalOpen, setIsSwapSpecialIssueModalOpen] = useState(false);
     const [currentUnitAttachments, setCurrentUnitAttachments] = useState([]);
     const [currentUnitStatus, setCurrentUnitStatus] = useState({});
+    const [currentSpecialIssueModelToSwap, setCurrentSpecialIssueModelToSwap] = useState({});
 
     const { rulesetId } = props;
 
@@ -149,6 +152,20 @@ function PlayModeViewer(props) {
         forceUpdate();
     }
 
+    function openSpecialIssueSwapModal(entry) {
+        setCurrentSpecialIssueModelToSwap(entry);
+        setIsSwapSpecialIssueModalOpen(true);
+    }
+
+    function swapWithSpecialIssue(specialIssueEntryId, forceEntryId) {
+        console.log(specialIssueEntryId);
+        console.log(forceEntryId);
+    }
+
+    function cancelSwap() {
+        setCurrentSpecialIssueModelToSwap(undefined);
+    }
+
     function getUnitDC(entry) {
         const modelId = entry.modelId;
         return Number.isInteger(modelsData[modelId].stats.dc) ? `DC ${modelsData[modelId].stats.dc}` : undefined;
@@ -220,6 +237,16 @@ function PlayModeViewer(props) {
                 addAttachmentsToUnit={addAttachmentsToUnit}
                 addArcToUnit={addArcToUnit}
             ></DeployUnitModal>
+            <SwapSpecialIssueModal 
+                rulesetId={rulesetId} 
+                isOpen={isSwapSpecialIssueModalOpen} 
+                setIsOpen={setIsSwapSpecialIssueModalOpen} 
+                forceModels={models} 
+                specialIssueModel={currentSpecialIssueModelToSwap}
+                cancelSwap={cancelSwap} 
+                swapWithSpecialIssue={swapWithSpecialIssue}
+                getUnitDC={getUnitDC}
+            ></SwapSpecialIssueModal>
             {(tabSelected === playTabs.deployed) && <>
                 <IonText color="primary"><h2 className={"label"}>Tap Reserves and deploy a unit with <IonIcon slot="icon-only" icon={download}></IonIcon> to track their status here. Recall units with <IonIcon slot="icon-only" icon={push}></IonIcon></h2></IonText>
                 <CardList
@@ -257,7 +284,18 @@ function PlayModeViewer(props) {
                     ]}
                 >
                 </CardList>
-                <CardList rulesetId={rulesetId} id={"PlaySpecialIssueModels"} header={"Special Issue"} cards={specialIssueModels} handleCardClicked={openModelCard}></CardList>
+                <CardList 
+                    rulesetId={rulesetId} 
+                    id={"PlaySpecialIssueModels"} 
+                    header={"Special Issue"} 
+                    cards={specialIssueModels} 
+                    handleCardClicked={openModelCard}
+                    rightInfoText={getUnitDC}
+                    cardActions={[
+                        {handleClicked: (entry) => openSpecialIssueSwapModal(entry), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon> }, 
+                    ]}
+                >
+                </CardList>
             </>}
             {(tabSelected === playTabs.rack) && <>
                 <CardList rulesetId={rulesetId} id={"PlayCyphers"} header={"Cyphers"} cards={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
