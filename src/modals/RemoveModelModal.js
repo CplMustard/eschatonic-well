@@ -1,7 +1,7 @@
 import React from "react";
 import { IonContent, IonModal, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonBadge, IonGrid, IonCol, IonRow } from "@ionic/react";
 
-import HardPointList from "./HardPointList";
+import HardPointList from "../HardPointList";
 
 function RemoveModelModal (props) {   
     const { rulesetId, isOpen, setIsOpen, matchingModelsData, modelName, removeModelCard, removeSpecialIssue } = props;

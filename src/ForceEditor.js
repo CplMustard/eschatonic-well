@@ -6,7 +6,7 @@ import { add, remove, logOut, logIn } from "ionicons/icons";
 
 import CardList from "./CardList";
 import CadreList from "./CadreList";
-import RemoveModelModal from "./RemoveModelModal.js";
+import RemoveModelModal from "./modals/RemoveModelModal.js";
 import { forceTabs } from "./EditorView.js";
 
 import { isHidden } from "./util/isHidden.js";

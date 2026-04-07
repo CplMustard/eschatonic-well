@@ -12,7 +12,7 @@ import { copyForceToText } from "./util/copyForceToText";
 import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
 import CardListViewer from "./CardListViewer";
-import SaveLoadModal from "./SaveLoadModal.js";
+import SaveLoadModal from "./modals/SaveLoadModal.js";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
 import PlayModeTracker from "./PlayModeTracker";

@@ -10,7 +10,7 @@ import SpecialRuleList from "./SpecialRuleList";
 import WeaponList from "./WeaponList";
 import ManeuverList from "./ManeuverList";
 import UnitStatus from "./UnitStatus";
-import ViewChangesModal from "./ViewChangesModal";
+import ViewChangesModal from "./modals/ViewChangesModal";
 import VersionNumber from "./VersionNumber";
 
 import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./DataLoader";

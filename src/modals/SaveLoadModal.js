@@ -5,7 +5,7 @@ import { warning } from "ionicons/icons";
 
 var semver = require("semver");
 
-import {forcesExtension, forceFormatVersion, rackFormatVersion} from "./EditorView.js";
+import {forcesExtension, forceFormatVersion, rackFormatVersion} from "../EditorView.js";
 
 function SaveLoadModal (props) {    
     const [presentAlert] = useIonAlert();

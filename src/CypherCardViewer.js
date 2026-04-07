@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
 
-import ViewChangesModal from "./ViewChangesModal";
+import ViewChangesModal from "./modals/ViewChangesModal";
 import VersionNumber from "./VersionNumber";
 
 import { getCyphersData, getCypherTypesData, getFactionsData } from "./DataLoader";

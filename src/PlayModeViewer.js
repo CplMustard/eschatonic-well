@@ -5,7 +5,7 @@ import { IonText, IonIcon, useIonToast } from "@ionic/react";
 import { download, push } from "ionicons/icons";
 
 import CardList from "./CardList";
-import DeployUnitModal from "./DeployUnitModal";
+import DeployUnitModal from "./modals/DeployUnitModal.js";
 import { playTabs } from "./EditorView.js";
 
 import { getModelsData } from "./DataLoader";
@@ -206,6 +206,7 @@ function PlayModeViewer(props) {
     const totalArc = 7;
     const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
 
+    //TODO: add capability to swap special issue cards into force
     return (
         <div className="container">
             <DeployUnitModal 

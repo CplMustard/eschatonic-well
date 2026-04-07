@@ -1,9 +1,9 @@
 import React, { useState, useReducer } from "react";
 import { IonBadge, IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonButton, IonGrid, IonCol, IonRow } from "@ionic/react";
 
-import ArcTracker from "./ArcTracker";
+import ArcTracker from "../ArcTracker";
 
-import { getModelsData } from "./DataLoader";
+import { getModelsData } from "../DataLoader";
 
 function DeployUnitModal (props) {   
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
