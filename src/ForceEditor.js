@@ -10,6 +10,7 @@ import RemoveModelModal from "./modals/RemoveModelModal.js";
 import { forceTabs } from "./EditorView.js";
 
 import { isHidden } from "./util/isHidden.js";
+import { modelCount, addAttachments, addCadreChampion, insertModelCard, deleteModelCard } from "./util/forceUtil.js";
 
 import { getCadresData, getModelsData, getWeaponsData } from "./DataLoader";
 
@@ -30,11 +31,18 @@ function ForceEditor(props) {
     const modelsData = getModelsData(rulesetId);
     const weaponsData = getWeaponsData(rulesetId);
 
+    const context = {
+        rulesetId: rulesetId,
+        cadresData: cadresData,
+        modelsData: modelsData,
+        weaponsData: weaponsData
+    };
+
     useEffect(() => {
         let newForceData = forceModelsData;
         let addedModelNames = [];
         while (checkFA(newForceData, voidGateId)) {
-            newForceData = insertModelCard(newForceData, voidGateId, addedModelNames);
+            newForceData = insertModelCard(context, newForceData, voidGateId, addedModelNames);
         }
 
         const allMantlets = Object.values(modelsData).filter((modelData) => modelData.type === "mantlet");
@@ -43,7 +51,7 @@ function ForceEditor(props) {
         }) : allMantlets;
         availableMantlets.forEach((modelData) => {
             while (checkFA(newForceData, modelData.id)) {
-                newForceData = insertModelCard(newForceData, modelData.id, addedModelNames);
+                newForceData = insertModelCard(context, newForceData, modelData.id, addedModelNames);
             }
         });
 
@@ -65,10 +73,6 @@ function ForceEditor(props) {
 
     const models = (factionId && factionId !== "all") ? Object.values(modelsData).filter((model) => model.factions && (model.factions.includes(factionId) || model.factions.includes("all"))) : Object.values(modelsData);
 
-    function modelCount(forceData, modelId) {
-        return forceData.filter((forceModel) => forceModel.modelId === modelId).length;
-    }
-
     function checkFA(forceData, modelId) {
         const modelData = modelsData[modelId];
         const defaultFA = (modelData.subtypes && modelData.subtypes.includes("hero") ? 1 : 4);
@@ -86,104 +90,6 @@ function ForceEditor(props) {
         }
     }
 
-    function addAttachments(forceData, modelData, addedModelNames) {
-        let newForceData = forceData;
-        modelData.attachments.forEach((attachment) => {
-            if(newForceData.findIndex((forceModel) => forceModel.modelId === attachment) === -1) {
-                newForceData = insertModelCard(newForceData, attachment, addedModelNames);
-            }
-        });
-        
-        return newForceData;
-    }
-
-    function deleteAttachments(forceData, modelData, deletedModelNames) {
-        let newForceData = forceData;
-        modelData.attachments.forEach((attachment) => {
-            //only delete if we're the last eligible unit for this attachment
-            const attachmentIndex = newForceData.findIndex((forceModel) => forceModel.modelId === attachment);
-            const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length;
-            if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
-                newForceData = deleteModelCard(newForceData, attachmentIndex, deletedModelNames);
-            }
-        });
-        return newForceData;
-    }
-
-    function countCadreModels(forceData, cadreId) {
-        if (cadreId) {
-            const cadreModels = cadresData[cadreId].models;
-            const cadreModelCounts = [];
-            cadreModels.forEach((cadreModelId) => cadreModelCounts.push(modelCount(forceData, cadreModelId)));
-            return Math.min(...cadreModelCounts);
-        }
-        return 0;
-    }
-
-    function addCadreChampion(forceData, cadreId, addedModelNames) {
-        let newForceData = forceData;
-        const cadre = cadresData[cadreId];
-        //add a champion for this cadre if the count doesn't match
-        if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
-            newForceData = insertModelCard(newForceData, cadre.champion, addedModelNames);
-        }
-        return newForceData;
-    }
-
-    function deleteCadreChampion(forceData, cadreId, deletedModelNames) {
-        let newForceData = forceData;
-        const cadre = cadresData[cadreId];
-        //remove a champion for this cadre if the count doesn't match
-        if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
-            const championIndex = newForceData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
-            newForceData = deleteModelCard(newForceData, championIndex, deletedModelNames);
-        }
-        return newForceData;
-    }
-
-    function insertModelCard(forceData, modelId, addedModelNames) {
-        let newForceData = forceData;
-        const newId = uuidv1();
-        const modelData = modelsData[modelId];
-        const defaultHardPoints = [];
-        if(modelData.hard_points) {
-            modelData.hard_points.forEach((hard_point) => {
-                defaultHardPoints.push({type: hard_point.type, option: hard_point.options[0], point_cost: hard_point.type === "weapon" ? weaponsData[hard_point.options[0]].point_cost : 0});
-            }, [weaponsData]);
-        }
-        if (modelData.attachments) {
-            newForceData = addAttachments(newForceData, modelData, addedModelNames);
-        }
-        
-        const canRemove = !isHidden(modelId, rulesetId);
-        const forceEntry = {id: newId, modelId: modelId, name: modelData.name, type: modelData.type, subtypes: modelData.subtypes, factions: modelData.factions, cadre: modelData.cadre, canRemove: canRemove, weapon_points: modelData.weapon_points, hard_points: modelData.hard_points, hardPointOptions: defaultHardPoints};
-        addedModelNames.push(modelData.name);
-        newForceData = newForceData.concat(forceEntry);
-
-        if (modelData.cadre) {
-            newForceData = addCadreChampion(newForceData, modelData.cadre, addedModelNames);
-        }
-
-        return newForceData;
-    }
-
-    function deleteModelCard(forceData, index, deletedModelNames) {
-        let newForceData = forceData;
-        const modelId = newForceData[index].modelId;
-        const modelData = modelsData[modelId];
-        newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)];
-        deletedModelNames.push(modelData.name);
-        if (modelData.attachments) {
-            newForceData = deleteAttachments(newForceData, modelData, deletedModelNames);
-        }
-
-        if(modelData.cadre) {
-            newForceData = deleteCadreChampion(newForceData, modelData.cadre, deletedModelNames);
-        }
-
-        return newForceData;
-    }
-
     function openModelCard(entry) {
         history.push(`/model/${entry.id}`, { rulesetId: rulesetId });
     }
@@ -198,7 +104,7 @@ function ForceEditor(props) {
         modelIds.forEach((modelId) => {
             // Make sure to check the special issue list for FA as well
             if(checkFA([...newForceData, ...specialIssueModelsData], modelId)) {
-                newForceData = insertModelCard(newForceData, modelId, addedModelNames);
+                newForceData = insertModelCard(context, newForceData, modelId, addedModelNames);
             }
         });
 
@@ -214,7 +120,7 @@ function ForceEditor(props) {
         const index = forceModelsData.findIndex((forceModel) => forceModel.id === entryId);
         if(index !== -1) {
             let newForceData = forceModelsData;
-            newForceData = deleteModelCard(newForceData, index, deletedModelNames);
+            newForceData = deleteModelCard(context, newForceData, index, deletedModelNames);
 
             updateEmptyForceState(newForceData);
 
@@ -292,7 +198,7 @@ function ForceEditor(props) {
         if(index !== -1) {
             newSpecialIssueModelsData.push(forceModelsData[index]);
             let newForceData = forceModelsData;
-            newForceData = deleteModelCard(newForceData, index, deletedModelNames);
+            newForceData = deleteModelCard(context, newForceData, index, deletedModelNames);
 
             //Don't list the special issue model as deleted from forcelist
             deletedModelNames.splice(deletedModelNames.indexOf(forceModelsData[index].name), 1);
@@ -317,12 +223,12 @@ function ForceEditor(props) {
             newForceData = newForceData.concat(specialIssueModelsData[index]);
 
             if (modelData.attachments) {
-                newForceData = addAttachments(newForceData, modelData, addedModelNames);
+                newForceData = addAttachments(context, newForceData, modelData, addedModelNames);
             }
         }
 
         if(modelData.cadre) {
-            newForceData = addCadreChampion(newForceData, modelData.cadre, addedModelNames);
+            newForceData = addCadreChampion(context, newForceData, modelData.cadre, cadresData, addedModelNames);
         }
     
         let newSpecialIssueModelsData = specialIssueModelsData;
