@@ -6,10 +6,12 @@ import { download, push, logIn } from "ionicons/icons";
 
 import CardList from "./CardList";
 import DeployUnitModal from "./modals/DeployUnitModal.js";
+import SwapSpecialIssueModal from "./modals/SwapSpecialIssueModal.js";
 import { playTabs } from "./EditorView.js";
 
-import { getModelsData } from "./DataLoader";
-import SwapSpecialIssueModal from "./modals/SwapSpecialIssueModal.js";
+import { addAttachments, deleteAttachments, addCadreChampion, deleteCadreChampion } from "./util/forceUtil.js";
+
+import { getCadresData, getModelsData, getWeaponsData } from "./DataLoader";
 
 function PlayModeViewer(props) {
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -18,6 +20,10 @@ function PlayModeViewer(props) {
     const [present] = useIonToast();
     
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
+    const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: [], listenStorageChange: true});
+    const [playForceCyphersData, ] = useSessionStorageState("playForceCyphersData", {defaultValue: [], listenStorageChange: true});
+    const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
+    const [playSpecialIssueCyphersData, ] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: [], listenStorageChange: true});
 
     const [isDeployUnitModalOpen, setIsDeployUnitModalOpen] = useState(false);
     const [isSwapSpecialIssueModalOpen, setIsSwapSpecialIssueModalOpen] = useState(false);
@@ -28,7 +34,16 @@ function PlayModeViewer(props) {
     const { rulesetId } = props;
 
     const modelsData = getModelsData(rulesetId);
-    
+    const weaponsData = getWeaponsData(rulesetId);
+    const cadresData = getCadresData(rulesetId);
+
+    const context = {
+        rulesetId: rulesetId,
+        cadresData: cadresData,
+        modelsData: modelsData,
+        weaponsData: weaponsData
+    };
+
     const presentToast = (message) => {
         present({
             message: message,
@@ -38,15 +53,11 @@ function PlayModeViewer(props) {
     };
 
     const tabSelected = props.tabSelected;
-    const models = props.forceModelsData;
-    const cyphers = props.forceCyphersData;
-    const specialIssueModels = props.specialIssueModelsData;
-    const specialIssueCyphers = props.specialIssueCyphersData;
 
     function openModelCard(entry) {
         const modelId = entry.modelId;
         const entryId = entry.id;
-        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: specialIssueModels.filter((entry) => entry.id === entryId).length !== 0 });
+        history.push(`/model/${modelId}`, { rulesetId: rulesetId, entryId: entryId, isPlayMode: true, isSpecialIssue: playSpecialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0 });
     }
 
     function openCypherCard(entry) {
@@ -55,7 +66,7 @@ function PlayModeViewer(props) {
     }
 
     function createUnitStatus(entryId) {
-        const modelId = models.find((entry) => entry.id === entryId).modelId;
+        const modelId = playForceModelsData.find((entry) => entry.id === entryId).modelId;
         const modelData = modelsData[modelId];
         const unitModels = [];
 
@@ -95,8 +106,8 @@ function PlayModeViewer(props) {
 
         const modelData = modelsData[unitStatus.modelId];
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === unitStatus.id).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === unitStatus.id).name : modelData.name;
+        const isSpecialIssue = playSpecialIssueModelsData.filter((entry) => entry.id === unitStatus.id).length !== 0;
+        const modelName = isSpecialIssue ? playSpecialIssueModelsData.find((entry) => entry.id === unitStatus.id).name : modelData.name;
         presentToast(`Deployed ${modelName} to the table.`);
         setUnitsStatus(newUnitsStatus);
     }
@@ -123,7 +134,7 @@ function PlayModeViewer(props) {
         const unitStatus = createUnitStatus(entryId);
         newUnitsStatus.push(unitStatus);
 
-        const modelId = models.find((entry) => entry.id === entryId).modelId;
+        const modelId = playForceModelsData.find((entry) => entry.id === entryId).modelId;
         const modelData = modelsData[modelId];
 
         if((modelData.attachments && modelData.type === "squad") || (modelData.type === "void_gate")) {
@@ -131,8 +142,8 @@ function PlayModeViewer(props) {
             setCurrentUnitStatus(unitStatus);
             setIsDeployUnitModalOpen(true);
         } else {
-            const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
-            const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === entryId).name : modelData.name;
+            const isSpecialIssue = playSpecialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0;
+            const modelName = isSpecialIssue ? playSpecialIssueModelsData.find((entry) => entry.id === entryId).name : modelData.name;
 
             presentToast(`Deployed ${modelName} to the table.`);
             setUnitsStatus(newUnitsStatus);
@@ -142,8 +153,8 @@ function PlayModeViewer(props) {
     function recallModel(entryId) {
         const index = unitsStatus.findIndex((entry) => entry.id === entryId);
 
-        const isSpecialIssue = specialIssueModels.filter((entry) => entry.id === entryId).length !== 0;
-        const modelName = isSpecialIssue ? specialIssueModels.find((entry) => entry.id === entryId).name : models.find((entry) => entry.id === entryId).name;
+        const isSpecialIssue = playSpecialIssueModelsData.filter((entry) => entry.id === entryId).length !== 0;
+        const modelName = isSpecialIssue ? playSpecialIssueModelsData.find((entry) => entry.id === entryId).name : playForceModelsData.find((entry) => entry.id === entryId).name;
 
         let newUnitsStatus = [...unitsStatus.slice(0, index), ...unitsStatus.slice(index + 1)];
 
@@ -160,6 +171,52 @@ function PlayModeViewer(props) {
     function swapWithSpecialIssue(specialIssueEntryId, forceEntryId) {
         console.log(specialIssueEntryId);
         console.log(forceEntryId);
+        const specialIssueIndex = playSpecialIssueModelsData.findIndex((forceModel) => forceModel.id === specialIssueEntryId);
+        const forceIndex = playForceModelsData.findIndex((forceModel) => forceModel.id === forceEntryId);
+        let newForceData = playForceModelsData;
+        let newSpecialIssueModelsData = playSpecialIssueModelsData;
+        let addedModelNames = [];
+        let deletedModelNames = [];
+
+        const forceModelId = playForceModelsData[forceIndex].modelId;
+        const forceModelData = modelsData[forceModelId];
+
+        const specialIssueModelId = playSpecialIssueModelsData[specialIssueIndex].modelId;
+        const specialIssueModelData = modelsData[specialIssueModelId];
+    
+        newForceData = newForceData.concat(playSpecialIssueModelsData[specialIssueIndex]);
+        newSpecialIssueModelsData = newSpecialIssueModelsData.concat(playForceModelsData[forceIndex]);
+
+        newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, specialIssueIndex), ...newSpecialIssueModelsData.slice(specialIssueIndex + 1)];
+        newForceData = [...newForceData.slice(0, forceIndex), ...newForceData.slice(forceIndex + 1)];
+
+        // if the card we're swapping in has attachments or cadre we need to add the champion/attachments after
+        if (specialIssueModelData.attachments) {
+            console.log("attachments to add");
+            newForceData = addAttachments(context, newForceData, specialIssueModelData, addedModelNames);
+        }
+
+        if (specialIssueModelData.cadre) {
+            console.log("champion to add");
+            newForceData = addCadreChampion(context, newForceData, specialIssueModelData.cadre, addedModelNames);
+        }
+
+        // if the card we're swapping out has attachments or cadre we need to remove the champion/attachments after
+        if (forceModelData.attachments) {
+            console.log("attachments to remove");
+            newForceData = deleteAttachments(context, newForceData, forceModelData, deletedModelNames);
+        }
+
+        if (forceModelData.cadre) {
+            console.log("champion to remove");
+            console.log(newForceData);
+            newForceData = deleteCadreChampion(context, newForceData, forceModelData.cadre, deletedModelNames);
+        }
+        
+        presentToast(`Swapped ${specialIssueModelData.name} to forcelist${addedModelNames.length !== 0 ? `, ${addedModelNames.join(", ")} added to forcelist` : ""}${deletedModelNames.length !== 0 ? `, ${deletedModelNames.join(", ")} removed from forcelist` : ""}`);
+
+        setPlaySpecialIssueModelsData(newSpecialIssueModelsData);
+        setPlayForceModelsData(newForceData);
     }
 
     function cancelSwap() {
@@ -218,12 +275,11 @@ function PlayModeViewer(props) {
         setUnitsStatus(newUnitsStatus);
     }
 
-    const deployedModels = models.filter((model) => unitsStatus.find((entry) => entry.id === model.id));
+    const deployedModels = playForceModelsData.filter((model) => unitsStatus.find((entry) => entry.id === model.id));
 
     const totalArc = 7;
     const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
 
-    //TODO: add capability to swap special issue cards into force
     return (
         <div className="container">
             <DeployUnitModal 
@@ -241,7 +297,7 @@ function PlayModeViewer(props) {
                 rulesetId={rulesetId} 
                 isOpen={isSwapSpecialIssueModalOpen} 
                 setIsOpen={setIsSwapSpecialIssueModalOpen} 
-                forceModels={models} 
+                forceModels={playForceModelsData} 
                 specialIssueModel={currentSpecialIssueModelToSwap}
                 cancelSwap={cancelSwap} 
                 swapWithSpecialIssue={swapWithSpecialIssue}
@@ -274,7 +330,7 @@ function PlayModeViewer(props) {
                     rulesetId={rulesetId} 
                     id={"PlayReserves"} 
                     header={"Models"} 
-                    cards={models} 
+                    cards={playForceModelsData} 
                     isPlayMode={true}
                     handleCardClicked={openModelCard} 
                     hideHiddenTypes={true}
@@ -288,7 +344,7 @@ function PlayModeViewer(props) {
                     rulesetId={rulesetId} 
                     id={"PlaySpecialIssueModels"} 
                     header={"Special Issue"} 
-                    cards={specialIssueModels} 
+                    cards={playSpecialIssueModelsData} 
                     handleCardClicked={openModelCard}
                     rightInfoText={getUnitDC}
                     cardActions={[
@@ -298,8 +354,8 @@ function PlayModeViewer(props) {
                 </CardList>
             </>}
             {(tabSelected === playTabs.rack) && <>
-                <CardList rulesetId={rulesetId} id={"PlayCyphers"} header={"Cyphers"} cards={cyphers} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
-                <CardList rulesetId={rulesetId} id={"PlaySpecialIssueCyphers"} header={"Special Issue"} cards={specialIssueCyphers} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
+                <CardList rulesetId={rulesetId} id={"PlayCyphers"} header={"Cyphers"} cards={playForceCyphersData} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
+                <CardList rulesetId={rulesetId} id={"PlaySpecialIssueCyphers"} header={"Special Issue"} cards={playSpecialIssueCyphersData} isPlayMode={true} handleCardClicked={openCypherCard}></CardList>
             </>}
         </div>
     );

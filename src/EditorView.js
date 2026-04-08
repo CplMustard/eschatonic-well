@@ -58,10 +58,10 @@ function EditorView() {
     const [playRulesetId, setPlayRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: "pp"});
     const [playFactionId, setPlayFactionId] = useLocalStorageState("playFactionId", {defaultValue: undefined});
     const [playForceSizeId, setPlayForceSizeId] = useLocalStorageState("playForceSizeId", {defaultValue: "custom"});
-    const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
-    const [playForceCyphersData, setPlayForceCyphersData] = useSessionStorageState("playForceCyphersData", {defaultValue: []});
-    const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
-    const [playSpecialIssueCyphersData, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
+    const [, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
+    const [, setPlayForceCyphersData] = useSessionStorageState("playForceCyphersData", {defaultValue: []});
+    const [, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
+    const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
     const [promptSave, setPromptSave] = useSessionStorageState("promptSave", {defaultValue: false});
     const [warningText, setWarningText] = useSessionStorageState("warningText", {defaultValue: ""});
@@ -622,14 +622,6 @@ function EditorView() {
                 {tabSelected === editorTabs.play && <PlayModeViewer
                     tabSelected={playTabSelected}
                     rulesetId={playRulesetId}
-                    forceModelsData={playForceModelsData} 
-                    setForceModelsData={setPlayForceModelsData} 
-                    specialIssueModelsData={playSpecialIssueModelsData} 
-                    setSpecialIssueModelsData={setPlaySpecialIssueModelsData}
-                    forceCyphersData={playForceCyphersData}
-                    setForceCyphersData={setPlayForceCyphersData}
-                    specialIssueCyphersData={playSpecialIssueCyphersData} 
-                    setSpecialIssueCyphersData={setPlaySpecialIssueCyphersData}
                 ></PlayModeViewer>}
             </IonContent>
             <IonFooter>

@@ -33,10 +33,9 @@ function SwapSpecialIssueModal (props) {
                 {forceModels && 
                     <CardList 
                         rulesetId={rulesetId} 
-                        id={"PlayReserves"} 
-                        header={"Models"} 
+                        id={"SwapModal"} 
+                        header={"Swap Models"} 
                         cards={forceModels} 
-                        isPlayMode={true}
                         handleCardClicked={handleCardClicked} 
                         hideHiddenTypes={true}
                         rightInfoText={getUnitDC}
