@@ -36,7 +36,7 @@ export const deleteAttachments = (context, forceData, modelData, deletedModelNam
         const attachmentIndex = newForceData.findIndex((forceModel) => forceModel.modelId === attachment);
         const remainingEligibleUnitCount = newForceData.filter((forceModel) => modelsData[forceModel.modelId].attachments && modelsData[forceModel.modelId].attachments.includes(attachment)).length;
         if(attachmentIndex !== -1 && remainingEligibleUnitCount === 0) {
-            newForceData = deleteModelCard(newForceData, attachmentIndex, deletedModelNames);
+            newForceData = deleteModelCard(context, newForceData, attachmentIndex, deletedModelNames);
         }
     });
     return newForceData;
@@ -48,7 +48,7 @@ export const addCadreChampion = (context, forceData, cadreId, addedModelNames) =
     let newForceData = forceData;
     const cadre = cadresData[cadreId];
     //add a champion for this cadre if the count doesn't match
-    if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId)) {
+    if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId, cadresData)) {
         newForceData = insertModelCard(context, newForceData, cadre.champion, addedModelNames);
     }
     return newForceData;
@@ -60,15 +60,15 @@ export const deleteCadreChampion = (context, forceData, cadreId, deletedModelNam
     let newForceData = forceData;
     const cadre = cadresData[cadreId];
     //remove a champion for this cadre if the count doesn't match
-    if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadresData, cadreId)) {
+    if(modelCount(newForceData, cadre.champion) !== countCadreModels(newForceData, cadreId, cadresData)) {
         const championIndex = newForceData.findIndex((forceModel) => forceModel.modelId === cadre.champion);
-        newForceData = deleteModelCard(newForceData, championIndex, deletedModelNames);
+        newForceData = deleteModelCard(context, newForceData, championIndex, deletedModelNames);
     }
     return newForceData;
 };
 
 export const insertModelCard = (context, forceData, modelId, addedModelNames) => {
-    const { rulesetId, modelsData, weaponsData, cadresData } = context;
+    const { rulesetId, modelsData, weaponsData } = context;
 
     let newForceData = forceData;
     const newId = uuidv1();
@@ -89,7 +89,7 @@ export const insertModelCard = (context, forceData, modelId, addedModelNames) =>
     newForceData = newForceData.concat(forceEntry);
 
     if (modelData.cadre) {
-        newForceData = addCadreChampion(context, newForceData, modelData.cadre, cadresData, addedModelNames);
+        newForceData = addCadreChampion(context, newForceData, modelData.cadre, addedModelNames);
     }
 
     return newForceData;
@@ -104,11 +104,11 @@ export const deleteModelCard = (context, forceData, index, deletedModelNames) =>
     newForceData = [...newForceData.slice(0, index), ...newForceData.slice(index + 1)];
     deletedModelNames.push(modelData.name);
     if (modelData.attachments) {
-        newForceData = deleteAttachments(newForceData, modelData, deletedModelNames);
+        newForceData = deleteAttachments(context, newForceData, modelData, deletedModelNames);
     }
 
     if(modelData.cadre) {
-        newForceData = deleteCadreChampion(newForceData, modelData.cadre, deletedModelNames);
+        newForceData = deleteCadreChampion(context, newForceData, modelData.cadre, deletedModelNames);
     }
 
     return newForceData;
