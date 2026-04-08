@@ -77,7 +77,6 @@ function CardList(props) {
         const isCadre = typeParts[0].includes("cadre");
         // Don't hide champions, mantlets or void gates in reserves
         const playModeOverrideShow = isPlayMode && (typeParts.includes("champion") || typeParts.includes("mantlet") || typeParts.includes("void_gate"));
-        console.log(header + " playModeOverrideShow " + playModeOverrideShow);
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (playModeOverrideShow || !modelTypesData[typeParts[0]].hidden) || isCadre)) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
