@@ -7,7 +7,7 @@ import { cardSorting, groupSorting } from "./util/sortingUtil";
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
 
-import { getCadresData, getCypherTypesData, getModelTypesData } from "./DataLoader";
+import { getCadresData, getModelsData, getCypherTypesData, getModelTypesData } from "./DataLoader";
 
 const mergeCadres = false;
 
@@ -15,6 +15,7 @@ function CardList(props) {
     const { rulesetId, id, cards, unitsStatus, isPlayMode, disableHardPoints, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
 
     const cadresData = getCadresData(rulesetId);
+    const modelsData = getModelsData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
     const modelTypesData = getModelTypesData(rulesetId);
 
@@ -75,14 +76,17 @@ function CardList(props) {
         const typeParts = key.split("|");
         const isCadre = typeParts[0].includes("cadre");
         // Don't hide champions, mantlets or void gates in reserves
-        const playModeOverrideShow = isPlayMode && typeParts.includes("champion") || typeParts.includes("mantlet") || typeParts.includes("void_gate");
+        const playModeOverrideShow = isPlayMode && (typeParts.includes("champion") || typeParts.includes("mantlet") || typeParts.includes("void_gate"));
+        console.log(header + " playModeOverrideShow " + playModeOverrideShow);
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (playModeOverrideShow || !modelTypesData[typeParts[0]].hidden) || isCadre)) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
                 // Hide specific cards with a hidden subtype as well
                 const hasHiddenSubtype = card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
                 const hasHiddenType = modelTypesData[card.type] ? modelTypesData[card.type].hidden : cypherTypesData[card.type].hidden;
-                const isHidden = hasHiddenSubtype || hasHiddenType || card.hidden;
+                const isCardHidden = !isPlayMode && (modelsData[card.modelId ? card.modelId : card.id] && modelsData[card.modelId ? card.modelId : card.id].hidden);
+                const isHidden = hasHiddenSubtype || hasHiddenType || isCardHidden;
+                
                 if (hideHiddenTypes && !playModeOverrideShow && isHidden) {
                     return;
                 }
