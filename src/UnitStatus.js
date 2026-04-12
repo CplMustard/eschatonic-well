@@ -2,6 +2,8 @@ import React from "react";
 import { IonText, IonIcon, IonItem, IonLabel, IonAccordionGroup, IonAccordion, IonGrid, IonRow, IonCol } from "@ionic/react";
 import { bodyOutline, create, checkmarkCircle, checkmarkCircleOutline, skull, skullOutline, build, buildOutline, flame, flameOutline, flask, flaskOutline, lockClosed, lockClosedOutline, flashOff, flashOffOutline } from "ionicons/icons";
 
+import { previewStats } from "./util/cardUtil";
+
 import ArcTracker from "./ArcTracker";
 
 import { getModelsData } from "./DataLoader";
@@ -155,6 +157,7 @@ function UnitStatus(props) {
         const attachmentModelData = modelsData[attachment.modelId];
         attachmentComponents.push(<div key={index}>
             <IonText color="primary"><h2>{attachmentModelData.name}</h2></IonText>
+            <IonText color="secondary" class="subscript">{previewStats(attachmentModelData)}</IonText>
             <UnitModels unitModels={attachment.unitModels} attachmentId={attachment.modelId}></UnitModels>
         </div>
         );
@@ -171,7 +174,9 @@ function UnitStatus(props) {
                 {!collapsible && <br/>}
                 {unitModels.length > 1 && <AliveSquadMembers unitModels={unitModels} attachments={attachments}/>}
             </>}
-            {attachments.length !== 0 && <IonText color="primary"><h2>{modelData.name}</h2></IonText>}
+            {attachments.length !== 0 ? <>
+                <IonText color="primary"><h2>{modelData.name}</h2></IonText><IonText color="secondary" class="subscript">{previewStats(modelData)}</IonText>
+            </> : <br/>}
             <UnitModels unitModels={unitModels}></UnitModels>
             {isPlayMode && attachmentComponents}
         </div>;

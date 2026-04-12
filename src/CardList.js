@@ -4,7 +4,7 @@ import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid,
 import { sparkles } from "ionicons/icons";
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
-import { collectChanges } from "./util/cardUtil";
+import { collectChanges, previewStats } from "./util/cardUtil";
 
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
@@ -106,11 +106,6 @@ function CardList(props) {
     useEffect(() => {
         collapseGroups(collapsedGroups);
     }, [collapsedGroups, cards]);
-
-    const previewStats = (card) => {
-        const { stats } = card;
-        return `${stats.spd ? `Spd: ${stats.spd}` : ""} ${stats.mat ? `Mat: ${stats.mat}` : ""} ${stats.rat ? `Rat: ${stats.rat}` : ""} ${stats.def ? `Def: ${stats.def}` : ""} ${stats.arm ? `Arm: ${stats.arm}` : ""} ${stats.foc ? `Foc: ${stats.foc}` : ""}`;
-    };
 
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");

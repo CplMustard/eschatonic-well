@@ -98,3 +98,8 @@ export const collectChanges = (context, card, hardPointOptions) => {
 
     return filteredCollectedChanges;
 };
+
+export const previewStats = (card) => {
+    const { stats } = card;
+    return `${stats.spd ? `Spd: ${stats.spd}` : ""} ${stats.mat ? `Mat: ${stats.mat}` : ""} ${stats.rat ? `Rat: ${stats.rat}` : ""} ${stats.def ? `Def: ${stats.def}` : ""} ${stats.arm ? `Arm: ${stats.arm}` : ""} ${stats.foc ? `Foc: ${stats.foc}` : ""}`;
+};
