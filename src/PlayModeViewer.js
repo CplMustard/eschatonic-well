@@ -2,7 +2,7 @@ import React, { useState, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { useSessionStorageState } from "ahooks";
 import { IonText, IonIcon, useIonToast } from "@ionic/react";
-import { download, push, logIn } from "ionicons/icons";
+import { download, push, logIn, logOut } from "ionicons/icons";
 
 import CardList from "./CardList";
 import DeployUnitModal from "./modals/DeployUnitModal.js";
@@ -169,8 +169,6 @@ function PlayModeViewer(props) {
     }
 
     function swapWithSpecialIssue(specialIssueEntryId, forceEntryId) {
-        console.log(specialIssueEntryId);
-        console.log(forceEntryId);
         const specialIssueIndex = playSpecialIssueModelsData.findIndex((forceModel) => forceModel.id === specialIssueEntryId);
         const forceIndex = playForceModelsData.findIndex((forceModel) => forceModel.id === forceEntryId);
         let newForceData = playForceModelsData;
@@ -178,38 +176,40 @@ function PlayModeViewer(props) {
         let addedModelNames = [];
         let deletedModelNames = [];
 
-        const forceModelId = playForceModelsData[forceIndex].modelId;
+        let specialIssueEntry = playSpecialIssueModelsData[specialIssueIndex];
+        const specialIssueModelId = specialIssueEntry.modelId;
+        const specialIssueModelData = modelsData[specialIssueModelId];
+
+        let forceEntry = playForceModelsData[forceIndex];
+        const forceModelId = forceEntry.modelId;
         const forceModelData = modelsData[forceModelId];
 
-        const specialIssueModelId = playSpecialIssueModelsData[specialIssueIndex].modelId;
-        const specialIssueModelData = modelsData[specialIssueModelId];
+        const swappedWithIdA = !forceEntry.swappedWithId ? forceEntryId : undefined;
+        const swappedWithIdB = !specialIssueEntry.swappedWithId ? specialIssueEntryId : undefined;
+        forceEntry.swappedWithId = swappedWithIdB;
+        specialIssueEntry.swappedWithId = swappedWithIdA;
     
-        newForceData = newForceData.concat(playSpecialIssueModelsData[specialIssueIndex]);
-        newSpecialIssueModelsData = newSpecialIssueModelsData.concat(playForceModelsData[forceIndex]);
+        newForceData = newForceData.concat(specialIssueEntry);
+        newSpecialIssueModelsData = newSpecialIssueModelsData.concat(forceEntry);
 
         newSpecialIssueModelsData = [...newSpecialIssueModelsData.slice(0, specialIssueIndex), ...newSpecialIssueModelsData.slice(specialIssueIndex + 1)];
         newForceData = [...newForceData.slice(0, forceIndex), ...newForceData.slice(forceIndex + 1)];
 
         // if the card we're swapping in has attachments or cadre we need to add the champion/attachments after
         if (specialIssueModelData.attachments) {
-            console.log("attachments to add");
             newForceData = addAttachments(context, newForceData, specialIssueModelData, addedModelNames);
         }
 
         if (specialIssueModelData.cadre) {
-            console.log("champion to add");
             newForceData = addCadreChampion(context, newForceData, specialIssueModelData.cadre, addedModelNames);
         }
 
         // if the card we're swapping out has attachments or cadre we need to remove the champion/attachments after
         if (forceModelData.attachments) {
-            console.log("attachments to remove");
             newForceData = deleteAttachments(context, newForceData, forceModelData, deletedModelNames);
         }
 
         if (forceModelData.cadre) {
-            console.log("champion to remove");
-            console.log(newForceData);
             newForceData = deleteCadreChampion(context, newForceData, forceModelData.cadre, deletedModelNames);
         }
         
@@ -337,6 +337,7 @@ function PlayModeViewer(props) {
                     rightInfoText={getUnitDC}
                     cardActions={[
                         {handleClicked: (entry) => deployModel(entry.id), text: <IonIcon slot="icon-only" icon={download}></IonIcon>, isDisabled: (entry) => unitsStatus.find((unitStatus) => unitStatus.id === entry.id) }, 
+                        {handleClicked: (entry) => swapWithSpecialIssue(entry.swappedWithId, entry.id), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => !entry.swappedWithId }, 
                     ]}
                 >
                 </CardList>
@@ -348,7 +349,7 @@ function PlayModeViewer(props) {
                     handleCardClicked={openModelCard}
                     rightInfoText={getUnitDC}
                     cardActions={[
-                        {handleClicked: (entry) => openSpecialIssueSwapModal(entry), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon> }, 
+                        {handleClicked: (entry) => entry.swappedWithId ? swapWithSpecialIssue(entry.id, entry.swappedWithId) : openSpecialIssueSwapModal(entry), text: <IonIcon slot="icon-only" icon={logIn}></IonIcon> }, 
                     ]}
                 >
                 </CardList>
