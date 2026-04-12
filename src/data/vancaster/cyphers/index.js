@@ -7,6 +7,7 @@ import encrypted_command from "./encrypted_command.json";
 import eschatonic_well from "./eschatonic_well.json";
 import extinction_mandate from "./extinction_mandate.json";
 import gremian_tormentor from "./gremian_tormentor.json";
+import malediction_rubric from "./malediction_rubric.json";
 import penumbral_obscuration from "./penumbral_obscuration.json";
 import psychodynamic_infuser from "./psychodynamic_infuser.json";
 import psychonomic_lash from "./psychonomic_lash.json";
@@ -23,6 +24,7 @@ const cyphersData = {
 	eschatonic_well: eschatonic_well,
 	extinction_mandate: extinction_mandate,
 	gremian_tormentor: gremian_tormentor,
+	malediction_rubric: malediction_rubric,
 	penumbral_obscuration: penumbral_obscuration,
 	psychodynamic_infuser: psychodynamic_infuser,
 	psychonomic_lash: psychonomic_lash,

@@ -8,6 +8,7 @@ import killer from "./killer.json";
 import recon from "./recon.json";
 import sniper from "./sniper.json";
 import specter from "./specter.json";
+import spider from "./spider.json";
 
 const cortexesData = {
 	ace: ace,
@@ -19,6 +20,7 @@ const cortexesData = {
 	killer: killer,
 	recon: recon,
 	sniper: sniper,
-	specter: specter
+	specter: specter,
+	spider: spider
 };
 export default cortexesData;
