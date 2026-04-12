@@ -29,7 +29,7 @@ import factotum from "./factotum.json";
 import fenrik_leech from "./fenrik_leech.json";
 import fiddler_and_co from "./fiddler_and_co.json";
 import firebrand from "./firebrand.json";
-import force_barrier from "./force_barrier.json";
+import force_barrier_mantlet from "./force_barrier_mantlet.json";
 import fulcrum from "./fulcrum.json";
 import grafter from "./grafter.json";
 import harlan_sek from "./harlan_sek.json";
@@ -122,7 +122,7 @@ const modelsData = {
 	fenrik_leech: fenrik_leech,
 	fiddler_and_co: fiddler_and_co,
 	firebrand: firebrand,
-	force_barrier: force_barrier,
+	force_barrier_mantlet: force_barrier_mantlet,
 	fulcrum: fulcrum,
 	grafter: grafter,
 	harlan_sek: harlan_sek,

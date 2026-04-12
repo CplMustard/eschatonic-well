@@ -1,5 +1,5 @@
 {
-    "id": "force_barrier",
+    "id": "force_barrier_mantlet",
     "name": "Force Barrier",
     "factions": ["isa"],
     "type": "mantlet",
