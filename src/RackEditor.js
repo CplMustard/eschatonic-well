@@ -145,6 +145,7 @@ function RackEditor(props) {
 
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
 
+    console.log(remainingCypherCardList);
     return (
         <div>
             {tabSelected === rackTabs.rack && <>
@@ -153,7 +154,8 @@ function RackEditor(props) {
                     id={"Rack"}
                     header={"Rack"} 
                     cards={forceCyphersData} 
-                    typeMin={cypherTypeMin}
+                    groupHeader={(typeParts, cardTypeName, ) => `${cardTypeName} (${forceCyphersData.filter((cypher) => cypher.type === typeParts[0]).length} / ${cypherTypeMin})`}
+                    groupHeaderColour={(typeParts, cardTypeName, cardComponents) => cardComponents.length < cypherTypeMin ? "danger" : "tertiary"}
                     handleCardClicked={openCypherCard} 
                     cardActions={[
                         {handleClicked: (entry) => removeCypherCard(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
@@ -184,6 +186,8 @@ function RackEditor(props) {
                     id={"CypherEditor"}
                     header={"Cyphers"} 
                     cards={remainingCypherCardList} 
+                    groupHeader={(typeParts, cardTypeName, ) => `${cardTypeName} (${forceCyphersData.filter((cypher) => cypher.type === typeParts[0]).length} / ${cypherTypeMin})`}
+                    groupHeaderColour={(typeParts, ) => forceCyphersData.filter((cypher) => cypher.type === typeParts[0]).length < cypherTypeMin ? "danger" : "tertiary"}
                     handleCardClicked={openCypherCard} 
                     cardActions={[
                         {handleClicked: (card) => addCypherCards([card.id]), text: <IonIcon slot="icon-only" icon={add}></IonIcon>},

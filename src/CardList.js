@@ -12,7 +12,27 @@ import { getCadresData, getModelsData, getCypherTypesData, getModelTypesData } f
 const mergeCadres = false;
 
 function CardList(props) {
-    const { rulesetId, id, cards, unitsStatus, isPlayMode, disableHardPoints, header, handleCardClicked, hideHiddenTypes, rightInfoText, arcInWell, cardActions, typeMin, updateModelHardPoint, setArc, toggleActivation, toggleContinuousEffect, toggleDamageBox } = props;
+    const { 
+        rulesetId, 
+        id, 
+        cards, 
+        unitsStatus, 
+        isPlayMode, 
+        disableHardPoints, 
+        header, 
+        handleCardClicked, 
+        hideHiddenTypes, 
+        rightInfoText, 
+        arcInWell, 
+        cardActions, 
+        groupHeader,
+        groupHeaderColour,
+        updateModelHardPoint, 
+        setArc, 
+        toggleActivation, 
+        toggleContinuousEffect, 
+        toggleDamageBox 
+    } = props;
 
     const cadresData = getCadresData(rulesetId);
     const modelsData = getModelsData(rulesetId);
@@ -155,8 +175,8 @@ function CardList(props) {
             }
             cardGroupComponents.push(<IonItemGroup key={key}>
                 <IonAccordion value={key} onMouseDown={(event) => event.preventDefault()}>
-                    <IonItem slot="header" color={typeMin && cardComponents.length < typeMin ? "danger" : "tertiary"}>
-                        <IonLabel>{`${cardTypeName} (${cardComponents.length})`}</IonLabel>
+                    <IonItem slot="header" color={groupHeaderColour ? groupHeaderColour(typeParts, cardTypeName, cardComponents) : "tertiary"}>
+                        <IonLabel>{groupHeader ? groupHeader(typeParts, cardTypeName, cardComponents) : `${cardTypeName} (${cardComponents.length})`}</IonLabel>
                     </IonItem>
                     <div className="ion-padding" slot="content"> 
                         <IonGrid>{cardComponents}</IonGrid>
