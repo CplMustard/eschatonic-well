@@ -9,7 +9,7 @@ import { collectChanges } from "./util/cardUtil";
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
 
-import { getCadresData, getCortexesData, getCypherTypesData, getManeuversData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData } from "./DataLoader";
+import { getCadresData, getCortexesData, getCyphersData, getCypherTypesData, getManeuversData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData } from "./DataLoader";
 
 const mergeCadres = false;
 
@@ -38,6 +38,7 @@ function CardList(props) {
 
     const cadresData = getCadresData(rulesetId);
     const cortexesData = getCortexesData(rulesetId);
+    const cyphersData = getCyphersData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
     const maneuversData = getManeuversData(rulesetId);
     const modelsData = getModelsData(rulesetId);
@@ -135,7 +136,9 @@ function CardList(props) {
                 });
                 const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
                 const statusEntry = isPlayMode && unitsStatus && card.modelId && unitsStatus.find((deployed) => deployed.id === card.id);
-                const cardHasChanges = collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0;
+
+                const cypherChanges = card.cypherId && cyphersData[card.cypherId].changes;
+                const cardHasChanges = collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0 || cypherChanges;
                 cardComponents.push(
                     <div key={index}>
                         <IonRow key={index}>
