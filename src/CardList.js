@@ -3,11 +3,12 @@ import { useSessionStorageState } from "ahooks";
 import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
+import { collectChanges } from "./util/cardUtil";
 
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
 
-import { getCadresData, getModelsData, getCypherTypesData, getModelTypesData } from "./DataLoader";
+import { getCadresData, getCortexesData, getCypherTypesData, getManeuversData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData } from "./DataLoader";
 
 const mergeCadres = false;
 
@@ -35,9 +36,21 @@ function CardList(props) {
     } = props;
 
     const cadresData = getCadresData(rulesetId);
-    const modelsData = getModelsData(rulesetId);
+    const cortexesData = getCortexesData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
+    const maneuversData = getManeuversData(rulesetId);
+    const modelsData = getModelsData(rulesetId);
     const modelTypesData = getModelTypesData(rulesetId);
+    const specialRulesData = getSpecialRulesData(rulesetId);
+    const weaponsData = getWeaponsData(rulesetId);
+
+    const context = {
+        cadresData: cadresData, 
+        cortexesData: cortexesData, 
+        maneuversData: maneuversData, 
+        specialRulesData: specialRulesData,
+        weaponsData: weaponsData
+    };
 
     const cardGroupComponents = [];
     const cardGroups = cards.reduce((memo, current) => {
@@ -127,7 +140,7 @@ function CardList(props) {
                             <IonCol>
                                 <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card)}>
                                     <div className="button-inner">
-                                        <div className="button-text">{card.name}</div>
+                                        <div className="button-text">{`${card.name}${collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0 ? " *": ""}`}</div>
                                     </div>
                                     {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card)}</IonBadge>}
                                 </IonButton>

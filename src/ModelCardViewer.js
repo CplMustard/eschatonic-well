@@ -4,6 +4,8 @@ import { useSessionStorageState } from "ahooks";
 import { IonButton, IonPage, IonContent, IonLabel, IonIcon, IonToolbar, IonButtons, IonBackButton, IonText, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonHeader } from "@ionic/react";
 import { skullOutline } from "ionicons/icons";
 
+import { getHardPointOptions, getAllSpecialRules, getAllWeapons, collectChanges } from "./util/cardUtil";
+
 import Cortex from "./Cortex";
 import HardPointList from "./HardPointList";
 import SpecialRuleList from "./SpecialRuleList";
@@ -54,6 +56,14 @@ function ModelCardViewer(props) {
     const totalArc = 7;
     const arcInWell = unitsStatus.reduce((currentArc, unitStatus) => currentArc - (unitStatus.arc ? unitStatus.arc : 0), totalArc);
 
+    const context = {
+        cadresData: cadresData,
+        cortexesData: cortexesData,
+        specialRulesData: specialRulesData,
+        maneuversData: maneuversData,
+        weaponsData: weaponsData
+    };
+
     useEffect(() => {
         if(entryId) {
             const entry = modelsDataState.find((entry) => entry.id === entryId);
@@ -76,104 +86,6 @@ function ModelCardViewer(props) {
     function openModelCard(card) {
         const modelId = card.id;
         history.push(`/model/${modelId}`, { rulesetId: rulesetId });
-    }
-
-    function getHardPointOptions(hard_points, hardPointOptions, typeId) {
-        return hard_points ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === typeId).map((hardPointOption) => hardPointOption.option) : undefined;
-    }
-
-    function getAllWeapons(hard_points, weapons, hardPointWeaponOptions) {
-        return hard_points ? weapons.concat(hardPointWeaponOptions) : weapons;
-    }
-
-    function getAllSpecialRules(special_rules, cadre, type) {
-        let all_special_rules = special_rules ? special_rules : [];
-        if(cadre) {
-            all_special_rules = ["cadre|" + cadresData[cadre].name].concat(all_special_rules);
-        }
-        if(type === "void_gate") {
-            all_special_rules = ["void_gate"].concat(all_special_rules);
-        }
-        if(type === "mantlet") {
-            all_special_rules = ["mantlet"].concat(all_special_rules);
-        }
-        return all_special_rules;
-    }
-
-    function collectSpecialRuleChanges(collectedChanges, special_rules) {
-        special_rules.forEach((special_rule) => {
-            const ruleParts = special_rule.split("|");
-            const ruleId = ruleParts.shift(); //don't include template strings in ID
-            const ruleArguments = ruleParts;
-
-            const ruleData = specialRulesData[ruleId];
-
-            let ruleTitleString = `${ruleData.name}: `;
-            ruleArguments.forEach((argument, index) => {
-                ruleTitleString = ruleTitleString.replaceAll(`{${index}}`, argument);
-            });
-            if(ruleData.changes) collectedChanges.push({source: ruleTitleString, changes: ruleData.changes});
-            if(ruleData.subrules) {
-                collectSpecialRuleChanges(collectedChanges, ruleData.subrules);
-            }
-        });
-    }
-
-    function collectChanges(name, changes, weapons, advantages, cadre, type, special_rules, hard_points, hardPointOptions, maneuvers) {
-        const collectedChanges = [];
-
-        const hardPointWeaponOptions = getHardPointOptions(hard_points, hardPointOptions, "weapon");
-        const hardPointCortexOption = getHardPointOptions(hard_points, hardPointOptions, "cortex");
-        const allWeapons = getAllWeapons(hard_points, weapons, hardPointWeaponOptions);
-        const all_special_rules = getAllSpecialRules(special_rules, cadre, type);
-
-        if (changes) collectedChanges.push({source: name, changes: changes});
-
-        if (allWeapons) {
-            allWeapons.forEach((weapon) => {
-                const weaponData = weaponsData[weapon];
-                if(weaponData.changes) collectedChanges.push({source: weaponData.name, changes: weaponData.changes});
-                if(weaponData.special_rules) {
-                    collectSpecialRuleChanges(collectedChanges, weaponData.special_rules);
-                }
-                if(weaponData.profiles) {
-                    weaponData.profiles.forEach((profile) => {
-                        if(profile.special_rules) {
-                            collectSpecialRuleChanges(collectedChanges, profile.special_rules);
-                        }
-                    });
-                }
-            });
-        }
-
-        if (hardPointCortexOption) {
-            const cortexData = cortexesData[hardPointCortexOption[0]];
-            if (cortexData) {
-                if(cortexData.changes) collectedChanges.push({source: cortexData.name, changes: cortexData.changes});
-                if(cortexData.special_rules) {
-                    collectSpecialRuleChanges(collectedChanges, cortexData.special_rules);
-                }
-            }
-        }
-
-        if (advantages) {
-            collectSpecialRuleChanges(collectedChanges, advantages);
-        }
-
-        if (all_special_rules) {
-            collectSpecialRuleChanges(collectedChanges, all_special_rules);
-        }
-
-        if (maneuvers) {
-            maneuvers.forEach((maneuver) => {
-                const maneuverData = maneuversData[maneuver];
-                if(maneuverData.changes) collectedChanges.push({source: maneuverData.name, changes: maneuverData.changes});
-            });
-        }
-
-        let filteredCollectedChanges = [...new Set(collectedChanges.map(JSON.stringify))].map(JSON.parse);
-
-        return filteredCollectedChanges;
     }
 
     function updateHardPoint(option, type, point_cost, hardPointIndex) {
@@ -270,7 +182,7 @@ function ModelCardViewer(props) {
 
     function CardHeader(props) {
         const { rulesetId, cardData, isAttachment } = props;
-        const { name, changes, weapons, type, subtypes, factions,stats, special_rules, advantages, maneuvers } = cardData;
+        const { name, type, subtypes, factions,stats } = cardData;
         const { dc, base_size, squad_size, boxes } = stats;
         const factionNames = [];
         const subtypeNames = [];
@@ -283,7 +195,7 @@ function ModelCardViewer(props) {
 
         const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
 
-        const collectedChanges = collectChanges(name, changes, weapons, advantages, cadre, type, special_rules, hard_points, hardPointOptions, maneuvers);
+        const collectedChanges = collectChanges(context, cardData);
 
         return <IonCardHeader>
             <ViewChangesModal isOpen={isViewChangesModalOpen} setIsOpen={setIsViewChangesModalOpen} changeEntries={collectedChanges}></ViewChangesModal>
