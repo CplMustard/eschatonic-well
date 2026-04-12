@@ -61,7 +61,7 @@ function PlayModeViewer(props) {
     }
 
     function openCypherCard(entry) {
-        const cypherId = entry.id;
+        const cypherId = entry.cypherId;
         history.push(`/cypher/${cypherId}`, { rulesetId: rulesetId, isPlayMode: true });
     }
 
