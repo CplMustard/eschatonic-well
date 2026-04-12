@@ -109,7 +109,6 @@ function RackEditor(props) {
     }
 
     function swapFromSpecialIssue(entryId) {
-        console.log(entryId);
         const index = specialIssueCyphersData.findIndex((forceCypher) => forceCypher.id === entryId);
         addCypherCards([specialIssueCyphersData[index].cypherId]);
         let newSpecialIssueCyphersData = specialIssueCyphersData;
@@ -145,7 +144,6 @@ function RackEditor(props) {
 
     const remainingCypherCardList = cyphers.filter((cypher) => forceCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1 && specialIssueCyphersData.findIndex((forceCypher) => forceCypher.cypherId === cypher.id) === -1);
 
-    console.log(remainingCypherCardList);
     return (
         <div>
             {tabSelected === rackTabs.rack && <>
@@ -156,7 +154,7 @@ function RackEditor(props) {
                     cards={forceCyphersData} 
                     groupHeader={(typeParts, cardTypeName, ) => `${cardTypeName} (${forceCyphersData.filter((cypher) => cypher.type === typeParts[0]).length} / ${cypherTypeMin})`}
                     groupHeaderColour={(typeParts, cardTypeName, cardComponents) => cardComponents.length < cypherTypeMin ? "danger" : "tertiary"}
-                    handleCardClicked={openCypherCard} 
+                    handleCardClicked={openEntryCard} 
                     cardActions={[
                         {handleClicked: (entry) => removeCypherCard(entry.id), text: <IonIcon slot="icon-only" icon={remove}></IonIcon>},
                         {handleClicked: (entry) => swapToSpecialIssue(entry.id), text: <IonIcon slot="icon-only" icon={logOut}></IonIcon>, isDisabled: (entry) => canSpecialIssueSwap(entry.id)}
