@@ -286,7 +286,7 @@ function ModelCardViewer(props) {
         attachments.forEach((attachmentId, index) => {
             const attachmentCardData = modelsData[attachmentId];
 
-            const all_special_rules = getAllSpecialRules(attachmentCardData.special_rules, attachmentCardData.cadre, attachmentCardData.type);
+            const all_special_rules = getAllSpecialRules(cadresData, attachmentCardData.special_rules, attachmentCardData.cadre, attachmentCardData.type);
 
             attachmentCards.push(<CardContent rulesetId={rulesetId} key={index} cardData={attachmentCardData} weapons={attachmentCardData.weapons} specialRules={all_special_rules} isAttachment={true}/>);
         });
@@ -308,7 +308,7 @@ function ModelCardViewer(props) {
     const hardPointWeaponOptions = getHardPointOptions(hard_points, hardPointOptions, "weapon");
     const hardPointCortexOption = getHardPointOptions(hard_points, hardPointOptions, "cortex");
     const allWeapons = getAllWeapons(hard_points, weapons, hardPointWeaponOptions);
-    const all_special_rules = getAllSpecialRules(special_rules, cadre, type);
+    const all_special_rules = getAllSpecialRules(cadresData, special_rules, cadre, type);
 
     return (
         <IonPage className={factions.length === 1 ? factions[0] : ""}>

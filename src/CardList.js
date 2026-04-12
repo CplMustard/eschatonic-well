@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSessionStorageState } from "ahooks";
-import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup } from "@ionic/react";
+import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup, IonIcon } from "@ionic/react";
+import { sparkles } from "ionicons/icons";
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 import { collectChanges } from "./util/cardUtil";
@@ -134,13 +135,17 @@ function CardList(props) {
                 });
                 const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
                 const statusEntry = isPlayMode && unitsStatus && card.modelId && unitsStatus.find((deployed) => deployed.id === card.id);
+                const cardHasChanges = collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0;
                 cardComponents.push(
                     <div key={index}>
                         <IonRow key={index}>
                             <IonCol>
                                 <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card)}>
                                     <div className="button-inner">
-                                        <div className="button-text">{`${card.name}${collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0 ? " *": ""}`}</div>
+                                        <div className="button-text">
+                                            {cardHasChanges && <IonIcon icon={sparkles} size="8px"/>}
+                                            {card.name}
+                                        </div>
                                     </div>
                                     {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card)}</IonBadge>}
                                 </IonButton>
