@@ -78,6 +78,20 @@ hr {
 	text-overflow: ellipsis;
 }
 
+.button-text-has-subscript {
+	width: 2rem;
+	margin-top: -0.5rem;
+	text-overflow: ellipsis;
+}
+
+.button-subscript {
+	width: 2rem;
+	font-size: x-small;
+	margin-bottom: -0.5rem;
+	text-overflow: ellipsis;
+	text-transform: none;
+}
+
 .button-right-info-text {
 	padding: 1rem 0.5rem;
 	margin-top: -1rem;

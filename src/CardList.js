@@ -107,6 +107,11 @@ function CardList(props) {
         collapseGroups(collapsedGroups);
     }, [collapsedGroups, cards]);
 
+    const previewStats = (card) => {
+        const { stats } = card;
+        return `${stats.spd ? `Spd: ${stats.spd}` : ""} ${stats.mat ? `Mat: ${stats.mat}` : ""} ${stats.rat ? `Rat: ${stats.rat}` : ""} ${stats.def ? `Def: ${stats.def}` : ""} ${stats.arm ? `Arm: ${stats.arm}` : ""} ${stats.foc ? `Foc: ${stats.foc}` : ""}`;
+    };
+
     Object.entries(cardGroups).sort(groupSorting).forEach(([key, value]) => {
         const typeParts = key.split("|");
         const isCadre = typeParts[0].includes("cadre");
@@ -137,6 +142,7 @@ function CardList(props) {
                 const factionId = card.factions.length === 1 ? card.factions[0] : "wc";
                 const statusEntry = isPlayMode && unitsStatus && card.modelId && unitsStatus.find((deployed) => deployed.id === card.id);
 
+                const isModelCard = card.modelId || modelsData[card.id];
                 const cypherChanges = card.cypherId && cyphersData[card.cypherId].changes;
                 const cardHasChanges = collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0 || cypherChanges;
                 cardComponents.push(
@@ -145,10 +151,13 @@ function CardList(props) {
                             <IonCol>
                                 <IonButton size="medium" className={factionId} expand="block" onClick={() => handleCardClicked(card)}>
                                     <div className="button-inner">
-                                        <div className="button-text">
+                                        <div className={isModelCard ? "button-text-has-subscript" : "button-text"}>
                                             {cardHasChanges && <IonIcon icon={sparkles} size="8px"/>}
                                             {card.name}
                                         </div>
+                                        {isModelCard && <div className="button-subscript">
+                                            {previewStats(card.modelId ? modelsData[card.modelId] : card)}
+                                        </div>}
                                     </div>
                                     {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card)}</IonBadge>}
                                 </IonButton>
