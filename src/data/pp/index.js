@@ -3,6 +3,7 @@ import cortexesData from "./cortexes";
 import cyphersData from "./cyphers";
 import cypherTypesData from "./cypher_types";
 import damageTypesData from "./damage_types";
+import expansionsData from "./expansions";
 import factionsData from "./factions";
 import forceSizesData from "./force_sizes";
 import maneuversData from "./maneuvers";
@@ -17,6 +18,7 @@ export {
     cyphersData,
     cypherTypesData,
     damageTypesData,
+    expansionsData,
     factionsData,
     forceSizesData,
     maneuversData,

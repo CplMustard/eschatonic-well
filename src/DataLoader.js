@@ -15,6 +15,7 @@ const getCortexesData = (rulesetId) => getRulesetData(rulesetId).cortexesData;
 const getCyphersData = (rulesetId) => getRulesetData(rulesetId).cyphersData;
 const getCypherTypesData = (rulesetId) => getRulesetData(rulesetId).cypherTypesData;
 const getDamageTypesData = (rulesetId) => getRulesetData(rulesetId).damageTypesData;
+const getExpansionsData = (rulesetId) => getRulesetData(rulesetId).expansionsData;
 const getFactionsData = (rulesetId) => getRulesetData(rulesetId).factionsData;
 const getForceSizesData = (rulesetId) => getRulesetData(rulesetId).forceSizesData;
 const getManeuversData = (rulesetId) => getRulesetData(rulesetId).maneuversData;
@@ -29,6 +30,7 @@ export {
     getCyphersData,
     getCypherTypesData,
     getDamageTypesData,
+    getExpansionsData,
     getFactionsData,
     getForceSizesData,
     getManeuversData,

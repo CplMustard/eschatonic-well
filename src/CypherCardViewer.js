@@ -5,7 +5,7 @@ import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonB
 import ViewChangesModal from "./modals/ViewChangesModal";
 import VersionNumber from "./VersionNumber";
 
-import { getCyphersData, getCypherTypesData, getFactionsData } from "./DataLoader";
+import { getCyphersData, getCypherTypesData, getExpansionsData, getFactionsData } from "./DataLoader";
 
 function CypherCardViewer(props) {
     const params = useParams();
@@ -17,6 +17,7 @@ function CypherCardViewer(props) {
 
     const cyphersData = getCyphersData(rulesetId);
     const cypherTypesData = getCypherTypesData(rulesetId);
+    const expansionsData = getExpansionsData(rulesetId);
     const factionsData = getFactionsData(rulesetId);
 
     const cypherId = props.cypherId ? props.cypherId : params.cypherId;
@@ -34,6 +35,7 @@ function CypherCardViewer(props) {
                 <IonCardTitle color="primary"><h1>{name}</h1></IonCardTitle>
                 {collectedChanges.length !== 0 && <IonButton onClick={() => {setIsViewChangesModalOpen(true);}}>CHANGES</IonButton>}
                 <IonCardSubtitle>
+                    <IonText color="primary"><h3>{`Expansion: ${expansionsData[cypherData.expansion].name}`}</h3></IonText>
                     <IonText color="primary"><h1>{factions && factionsData[factions].name}</h1></IonText>
                     <IonText color="primary"><h1>{type && cypherTypesData[type].name}</h1></IonText>
                     {pow && <IonText color="primary"><h2>POW: {pow}</h2></IonText>}

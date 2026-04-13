@@ -15,7 +15,7 @@ import UnitStatus from "./UnitStatus";
 import ViewChangesModal from "./modals/ViewChangesModal";
 import VersionNumber from "./VersionNumber";
 
-import { getCortexesData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./DataLoader";
+import { getCortexesData, getExpansionsData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./DataLoader";
 
 function ModelCardViewer(props) {
     const params = useParams();
@@ -45,6 +45,7 @@ function ModelCardViewer(props) {
     const modelTypesData = getModelTypesData(rulesetId);
     const weaponsData = getWeaponsData(rulesetId);
     const specialRulesData = getSpecialRulesData(rulesetId);
+    const expansionsData = getExpansionsData(rulesetId);
     const factionsData = getFactionsData(rulesetId);
     const cadresData = getCadresData(rulesetId);
     const maneuversData = getManeuversData(rulesetId);
@@ -182,7 +183,7 @@ function ModelCardViewer(props) {
 
     function CardHeader(props) {
         const { rulesetId, cardData, isAttachment } = props;
-        const { name, type, subtypes, factions,stats } = cardData;
+        const { name, type, subtypes, factions, expansion, stats } = cardData;
         const { dc, base_size, squad_size, boxes } = stats;
         const factionNames = [];
         const subtypeNames = [];
@@ -202,6 +203,7 @@ function ModelCardViewer(props) {
             <IonCardTitle color="primary"><h1 style={{margin: 0, fontWeight: "bolder"}}>{name}</h1></IonCardTitle>
             {collectedChanges.length !== 0 && <IonButton onClick={() => {setIsViewChangesModalOpen(true);}}>CHANGES</IonButton>}
             <IonCardSubtitle>
+                <IonText color="primary"><h3>{`Expansion: ${expansionsData[expansion].name}`}</h3></IonText>
                 <IonText color="primary"><h1>{factionNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{subtypeNames.join(", ")}</h1></IonText>
                 <IonText color="primary"><h1>{modelTypesData[type].name}</h1></IonText>

@@ -93,6 +93,13 @@ hr {
 	text-transform: none;
 }
 
+.button-postscript {
+	color: #bf909f;
+	display: inline;
+	font-size: xx-small;
+	margin: 0.2rem;
+}
+
 .button-right-info-text {
 	padding: 1rem 0.5rem;
 	margin-top: -1rem;

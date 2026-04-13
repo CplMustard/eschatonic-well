@@ -115,10 +115,12 @@ function CardList(props) {
         if (!hideHiddenTypes || (modelTypesData[typeParts[0]] && (playModeOverrideShow || !modelTypesData[typeParts[0]].hidden) || isCadre)) {
             const cardComponents = [];
             value.sort(cardSorting).forEach((card, index) => {
+                const cardData = card.modelId ? modelsData[card.modelId] : (card.cypherId ? cyphersData[card.cypherId] : card);
+
                 // Hide specific cards with a hidden subtype as well
                 const hasHiddenSubtype = card.subtypes ? card.subtypes.some((subtype) => modelTypesData[subtype].hidden) : false;
                 const hasHiddenType = modelTypesData[card.type] ? modelTypesData[card.type].hidden : cypherTypesData[card.type].hidden;
-                const isCardHidden = !isPlayMode && (modelsData[card.modelId ? card.modelId : card.id] && modelsData[card.modelId ? card.modelId : card.id].hidden);
+                const isCardHidden = !isPlayMode && (cardData && cardData.hidden);
                 const isHidden = hasHiddenSubtype || hasHiddenType || isCardHidden;
                 
                 if (hideHiddenTypes && !playModeOverrideShow && isHidden) {
@@ -138,8 +140,8 @@ function CardList(props) {
                 const statusEntry = isPlayMode && unitsStatus && card.modelId && unitsStatus.find((deployed) => deployed.id === card.id);
 
                 const isModelCard = card.modelId || modelsData[card.id];
-                const cypherChanges = card.cypherId && cyphersData[card.cypherId].changes;
-                const cardHasChanges = collectChanges(context, card.modelId ? modelsData[card.modelId] : card, card.modelId && card.hardPointOptions).length !== 0 || cypherChanges;
+                const cypherChanges = card.cypherId && cardData.changes;
+                const cardHasChanges = collectChanges(context, cardData, card.modelId && card.hardPointOptions).length !== 0 || cypherChanges;
                 cardComponents.push(
                     <div key={index}>
                         <IonRow key={index}>
@@ -148,10 +150,10 @@ function CardList(props) {
                                     <div className="button-inner">
                                         <div className={isModelCard ? "button-text-has-subscript" : "button-text"}>
                                             {cardHasChanges && <IonIcon icon={sparkles} size="8px"/>}
-                                            {card.name}
+                                            {card.name}<div className="button-postscript">{`(${cardData.expansion})`}</div>
                                         </div>
                                         {isModelCard && <div className="button-subscript">
-                                            {previewStats(card.modelId ? modelsData[card.modelId] : card)}
+                                            {previewStats(cardData)}
                                         </div>}
                                     </div>
                                     {rightInfoText && <IonBadge className="button-right-info-text">{rightInfoText(card)}</IonBadge>}
