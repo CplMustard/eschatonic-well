@@ -2,7 +2,7 @@ import React, { createRef, useEffect, useState } from "react";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
 import { useSessionStorageState, useLocalStorageState } from "ahooks";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonButton, IonButtons, IonBackButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
 import { warning } from "ionicons/icons";
 
 var semver = require("semver");
@@ -472,6 +472,9 @@ function EditorView() {
             <IonHeader>
                 <VersionNumber/>
                 <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonBackButton></IonBackButton>
+                    </IonButtons>
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
                         scrollToTop();
                         setTabSelected(e.detail.value );

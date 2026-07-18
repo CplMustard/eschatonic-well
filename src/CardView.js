@@ -1,6 +1,6 @@
 import React, { createRef } from "react";
 import { useLocalStorageState } from "ahooks";
-import { IonPage, IonContent, IonHeader, IonText, IonSelect, IonSelectOption, useIonAlert, useIonToast } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonToolbar, IonText, IonSelect,  IonButtons, IonBackButton, IonSelectOption, useIonAlert, useIonToast } from "@ionic/react";
 import { warning } from "ionicons/icons";
 
 
@@ -79,6 +79,11 @@ function CardView() {
         <IonPage className={cardViewFactionId}>
             <IonHeader>
                 <VersionNumber/>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonBackButton></IonBackButton>
+                    </IonButtons>
+                </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
                 <>
