@@ -9,7 +9,7 @@ function PlayModeTracker(props) {
     const [unitsStatus, ] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
     const [score, setScore] = useState(0);
 
-    const { rulesetId, factionId } = props;
+    const { rulesetId } = props;
 
     const modelsData = getModelsData(rulesetId);
 
@@ -19,7 +19,7 @@ function PlayModeTracker(props) {
     const dcDeployed = unitsStatus.reduce((currentDC, unitStatus) => currentDC + (Number.isInteger(modelsData[unitStatus.modelId].stats.dc) && modelsData[unitStatus.modelId].type !== "mantlet" ? modelsData[unitStatus.modelId].stats.dc : 0), 0);
 
     return (<>
-        <IonGrid className={factionId}>
+        <IonGrid>
             <IonRow>
                 <IonCol>
                     <IonText color="primary"><h6 className="play-tracker-label">ARC IN WELL : <span className="play-tracker-value">{arcInWell}</span> / 7</h6></IonText>

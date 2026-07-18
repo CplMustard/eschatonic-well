@@ -473,7 +473,7 @@ function EditorView() {
                 <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonBackButton></IonBackButton>
+                        <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
                         scrollToTop();

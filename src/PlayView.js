@@ -1,7 +1,8 @@
 import React, { createRef, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { useSessionStorageState, useLocalStorageState } from "ahooks";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonButton, IonButtons, IonBackButton, IonGrid, IonCol, IonRow, useIonToast } from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonButton, IonButtons, IonBackButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
 import { warning } from "ionicons/icons";
 
 var semver = require("semver");
@@ -21,6 +22,9 @@ export const forceFormatVersion = "0.2.0";
 export const playTabs = {deployed: 0, reserves: 1, rack: 2 };
 
 function PlayView() {
+    const history = useHistory();
+
+    const [presentAlert] = useIonAlert();
     const [present] = useIonToast();
 
     const [playTabSelected, setPlayTabSelected] = useSessionStorageState("playTabSelected", {defaultValue: playTabs.deployed});
@@ -34,14 +38,13 @@ function PlayView() {
     const [, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
     const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
-    const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
             const forcesResult = await listFiles(forcesPath);
-            if(filesDirty && (forcesResult)) {
+            if(forcesResult) {
                 const forces = [];
                 for await (const file of forcesResult.files) {
                     const formatVersion = await getFormatVersionFromFile(forcesPath, file.name);
@@ -49,10 +52,9 @@ function PlayView() {
                     forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId});
                 }
                 setForceFiles(forces);
-                setFilesDirty(false);
             }
         })();
-    }, [filesDirty]);
+    });
 
     const factionsData = getFactionsData(playRulesetId);
     const forceSizesData = getForceSizesData(playRulesetId);
@@ -66,8 +68,42 @@ function PlayView() {
             color: isWarning ? "warning" : undefined
         });
     };
-
+    
     const contentRef = createRef();
+
+    const clearForce = () => {
+        presentToast("Force cleared");
+        setPlayForceName(undefined);
+        setPlayRulesetId("pp");
+        setPlayFactionId(undefined);
+        setPlayForceSizeId("custom");
+        setPlayForceModelsData([]);
+        setPlayForceCyphersData([]);
+        setPlaySpecialIssueModelsData([]);
+        setPlaySpecialIssueCyphersData([]);
+    };
+
+    const clearForceConfirm = () => {
+        presentAlert({
+            header: "Clear Force?",
+            message: "This action will clear your force",
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: () => {},
+                },
+                {
+                    text: "OK",
+                    role: "confirm",
+                    handler: () => {
+                        clearForce();
+                    },
+                },
+            ],
+            onDidDismiss: () => {}
+        });
+    };
 
     const createDir = async (path) => {
         try {
@@ -172,9 +208,9 @@ function PlayView() {
                 <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonBackButton></IonBackButton>
+                        <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
-                    <PlayModeTracker rulesetId={playRulesetId} factionId={playFactionId}></PlayModeTracker>
+                    <PlayModeTracker rulesetId={playRulesetId}></PlayModeTracker>
                 </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
@@ -186,7 +222,8 @@ function PlayView() {
                     {playForceName && <IonText color="primary"><h2 className="label">Force Name: {playForceName}</h2></IonText>}
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadPlayForceModalOpen(true);}}>LOAD</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {forceFiles.length === 0 ? history.push("/editor") : setIsLoadPlayForceModalOpen(true);}}>{forceFiles.length === 0 ? "GO TO FORCE BUILDER": "LOAD"}</IonButton></IonCol>
+                            <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm();}}><div>CLEAR ALL</div></IonButton></IonCol>
                         </IonRow>
                     </IonGrid>
                 </>

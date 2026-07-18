@@ -31,7 +31,7 @@ function CadreViewer(props) {
                 <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonBackButton></IonBackButton>
+                        <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
                 </IonToolbar>
             </IonHeader>
