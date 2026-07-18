@@ -174,8 +174,8 @@ function PlayView() {
                     <IonButtons slot="start">
                         <IonBackButton></IonBackButton>
                     </IonButtons>
+                    <PlayModeTracker rulesetId={playRulesetId} factionId={playFactionId}></PlayModeTracker>
                 </IonToolbar>
-                <PlayModeTracker rulesetId={playRulesetId} factionId={playFactionId}></PlayModeTracker>
             </IonHeader>
             <IonContent ref={contentRef}>
                 <SaveLoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} disableSave={true} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></SaveLoadModal>
