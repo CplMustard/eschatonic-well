@@ -487,6 +487,7 @@ function EditorView() {
                         </IonSegmentButton>
                     </IonSegment>
                 </IonToolbar>
+
                 {(promptSave || warningText) && <>
                     <IonText color="warning"><h3 className="warning-header"><IonIcon icon={warning} size={"large"} style={{position: "relative", top: "0.5rem"}}></IonIcon>{warningText}</h3></IonText>
                 </>}
