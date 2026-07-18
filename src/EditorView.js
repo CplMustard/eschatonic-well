@@ -11,12 +11,9 @@ import { copyForceToText } from "./util/copyForceToText";
 
 import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
-import CardListViewer from "./CardListViewer";
 import SaveLoadModal from "./modals/SaveLoadModal.js";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
-import PlayModeTracker from "./PlayModeTracker";
-import PlayModeViewer from "./PlayModeViewer";
 import VersionNumber from "./VersionNumber";
 
 import { getFactionsData, getForceSizesData, getModelsData, rulesets } from "./DataLoader";
@@ -29,10 +26,9 @@ export const racksExtension = ".rack";
 export const forceFormatVersion = "0.2.0";
 export const rackFormatVersion = "0.2.0";
 
-const editorTabs = {force: 0, rack: 1, cards: 2, play: 3};
+const editorTabs = {force: 0, rack: 1};
 export const forceTabs = {force: 0, special_issue: 1, units: 2 };
 export const rackTabs = {rack: 0, special_issue: 1, cyphers: 2 };
-export const playTabs = {deployed: 0, reserves: 1, rack: 2 };
 
 function EditorView() {
     const [presentAlert] = useIonAlert();
@@ -41,9 +37,7 @@ function EditorView() {
     const [tabSelected, setTabSelected] = useSessionStorageState("tabSelected", {defaultValue: editorTabs.force});
     const [forceTabSelected, setForceTabSelected] = useSessionStorageState("forceTabSelected", {defaultValue: forceTabs.force});
     const [rackTabSelected, setRackTabSelected] = useSessionStorageState("rackTabSelected", {defaultValue: rackTabs.rack});
-    const [playTabSelected, setPlayTabSelected] = useSessionStorageState("playTabSelected", {defaultValue: playTabs.deployed});
     
-    const [cardViewFactionId, setCardViewFactionId] = useLocalStorageState("cardViewFactionId", {defaultValue: "all"});
     const [rulesetId, setRulesetId] = useLocalStorageState("rulesetId", {defaultValue: "pp"});
     const [factionId, setFactionId] = useLocalStorageState("factionId", {defaultValue: "all"});
     const [forceSizeId, setForceSizeId] = useLocalStorageState("forceSize", {defaultValue: "custom"});
@@ -54,15 +48,6 @@ function EditorView() {
     const [specialIssueModelsData, setSpecialIssueModelsData] = useSessionStorageState("specialIssueModelsData", {defaultValue: [], listenStorageChange: true});
     const [specialIssueCyphersData, setSpecialIssueCyphersData] = useSessionStorageState("specialIssueCyphersData", {defaultValue: [], listenStorageChange: true});
 
-    const [playForceName, setPlayForceName] = useSessionStorageState("playForceName", {defaultValue: undefined});
-    const [playRulesetId, setPlayRulesetId] = useLocalStorageState("playRulesetId", {defaultValue: "pp"});
-    const [playFactionId, setPlayFactionId] = useLocalStorageState("playFactionId", {defaultValue: undefined});
-    const [playForceSizeId, setPlayForceSizeId] = useLocalStorageState("playForceSizeId", {defaultValue: "custom"});
-    const [, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: []});
-    const [, setPlayForceCyphersData] = useSessionStorageState("playForceCyphersData", {defaultValue: []});
-    const [, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
-    const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
-
     const [promptSave, setPromptSave] = useSessionStorageState("promptSave", {defaultValue: false});
     const [warningText, setWarningText] = useSessionStorageState("warningText", {defaultValue: ""});
 
@@ -71,7 +56,6 @@ function EditorView() {
     const [rackFiles, setRackFiles] = useState([]);
     const [isSaveLoadForceModalOpen, setIsSaveLoadForceModalOpen] = useState(false);
     const [isSaveLoadRackModalOpen, setIsSaveLoadRackModalOpen] = useState(false);
-    const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -116,10 +100,6 @@ function EditorView() {
     function scrollToTop() {
         contentRef.current?.scrollToTop();
     }
-
-    const changeCardViewFaction = (newFactionId) => {
-        setCardViewFactionId(newFactionId);
-    };
 
     const changeRuleset = (newRulesetId) => {
         presentToast(`Ruleset changed to ${rulesets[newRulesetId].name}`);
@@ -360,36 +340,6 @@ function EditorView() {
         }
     };
 
-    const loadPlayForce = async (filename) => {
-        try {
-            const result = await Filesystem.readFile({
-                path: `${forcesPath}${filename}`,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8,
-            });
-            
-            const json = JSON.parse(result.data);
-            if(!json.formatVersion || semver.ltr(json.formatVersion, forceFormatVersion)) {
-                console.log(json.formatVersion);
-                presentToast(`Could not load force ${json.forceName}. File format out of date!`, true);
-                throw new Error(`Force ${filename} file format out of date!`);
-            }
-            setPlayForceName(json.forceName);
-            setPlayRulesetId(json.rulesetId);
-            setPlayFactionId(json.factionId);
-            setPlayForceSizeId(json.forceSize.id);
-            setPlayForceModelsData(json.forceModelsData);
-            setPlayForceCyphersData(json.forceCyphersData);
-            setPlaySpecialIssueModelsData(json.specialIssueModelsData);
-            setPlaySpecialIssueCyphersData(json.specialIssueCyphersData);
-            
-            presentToast(`Force ${json.forceName} loaded successfully`);
-            setPlayTabSelected(playTabs.reserves);
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
     const deleteForce = async (filename) => {
         try {
             const result = await Filesystem.deleteFile({
@@ -518,7 +468,7 @@ function EditorView() {
     const rackData = [rulesetId, forceCyphersData, specialIssueCyphersData];
 
     return (
-        <IonPage className={(tabSelected === editorTabs.cards ? cardViewFactionId : tabSelected === editorTabs.play ? playFactionId : factionId)}>
+        <IonPage className={factionId}>
             <IonHeader>
                 <VersionNumber/>
                 <IonToolbar>
@@ -532,17 +482,8 @@ function EditorView() {
                         <IonSegmentButton value={editorTabs.rack}>
                             <IonLabel>Rack</IonLabel>
                         </IonSegmentButton>
-                        <IonSegmentButton value={editorTabs.cards}>
-                            <IonLabel>Cards</IonLabel>
-                        </IonSegmentButton>
-                        <IonSegmentButton value={editorTabs.play}>
-                            <IonLabel>Play</IonLabel>
-                        </IonSegmentButton>
                     </IonSegment>
                 </IonToolbar>
-                {(tabSelected === editorTabs.play) && <>
-                    <PlayModeTracker rulesetId={playRulesetId} factionId={playFactionId}></PlayModeTracker>
-                </>}
                 {(promptSave || warningText) && <>
                     <IonText color="warning"><h3 className="warning-header"><IonIcon icon={warning} size={"large"} style={{position: "relative", top: "0.5rem"}}></IonIcon>{warningText}</h3></IonText>
                 </>}
@@ -550,7 +491,6 @@ function EditorView() {
             <IonContent ref={contentRef}>
                 <SaveLoadModal isOpen={isSaveLoadForceModalOpen} setIsOpen={setIsSaveLoadForceModalOpen} title={"Save/Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} files={forceFiles} defaultFileName={forceName} fileData={forceData} loadFile={loadForce} deleteFile={deleteForce} listFiles={listFiles} saveFile={saveForce}></SaveLoadModal>
                 <SaveLoadModal isOpen={isSaveLoadRackModalOpen} setIsOpen={setIsSaveLoadRackModalOpen} title={"Save/Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={forcesPath} files={rackFiles} defaultFileName={"New Rack"} fileData={rackData} filterFiles={filterRacks} loadFile={loadRack} deleteFile={deleteRack} listFiles={listFiles} saveFile={saveRack}></SaveLoadModal>
-                <SaveLoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} disableSave={true} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></SaveLoadModal>
 
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3 className="label"><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
@@ -577,21 +517,6 @@ function EditorView() {
                         </IonRow>
                     </IonGrid>
                 </>}
-                {(tabSelected === editorTabs.cards) && <>
-                    <IonText color="primary"><h3 className="label"><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
-                    <IonText color="primary"><h3 className="label"><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
-                </>}
-                {(tabSelected === editorTabs.play) && <>
-                    {playRulesetId && <IonText color="primary"><h3 className="label">Ruleset: {rulesets[playRulesetId].name}</h3></IonText>}
-                    {playFactionId && <IonText color="primary"><h3 className="label">Faction: {factionsData[playFactionId].name}</h3></IonText>}
-                    {playForceSizeId && <IonText color="primary"><h3 className="label">Force Size: {forceSizesData[playForceSizeId].name}</h3></IonText>}
-                    {playForceName && <IonText color="primary"><h2 className="label">Force Name: {playForceName}</h2></IonText>}
-                    <IonGrid>
-                        <IonRow>
-                            <IonCol><IonButton expand="block" disabled={forceFiles.length === 0} onClick={() => {setIsLoadPlayForceModalOpen(true);}}>LOAD</IonButton></IonCol>
-                        </IonRow>
-                    </IonGrid>
-                </>}
 
                 {tabSelected === editorTabs.force && <ForceEditor 
                     tabSelected={forceTabSelected}
@@ -614,15 +539,6 @@ function EditorView() {
                     setSpecialIssueCyphersData={setSpecialIssueCyphersData}
                 ></RackEditor>}
 
-                {tabSelected === editorTabs.cards && <CardListViewer 
-                    rulesetId={rulesetId}
-                    factionId={cardViewFactionId}
-                ></CardListViewer>}
-
-                {tabSelected === editorTabs.play && <PlayModeViewer
-                    tabSelected={playTabSelected}
-                    rulesetId={playRulesetId}
-                ></PlayModeViewer>}
             </IonContent>
             <IonFooter>
                 <IonToolbar>
@@ -649,19 +565,6 @@ function EditorView() {
                             </IonSegmentButton>
                             <IonSegmentButton value={rackTabs.cyphers}>
                                 <IonLabel>Cyphers</IonLabel>
-                            </IonSegmentButton>
-                        </IonSegment>
-                    }
-                    {tabSelected === editorTabs.play && 
-                        <IonSegment mode="ios" value={playTabSelected} onIonChange={(e) => setPlayTabSelected(e.detail.value)}>
-                            <IonSegmentButton value={playTabs.deployed} fill="outline">
-                                <IonLabel>Deployed</IonLabel>
-                            </IonSegmentButton>
-                            <IonSegmentButton value={playTabs.reserves}>
-                                <IonLabel>Reserves</IonLabel>
-                            </IonSegmentButton>
-                            <IonSegmentButton value={playTabs.rack}>
-                                <IonLabel>Rack</IonLabel>
                             </IonSegmentButton>
                         </IonSegment>
                     }

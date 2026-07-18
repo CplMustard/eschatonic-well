@@ -6,10 +6,13 @@ import { IonApp, IonRouterOutlet } from "@ionic/react";
 
 import "./App.css";
 
+import LandingPage from "./LandingPage";
 import EditorView from "./EditorView";
 import CadreViewer from "./CadreViewer";
+import CardView from "./CardView";
 import CypherCardViewer from "./CypherCardViewer";
 import ModelCardViewer from "./ModelCardViewer";
+import PlayView from "./PlayView";
 
 function App() {
     return (
@@ -17,7 +20,10 @@ function App() {
             <IonApp className="App">
                 <IonReactRouter>
                     <IonRouterOutlet>
-                        <Route exact path="/" component={EditorView} />
+                        <Route exact path="/" component={LandingPage} />
+                        <Route path="/editor" component={EditorView} />
+                        <Route path="/cards" component={CardView} />
+                        <Route path="/play" component={PlayView} />
                         <Route path="/cadre/:cadreId" component={CadreViewer} />
                         <Route path="/cypher/:cypherId" component={CypherCardViewer} />
                         <Route path="/model/:modelId" component={ModelCardViewer} />

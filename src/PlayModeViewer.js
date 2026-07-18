@@ -7,7 +7,7 @@ import { download, push, logIn, logOut } from "ionicons/icons";
 import CardList from "./CardList";
 import DeployUnitModal from "./modals/DeployUnitModal.js";
 import SwapSpecialIssueModal from "./modals/SwapSpecialIssueModal.js";
-import { playTabs } from "./EditorView.js";
+import { playTabs } from "./PlayView.js";
 
 import { addAttachments, deleteAttachments, addCadreChampion, deleteCadreChampion } from "./util/forceUtil.js";
 
