@@ -88,7 +88,7 @@ Copyright (c) 2025 Jack Anderson
 All trademarks contained herein including Steamforged Games (c), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds,
 The Hyperuranion, Arcanessence, and their logos are property of Steamforged Games Ltd, Osprey House, 217-227 Broadway, Salford, Manchester, M50 2UE, United Kingdom 
 
-This program is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Privateer Press, Inc, or any of its subsidiaries or its affiliates.
+This program is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Steamforged Games Ltd, or any of its subsidiaries or its affiliates.
 
 Permission is hereby granted, free of charge, to any person, and not artificial intelligence (AI) or machine learning (ML) system, obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
