@@ -7,17 +7,14 @@ import { warning } from "ionicons/icons";
 
 var semver = require("semver");
 
+import { forcesPath, forcesExtension, forceFormatVersion, listFiles, getFormatVersionFromFile, getFactionIdFromFile, getRulesetIdFromFile } from "./util/fileUtil";
+
 import SaveLoadModal from "./modals/SaveLoadModal.js";
 import PlayModeTracker from "./PlayModeTracker.js";
 import PlayModeViewer from "./PlayModeViewer.js";
 import VersionNumber from "./VersionNumber.js";
 
 import { getFactionsData, getForceSizesData, rulesets } from "./DataLoader";
-
-const forcesPath = "eschatonic-well/forces/";
-export const forcesExtension = ".esch";
-
-export const forceFormatVersion = "0.2.0";
 
 export const playTabs = {deployed: 0, reserves: 1, rack: 2 };
 
@@ -49,7 +46,8 @@ function PlayView() {
                 for await (const file of forcesResult.files) {
                     const formatVersion = await getFormatVersionFromFile(forcesPath, file.name);
                     const factionId = await getFactionIdFromFile(forcesPath, file.name);
-                    forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId});
+                    const rulesetId = await getRulesetIdFromFile(forcesPath, file.name);
+                    forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 setForceFiles(forces);
             }
@@ -103,73 +101,6 @@ function PlayView() {
             ],
             onDidDismiss: () => {}
         });
-    };
-
-    const createDir = async (path) => {
-        try {
-            const result = await Filesystem.mkdir({
-                path: path,
-                directory: Directory.Documents,
-                recursive: true
-            });
-            
-            return result;
-        }  catch (e) {
-            console.error(e);
-        }
-    };
-
-    const listFiles = async (path) => {
-        try {
-            const result = await Filesystem.readdir({
-                path: path,
-                directory: Directory.Documents
-            });
-            
-            return result;
-        } catch (e) {
-            try {
-                await createDir(path);            
-                const result = await Filesystem.readdir({
-                    path: path,
-                    directory: Directory.Documents
-                });
-                
-                return result;
-            } catch (e) {
-                console.error(e);
-            }
-        }
-    };
-
-    const getFormatVersionFromFile = async (path, filename) => {
-        try {
-            const result = await Filesystem.readFile({
-                path: `${path}${filename}`,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8,
-            });
-            
-            const json = JSON.parse(result.data);
-            return json.formatVersion;
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
-    const getFactionIdFromFile = async (path, filename) => {
-        try {
-            const result = await Filesystem.readFile({
-                path: `${path}${filename}`,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8,
-            });
-            
-            const json = JSON.parse(result.data);
-            return json.factionId;
-        } catch (e) {
-            console.error(e);
-        }
     };
 
     const loadPlayForce = async (filename) => {

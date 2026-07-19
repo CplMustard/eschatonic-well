@@ -7,6 +7,7 @@ import { warning } from "ionicons/icons";
 
 var semver = require("semver");
 
+import { forcesPath, racksPath, forcesExtension, racksExtension, forceFormatVersion, rackFormatVersion, listFiles, getFormatVersionFromFile, getFactionIdFromFile, getRulesetIdFromFile } from "./util/fileUtil";
 import { copyForceToText } from "./util/copyForceToText";
 
 import ModelCount from "./ModelCount.js";
@@ -17,14 +18,6 @@ import RackEditor from "./RackEditor";
 import VersionNumber from "./VersionNumber";
 
 import { getFactionsData, getForceSizesData, getModelsData, rulesets } from "./DataLoader";
-
-const forcesPath = "eschatonic-well/forces/";
-const racksPath = "eschatonic-well/racks/";
-export const forcesExtension = ".esch";
-export const racksExtension = ".rack";
-
-export const forceFormatVersion = "0.2.0";
-export const rackFormatVersion = "0.2.0";
 
 const editorTabs = {force: 0, rack: 1};
 export const forceTabs = {force: 0, special_issue: 1, units: 2 };
@@ -67,12 +60,14 @@ function EditorView() {
                 for await (const file of forcesResult.files) {
                     const formatVersion = await getFormatVersionFromFile(forcesPath, file.name);
                     const factionId = await getFactionIdFromFile(forcesPath, file.name);
-                    forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId});
+                    const rulesetId = await getRulesetIdFromFile(forcesPath, file.name);
+                    forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 for await (const file of racksResult.files) {
                     const formatVersion = await getFormatVersionFromFile(racksPath, file.name);
                     const factionId = await getFactionIdFromFile(racksPath, file.name);
-                    racks.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId});
+                    const rulesetId = await getRulesetIdFromFile(racksPath, file.name);
+                    racks.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 setForceFiles(forces);
                 setRackFiles(racks);
@@ -191,73 +186,6 @@ function EditorView() {
             ],
             onDidDismiss: () => {}
         });
-    };
-
-    const createDir = async (path) => {
-        try {
-            const result = await Filesystem.mkdir({
-                path: path,
-                directory: Directory.Documents,
-                recursive: true
-            });
-            
-            return result;
-        }  catch (e) {
-            console.error(e);
-        }
-    };
-
-    const listFiles = async (path) => {
-        try {
-            const result = await Filesystem.readdir({
-                path: path,
-                directory: Directory.Documents
-            });
-            
-            return result;
-        } catch (e) {
-            try {
-                await createDir(path);            
-                const result = await Filesystem.readdir({
-                    path: path,
-                    directory: Directory.Documents
-                });
-                
-                return result;
-            } catch (e) {
-                console.error(e);
-            }
-        }
-    };
-
-    const getFormatVersionFromFile = async (path, filename) => {
-        try {
-            const result = await Filesystem.readFile({
-                path: `${path}${filename}`,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8,
-            });
-            
-            const json = JSON.parse(result.data);
-            return json.formatVersion;
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
-    const getFactionIdFromFile = async (path, filename) => {
-        try {
-            const result = await Filesystem.readFile({
-                path: `${path}${filename}`,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8,
-            });
-            
-            const json = JSON.parse(result.data);
-            return json.factionId;
-        } catch (e) {
-            console.error(e);
-        }
     };
 
     const saveForce = async (forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData) => {

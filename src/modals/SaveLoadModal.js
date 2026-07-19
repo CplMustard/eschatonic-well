@@ -5,7 +5,8 @@ import { warning } from "ionicons/icons";
 
 var semver = require("semver");
 
-import {forcesExtension, forceFormatVersion, rackFormatVersion} from "../EditorView.js";
+import { forcesExtension, forceFormatVersion, rackFormatVersion } from "../util/fileUtil";
+import { rulesets } from "../DataLoader";
 
 function SaveLoadModal (props) {    
     const [presentAlert] = useIonAlert();
@@ -107,17 +108,20 @@ function SaveLoadModal (props) {
     files.forEach((file, index) => {
         const fileName = file.fileInfo.name.replace(fileExtension, "");
         const factionId = file.factionId;
+        const rulesetId = file.rulesetId;
         const isOutOfDate = checkOutOfDateFormat(file);
         if(filterFiles ? filterFiles(file) : true) {
             loadFileButtons.push(<IonRow key={index}>
                 <IonCol>
-                    <IonButton className={factionId} style={{textTransform: "none", fontWeight: "bold"}}expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>
-                        <div>{fileName}</div>
-                        {isOutOfDate && <IonIcon icon={warning}></IonIcon>}
+                    <IonButton className={factionId} style={{textTransform: "none", fontWeight: "bold"}} expand="block" onClick={() => loadFileConfirm(fileName, file.fileInfo.name)}>
+                        <div className="button-inner">
+                            <div className="button-text-has-subscript">{fileName}</div><div className="button-subscript">{`${rulesets[rulesetId].name}`}</div>
+                            {isOutOfDate && <IonIcon icon={warning}></IonIcon>}
+                        </div>
                     </IonButton>
                 </IonCol>
                 {deleteFile && <IonCol size="auto">
-                    <IonButton expand="block" onClick={() => deleteFileConfirm(fileName, file.fileInfo.name)}>
+                    <IonButton size="medium" expand="block" onClick={() => deleteFileConfirm(fileName, file.fileInfo.name)}>
                         DELETE
                     </IonButton>
                 </IonCol>}
