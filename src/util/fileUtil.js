@@ -4,9 +4,11 @@ export const forcesPath = "eschatonic-well/forces/";
 export const racksPath = "eschatonic-well/racks/";
 export const forcesExtension = ".esch";
 export const racksExtension = ".rack";
+export const settingsFilename = "userSettings.json";
 
 export const forceFormatVersion = "0.2.0";
 export const rackFormatVersion = "0.2.0";
+export const settingsFormatVersion = "0.1.0";
 
 export const createDir = async (path) => {
     try {

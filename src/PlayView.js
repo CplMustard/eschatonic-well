@@ -12,7 +12,6 @@ import { forcesPath, forcesExtension, forceFormatVersion, listFiles, getFileHead
 import SaveLoadModal from "./modals/SaveLoadModal.js";
 import PlayModeTracker from "./PlayModeTracker.js";
 import PlayModeViewer from "./PlayModeViewer.js";
-import VersionNumber from "./VersionNumber.js";
 
 import { getFactionsData, getForceSizesData, rulesets } from "./DataLoader";
 
@@ -134,7 +133,6 @@ function PlayView() {
     return (
         <IonPage className={playFactionId}>
             <IonHeader>
-                <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>

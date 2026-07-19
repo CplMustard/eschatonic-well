@@ -15,7 +15,6 @@ import CypherCount from "./CypherCount.js";
 import SaveLoadModal from "./modals/SaveLoadModal.js";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
-import VersionNumber from "./VersionNumber";
 
 import { getFactionsData, getForceSizesData, getModelsData, rulesets } from "./DataLoader";
 
@@ -394,7 +393,6 @@ function EditorView() {
     return (
         <IonPage className={factionId}>
             <IonHeader>
-                <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>

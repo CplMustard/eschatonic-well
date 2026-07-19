@@ -13,10 +13,12 @@ import CardView from "./CardView";
 import CypherCardViewer from "./CypherCardViewer";
 import ModelCardViewer from "./ModelCardViewer";
 import PlayView from "./PlayView";
+import VersionNumber from "./VersionNumber";
 
 function App() {
     return (
         <div style={{ margin: "0 1rem 0 1rem", paddingTop: "env(safe-area-inset-top)" }}>
+            <VersionNumber/>
             <IonApp className="App">
                 <IonReactRouter>
                     <IonRouterOutlet>

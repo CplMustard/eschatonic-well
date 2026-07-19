@@ -13,7 +13,6 @@ import WeaponList from "./WeaponList";
 import ManeuverList from "./ManeuverList";
 import UnitStatus from "./UnitStatus";
 import ViewChangesModal from "./modals/ViewChangesModal";
-import VersionNumber from "./VersionNumber";
 
 import { getCortexesData, getExpansionsData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./DataLoader";
 
@@ -315,7 +314,6 @@ function ModelCardViewer(props) {
     return (
         <IonPage className={factions.length === 1 ? factions[0] : ""}>
             <IonHeader>
-                <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>

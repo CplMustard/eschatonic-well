@@ -3,9 +3,7 @@ import { useLocalStorageState } from "ahooks";
 import { IonPage, IonContent, IonHeader, IonToolbar, IonText, IonSelect,  IonButtons, IonBackButton, IonSelectOption, useIonAlert, useIonToast } from "@ionic/react";
 import { warning } from "ionicons/icons";
 
-
 import CardListViewer from "./CardListViewer.js";
-import VersionNumber from "./VersionNumber.js";
 
 import { getFactionsData, rulesets } from "./DataLoader.js";
 
@@ -78,7 +76,6 @@ function CardView() {
     return (
         <IonPage className={cardViewFactionId}>
             <IonHeader>
-                <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>

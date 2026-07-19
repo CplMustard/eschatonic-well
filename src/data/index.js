@@ -23,6 +23,8 @@ import {
     weaponsData as weaponsDataVancaster
 } from "./vancaster";
 
+import userSettingsDefault from "./userSettingsDefault.json";
+
 const ppData = {
     cadresData : cadresDataPP,
     cortexesData : cortexesDataPP,
@@ -57,5 +59,6 @@ const vancasterData = {
 
 export {
     ppData,
-    vancasterData
+    vancasterData,
+    userSettingsDefault
 };

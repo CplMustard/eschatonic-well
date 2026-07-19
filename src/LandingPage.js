@@ -1,8 +1,6 @@
 import React, { createRef }from "react";
 import { useHistory } from "react-router-dom";
-import { IonPage, IonContent, IonHeader, IonFooter, IonText, IonImg, IonButton, IonGrid, IonCol, IonRow} from "@ionic/react";
-
-import VersionNumber from "./VersionNumber";
+import { IonPage, IonContent, IonFooter, IonText, IonImg, IonButton, IonGrid, IonCol, IonRow} from "@ionic/react";
 
 import logo from "./assets/images/eschatonic-well.png";
 
@@ -12,9 +10,6 @@ function LandingPage() {
 
     return (
         <IonPage>
-            <IonHeader>
-                <VersionNumber/>
-            </IonHeader>
             <IonContent ref={contentRef}>
                 <div className={"landing-page"}>
                     <IonImg className={"logo"} src={logo}></IonImg>

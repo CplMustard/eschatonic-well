@@ -3,7 +3,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
 
 import ViewChangesModal from "./modals/ViewChangesModal";
-import VersionNumber from "./VersionNumber";
 
 import { getCyphersData, getCypherTypesData, getExpansionsData, getFactionsData } from "./DataLoader";
 
@@ -51,7 +50,6 @@ function CypherCardViewer(props) {
         <IonPage className={cypherData.factions.length === 1 ? cypherData.factions[0] : ""}>
             <ViewChangesModal isOpen={isViewChangesModalOpen} setIsOpen={setIsViewChangesModalOpen} changeEntries={collectedChanges}></ViewChangesModal>       
             <IonHeader>
-                <VersionNumber/>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>
