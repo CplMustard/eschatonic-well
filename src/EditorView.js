@@ -7,7 +7,7 @@ import { warning } from "ionicons/icons";
 
 var semver = require("semver");
 
-import { forcesPath, racksPath, forcesExtension, racksExtension, forceFormatVersion, rackFormatVersion, listFiles, getFormatVersionFromFile, getFactionIdFromFile, getRulesetIdFromFile } from "./util/fileUtil";
+import { forcesPath, racksPath, forcesExtension, racksExtension, forceFormatVersion, rackFormatVersion, listFiles, getFileHeaderData } from "./util/fileUtil";
 import { copyForceToText } from "./util/copyForceToText";
 
 import ModelCount from "./ModelCount.js";
@@ -58,15 +58,11 @@ function EditorView() {
                 const forces = [];
                 const racks = [];
                 for await (const file of forcesResult.files) {
-                    const formatVersion = await getFormatVersionFromFile(forcesPath, file.name);
-                    const factionId = await getFactionIdFromFile(forcesPath, file.name);
-                    const rulesetId = await getRulesetIdFromFile(forcesPath, file.name);
+                    const { formatVersion, factionId, rulesetId } = await getFileHeaderData(forcesPath, file.name);
                     forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 for await (const file of racksResult.files) {
-                    const formatVersion = await getFormatVersionFromFile(racksPath, file.name);
-                    const factionId = await getFactionIdFromFile(racksPath, file.name);
-                    const rulesetId = await getRulesetIdFromFile(racksPath, file.name);
+                    const { formatVersion, factionId, rulesetId } = await getFileHeaderData(racksPath, file.name);
                     racks.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 setForceFiles(forces);

@@ -7,7 +7,7 @@ import { warning } from "ionicons/icons";
 
 var semver = require("semver");
 
-import { forcesPath, forcesExtension, forceFormatVersion, listFiles, getFormatVersionFromFile, getFactionIdFromFile, getRulesetIdFromFile } from "./util/fileUtil";
+import { forcesPath, forcesExtension, forceFormatVersion, listFiles, getFileHeaderData } from "./util/fileUtil";
 
 import SaveLoadModal from "./modals/SaveLoadModal.js";
 import PlayModeTracker from "./PlayModeTracker.js";
@@ -44,9 +44,7 @@ function PlayView() {
             if(forcesResult) {
                 const forces = [];
                 for await (const file of forcesResult.files) {
-                    const formatVersion = await getFormatVersionFromFile(forcesPath, file.name);
-                    const factionId = await getFactionIdFromFile(forcesPath, file.name);
-                    const rulesetId = await getRulesetIdFromFile(forcesPath, file.name);
+                    const { formatVersion, factionId, rulesetId } = await getFileHeaderData(forcesPath, file.name);
                     forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 setForceFiles(forces);

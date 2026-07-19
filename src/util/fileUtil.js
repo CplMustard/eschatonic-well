@@ -45,7 +45,7 @@ export const listFiles = async (path) => {
     }
 };
 
-export const getFormatVersionFromFile = async (path, filename) => {
+export const getFileHeaderData = async (path, filename) => {
     try {
         const result = await Filesystem.readFile({
             path: `${path}${filename}`,
@@ -54,37 +54,7 @@ export const getFormatVersionFromFile = async (path, filename) => {
         });
         
         const json = JSON.parse(result.data);
-        return json.formatVersion;
-    } catch (e) {
-        console.error(e);
-    }
-};
-
-export const getFactionIdFromFile = async (path, filename) => {
-    try {
-        const result = await Filesystem.readFile({
-            path: `${path}${filename}`,
-            directory: Directory.Documents,
-            encoding: Encoding.UTF8,
-        });
-        
-        const json = JSON.parse(result.data);
-        return json.factionId;
-    } catch (e) {
-        console.error(e);
-    }
-};
-
-export const getRulesetIdFromFile = async (path, filename) => {
-    try {
-        const result = await Filesystem.readFile({
-            path: `${path}${filename}`,
-            directory: Directory.Documents,
-            encoding: Encoding.UTF8,
-        });
-        
-        const json = JSON.parse(result.data);
-        return json.rulesetId;
+        return { formatVersion: json.formatVersion, factionId: json.factionId, rulesetId: json.rulesetId };
     } catch (e) {
         console.error(e);
     }
