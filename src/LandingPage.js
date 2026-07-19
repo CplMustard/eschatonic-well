@@ -23,21 +23,21 @@ function LandingPage() {
                     <IonGrid>
                         <IonRow>
                             <IonCol>
-                                <IonButton expand={"full"} onClick={() => history.push("/editor")}>
+                                <IonButton className={"landing-page-buttons"} expand={"full"} onClick={() => history.push("/editor")}>
                                     <IonText><h2>CREATE FORCE</h2></IonText>
                                 </IonButton>
                             </IonCol>
                         </IonRow>
                         <IonRow>
                             <IonCol>
-                                <IonButton expand={"full"} onClick={() => history.push("/play")}>
+                                <IonButton className={"landing-page-buttons"} expand={"full"} onClick={() => history.push("/play")}>
                                     <IonText><h2>PLAY GAME</h2></IonText>
                                 </IonButton>
                             </IonCol>
                         </IonRow>
                         <IonRow>
                             <IonCol>
-                                <IonButton expand={"full"} onClick={() => history.push("/cards")}>
+                                <IonButton className={"landing-page-buttons"} expand={"full"} onClick={() => history.push("/cards")}>
                                     <IonText><h2>VIEW CARDS</h2></IonText>
                                 </IonButton>
                             </IonCol>
