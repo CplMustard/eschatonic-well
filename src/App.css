@@ -63,6 +63,27 @@ hr {
 	color: #bf909f;
 }
 
+.logo {
+	width: 10rem;
+	padding-top: 2rem;
+	margin: auto;
+}
+
+.title {
+	text-align: center;
+}
+
+.landing-page {
+	width: 30rem;
+	margin: auto;
+}
+
+.footer-text {
+	font-size: 7pt;
+	padding: 0.5rem;
+	width: auto;
+}
+
 .label {
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
