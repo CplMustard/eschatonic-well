@@ -48,6 +48,7 @@ function LandingPage() {
             <IonFooter className={"footer-text"}>
                 <IonText>
                     <p>Copyright (c) 2026 Jack Anderson</p>
+                    <p>This program is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Steamforged Games Ltd, or any of its subsidiaries or its affiliates.</p>
                     <p>All trademarks contained herein including Steamforged Games (c), Warcaster (r), warjack (r), Marcher Worlds, Aeternus Continuum, Iron Star Alliance, The Empyreans, Coalition Rangers, The Thousand Worlds, The Hyperuranion, Arcanessence, and their logos are property of Steamforged Games Ltd, Osprey House, 217-227 Broadway, Salford, Manchester, M50 2UE, United Kingdom</p>
                 </IonText>
             </IonFooter>
