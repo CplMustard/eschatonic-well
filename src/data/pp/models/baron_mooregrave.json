@@ -3,6 +3,7 @@
     "name": "Baron Cassius Mooregrave",
     "factions": ["ac", "isa"],
     "type": "solo",
+    "expansion": "wc",
     "subtypes": ["hero"],
     "stats": {
         "dc": 1,
