@@ -9,9 +9,11 @@ var semver = require("semver");
 
 import { forcesPath, forcesExtension, forceFormatVersion, listFiles, getFileHeaderData } from "./util/fileUtil";
 
-import SaveLoadModal from "./modals/SaveLoadModal.js";
 import PlayModeTracker from "./PlayModeTracker.js";
 import PlayModeViewer from "./PlayModeViewer.js";
+import SettingsButton from "./SettingsButton.js";
+import SaveLoadModal from "./modals/SaveLoadModal.js";
+import SettingsModal from "./modals/SettingsModal.js";
 
 import { getFactionsData, getForceSizesData, rulesets } from "./DataLoader";
 
@@ -35,6 +37,7 @@ function PlayView() {
     const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
     const [forceFiles, setForceFiles] = useState([]);
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
 
     useEffect(() => {
@@ -138,9 +141,11 @@ function PlayView() {
                         <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
                     <PlayModeTracker rulesetId={playRulesetId}></PlayModeTracker>
+                    <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
+                <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
                 <SaveLoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} disableSave={true} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></SaveLoadModal>
                 <>
                     {playRulesetId && <IonText color="primary"><h3 className="label">Ruleset: {rulesets[playRulesetId].name}</h3></IonText>}

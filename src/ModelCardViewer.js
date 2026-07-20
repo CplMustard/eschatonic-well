@@ -12,7 +12,9 @@ import SpecialRuleList from "./SpecialRuleList";
 import WeaponList from "./WeaponList";
 import ManeuverList from "./ManeuverList";
 import UnitStatus from "./UnitStatus";
+import SettingsButton from "./SettingsButton";
 import ViewChangesModal from "./modals/ViewChangesModal";
+import SettingsModal from "./modals/SettingsModal";
 
 import { getCortexesData, getExpansionsData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData, getFactionsData, getCadresData, getManeuversData } from "./DataLoader";
 
@@ -31,6 +33,8 @@ function ModelCardViewer(props) {
     const [forceModelsData, setForceModelsData] = useSessionStorageState("forceModelsData", {defaultValue: [], listenStorageChange: true});
 
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
+    
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
     const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
 
@@ -318,9 +322,11 @@ function ModelCardViewer(props) {
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
+                    <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
+                <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
                 <CardContent rulesetId={rulesetId} cardData={cardData} specialRules={all_special_rules} weapons={allWeapons} hardPointCortexOption={hardPointCortexOption} attachments={attachments}/>
             </IonContent>
         </IonPage>

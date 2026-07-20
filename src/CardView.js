@@ -1,9 +1,11 @@
-import React, { createRef } from "react";
+import React, { createRef, useState } from "react";
 import { useLocalStorageState } from "ahooks";
 import { IonPage, IonContent, IonHeader, IonToolbar, IonText, IonSelect,  IonButtons, IonBackButton, IonSelectOption, useIonAlert, useIonToast } from "@ionic/react";
 import { warning } from "ionicons/icons";
 
 import CardListViewer from "./CardListViewer.js";
+import SettingsButton from "./SettingsButton.js";
+import SettingsModal from "./modals/SettingsModal.js";
 
 import { getFactionsData, rulesets } from "./DataLoader.js";
 
@@ -15,6 +17,8 @@ function CardView() {
     const [rulesetId, setRulesetId] = useLocalStorageState("rulesetId", {defaultValue: "pp"});
 
     const factionsData = getFactionsData(rulesetId);
+
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
     const presentToast = (message, isWarning) => {
         present({
@@ -80,9 +84,11 @@ function CardView() {
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
+                    <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
             </IonHeader>
             <IonContent ref={contentRef}>
+                <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
                 <>
                     <IonText color="primary"><h3 className="label"><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3 className="label"><IonSelect label="Faction:" justify="start" value={cardViewFactionId} onIonChange={(e) => changeCardViewFaction(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>

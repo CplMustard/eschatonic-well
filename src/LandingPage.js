@@ -1,6 +1,9 @@
-import React, { createRef }from "react";
+import React, { createRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IonPage, IonContent, IonFooter, IonText, IonImg, IonButton, IonGrid, IonCol, IonRow} from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonText, IonImg, IonButton, IonGrid, IonCol, IonRow} from "@ionic/react";
+
+import SettingsButton from "./SettingsButton";
+import SettingsModal from "./modals/SettingsModal";
 
 import logo from "./assets/images/eschatonic-well.png";
 
@@ -8,9 +11,17 @@ function LandingPage() {
     const history = useHistory();
     const contentRef = createRef();
 
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+
     return (
         <IonPage>
             <IonContent ref={contentRef}>
+                <IonHeader>
+                    <IonToolbar>
+                        <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
+                    </IonToolbar>
+                </IonHeader>
+                <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
                 <div className={"landing-page"}>
                     <IonImg className={"logo"} src={logo}></IonImg>
                     <IonText className={"title"}><h1>ESCHATONIC WELL</h1></IonText>

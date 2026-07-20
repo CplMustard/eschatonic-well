@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useParams, useHistory } from "react-router-dom";
 
 import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton } from "@ionic/react";
 
 import CardList from "./CardList";
+import SettingsButton from "./SettingsButton.js";
+import SettingsModal from "./modals/SettingsModal.js";
 
 import { getCadresData, getModelsData } from "./DataLoader";
 
@@ -11,6 +13,8 @@ function CadreViewer(props) {
     const params = useParams();
     const history = useHistory();
     const location = useLocation();
+
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
     const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
 
@@ -31,9 +35,11 @@ function CadreViewer(props) {
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
+                    <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
+                <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
                 <CardList rulesetId={rulesetId} header={`Cadre: ${cadresData[cadreId].name}`} cards={models} handleCardClicked={openModelCard}></CardList>
             </IonContent>
         </IonPage>

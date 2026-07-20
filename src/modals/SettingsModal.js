@@ -1,30 +1,21 @@
 import React, { useState } from "react";
-import sanitize from "sanitize-filename";
 import { IonContent, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonButton, IonList, IonItem, IonToggle, useIonAlert, } from "@ionic/react";
 
-var semver = require("semver");
+import { settingsFilename, saveUserSettings } from "../util/fileUtil";
+import { userSettingsDefault } from "../data";
 
-import { settingsFilename, settingsFormatVersion } from "../util/fileUtil";
-import { userSettingsDefault } from "./data";
+const loadedUserSettings = userSettingsDefault;//await loadUserSettings();
 
 function SettingsModal (props) {    
     const [presentAlert] = useIonAlert();
 
     const { isOpen, setIsOpen } = props;
 
-    const [fileName, setFileName] = useState(defaultFileName);
+    const [currentUserSettings, setCurrentUserSettings] = useState(loadedUserSettings);
 
-    let userSettings = loadUserSettings();
-
-    const saveFileConfirm = async (name, fileData) => {
-        let showOverwriteWarning = false;
-        const sanitizedFileName = sanitize(name);
-        const result = await listFiles(filesPath);
-        if(result && result.files) {
-            showOverwriteWarning = result.files.find((file) => file.name.replace(fileExtension, "") === sanitizedFileName);
-        }
+    const saveFileConfirm = async (fileData) => {
         presentAlert({
-            header: `Save Settings`,
+            header: "Save Settings",
             message: "Save these settings?",
             buttons: [
                 {
@@ -36,8 +27,7 @@ function SettingsModal (props) {
                     text: "OK",
                     role: "confirm",
                     handler: () => {
-                        saveFile(sanitizedFileName, ...fileData);
-                        setFileName(sanitizedFileName);
+                        saveUserSettings(fileData);
                         setIsOpen(false);
                     },
                 },
@@ -47,22 +37,24 @@ function SettingsModal (props) {
     };
 
     const updateSetting = (settingName, settingValue) => {
-        userSettings[settingName] = settingValue;
-    }
+        let newUserSettings = currentUserSettings;
+        newUserSettings[settingName] = settingValue;
+        setCurrentUserSettings(newUserSettings);
+    };
 
     const createNewToggle = (settingName, settingDescription) => {
-        return <IonToggle checked={userSettings[settingName] ? userSettings[settingName] : userSettingsDefault[settingName]}> ionChange={(e) => updateSetting(settingName, e.value)}
+        return <IonToggle key={settingName} checked={currentUserSettings && (currentUserSettings[settingName] ? currentUserSettings[settingName] : userSettingsDefault[settingName])} onIonChange={(e) => updateSetting(settingName, e.value)}>
            {settingDescription}
-        </IonToggle>
-    }
+        </IonToggle>;
+    };
 
-    settings = [];
+    const settings = [];
     settings.push(createNewToggle("groupCadres", "Group Cadre models together (Default: On)"));
 
-    settingsElements = [];
-    settings.forEach((setting) => {
-        settingsElements.push(<IonItem>{setting}</IonItem>)
-    })
+    const settingsElements = [];
+    settings.forEach((setting, index) => {
+        settingsElements.push(<IonItem key={index}>{setting}</IonItem>);
+    });
 
     return (
         <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
@@ -71,7 +63,7 @@ function SettingsModal (props) {
                     <IonButtons slot="start">
                         <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
                     </IonButtons>
-                    <IonTitle>{title}</IonTitle>
+                    <IonTitle>Settings</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
@@ -79,14 +71,14 @@ function SettingsModal (props) {
                     {settingsElements}
                 </IonList>
             </IonContent>
-            {!disableSave && <IonFooter>
-                <IonButton expand="block" onClick={() => saveFileConfirm(fileName, fileData)}>
+            <IonFooter>
+                <IonButton expand="block" onClick={() => saveFileConfirm(settingsFilename, currentUserSettings)}>
                     <div>Save Settings</div>
                 </IonButton>
-                <IonButton expand="block" onClick={() => saveFileConfirm(fileName, fileData)}>
+                <IonButton expand="block" onClick={() => saveFileConfirm(settingsFilename, userSettingsDefault)}>
                     <div>Restore Defaults</div>
                 </IonButton>
-            </IonFooter>}
+            </IonFooter>
         </IonModal>
     );
 }

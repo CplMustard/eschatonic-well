@@ -12,9 +12,11 @@ import { copyForceToText } from "./util/copyForceToText";
 
 import ModelCount from "./ModelCount.js";
 import CypherCount from "./CypherCount.js";
-import SaveLoadModal from "./modals/SaveLoadModal.js";
 import ForceEditor from "./ForceEditor";
 import RackEditor from "./RackEditor";
+import SettingsButton from "./SettingsButton.js";
+import SaveLoadModal from "./modals/SaveLoadModal.js";
+import SettingsModal from "./modals/SettingsModal.js";
 
 import { getFactionsData, getForceSizesData, getModelsData, rulesets } from "./DataLoader";
 
@@ -46,6 +48,7 @@ function EditorView() {
     const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [rackFiles, setRackFiles] = useState([]);
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
     const [isSaveLoadForceModalOpen, setIsSaveLoadForceModalOpen] = useState(false);
     const [isSaveLoadRackModalOpen, setIsSaveLoadRackModalOpen] = useState(false);
 
@@ -408,6 +411,7 @@ function EditorView() {
                             <IonLabel>Rack</IonLabel>
                         </IonSegmentButton>
                     </IonSegment>
+                    <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
 
                 {(promptSave || warningText) && <>
@@ -415,6 +419,7 @@ function EditorView() {
                 </>}
             </IonHeader>
             <IonContent ref={contentRef}>
+                <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
                 <SaveLoadModal isOpen={isSaveLoadForceModalOpen} setIsOpen={setIsSaveLoadForceModalOpen} title={"Save/Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} files={forceFiles} defaultFileName={forceName} fileData={forceData} loadFile={loadForce} deleteFile={deleteForce} listFiles={listFiles} saveFile={saveForce}></SaveLoadModal>
                 <SaveLoadModal isOpen={isSaveLoadRackModalOpen} setIsOpen={setIsSaveLoadRackModalOpen} title={"Save/Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={forcesPath} files={rackFiles} defaultFileName={"New Rack"} fileData={rackData} filterFiles={filterRacks} loadFile={loadRack} deleteFile={deleteRack} listFiles={listFiles} saveFile={saveRack}></SaveLoadModal>
 

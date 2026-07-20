@@ -8,7 +8,6 @@ export const settingsFilename = "userSettings.json";
 
 export const forceFormatVersion = "0.2.0";
 export const rackFormatVersion = "0.2.0";
-export const settingsFormatVersion = "0.1.0";
 
 export const createDir = async (path) => {
     try {
@@ -57,6 +56,37 @@ export const getFileHeaderData = async (path, filename) => {
         
         const json = JSON.parse(result.data);
         return { formatVersion: json.formatVersion, factionId: json.factionId, rulesetId: json.rulesetId };
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const loadUserSettings = async () => {
+    try {
+        const result = await Filesystem.readFile({
+            path: `/${settingsFilename}`,
+            directory: Directory.Documents,
+            encoding: Encoding.UTF8,
+        });
+        
+        const json = JSON.parse(result.data);
+        return json;
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const saveUserSettings = async (fileData) => {
+    let json = fileData;
+    try {
+        const result = await Filesystem.writeFile({
+            path: `/${settingsFilename}`,
+            data: JSON.stringify(json),
+            directory: Directory.Documents,
+            encoding: Encoding.UTF8,
+            recursive: true
+        });
+        return result;
     } catch (e) {
         console.error(e);
     }

@@ -3,6 +3,8 @@ import { useLocation, useParams } from "react-router-dom";
 import { IonPage, IonButton, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
 
 import ViewChangesModal from "./modals/ViewChangesModal";
+import SettingsButton from "./SettingsButton.js";
+import SettingsModal from "./modals/SettingsModal.js";
 
 import { getCyphersData, getCypherTypesData, getExpansionsData, getFactionsData } from "./DataLoader";
 
@@ -11,6 +13,7 @@ function CypherCardViewer(props) {
     const location = useLocation();
 
     const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
     const rulesetId = props.rulesetId ? props.rulesetId : location.state && location.state.rulesetId;
 
@@ -48,12 +51,14 @@ function CypherCardViewer(props) {
 
     return (
         <IonPage className={cypherData.factions.length === 1 ? cypherData.factions[0] : ""}>
-            <ViewChangesModal isOpen={isViewChangesModalOpen} setIsOpen={setIsViewChangesModalOpen} changeEntries={collectedChanges}></ViewChangesModal>       
+            <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
+            <ViewChangesModal isOpen={isViewChangesModalOpen} setIsOpen={setIsViewChangesModalOpen} changeEntries={collectedChanges}></ViewChangesModal>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
+                    <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
