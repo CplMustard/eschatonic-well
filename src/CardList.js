@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSessionStorageState } from "ahooks";
+import { useSessionStorageState, useLocalStorageState } from "ahooks";
 import { IonBadge, IonButton, IonLabel, IonList, IonItem, IonItemGroup, IonGrid, IonCol, IonRow, IonAccordion, IonAccordionGroup, IonIcon } from "@ionic/react";
 import { sparkles } from "ionicons/icons";
 
@@ -10,8 +10,6 @@ import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
 
 import { getCadresData, getCortexesData, getCyphersData, getCypherTypesData, getManeuversData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData } from "./DataLoader";
-
-const mergeCadres = false;
 
 function CardList(props) {
     const { 
@@ -35,6 +33,9 @@ function CardList(props) {
         toggleContinuousEffect, 
         toggleDamageBox 
     } = props;
+
+    const [currentUserSettings, ] = useLocalStorageState("currentUserSettings", {defaultValue: {}, listenStorageChange: true});
+    const groupCadres = currentUserSettings.groupCadres;
 
     const cadresData = getCadresData(rulesetId);
     const cortexesData = getCortexesData(rulesetId);
@@ -62,7 +63,7 @@ function CardList(props) {
         const hasHiddenSubtype = current["subtypes"] ? current["subtypes"].some((subtype) => modelTypesData[subtype].hidden) : false;
         const isHidden = hasHiddenSubtype || (modelTypesData[current["type"]] ? modelTypesData[current["type"]].hidden : cypherTypesData[current["type"]].hidden);
         const cadreType = cadreId ? `cadre:${cadreId}` + (isChampion ? "|champion" : "") : undefined;
-        const type = mergeCadres && cadreId ? cadreType : (current["type"] + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (isHidden ? "|hidden" : ""));
+        const type = groupCadres && cadreId ? cadreType : (current["type"] + (isHero ? "|hero" : "") + (isChampion ? "|champion" : "") + (isHidden ? "|hidden" : ""));
         memo[type] = [...memo[type] || [], current];
         return memo;
     }, {});

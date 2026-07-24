@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { useLocalStorageState } from "ahooks";
 import { IonContent, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonButton, IonList, IonItem, IonToggle, useIonAlert, } from "@ionic/react";
 
-import { settingsFilename, saveUserSettings } from "../util/fileUtil";
+import { saveUserSettings, loadUserSettings } from "../util/fileUtil";
 import { userSettingsDefault } from "../data";
 
-const loadedUserSettings = userSettingsDefault;//await loadUserSettings();
+let loadedUserSettings = await loadUserSettings();
 
 function SettingsModal (props) {    
     const [presentAlert] = useIonAlert();
 
     const { isOpen, setIsOpen } = props;
 
-    const [currentUserSettings, setCurrentUserSettings] = useState(loadedUserSettings);
+    const [currentUserSettings, setCurrentUserSettings] = useLocalStorageState("currentUserSettings", {defaultValue: loadedUserSettings, listenStorageChange: true});
+
+    const dismissModal = () => {
+        setCurrentUserSettings(structuredClone(loadedUserSettings));
+        setIsOpen(false);
+    };
 
     const saveFileConfirm = async (fileData) => {
         presentAlert({
@@ -27,8 +33,35 @@ function SettingsModal (props) {
                     text: "OK",
                     role: "confirm",
                     handler: () => {
-                        saveUserSettings(fileData);
-                        setIsOpen(false);
+                        try { 
+                            saveUserSettings(fileData);
+                            loadedUserSettings = fileData;
+                            setIsOpen(false);
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    },
+                },
+            ],
+            onDidDismiss: () => {}
+        });
+    };
+
+    const restoreDefaultsConfirm = async () => {
+        presentAlert({
+            header: "Restore Defaults",
+            message: "Restore all settings to default?",
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: () => {},
+                },
+                {
+                    text: "OK",
+                    role: "confirm",
+                    handler: () => {
+                        setCurrentUserSettings(structuredClone(userSettingsDefault));
                     },
                 },
             ],
@@ -43,7 +76,7 @@ function SettingsModal (props) {
     };
 
     const createNewToggle = (settingName, settingDescription) => {
-        return <IonToggle key={settingName} checked={currentUserSettings && (currentUserSettings[settingName] ? currentUserSettings[settingName] : userSettingsDefault[settingName])} onIonChange={(e) => updateSetting(settingName, e.value)}>
+        return <IonToggle key={settingName} checked={currentUserSettings && (currentUserSettings[settingName] !== undefined ? currentUserSettings[settingName] : userSettingsDefault[settingName])} onIonChange={(e) => updateSetting(settingName, e.detail.checked)}>
            {settingDescription}
         </IonToggle>;
     };
@@ -57,11 +90,13 @@ function SettingsModal (props) {
     });
 
     return (
-        <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
+        <IonModal isOpen={isOpen} onDidDismiss={() => dismissModal()}>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
+                        <IonButton onClick={() => dismissModal()}>
+                            Cancel
+                        </IonButton>
                     </IonButtons>
                     <IonTitle>Settings</IonTitle>
                 </IonToolbar>
@@ -72,10 +107,10 @@ function SettingsModal (props) {
                 </IonList>
             </IonContent>
             <IonFooter>
-                <IonButton expand="block" onClick={() => saveFileConfirm(settingsFilename, currentUserSettings)}>
+                <IonButton expand="block" onClick={() => saveFileConfirm(currentUserSettings)}>
                     <div>Save Settings</div>
                 </IonButton>
-                <IonButton expand="block" onClick={() => saveFileConfirm(settingsFilename, userSettingsDefault)}>
+                <IonButton expand="block" onClick={() => restoreDefaultsConfirm()}>
                     <div>Restore Defaults</div>
                 </IonButton>
             </IonFooter>

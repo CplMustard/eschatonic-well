@@ -1,10 +1,12 @@
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 
+import { userSettingsDefault } from "../data";
+
 export const forcesPath = "eschatonic-well/forces/";
 export const racksPath = "eschatonic-well/racks/";
 export const forcesExtension = ".esch";
 export const racksExtension = ".rack";
-export const settingsFilename = "userSettings.json";
+export const settingsFilename = "eschatonic-well/UserSettings.json";
 
 export const forceFormatVersion = "0.2.0";
 export const rackFormatVersion = "0.2.0";
@@ -70,13 +72,25 @@ export const loadUserSettings = async () => {
         });
         
         const json = JSON.parse(result.data);
+        console.log(json);
         return json;
     } catch (e) {
-        console.error(e);
+        try {
+            await saveUserSettings(settingsFilename, userSettingsDefault);            
+            const result = await Filesystem.readdir({
+                path: settingsFilename,
+                directory: Directory.Documents
+            });
+            
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
     }
 };
 
 export const saveUserSettings = async (fileData) => {
+    console.log(fileData);
     let json = fileData;
     try {
         const result = await Filesystem.writeFile({
