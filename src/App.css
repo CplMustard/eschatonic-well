@@ -174,7 +174,7 @@ hr {
 
 .version-number {
 	position: absolute;
-	top: 0.1rem;
+	bottom: 0.1rem;
 	right: 0.5rem;
 	opacity: 0.5;
 	background: transparent;

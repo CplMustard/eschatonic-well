@@ -18,7 +18,6 @@ import VersionNumber from "./VersionNumber";
 function App() {
     return (
         <div style={{ margin: "0 1rem 0 1rem", paddingTop: "env(safe-area-inset-top)" }}>
-            <VersionNumber/>
             <IonApp className="App">
                 <IonReactRouter>
                     <IonRouterOutlet>
@@ -32,6 +31,7 @@ function App() {
                     </IonRouterOutlet>
                 </IonReactRouter>
             </IonApp>
+            <VersionNumber/>
         </div>
     );
 }
