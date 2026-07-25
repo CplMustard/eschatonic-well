@@ -5,9 +5,12 @@ import { sparkles } from "ionicons/icons";
 
 import { cardSorting, groupSorting } from "./util/sortingUtil";
 import { collectChanges, previewStats } from "./util/cardUtil";
+import { loadUserSettings } from "./util/fileUtil";
 
 import HardPointList from "./HardPointList";
 import UnitStatus from "./UnitStatus.js";
+
+let loadedUserSettings = await loadUserSettings();
 
 import { getCadresData, getCortexesData, getCyphersData, getCypherTypesData, getManeuversData, getModelsData, getModelTypesData, getWeaponsData, getSpecialRulesData } from "./DataLoader";
 
@@ -34,7 +37,7 @@ function CardList(props) {
         toggleDamageBox 
     } = props;
 
-    const [currentUserSettings, ] = useLocalStorageState("currentUserSettings", {defaultValue: {}, listenStorageChange: true});
+    const [currentUserSettings, ] = useLocalStorageState("currentUserSettings", {defaultValue: loadedUserSettings, listenStorageChange: true});
     const groupCadres = currentUserSettings.groupCadres;
 
     const cadresData = getCadresData(rulesetId);
