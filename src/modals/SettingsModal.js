@@ -83,6 +83,7 @@ function SettingsModal (props) {
 
     const settings = [];
     settings.push(createNewToggle("groupCadres", "Group Cadre models together (Default: On)"));
+    settings.push(createNewToggle("combineIdenticalWeapons", "Combine identical weapons in statlines, e.g 2x Arc Blade (Default: On)"));
 
     const settingsElements = [];
     settings.forEach((setting, index) => {

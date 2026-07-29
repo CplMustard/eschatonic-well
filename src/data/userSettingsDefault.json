@@ -1,3 +1,4 @@
 {
-    "groupCadres": true
+    "groupCadres": true,
+    "combineIdenticalWeapons": true
 }
