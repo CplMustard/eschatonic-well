@@ -2,8 +2,8 @@ import React, { createRef, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { useSessionStorageState, useLocalStorageState } from "ahooks";
-import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonButton, IonButtons, IonBackButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
-import { warning } from "ionicons/icons";
+import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonIcon, IonText, IonButton, IonButtons, IonBackButton, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
+import { warning, save, trash } from "ionicons/icons";
 
 var semver = require("semver");
 
@@ -160,8 +160,16 @@ function PlayView() {
                     {playForceName && <IonText color="primary"><h2 className="label">Force Name: {playForceName}</h2></IonText>}
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {forceFiles.length === 0 ? history.push("/editor") : setIsLoadPlayForceModalOpen(true);}}>{forceFiles.length === 0 ? "GO TO FORCE BUILDER": "LOAD"}</IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm();}}><div>CLEAR ALL</div></IonButton></IonCol>
+                            <IonCol>
+                                <IonButton expand="block" onClick={() => {forceFiles.length === 0 ? history.push("/editor") : setIsLoadPlayForceModalOpen(true);}}>
+                                    {forceFiles.length === 0 ? "GO TO FORCE BUILDER": <><IonIcon icon={save} size={"large"} style={{paddingRight: "0.5rem"}}/><IonLabel>SAVE/LOAD</IonLabel></>}
+                                </IonButton></IonCol>
+                            <IonCol>
+                                <IonButton expand="block" onClick={() => {clearForceConfirm();}}>
+                                    <IonIcon icon={trash} size={"large"} style={{paddingRight: "0.5rem"}}/>
+                                    CLEAR ALL
+                                </IonButton>
+                            </IonCol>
                         </IonRow>
                     </IonGrid>
                 </>
