@@ -3,7 +3,7 @@ import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import sanitize from "sanitize-filename";
 import { useSessionStorageState, useLocalStorageState } from "ahooks";
 import { IonPage, IonContent, IonHeader, IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonLabel, IonText, IonSelect, IonSelectOption, IonButton, IonButtons, IonBackButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert, useIonToast } from "@ionic/react";
-import { warning } from "ionicons/icons";
+import { warning, save, clipboard, trash } from "ionicons/icons";
 
 var semver = require("semver");
 
@@ -49,8 +49,7 @@ function EditorView() {
     const [forceFiles, setForceFiles] = useState([]);
     const [rackFiles, setRackFiles] = useState([]);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-    const [isSaveLoadForceModalOpen, setIsSaveLoadForceModalOpen] = useState(false);
-    const [isSaveLoadRackModalOpen, setIsSaveLoadRackModalOpen] = useState(false);
+    const [isSaveLoadModalOpen, setIsSaveLoadModalOpen] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -402,7 +401,7 @@ function EditorView() {
                     </IonButtons>
                     <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
                         scrollToTop();
-                        setTabSelected(e.detail.value );
+                        setTabSelected(e.detail.value);
                     }}>
                         <IonSegmentButton value={editorTabs.force}>
                             <IonLabel>Force</IonLabel>
@@ -420,9 +419,14 @@ function EditorView() {
             </IonHeader>
             <IonContent ref={contentRef}>
                 <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
-                <SaveLoadModal isOpen={isSaveLoadForceModalOpen} setIsOpen={setIsSaveLoadForceModalOpen} title={"Save/Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} filesPath={forcesPath} files={forceFiles} defaultFileName={forceName} fileData={forceData} loadFile={loadForce} deleteFile={deleteForce} listFiles={listFiles} saveFile={saveForce}></SaveLoadModal>
-                <SaveLoadModal isOpen={isSaveLoadRackModalOpen} setIsOpen={setIsSaveLoadRackModalOpen} title={"Save/Load Rack"} fileTypeName={"rack"} fileExtension={racksExtension} filesPath={forcesPath} files={rackFiles} defaultFileName={"New Rack"} fileData={rackData} filterFiles={filterRacks} loadFile={loadRack} deleteFile={deleteRack} listFiles={listFiles} saveFile={saveRack}></SaveLoadModal>
-
+                <SaveLoadModal 
+                    isOpen={isSaveLoadModalOpen} 
+                    setIsOpen={setIsSaveLoadModalOpen} 
+                    tabs={[
+                        {"title": "Save/Load Force + Rack", "fileTypeName": "force", "fileExtension": forcesExtension, "filesPath": forcesPath, "files": forceFiles, "defaultFileName": forceName, "fileData": forceData, "loadFile": loadForce, "deleteFile": deleteForce, "listFiles": listFiles, "saveFile": saveForce},
+                        {"title": "Save/Load Rack", "fileTypeName": "rack", "fileExtension": racksExtension, "filesPath": racksPath, "files": rackFiles, "defaultFileName": "New Rack", "fileData": rackData, "filterFiles": filterRacks, "loadFile": loadRack, "deleteFile": deleteRack, "listFiles": listFiles, "saveFile": saveRack}
+                    ]}>
+                </SaveLoadModal>
                 {(tabSelected === editorTabs.force || tabSelected === editorTabs.rack) && <>
                     <IonText color="primary"><h3 className="label"><IonSelect label="Ruleset:" justify="start" value={rulesetId} onIonChange={(e) => changeRulesetConfirm(e.detail.value)}>{rulesetSelectOptions}</IonSelect></h3></IonText>
                     <IonText color="primary"><h3 className="label"><IonSelect label="Faction:" justify="start" value={factionId} onIonChange={(e) => changeFactionConfirm(e.detail.value)}>{factionSelectOptions}</IonSelect></h3></IonText>
@@ -430,13 +434,27 @@ function EditorView() {
                     <IonText color="primary"><h2 className="label">Force Name: {forceName}</h2></IonText>
                     <IonGrid>
                         <IonRow>
-                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveLoadForceModalOpen(true);}}><div>SAVE/LOAD FORCE AND RACK</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {setIsSaveLoadRackModalOpen(true);}}><div>SAVE/LOAD RACK ONLY</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {
-                                copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
-                                presentToast("Force copied to clipboard");
-                            }}><div>COPY TO TEXT</div></IonButton></IonCol>
-                            <IonCol><IonButton expand="block" onClick={() => {clearForceConfirm();}}><div>CLEAR ALL</div></IonButton></IonCol>
+                            <IonCol>
+                                <IonButton expand="block" onClick={() => {setIsSaveLoadModalOpen(true);}}>
+                                    <IonIcon icon={save} size={"large"} style={{paddingRight: "0.5rem"}}/>
+                                    <IonLabel>SAVE/LOAD</IonLabel>
+                                </IonButton>
+                            </IonCol>
+                            <IonCol>
+                                <IonButton expand="block" onClick={() => {
+                                    copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
+                                    presentToast("Force copied to clipboard");
+                                }}>
+                                    <IonIcon icon={clipboard} size={"large"} style={{paddingRight: "0.5rem"}}/>
+                                    COPY TO TEXT
+                                </IonButton>
+                            </IonCol>
+                            <IonCol>
+                                <IonButton expand="block" onClick={() => {clearForceConfirm();}}>
+                                    <IonIcon icon={trash} size={"large"} style={{paddingRight: "0.5rem"}}/>
+                                    CLEAR ALL
+                                </IonButton>
+                            </IonCol>
                         </IonRow>
                         <IonRow>
                             <IonCol size={"auto"}>

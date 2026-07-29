@@ -146,7 +146,13 @@ function PlayView() {
             </IonHeader>
             <IonContent ref={contentRef}>
                 <SettingsModal isOpen={isSettingsModalOpen} setIsOpen={setIsSettingsModalOpen}></SettingsModal>
-                <SaveLoadModal isOpen={isLoadPlayForceModalOpen} setIsOpen={setIsLoadPlayForceModalOpen} disableSave={true} title={"Load Force"} fileTypeName={"force"} fileExtension={forcesExtension} files={forceFiles} loadFile={loadPlayForce}></SaveLoadModal>
+                <SaveLoadModal 
+                    isOpen={isLoadPlayForceModalOpen} 
+                    setIsOpen={setIsLoadPlayForceModalOpen} 
+                    tabs={[
+                        {"title": "Load Force", "fileTypeName": "force", "fileExtension": forcesExtension, "files": forceFiles, "loadFile": loadPlayForce}
+                    ]}>
+                </SaveLoadModal>
                 <>
                     {playRulesetId && <IonText color="primary"><h3 className="label">Ruleset: {rulesets[playRulesetId].name}</h3></IonText>}
                     {playFactionId && <IonText color="primary"><h3 className="label">Faction: {factionsData[playFactionId].name}</h3></IonText>}

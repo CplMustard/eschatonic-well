@@ -1,17 +1,68 @@
 import React, { useState } from "react";
 import sanitize from "sanitize-filename";
-import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonTitle, IonInput, IonButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
-import { warning } from "ionicons/icons";
+import { IonContent, IonText, IonModal, IonHeader, IonFooter, IonToolbar, IonButtons, IonSegment, IonSegmentButton, IonLabel, IonTitle, IonInput, IonButton, IonIcon, IonGrid, IonCol, IonRow, useIonAlert } from "@ionic/react";
+import { warning, trash } from "ionicons/icons";
 
 var semver = require("semver");
 
 import { forcesExtension, forceFormatVersion, rackFormatVersion } from "../util/fileUtil";
 import { rulesets } from "../DataLoader";
 
-function SaveLoadModal (props) {    
+function SaveLoadModal (props) {
+    const { isOpen, setIsOpen, tabs } = props;
+
+    const [tabSelected, setTabSelected] = useState(0);
+
+    const saveLoadModalTabs = [];
+    tabs.forEach((tab) => {
+        saveLoadModalTabs.push(<SaveLoadModalTab
+            setIsOpen={setIsOpen}
+            title={tab.title}
+            fileTypeName={tab.fileTypeName}
+            fileExtension={tab.fileExtension}
+            files={tab.files}
+            filesPath={tab.filesPath}
+            filterFiles={tab.filterFiles}
+            defaultFileName={tab.defaultFileName}
+            fileData={tab.fileData}
+            loadFile={tab.loadFile}
+            deleteFile={tab.deleteFile}
+            listFiles={tab.listFiles}
+            saveFile={tab.saveFile}>
+        </SaveLoadModalTab>);
+    });
+
+    const saveLoadTabButtons = [];
+    tabs.forEach((tab, index) => saveLoadTabButtons.push(
+        <IonSegmentButton key={index} value={index}>
+            <IonLabel>{tab.title}</IonLabel>
+        </IonSegmentButton>
+    ));
+
+    return <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
+        <IonHeader>
+            <IonToolbar>
+                <IonButtons slot="start">
+                    <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
+                </IonButtons>
+                <IonTitle>Save/Load</IonTitle>
+            </IonToolbar>
+            {tabs.length > 1 && <IonToolbar>
+                <IonSegment mode="md" value={tabSelected} onIonChange={(e) => {
+                    setTabSelected(e.detail.value);
+                }}>
+                    {saveLoadTabButtons}
+                </IonSegment>
+            </IonToolbar>}
+        </IonHeader>
+        {saveLoadModalTabs[tabSelected]}
+    </IonModal>;
+}
+
+function SaveLoadModalTab (props) {    
     const [presentAlert] = useIonAlert();
 
-    const { isOpen, setIsOpen, disableSave, title, fileTypeName, fileExtension, files, filesPath, filterFiles, defaultFileName, fileData, loadFile, deleteFile, listFiles, saveFile } = props;
+    const { setIsOpen, fileTypeName, fileExtension, files, filesPath, filterFiles, defaultFileName, fileData, loadFile, deleteFile, listFiles, saveFile } = props;
 
     const [fileName, setFileName] = useState(defaultFileName);
 
@@ -23,7 +74,7 @@ function SaveLoadModal (props) {
             showOverwriteWarning = result.files.find((file) => file.name.replace(fileExtension, "") === sanitizedFileName);
         }
         presentAlert({
-            header: `${title}?`,
+            header: `Save ${fileTypeName}?`,
             message: showOverwriteWarning ? `Overwrite the ${fileTypeName} saved as ${sanitizedFileName}?` : `Save current ${fileTypeName} as ${sanitizedFileName}?`,
             buttons: [
                 {
@@ -122,7 +173,7 @@ function SaveLoadModal (props) {
                 </IonCol>
                 {deleteFile && <IonCol size="auto">
                     <IonButton size="medium" expand="block" onClick={() => deleteFileConfirm(fileName, file.fileInfo.name)}>
-                        DELETE
+                        <IonIcon icon={trash} size={"medium"}/>
                     </IonButton>
                 </IonCol>}
             </IonRow>);
@@ -131,26 +182,18 @@ function SaveLoadModal (props) {
 
 
     return (
-        <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
-            <IonHeader>
-                <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
-                    </IonButtons>
-                    <IonTitle>{title}</IonTitle>
-                </IonToolbar>
-            </IonHeader>
+        <>
             <IonContent className="ion-padding">
                 <IonText color="primary"><h2 className="label" style={{marginBottom:"0"}}>Load {fileTypeName[0].toUpperCase() + fileTypeName.slice(1)}:</h2></IonText>
                 {files.length !== 0 && <IonGrid>{loadFileButtons}</IonGrid>}
             </IonContent>
-            {!disableSave && <IonFooter>
+            {saveFile && <IonFooter>
                 <IonText color="primary"><h2 className="label">Save {fileTypeName} as: <IonInput type="text" fill="solid" value={fileName} onIonInput={(e) => setFileName(sanitize(e.target.value))}/></h2></IonText>
                 <IonButton expand="block" onClick={() => saveFileConfirm(fileName, fileData)}>
                     <div>Save {fileTypeName}</div>
                 </IonButton>
             </IonFooter>}
-        </IonModal>
+        </>
     );
 }
 
