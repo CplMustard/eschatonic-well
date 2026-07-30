@@ -99,8 +99,8 @@
  - Added "at a glance" statlines to model cards
  - Added indicator for cards that have changed from the base ruleset
  - Added "Settings" button, along with two new settings:
-  - Group Cadre models together (Default: On)
-  - Combine identical weapons in statlines, e.g 2x Arc Blade (Default: On)
+    - Group Cadre models together (Default: On)
+    - Combine identical weapons in statlines, e.g 2x Arc Blade (Default: On)
  ## Bugfixes
  - General stability improvements
  - Fixed issue where mantlets could be charged in play mode
