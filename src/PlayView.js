@@ -113,7 +113,6 @@ function PlayView() {
             
             const json = JSON.parse(result.data);
             if(!json.formatVersion || semver.ltr(json.formatVersion, forceFormatVersion)) {
-                console.log(json.formatVersion);
                 presentToast(`Could not load force ${json.forceName}. File format out of date!`, true);
                 throw new Error(`Force ${filename} file format out of date!`);
             }

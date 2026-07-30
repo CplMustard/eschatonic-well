@@ -236,7 +236,6 @@ function EditorView() {
             
             const json = JSON.parse(result.data);
             if(!json.formatVersion || semver.ltr(json.formatVersion, forceFormatVersion)) {
-                console.log(json.formatVersion);
                 setPromptSave(true);
                 setWarningText(`Force ${json.forceName} format out of date, please save force`);
             } else {
@@ -337,7 +336,6 @@ function EditorView() {
             
             const json = JSON.parse(result.data);
             if(!json.formatVersion || semver.ltr(json.formatVersion, rackFormatVersion)) {
-                console.log(json.formatVersion);
                 setPromptSave(true);
                 setWarningText(`Rack ${json.rackName} format out of date, please save rack`);
             }

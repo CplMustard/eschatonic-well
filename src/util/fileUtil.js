@@ -72,7 +72,6 @@ export const loadUserSettings = async () => {
         });
         
         const json = JSON.parse(result.data);
-        console.log(json);
         return json;
     } catch (e) {
         try {
@@ -90,7 +89,6 @@ export const loadUserSettings = async () => {
 };
 
 export const saveUserSettings = async (fileData) => {
-    console.log(fileData);
     let json = fileData;
     try {
         const result = await Filesystem.writeFile({
