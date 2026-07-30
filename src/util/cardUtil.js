@@ -1,9 +1,9 @@
 export const getHardPointOptions = (hard_points, hardPointOptions, typeId) => {
-    return hard_points && hardPointOptions ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === typeId).map((hardPointOption) => hardPointOption.option) : undefined;
+    return (hard_points && hardPointOptions) ? hardPointOptions.filter((hardPointOption) => hardPointOption.type === typeId).map((hardPointOption) => hardPointOption.option) : undefined;
 };
 
 export const getAllWeapons = (hard_points, weapons, hardPointWeaponOptions) => {
-    return hard_points && hardPointWeaponOptions ? weapons.concat(hardPointWeaponOptions) : weapons;
+    return (hard_points && hardPointWeaponOptions) ? weapons.concat(hardPointWeaponOptions) : weapons;
 };
 
 export const getAllSpecialRules = (cadresData, special_rules, cadre, type) => {
@@ -50,9 +50,9 @@ export const collectChanges = (context, card, hardPointOptions) => {
     const all_special_rules = special_rules && getAllSpecialRules(cadresData, special_rules, cadre, type);
 
     if (changes) collectedChanges.push({source: name, changes: changes});
-    
 
     if (allWeapons) {
+        console.log(allWeapons);
         allWeapons.forEach((weapon) => {
             const weaponData = weaponsData[weapon];
             if(weaponData.changes) collectedChanges.push({source: weaponData.name, changes: weaponData.changes});

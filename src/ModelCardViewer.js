@@ -199,7 +199,7 @@ function ModelCardViewer(props) {
 
         const [isViewChangesModalOpen, setIsViewChangesModalOpen] = useState(false);
 
-        const collectedChanges = collectChanges(context, cardData);
+        const collectedChanges = collectChanges(context, cardData, hardPointOptions);
 
         return <IonCardHeader>
             <ViewChangesModal isOpen={isViewChangesModalOpen} setIsOpen={setIsViewChangesModalOpen} changeEntries={collectedChanges}></ViewChangesModal>
