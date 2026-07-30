@@ -91,6 +91,20 @@
  - Fixed issue where on first startup creating a force or rack would not allow it to be loaded until the app was restarted
 
  # 1.0.0:
+ ## New Features 
+ - Added new landing page
+ - Refreshed user experience
+ - Add dialog to charge gates with arc on deployment
+ - Added expansion name to cards and card buttons
+ - Added "at a glance" statlines to model cards
+ - Added indicator for cards that have changed from the base ruleset
+ - Added "Settings" button, along with two new settings:
+  - Group Cadre models together (Default: On)
+  - Combine identical weapons in statlines, e.g 2x Arc Blade (Default: On)
  ## Bugfixes
- - Fixed issue where forces and racks could not be saved
- - Fixed issue where on first startup creating a force or rack would not allow it to be loaded until the app was restarted
+ - General stability improvements
+ - Fixed issue where mantlets could be charged in play mode
+ - Fixed issue where incorrect weapon costs were showing in dropdown
+ - Fixed issue where clicking SAVE before clicking away from the file name text box would cause the file name to not update properly
+ - Fixed bug where in card viewer changing a hard point would close accordion
+ - Fixed various typos
