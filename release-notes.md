@@ -89,3 +89,8 @@
  ## Bugfixes
  - Fixed issue where forces and racks could not be saved
  - Fixed issue where on first startup creating a force or rack would not allow it to be loaded until the app was restarted
+
+ # 1.0.0:
+ ## Bugfixes
+ - Fixed issue where forces and racks could not be saved
+ - Fixed issue where on first startup creating a force or rack would not allow it to be loaded until the app was restarted
