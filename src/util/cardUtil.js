@@ -52,7 +52,6 @@ export const collectChanges = (context, card, hardPointOptions) => {
     if (changes) collectedChanges.push({source: name, changes: changes});
 
     if (allWeapons) {
-        console.log(allWeapons);
         allWeapons.forEach((weapon) => {
             const weaponData = weaponsData[weapon];
             if(weaponData.changes) collectedChanges.push({source: weaponData.name, changes: weaponData.changes});
