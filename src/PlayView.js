@@ -161,13 +161,19 @@ function PlayView() {
                     <IonGrid>
                         <IonRow>
                             <IonCol>
-                                <IonButton expand="block" onClick={() => {forceFiles.length === 0 ? history.push("/editor") : setIsLoadPlayForceModalOpen(true);}}>
-                                    {forceFiles.length === 0 ? "GO TO FORCE BUILDER": <><IonIcon icon={save} size={"large"} style={{paddingRight: "0.5rem"}}/><IonLabel>SAVE/LOAD</IonLabel></>}
+                                <IonButton expand="block" className="file-action-button" onClick={() => {forceFiles.length === 0 ? history.push("/editor") : setIsLoadPlayForceModalOpen(true);}}>
+                                    {forceFiles.length === 0 ? 
+                                        "GO TO FORCE BUILDER": 
+                                        <>
+                                            <IonIcon icon={save} size={"large"} style={{paddingRight: "0.5rem"}}/>
+                                            <IonText>SAVE/LOAD</IonText>
+                                        </>
+                                    }
                                 </IonButton></IonCol>
                             <IonCol>
-                                <IonButton expand="block" onClick={() => {clearForceConfirm();}}>
+                                <IonButton expand="block" className="file-action-button" onClick={() => {clearForceConfirm();}}>
                                     <IonIcon icon={trash} size={"large"} style={{paddingRight: "0.5rem"}}/>
-                                    CLEAR ALL
+                                    <IonText>CLEAR ALL</IonText>
                                 </IonButton>
                             </IonCol>
                         </IonRow>

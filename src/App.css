@@ -130,6 +130,10 @@ hr {
 	background-color: rgba(45, 48, 47, 0.7);
 }
 
+.file-action-button {
+	display: block;
+}
+
 .rules-text {
 	margin-left: 1rem;
 }

@@ -435,24 +435,24 @@ function EditorView() {
                     <IonGrid>
                         <IonRow>
                             <IonCol>
-                                <IonButton expand="block" onClick={() => {setIsSaveLoadModalOpen(true);}}>
+                                <IonButton expand="block" className="file-action-button" onClick={() => {setIsSaveLoadModalOpen(true);}}>
                                     <IonIcon icon={save} size={"large"} style={{paddingRight: "0.5rem"}}/>
-                                    <IonLabel>SAVE/LOAD</IonLabel>
+                                    <IonText>SAVE/LOAD</IonText>
                                 </IonButton>
                             </IonCol>
                             <IonCol>
-                                <IonButton expand="block" onClick={() => {
+                                <IonButton expand="block" className="file-action-button" onClick={() => {
                                     copyForceToText(forceName, rulesetId, factionId, forceSize, forceModelsData, forceCyphersData, specialIssueModelsData, specialIssueCyphersData);
                                     presentToast("Force copied to clipboard");
                                 }}>
                                     <IonIcon icon={clipboard} size={"large"} style={{paddingRight: "0.5rem"}}/>
-                                    COPY TO TEXT
+                                    <IonText>COPY TO TEXT</IonText>
                                 </IonButton>
                             </IonCol>
                             <IonCol>
-                                <IonButton expand="block" onClick={() => {clearForceConfirm();}}>
+                                <IonButton expand="block" className="file-action-button" onClick={() => {clearForceConfirm();}}>
                                     <IonIcon icon={trash} size={"large"} style={{paddingRight: "0.5rem"}}/>
-                                    CLEAR ALL
+                                    <IonText>CLEAR ALL</IonText>
                                 </IonButton>
                             </IonCol>
                         </IonRow>
