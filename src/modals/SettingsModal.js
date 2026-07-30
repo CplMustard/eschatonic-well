@@ -77,13 +77,22 @@ function SettingsModal (props) {
 
     const createNewToggle = (settingName, settingDescription) => {
         return <IonToggle key={settingName} checked={currentUserSettings && (currentUserSettings[settingName] !== undefined ? currentUserSettings[settingName] : userSettingsDefault[settingName])} onIonChange={(e) => updateSetting(settingName, e.detail.checked)}>
-           {settingDescription}
+            <p className="settings-text">
+                {settingDescription}
+            </p>
+            <p>
+                {getToggleDefaultText(settingName)}
+            </p>
         </IonToggle>;
     };
 
+    const getToggleDefaultText = (settingName) => {
+        return `(Default: ${userSettingsDefault[settingName] ? "On" : "Off"})`;
+    };
+
     const settings = [];
-    settings.push(createNewToggle("groupCadres", "Group Cadre models together (Default: On)"));
-    settings.push(createNewToggle("combineIdenticalWeapons", "Combine identical weapons in statlines, e.g 2x Arc Blade (Default: On)"));
+    settings.push(createNewToggle("groupCadres", "Group Cadre models together"));
+    settings.push(createNewToggle("combineIdenticalWeapons", "Combine identical weapons in statlines, e.g 2x Arc Blade"));
 
     const settingsElements = [];
     settings.forEach((setting, index) => {

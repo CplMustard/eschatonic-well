@@ -134,6 +134,10 @@ hr {
 	margin-left: 1rem;
 }
 
+.settings-text {
+	text-wrap: wrap;
+}
+
 .subscript {
 	position: relative;
 	top: -1rem;
