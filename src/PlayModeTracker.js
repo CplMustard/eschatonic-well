@@ -1,15 +1,11 @@
-import React, {useState} from "react";
-import { useSessionStorageState } from "ahooks";
+import React from "react";
 import { IonText, IonGrid, IonCol, IonRow, IonIcon } from "@ionic/react";
 import { remove, add } from "ionicons/icons";
 
 import { getModelsData } from "./DataLoader";
 
 function PlayModeTracker(props) {
-    const [unitsStatus, ] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
-    const [score, setScore] = useState(0);
-
-    const { rulesetId } = props;
+    const { rulesetId, unitsStatus, score, setScore } = props;
 
     const modelsData = getModelsData(rulesetId);
 

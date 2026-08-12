@@ -36,6 +36,9 @@ function PlayView() {
     const [, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
     const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
+    const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
+    const [score, setScore] = useSessionStorageState("score", {defaultValue: [], listenStorageChange: true});
+
     const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
@@ -81,6 +84,9 @@ function PlayView() {
         setPlayForceCyphersData([]);
         setPlaySpecialIssueModelsData([]);
         setPlaySpecialIssueCyphersData([]);
+
+        setUnitsStatus([]);
+        setScore(0);
     };
 
     const clearForceConfirm = () => {
@@ -126,6 +132,9 @@ function PlayView() {
             setPlayForceCyphersData(json.forceCyphersData);
             setPlaySpecialIssueModelsData(json.specialIssueModelsData);
             setPlaySpecialIssueCyphersData(json.specialIssueCyphersData);
+
+            setUnitsStatus([]);
+            setScore(0);
             
             presentToast(`Force ${json.forceName} loaded successfully`);
             setPlayTabSelected(playTabs.reserves);
@@ -141,7 +150,7 @@ function PlayView() {
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/"></IonBackButton>
                     </IonButtons>
-                    <PlayModeTracker rulesetId={playRulesetId}></PlayModeTracker>
+                    <PlayModeTracker rulesetId={playRulesetId} unitsStatus={unitsStatus} score={score} setScore={setScore}></PlayModeTracker>
                     <SettingsButton setIsOpen={setIsSettingsModalOpen}/>
                 </IonToolbar>
             </IonHeader>
@@ -183,6 +192,8 @@ function PlayView() {
 
                 <PlayModeViewer
                     tabSelected={playTabSelected}
+                    unitsStatus={unitsStatus}
+                    setUnitsStatus={setUnitsStatus}
                     rulesetId={playRulesetId}
                 ></PlayModeViewer>
             </IonContent>
