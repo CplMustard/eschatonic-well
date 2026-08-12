@@ -36,6 +36,7 @@ function PlayView() {
     const [, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: []});
     const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
+    const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
     const [isLoadPlayForceModalOpen, setIsLoadPlayForceModalOpen] = useState(false);
@@ -50,9 +51,10 @@ function PlayView() {
                     forces.push({fileInfo: file, formatVersion: formatVersion, factionId: factionId, rulesetId: rulesetId});
                 }
                 setForceFiles(forces);
+                setFilesDirty(false);
             }
         })();
-    });
+    }, [filesDirty]);
 
     const factionsData = getFactionsData(playRulesetId);
     const forceSizesData = getForceSizesData(playRulesetId);
