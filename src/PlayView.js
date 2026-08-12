@@ -37,7 +37,7 @@ function PlayView() {
     const [, setPlaySpecialIssueCyphersData] = useSessionStorageState("playSpecialIssueCyphersData", {defaultValue: []});
 
     const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
-    const [score, setScore] = useSessionStorageState("score", {defaultValue: [], listenStorageChange: true});
+    const [score, setScore] = useSessionStorageState("score", {defaultValue: 0, listenStorageChange: true});
 
     const [filesDirty, setFilesDirty] = useState(true);
     const [forceFiles, setForceFiles] = useState([]);

@@ -19,7 +19,6 @@ function PlayModeViewer(props) {
     const history = useHistory();
     const [present] = useIonToast();
     
-    const [unitsStatus, setUnitsStatus] = useSessionStorageState("unitsStatus", {defaultValue: [], listenStorageChange: true});
     const [playForceModelsData, setPlayForceModelsData] = useSessionStorageState("playForceModelsData", {defaultValue: [], listenStorageChange: true});
     const [playForceCyphersData, ] = useSessionStorageState("playForceCyphersData", {defaultValue: [], listenStorageChange: true});
     const [playSpecialIssueModelsData, setPlaySpecialIssueModelsData] = useSessionStorageState("playSpecialIssueModelsData", {defaultValue: [], listenStorageChange: true});
@@ -31,7 +30,7 @@ function PlayModeViewer(props) {
     const [currentUnitStatus, setCurrentUnitStatus] = useState({});
     const [currentSpecialIssueModelToSwap, setCurrentSpecialIssueModelToSwap] = useState({});
 
-    const { rulesetId } = props;
+    const { rulesetId, unitsStatus, setUnitsStatus } = props;
 
     const modelsData = getModelsData(rulesetId);
     const weaponsData = getWeaponsData(rulesetId);
