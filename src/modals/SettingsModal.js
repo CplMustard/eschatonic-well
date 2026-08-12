@@ -70,7 +70,8 @@ function SettingsModal (props) {
     };
 
     const updateSetting = (settingName, settingValue) => {
-        let newUserSettings = currentUserSettings;
+        let newUserSettings = {};
+        Object.assign(newUserSettings, userSettingsDefault);
         newUserSettings[settingName] = settingValue;
         setCurrentUserSettings(newUserSettings);
     };
