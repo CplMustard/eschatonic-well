@@ -4,7 +4,7 @@
     "type": "harmonic",
     "factions": ["ac"],
     "expansion": "cc",
-    "text": "Target a friendly unit.\n\nThe unit gains +2 ARM against Fury attacks. When the affected unit is hit by a Fury attack, after the attack is resolved, you can charge the unit with up to 1 Arc.\n\nHallowed Desecration expires at the end of the Pulse round.",
+    "text": "Target a friendly unit.\n\nThe unit gains +2 ARM against Fury attacks. When the affected unit is hit by a Fury attack, after the attack is resolved, you can charge this unit or a friendly unit within 5” with up to 1 Arc.\n\nHallowed Desecration expires at the end of the Pulse round.",
     "changes": [
         "Allow charging friendly units within 5\" instead of only affected models."
     ]
