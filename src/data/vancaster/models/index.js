@@ -1,6 +1,6 @@
+import aenigma from "./aenigma.json";
 import antecessors_eternal from "./antecessors_eternal.json";
 import artemis_fang from "./artemis_fang.json";
-import aurelion from "./aurelion.json";
 import baron_mooregrave from "./baron_mooregrave.json";
 import blast_shield from "./blast_shield.json";
 import corebus from "./corebus.json";
@@ -9,13 +9,14 @@ import dragoon_assault_team from "./dragoon_assault_team.json";
 import dragoon_gunner from "./dragoon_gunner.json";
 import dragoon_strike_team from "./dragoon_strike_team.json";
 import exalted_paragons from "./exalted_paragons.json";
-import factotum from "./factotum.json";
 import hierotheos_raxis from "./hierotheos_raxis.json";
 import hunter from "./hunter.json";
+import immortal_weaver from "./immortal_weaver.json";
 import jax_redblade from "./jax_redblade.json";
 import malek_sezzar from "./malek_sezzar.json";
 import marauder from "./marauder.json";
 import nekosphynx from "./nekosphynx.json";
+import nemesis from "./nemesis.json";
 import paladin_aegis from "./paladin_aegis.json";
 import paladin_commander from "./paladin_commander.json";
 import paladin_defenders from "./paladin_defenders.json";
@@ -34,9 +35,9 @@ import vassal_witch_hunters from "./vassal_witch_hunters.json";
 import voitek_sudal from "./voitek_sudal.json";
 
 const modelsData = {
+	aenigma: aenigma,
 	antecessors_eternal: antecessors_eternal,
 	artemis_fang: artemis_fang,
-	aurelion: aurelion,
 	baron_mooregrave: baron_mooregrave,
 	blast_shield: blast_shield,
 	corebus: corebus,
@@ -45,13 +46,14 @@ const modelsData = {
 	dragoon_gunner: dragoon_gunner,
 	dragoon_strike_team: dragoon_strike_team,
 	exalted_paragons: exalted_paragons,
-	factotum: factotum,
 	hierotheos_raxis: hierotheos_raxis,
 	hunter: hunter,
+	immortal_weaver: immortal_weaver,
 	jax_redblade: jax_redblade,
 	malek_sezzar: malek_sezzar,
 	marauder: marauder,
 	nekosphynx: nekosphynx,
+	nemesis: nemesis,
 	paladin_aegis: paladin_aegis,
 	paladin_commander: paladin_commander,
 	paladin_defenders: paladin_defenders,

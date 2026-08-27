@@ -1,0 +1,12 @@
+{
+    "id": "dominion_imperative",
+    "name": "Dominion Imperative",
+    "type": "harmonic",
+    "factions": ["all"],
+    "expansion": "cc",
+    "text": "Each friendly solo and vehicle can immediately move up to 3\".",
+    "changes": [
+        "Increased movement distance to 3\".",
+        "Allowed vehicles to benefit."
+    ]
+}

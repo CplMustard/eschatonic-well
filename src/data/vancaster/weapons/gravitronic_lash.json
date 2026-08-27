@@ -1,0 +1,15 @@
+{
+    "id": "gravitronic_lash",
+    "name": "Gravitronic Lash",
+    "point_cost": 1,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["force"], 
+        "rng": 8, 
+        "pow": 3,
+        "special_rules": ["winch"]
+    }],
+    "changes": [
+        "Increased RNG to 8\"."
+    ]
+}

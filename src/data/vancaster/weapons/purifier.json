@@ -1,0 +1,14 @@
+{
+    "id": "purifier",
+    "name": "Purifier",
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["energy"], 
+        "rng": 10, 
+        "pow": 4,
+        "special_rules": ["fire"]
+    }],
+    "changes": [
+        "Reduced RNG to 10\"."
+    ]
+}

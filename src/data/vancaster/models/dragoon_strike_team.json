@@ -21,11 +21,10 @@
         "fusion_axe"
     ],
     "advantages": [
-        "flight",
-        "weapon_expert"
+        "flight"
     ],
     "special_rules": [
-        "sequence_dominator",
+        "sequence_annihilator",
         "scything_run"
     ],
     "attachments": [
@@ -33,7 +32,8 @@
         "quartermaster"
     ],
     "changes": [
-        "Replace Reflex Accelerator with Weapon Expert.",
-        "Add Scything Run."
+        "Removed Reflex Accelerator.",
+        "Added Scything Run.",
+        "Replaced Sequence Dominator with Sequence Annihilator."
     ]
 }

@@ -9,7 +9,7 @@
         "base_size": 30,
         "spd": 6,
         "mat": 3,
-        "rat": 3,
+        "rat": 4,
         "def": 3,
         "arm": 3,
         "squad_size": 3,
@@ -29,6 +29,7 @@
         "quartermaster"
     ],
     "changes": [
-        "Added Havoc Engine"
+        "Added Havoc Engine.",
+        "Increased RAT to 4."
     ]
 }

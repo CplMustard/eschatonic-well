@@ -20,7 +20,8 @@
     ],
     "advantages": [
         "stealth",
-        "weapon_expert"
+        "weapon_expert",
+        "compound_armor"
     ],
     "special_rules": [
         "battle_commander|Sidestep",
@@ -29,6 +30,7 @@
         "sidestep"
     ],
     "changes": [
-        "Reduce ARM to 2."
+        "Reduced ARM to 2.",
+        "Added Compound Armor."
     ]
 }

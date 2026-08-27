@@ -16,7 +16,9 @@ import fusion_saw from "./fusion_saw.json";
 import fusion_saw_nemesis from "./fusion_saw_nemesis.json";
 import fusion_scythe_nemesis from "./fusion_scythe_nemesis.json";
 import fusion_sword_jax from "./fusion_sword_jax.json";
+import gravitronic_lash from "./gravitronic_lash.json";
 import heavy_fusion_glaive from "./heavy_fusion_glaive.json";
+import hellfire_cannon from "./hellfire_cannon.json";
 import howitzer from "./howitzer.json";
 import impaler from "./impaler.json";
 import light_flamethrower from "./light_flamethrower.json";
@@ -25,6 +27,7 @@ import null_hammer from "./null_hammer.json";
 import oblivion from "./oblivion.json";
 import particle_accelerator from "./particle_accelerator.json";
 import particle_blaster_dragoon from "./particle_blaster_dragoon.json";
+import purifier from "./purifier.json";
 import reaper from "./reaper.json";
 import repulsor_shield from "./repulsor_shield.json";
 import sniper_rifle from "./sniper_rifle.json";
@@ -51,7 +54,9 @@ const weaponsData = {
 	fusion_saw_nemesis: fusion_saw_nemesis,
 	fusion_scythe_nemesis: fusion_scythe_nemesis,
 	fusion_sword_jax: fusion_sword_jax,
+	gravitronic_lash: gravitronic_lash,
 	heavy_fusion_glaive: heavy_fusion_glaive,
+	hellfire_cannon: hellfire_cannon,
 	howitzer: howitzer,
 	impaler: impaler,
 	light_flamethrower: light_flamethrower,
@@ -60,6 +65,7 @@ const weaponsData = {
 	oblivion: oblivion,
 	particle_accelerator: particle_accelerator,
 	particle_blaster_dragoon: particle_blaster_dragoon,
+	purifier: purifier,
 	reaper: reaper,
 	repulsor_shield: repulsor_shield,
 	sniper_rifle: sniper_rifle,

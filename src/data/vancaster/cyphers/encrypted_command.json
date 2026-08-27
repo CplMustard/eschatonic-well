@@ -4,7 +4,7 @@
     "type": "harmonic",
     "factions": ["all"],
     "expansion": "wc",
-    "text": "Target a friendly solo or light vehicle.\n\nRemove the activation token from the solo or light vehicle, then place this card in the discard pile.",
+    "text": "Target a friendly solo or light vehicle.\n\nRemove the activation token from the solo or light vehicle.",
     "changes": [
         "Replace \"solo\" with \"solo or light vehicle\"."
     ]

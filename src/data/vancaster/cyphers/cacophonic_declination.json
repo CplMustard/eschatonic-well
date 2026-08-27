@@ -1,0 +1,12 @@
+{
+    "id": "cacophonic_declination",
+    "name": "Cacophonic Declination",
+    "type": "fury",
+    "factions": ["emp"],
+    "expansion": "cc",
+    "pow": 3,
+    "text": "Target an enemy model in range.\n\nMake an attack roll against the target model. If the attack damages an enemy warjack, the warjack damaged suffers the System Failure continuous effect. When applying the System Failure continuous effect, instead of rolling a d6, choose either melee or ranged weapons to be affected.\n\nThis Fury causes force damage.",
+    "changes": [
+        "Instead of rolling for System Failure effect, the attacking player can choose melee or ranged weapons."
+    ]
+}

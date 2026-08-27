@@ -3,7 +3,7 @@
 import os
 import argparse
 
-parser = argparse.ArgumentParser("simple_example")
+parser = argparse.ArgumentParser()
 parser.add_argument("dataset", help="Data set directory name to generate index files for", type=str)
 args = parser.parse_args()
 

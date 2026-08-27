@@ -25,11 +25,11 @@
         "weapon_expert"
     ],
     "special_rules": [
-        "arc_relay|8",
+        "arc_relay|10",
         "thrusters",
         "void_disruptor"
     ],
     "changes": [
-        "Reduced Arc Relay range to 8."
+        "Reduced Arc Relay range to 10."
     ]
 }

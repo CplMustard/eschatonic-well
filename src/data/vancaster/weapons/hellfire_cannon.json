@@ -1,0 +1,15 @@
+{
+    "id": "hellfire_cannon",
+    "name": "Hellfire Cannon",
+    "point_cost": 3,
+    "profiles": [{
+        "type": "range", 
+        "damage_types": ["fire"], 
+        "rng": 12, 
+        "pow": 5,
+        "special_rules": ["fury_reciprocator", "fire", "spray"]
+    }],
+    "changes": [
+        "Replace Arcantrik Amplifier with Fury Reciprocator"
+    ]
+}

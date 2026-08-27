@@ -1,0 +1,8 @@
+{
+    "id": "winch",
+    "name": "Winch",
+    "text": "When this weapon hits an enemy model with an equal or smaller base, immediately after the attack is resolved, the hit model can be moved directly toward this model until it contacts a model, an obstacle, or structure.",
+    "changes": [
+        "Changed trigger from on damage to on hit."
+    ]
+}

@@ -1,5 +1,8 @@
 {
     "id": "dragon_scales",
     "name": "Dragon Scales",
-    "text": "When this model is hit by a melee attack, it can spike once to apply the fire continuous effect to the attacking enemy model after the attack is resolved." 
+    "text": "When an enemy model hits this model with an attack while within 3” of this model, this model can spike once to cause the attacking enemy model to suffer the Fire continuous effect.",
+    "changes": [
+        "Now triggers off of enemy attacks within 3\" instead of just melee attacks."
+    ]
 }

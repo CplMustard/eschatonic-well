@@ -1,0 +1,8 @@
+{
+    "id": "wing_roll",
+    "name": "Wing Roll",
+    "text": "When this model is targeted by an attack, after the attack is resolved it can make an attack against the model that targeted it. Wing Roll expires at the beginning of this model’s next activation or immediately after this model makes an attack as a result of Wing Roll.",
+    "changes": [
+        "Changed \"hit by an attack\" to \"targeted by an attack\"."
+    ]
+}

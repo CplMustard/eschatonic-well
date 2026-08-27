@@ -1,0 +1,11 @@
+{
+    "id": "force_barrier",
+    "name": "Force Barrier",
+    "type": "geometric",
+    "factions": ["all"],
+    "expansion": "wc",
+    "text": "Target a friendly squad.\n\nAffected models gain cover. When a model in this squad is targeted by a ranged attack, the attack suffers -4 RNG.\n\nForce Barrier expires at the end of the Pulse round.",
+    "changes": [
+        "Reduces enemy ranged attacks RNG by 4\""
+    ]
+}

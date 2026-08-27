@@ -108,3 +108,7 @@
  - Fixed issue where clicking SAVE before clicking away from the file name text box would cause the file name to not update properly
  - Fixed bug where in card viewer changing a hard point would close accordion
  - Fixed various typos
+ 
+ # 1.0.1
+ ## New Features
+ - Update Warcaster Remix rules to 0.2.0

@@ -1,0 +1,5 @@
+{
+    "id": "sequence_annihilator",
+    "name": "Sequence Annihilator",
+    "text": "This squad can spike to use Sequence Annihilator at any time during its activation. For the rest of the activation, when a model in this squad destroys an enemy model with a melee attack, after the attack is resolved one model in this squad can make a ranged attack. Each model in this squad can only make one attack as a result of Sequence Annihilator this turn." 
+}

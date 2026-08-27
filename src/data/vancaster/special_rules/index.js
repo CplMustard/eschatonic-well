@@ -9,9 +9,12 @@ import combat_fervor from "./combat_fervor.json";
 import concussive_shells from "./concussive_shells.json";
 import defensive_strike from "./defensive_strike.json";
 import delayed_blast from "./delayed_blast.json";
+import displacement_roll from "./displacement_roll.json";
 import dragon_scales from "./dragon_scales.json";
 import energy_leech from "./energy_leech.json";
+import energy_vortex from "./energy_vortex.json";
 import energy_web from "./energy_web.json";
+import eruption from "./eruption.json";
 import guardian from "./guardian.json";
 import impulse_agitator from "./impulse_agitator.json";
 import intercept_driver from "./intercept_driver.json";
@@ -29,12 +32,15 @@ import resurrection_protocol from "./resurrection_protocol.json";
 import retaliatory_strike from "./retaliatory_strike.json";
 import rites_of_sorrow from "./rites_of_sorrow.json";
 import self_sacrifice from "./self_sacrifice.json";
+import sequence_annihilator from "./sequence_annihilator.json";
+import shadow_step from "./shadow_step.json";
 import sow_the_field from "./sow_the_field.json";
 import spider from "./spider.json";
 import spiral_power from "./spiral_power.json";
 import tactical_supremacy from "./tactical_supremacy.json";
 import vicious from "./vicious.json";
 import void_gazer from "./void_gazer.json";
+import winch from "./winch.json";
 
 const special_rulesData = {
 	ace: ace,
@@ -48,9 +54,12 @@ const special_rulesData = {
 	concussive_shells: concussive_shells,
 	defensive_strike: defensive_strike,
 	delayed_blast: delayed_blast,
+	displacement_roll: displacement_roll,
 	dragon_scales: dragon_scales,
 	energy_leech: energy_leech,
+	energy_vortex: energy_vortex,
 	energy_web: energy_web,
+	eruption: eruption,
 	guardian: guardian,
 	impulse_agitator: impulse_agitator,
 	intercept_driver: intercept_driver,
@@ -68,11 +77,14 @@ const special_rulesData = {
 	retaliatory_strike: retaliatory_strike,
 	rites_of_sorrow: rites_of_sorrow,
 	self_sacrifice: self_sacrifice,
+	sequence_annihilator: sequence_annihilator,
+	shadow_step: shadow_step,
 	sow_the_field: sow_the_field,
 	spider: spider,
 	spiral_power: spiral_power,
 	tactical_supremacy: tactical_supremacy,
 	vicious: vicious,
-	void_gazer: void_gazer
+	void_gazer: void_gazer,
+	winch: winch
 };
 export default special_rulesData;

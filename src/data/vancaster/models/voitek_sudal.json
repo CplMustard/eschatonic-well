@@ -26,9 +26,11 @@
         "weapon_expert"
     ],
     "special_rules": [
-        "gate_jammer"
+        "gate_jammer",
+        "energy_vortex"
     ],
     "changes": [
-        "Increased DEF to 4."
+        "Increased DEF to 4.",
+        "Added Energy Vortex."
     ]
 }
